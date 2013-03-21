@@ -26,7 +26,7 @@
 @property(strong, nonatomic) NSString *username;
 @property(strong, nonatomic) NSString *password;
 
-- (BOOL)signIn;
-+ (User *)loggedUser;
+- (id)initWithUsermame:(NSString *)username password:(NSString *)password;
+- (void)save;
 
 @end

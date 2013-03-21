@@ -18,70 +18,28 @@
 @synthesize username = _username;
 @synthesize password = _password;
 
-+ (User *)loggedUser
-{
-    static User *shared = nil;
-    @synchronized(self){
-        if (!shared) {
-            shared = [self new];
-        }
-    }
-    return shared;
-}
+#pragma mark - Public methods
 
-- (id)init
+- (id)initWithUsermame:(NSString *)username password:(NSString *)password
 {
     self = [super init];
     if (self) {
-        if (currentUser) {
-            currentUser = [PFUser currentUser];
+
+        PFQuery *query = [PFUser query];
+        [query whereKey:@"username" equalTo:username];
+        
+        if ([User existsUserwithUsername:username]) {
+            [self logInWithUsername:username andPassword:password];
         } else {
-            currentUser = [PFUser user];
+            [self signInWithUsername:username andPassword:password];
         }
     }
     return self;
 }
 
-- (BOOL)signIn
+-  (void)save
 {
-    BOOL isUserSaved = YES;
-    
-    PFQuery *query = [PFUser query];
-    [query whereKey:@"email" equalTo:self.email];
-    
-    NSError *error;
-    
-    if ([query countObjects]) {
-        [PFUser logInWithUsername:self.username password:self.password error:&error];
-        
-        if (!error) {
-            isUserSaved = YES;
-        } else {
-            
-            isUserSaved = NO;
-            
-            if ([_delegate respondsToSelector:@selector(errorToSaveUser)]) {
-                [_delegate errorToSaveUser];
-            }
-        }
-    } else {
-        [currentUser signUp:&error];
-        
-        if (!error) {
-            isUserSaved = YES;
-        } else {
-            
-            isUserSaved = NO;
-            
-            if ([_delegate respondsToSelector:@selector(errorToSaveUser)]) {
-                [_delegate errorToSaveUser];
-            }
-        }
-    }
-    self.username = @"nnbram";
-    self.name = @"nnbram";
     [currentUser save];
-    return isUserSaved;
 }
 
 #pragma mark - User Setters
@@ -120,7 +78,7 @@
 
 - (NSString *)username
 {
-    return currentUser.username;
+    return _username;
 }
 
 - (NSString *)email
@@ -143,5 +101,47 @@
     return _lastNames;
 }
 
+#pragma mark - Private methods
+
++ (BOOL)existsUserwithUsername:(NSString *)username
+{
+    PFQuery *query = [PFUser query];
+    [query whereKey:@"username" equalTo:username];
+    
+    return ([query countObjects] > 0);
+}
+
+- (void)logInWithUsername:(NSString *)username andPassword:(NSString *)password
+{
+    NSError *error;
+    [PFUser logInWithUsername:username password:password error:&error];
+    
+    if (!error) {
+        currentUser = [PFUser currentUser];
+    } else {
+        if ([_delegate respondsToSelector:@selector(errorToSaveUser)]) {
+            [_delegate errorToSaveUser];
+        }
+    }
+}
+
+- (void)signInWithUsername:(NSString *)username andPassword:(NSString *)password
+{
+    PFUser *user = [PFUser user];
+    user.username = username;
+    user.password = password;
+    
+    NSError *error;
+    [user signUp:&error];
+    
+    if (!error) {
+        currentUser = [PFUser currentUser];
+    } else {
+        if ([_delegate respondsToSelector:@selector(errorToSaveUser)]) {
+            [_delegate errorToSaveUser];
+        }
+    }
+
+}
 
 @end

@@ -19,14 +19,11 @@
     [Parse setApplicationId:@"ke5qAMdl1hxNkKPbmJyiOkCqfDkUtvwnRX6PKlXA"
                   clientKey:@"xceoaXQrBv8vRium67iyjZrQfFI8lI0AROGhXsfR"];
 
-    User *user = [User loggedUser];
-    user.username = @"nbrambilla";
-    user.password = @"camote";
+    User *user = [[User alloc] initWithUsermame:@"nbrambilla" password:@"camote"];
     user.email = @"ignacio.brambilla@gmail.com";
     user.name = @"Ignacio";
     user.lastNames = @"Brambilla";
-    
-    [user signIn];
+    [user save];
     
     self.viewController = [[ObjetosMenuViewController alloc] initWithNibName:@"ObjetosMenuViewController" bundle:nil];
     self.window.rootViewController = self.viewController;
