@@ -11,7 +11,10 @@
 
 @implementation User
 
+static User *loggedUser = nil;
+
 @synthesize delegate = _delegate;
+@synthesize id = _id;
 @synthesize name = _name;
 @synthesize lastNames = _lastNames;
 @synthesize email = _email;
@@ -20,13 +23,20 @@
 
 #pragma mark - Public methods
 
++ (User *)loggedUser
+{
+    @synchronized(self){
+        if (!loggedUser) {
+            loggedUser = [self new];
+        }
+    }
+    return loggedUser;
+}
+
 - (id)initWithUsermame:(NSString *)username password:(NSString *)password
 {
     self = [super init];
     if (self) {
-
-        PFQuery *query = [PFUser query];
-        [query whereKey:@"username" equalTo:username];
         
         if ([User existsUserwithUsername:username]) {
             [self logInWithUsername:username andPassword:password];
@@ -34,6 +44,8 @@
             [self signInWithUsername:username andPassword:password];
         }
     }
+    loggedUser = self;
+    
     return self;
 }
 

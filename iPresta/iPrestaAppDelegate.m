@@ -24,6 +24,7 @@
     user.name = @"Ignacio";
     user.lastNames = @"Brambilla";
     [user save];
+    User *lUser = [User loggedUser];
     
     self.viewController = [[ObjetosMenuViewController alloc] initWithNibName:@"ObjetosMenuViewController" bundle:nil];
     self.window.rootViewController = self.viewController;

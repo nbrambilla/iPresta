@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15124E5216FDDD9100520FE2 /* MusicalObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 15124E5116FDDD9100520FE2 /* MusicalObject.m */; };
+		15124E5816FDDE5000520FE2 /* VisualObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 15124E5716FDDE5000520FE2 /* VisualObject.m */; };
+		15124E5B16FDDFBD00520FE2 /* Lending.m in Sources */ = {isa = PBXBuildFile; fileRef = 15124E5A16FDDFBD00520FE2 /* Lending.m */; };
 		156FDE0A16F399E900F4BEEA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE0916F399E900F4BEEA /* UIKit.framework */; };
 		156FDE0C16F399E900F4BEEA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE0B16F399E900F4BEEA /* Foundation.framework */; };
 		156FDE0E16F399E900F4BEEA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE0D16F399E900F4BEEA /* CoreGraphics.framework */; };
@@ -38,6 +41,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		15124E5016FDDD9100520FE2 /* MusicalObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MusicalObject.h; path = iPresta/Models/MusicalObject.h; sourceTree = "<group>"; };
+		15124E5116FDDD9100520FE2 /* MusicalObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MusicalObject.m; path = iPresta/Models/MusicalObject.m; sourceTree = "<group>"; };
+		15124E5616FDDE5000520FE2 /* VisualObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VisualObject.h; path = iPresta/Models/VisualObject.h; sourceTree = "<group>"; };
+		15124E5716FDDE5000520FE2 /* VisualObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VisualObject.m; path = iPresta/Models/VisualObject.m; sourceTree = "<group>"; };
+		15124E5916FDDFBD00520FE2 /* Lending.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Lending.h; path = iPresta/Models/Lending.h; sourceTree = "<group>"; };
+		15124E5A16FDDFBD00520FE2 /* Lending.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Lending.m; path = iPresta/Models/Lending.m; sourceTree = "<group>"; };
 		156FDE0516F399E900F4BEEA /* iPresta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPresta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		156FDE0916F399E900F4BEEA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		156FDE0B16F399E900F4BEEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -190,6 +199,12 @@
 				15B85BDA16F49CFE00FB5674 /* Object.m */,
 				15B85BDD16F4A75D00FB5674 /* Book.h */,
 				15B85BDE16F4A75D00FB5674 /* Book.m */,
+				15124E5016FDDD9100520FE2 /* MusicalObject.h */,
+				15124E5116FDDD9100520FE2 /* MusicalObject.m */,
+				15124E5616FDDE5000520FE2 /* VisualObject.h */,
+				15124E5716FDDE5000520FE2 /* VisualObject.m */,
+				15124E5916FDDFBD00520FE2 /* Lending.h */,
+				15124E5A16FDDFBD00520FE2 /* Lending.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -267,6 +282,9 @@
 				156FDE5116F3A04500F4BEEA /* User.m in Sources */,
 				15B85BDB16F49CFE00FB5674 /* Object.m in Sources */,
 				15B85BDF16F4A75D00FB5674 /* Book.m in Sources */,
+				15124E5216FDDD9100520FE2 /* MusicalObject.m in Sources */,
+				15124E5816FDDE5000520FE2 /* VisualObject.m in Sources */,
+				15124E5B16FDDFBD00520FE2 /* Lending.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

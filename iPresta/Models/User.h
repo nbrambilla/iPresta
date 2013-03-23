@@ -20,12 +20,14 @@
 }
 
 @property(nonatomic) id<UserDelegate> delegate;
+@property(strong, nonatomic) NSString *id;
 @property(strong, nonatomic) NSString *name;
 @property(strong, nonatomic) NSString *lastNames;
 @property(strong, nonatomic) NSString *email;
 @property(strong, nonatomic) NSString *username;
 @property(strong, nonatomic) NSString *password;
 
++ (User *)loggedUser;
 - (id)initWithUsermame:(NSString *)username password:(NSString *)password;
 - (void)save;
 

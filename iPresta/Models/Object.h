@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+enum {
+    Property = 1,
+    Given = 2,
+    Received = 3,
+};
+typedef NSUInteger ObjectState;
+
 @interface Object : NSObject
 
 @property(strong, nonatomic) NSString *id;

@@ -30,8 +30,7 @@
     [super viewDidLoad];
     
     User *user = [User loggedUser];
-    user.delegate = self;
-    
+    NSLog(@"%@", user);
     // Do any additional setup after loading the view from its nib.
 }
 
