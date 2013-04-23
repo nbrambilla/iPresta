@@ -10,6 +10,13 @@
 		15124E5216FDDD9100520FE2 /* MusicalObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 15124E5116FDDD9100520FE2 /* MusicalObject.m */; };
 		15124E5816FDDE5000520FE2 /* VisualObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 15124E5716FDDE5000520FE2 /* VisualObject.m */; };
 		15124E5B16FDDFBD00520FE2 /* Lending.m in Sources */ = {isa = PBXBuildFile; fileRef = 15124E5A16FDDFBD00520FE2 /* Lending.m */; };
+		154F20511720597B00E65121 /* iPrestaNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154F204F1720597B00E65121 /* iPrestaNavigationController.m */; };
+		154F20521720597B00E65121 /* iPrestaNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154F20501720597B00E65121 /* iPrestaNavigationController.xib */; };
+		154F205717205E7D00E65121 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154F205517205E7D00E65121 /* LoginViewController.m */; };
+		154F205817205E7D00E65121 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154F205617205E7D00E65121 /* LoginViewController.xib */; };
+		154F205C172065A800E65121 /* CreateCountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154F205A172065A800E65121 /* CreateCountViewController.m */; };
+		154F205D172065A800E65121 /* CreateCountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154F205B172065A800E65121 /* CreateCountViewController.xib */; };
+		15517A101725CA10002FFB69 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 15517A0F1725CA10002FFB69 /* MBProgressHUD.m */; };
 		156FDE0A16F399E900F4BEEA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE0916F399E900F4BEEA /* UIKit.framework */; };
 		156FDE0C16F399E900F4BEEA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE0B16F399E900F4BEEA /* Foundation.framework */; };
 		156FDE0E16F399E900F4BEEA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE0D16F399E900F4BEEA /* CoreGraphics.framework */; };
@@ -36,8 +43,9 @@
 		156FDE4A16F39E1700F4BEEA /* ObjetosMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156FDE4816F39E1700F4BEEA /* ObjetosMenuViewController.m */; };
 		156FDE4B16F39E1700F4BEEA /* ObjetosMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156FDE4916F39E1700F4BEEA /* ObjetosMenuViewController.xib */; };
 		156FDE5116F3A04500F4BEEA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 156FDE5016F3A04500F4BEEA /* User.m */; };
-		15B85BDB16F49CFE00FB5674 /* Object.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B85BDA16F49CFE00FB5674 /* Object.m */; };
+		15B85BDB16F49CFE00FB5674 /* iPrestaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B85BDA16F49CFE00FB5674 /* iPrestaObject.m */; };
 		15B85BDF16F4A75D00FB5674 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B85BDE16F4A75D00FB5674 /* Book.m */; };
+		15C44D6A16FE026B0071E7EC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C44D6916FE026B0071E7EC /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +55,17 @@
 		15124E5716FDDE5000520FE2 /* VisualObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VisualObject.m; path = iPresta/Models/VisualObject.m; sourceTree = "<group>"; };
 		15124E5916FDDFBD00520FE2 /* Lending.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Lending.h; path = iPresta/Models/Lending.h; sourceTree = "<group>"; };
 		15124E5A16FDDFBD00520FE2 /* Lending.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Lending.m; path = iPresta/Models/Lending.m; sourceTree = "<group>"; };
+		154F204E1720597B00E65121 /* iPrestaNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaNavigationController.h; path = ViewControllers/iPrestaNavigationController.h; sourceTree = "<group>"; };
+		154F204F1720597B00E65121 /* iPrestaNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaNavigationController.m; path = ViewControllers/iPrestaNavigationController.m; sourceTree = "<group>"; };
+		154F20501720597B00E65121 /* iPrestaNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = iPrestaNavigationController.xib; path = ViewControllers/iPrestaNavigationController.xib; sourceTree = "<group>"; };
+		154F205417205E7D00E65121 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = ViewControllers/LoginViewController.h; sourceTree = "<group>"; };
+		154F205517205E7D00E65121 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ViewControllers/LoginViewController.m; sourceTree = "<group>"; };
+		154F205617205E7D00E65121 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = ViewControllers/LoginViewController.xib; sourceTree = "<group>"; };
+		154F2059172065A800E65121 /* CreateCountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateCountViewController.h; path = ViewControllers/CreateCountViewController.h; sourceTree = "<group>"; };
+		154F205A172065A800E65121 /* CreateCountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateCountViewController.m; path = ViewControllers/CreateCountViewController.m; sourceTree = "<group>"; };
+		154F205B172065A800E65121 /* CreateCountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CreateCountViewController.xib; path = ViewControllers/CreateCountViewController.xib; sourceTree = "<group>"; };
+		15517A0E1725CA10002FFB69 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = "External Frameworks/MBProgressHUD/MBProgressHUD.h"; sourceTree = "<group>"; };
+		15517A0F1725CA10002FFB69 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = "External Frameworks/MBProgressHUD/MBProgressHUD.m"; sourceTree = "<group>"; };
 		156FDE0516F399E900F4BEEA /* iPresta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPresta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		156FDE0916F399E900F4BEEA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		156FDE0B16F399E900F4BEEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -79,10 +98,11 @@
 		156FDE4916F39E1700F4BEEA /* ObjetosMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ObjetosMenuViewController.xib; path = ViewControllers/ObjetosMenuViewController.xib; sourceTree = "<group>"; };
 		156FDE4F16F3A04500F4BEEA /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = iPresta/Models/User.h; sourceTree = "<group>"; };
 		156FDE5016F3A04500F4BEEA /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = iPresta/Models/User.m; sourceTree = "<group>"; };
-		15B85BD916F49CFE00FB5674 /* Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Object.h; path = iPresta/Models/Object.h; sourceTree = "<group>"; };
-		15B85BDA16F49CFE00FB5674 /* Object.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Object.m; path = iPresta/Models/Object.m; sourceTree = "<group>"; };
+		15B85BD916F49CFE00FB5674 /* iPrestaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaObject.h; path = iPresta/Models/iPrestaObject.h; sourceTree = "<group>"; };
+		15B85BDA16F49CFE00FB5674 /* iPrestaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaObject.m; path = iPresta/Models/iPrestaObject.m; sourceTree = "<group>"; };
 		15B85BDD16F4A75D00FB5674 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Book.h; path = iPresta/Models/Book.h; sourceTree = "<group>"; };
 		15B85BDE16F4A75D00FB5674 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Book.m; path = iPresta/Models/Book.m; sourceTree = "<group>"; };
+		15C44D6916FE026B0071E7EC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,17 +127,36 @@
 				156FDE0A16F399E900F4BEEA /* UIKit.framework in Frameworks */,
 				156FDE0C16F399E900F4BEEA /* Foundation.framework in Frameworks */,
 				156FDE2B16F39AA400F4BEEA /* Parse.framework in Frameworks */,
+				15C44D6A16FE026B0071E7EC /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15517A0C1725C976002FFB69 /* External Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				15517A0D1725C9FB002FFB69 /* MBProgressHUD */,
+			);
+			name = "External Frameworks";
+			sourceTree = "<group>";
+		};
+		15517A0D1725C9FB002FFB69 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				15517A0E1725CA10002FFB69 /* MBProgressHUD.h */,
+				15517A0F1725CA10002FFB69 /* MBProgressHUD.m */,
+			);
+			name = MBProgressHUD;
+			sourceTree = "<group>";
+		};
 		156FDDFA16F399E800F4BEEA = {
 			isa = PBXGroup;
 			children = (
 				156FDE5216F3A04B00F4BEEA /* Models */,
 				156FDE0F16F399E900F4BEEA /* iPresta */,
+				15517A0C1725C976002FFB69 /* External Frameworks */,
 				156FDE0816F399E900F4BEEA /* Frameworks */,
 				156FDE0616F399E900F4BEEA /* Products */,
 			);
@@ -134,6 +173,7 @@
 		156FDE0816F399E900F4BEEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15C44D6916FE026B0071E7EC /* FacebookSDK.framework */,
 				156FDE4416F39D4200F4BEEA /* libsqlite3.dylib */,
 				156FDE4216F39CF900F4BEEA /* AdSupport.framework */,
 				156FDE4016F39CCF00F4BEEA /* Accounts.framework */,
@@ -186,6 +226,15 @@
 				156FDE4716F39E1700F4BEEA /* ObjetosMenuViewController.h */,
 				156FDE4816F39E1700F4BEEA /* ObjetosMenuViewController.m */,
 				156FDE4916F39E1700F4BEEA /* ObjetosMenuViewController.xib */,
+				154F204E1720597B00E65121 /* iPrestaNavigationController.h */,
+				154F204F1720597B00E65121 /* iPrestaNavigationController.m */,
+				154F20501720597B00E65121 /* iPrestaNavigationController.xib */,
+				154F205417205E7D00E65121 /* LoginViewController.h */,
+				154F205517205E7D00E65121 /* LoginViewController.m */,
+				154F205617205E7D00E65121 /* LoginViewController.xib */,
+				154F2059172065A800E65121 /* CreateCountViewController.h */,
+				154F205A172065A800E65121 /* CreateCountViewController.m */,
+				154F205B172065A800E65121 /* CreateCountViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -195,8 +244,8 @@
 			children = (
 				156FDE4F16F3A04500F4BEEA /* User.h */,
 				156FDE5016F3A04500F4BEEA /* User.m */,
-				15B85BD916F49CFE00FB5674 /* Object.h */,
-				15B85BDA16F49CFE00FB5674 /* Object.m */,
+				15B85BD916F49CFE00FB5674 /* iPrestaObject.h */,
+				15B85BDA16F49CFE00FB5674 /* iPrestaObject.m */,
 				15B85BDD16F4A75D00FB5674 /* Book.h */,
 				15B85BDE16F4A75D00FB5674 /* Book.m */,
 				15124E5016FDDD9100520FE2 /* MusicalObject.h */,
@@ -245,6 +294,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				he,
 			);
 			mainGroup = 156FDDFA16F399E800F4BEEA;
 			productRefGroup = 156FDE0616F399E900F4BEEA /* Products */;
@@ -266,6 +316,9 @@
 				156FDE1E16F399E900F4BEEA /* Default@2x.png in Resources */,
 				156FDE2016F399E900F4BEEA /* Default-568h@2x.png in Resources */,
 				156FDE4B16F39E1700F4BEEA /* ObjetosMenuViewController.xib in Resources */,
+				154F20521720597B00E65121 /* iPrestaNavigationController.xib in Resources */,
+				154F205817205E7D00E65121 /* LoginViewController.xib in Resources */,
+				154F205D172065A800E65121 /* CreateCountViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,11 +333,15 @@
 				156FDE1A16F399E900F4BEEA /* iPrestaAppDelegate.m in Sources */,
 				156FDE4A16F39E1700F4BEEA /* ObjetosMenuViewController.m in Sources */,
 				156FDE5116F3A04500F4BEEA /* User.m in Sources */,
-				15B85BDB16F49CFE00FB5674 /* Object.m in Sources */,
+				15B85BDB16F49CFE00FB5674 /* iPrestaObject.m in Sources */,
 				15B85BDF16F4A75D00FB5674 /* Book.m in Sources */,
 				15124E5216FDDD9100520FE2 /* MusicalObject.m in Sources */,
 				15124E5816FDDE5000520FE2 /* VisualObject.m in Sources */,
 				15124E5B16FDDFBD00520FE2 /* Lending.m in Sources */,
+				154F20511720597B00E65121 /* iPrestaNavigationController.m in Sources */,
+				154F205717205E7D00E65121 /* LoginViewController.m in Sources */,
+				154F205C172065A800E65121 /* CreateCountViewController.m in Sources */,
+				15517A101725CA10002FFB69 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

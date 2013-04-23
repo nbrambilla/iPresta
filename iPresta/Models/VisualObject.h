@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Nacho. All rights reserved.
 //
 
-#import "Object.h"
+#import "iPrestaObject.h"
 
 enum {
     DVD = 1,
@@ -15,7 +15,7 @@ enum {
 };
 typedef NSUInteger VisualObjectType;
 
-@interface VisualObject : Object
+@interface VisualObject : iPrestaObject
 
 @property(strong, nonatomic) NSString *name;
 @property(nonatomic) VisualObjectType type;

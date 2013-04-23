@@ -13,6 +13,7 @@
 @interface iPrestaAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) ObjetosMenuViewController *viewController;
+@property (strong, nonatomic) UIViewController *viewController;
+@property (strong, nonatomic) UINavigationController *navigationController;
 
 @end

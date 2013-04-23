@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Nacho. All rights reserved.
 //
 
-#import "Object.h"
+#import "iPrestaObject.h"
 
 enum {
     CD = 1,
@@ -15,7 +15,7 @@ enum {
 };
 typedef NSUInteger MusicalObjectType;
 
-@interface MusicalObject : Object
+@interface MusicalObject : iPrestaObject
 
 @property(strong, nonatomic) NSString *name;
 @property(strong, nonatomic) NSString *artist;

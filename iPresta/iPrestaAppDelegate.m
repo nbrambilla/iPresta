@@ -7,7 +7,9 @@
 //
 
 #import "iPrestaAppDelegate.h"
-#import "ObjetosMenuViewController.h"
+//#import "ObjetosMenuViewController.h"
+#import "iPrestaNavigationController.h"
+#import "LoginViewController.h"
 #import <Parse/Parse.h>
 
 @implementation iPrestaAppDelegate
@@ -18,16 +20,13 @@
     
     [Parse setApplicationId:@"ke5qAMdl1hxNkKPbmJyiOkCqfDkUtvwnRX6PKlXA"
                   clientKey:@"xceoaXQrBv8vRium67iyjZrQfFI8lI0AROGhXsfR"];
-
-    User *user = [[User alloc] initWithUsermame:@"nbrambilla" password:@"camote"];
-    user.email = @"ignacio.brambilla@gmail.com";
-    user.name = @"Ignacio";
-    user.lastNames = @"Brambilla";
-    [user save];
-    User *lUser = [User loggedUser];
     
-    self.viewController = [[ObjetosMenuViewController alloc] initWithNibName:@"ObjetosMenuViewController" bundle:nil];
-    self.window.rootViewController = self.viewController;
+    self.navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
+    self.viewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:self.viewController animated:NO];
+    
+    self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
 
     return YES;

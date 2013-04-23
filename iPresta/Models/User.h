@@ -11,15 +11,15 @@
 
 @protocol UserDelegate <NSObject>
 
-- (void)errorToSaveUser;
+@optional
+- (void)errorToLogin;
+- (void)loginOk;
 
 @end
 
-@interface User : NSObject {
-    PFUser *currentUser;
-}
+@interface User : NSObject
 
-@property(nonatomic) id<UserDelegate> delegate;
+@property(strong, nonatomic) id<UserDelegate> delegate;
 @property(strong, nonatomic) NSString *id;
 @property(strong, nonatomic) NSString *name;
 @property(strong, nonatomic) NSString *lastNames;
@@ -27,8 +27,13 @@
 @property(strong, nonatomic) NSString *username;
 @property(strong, nonatomic) NSString *password;
 
-+ (User *)loggedUser;
-- (id)initWithUsermame:(NSString *)username password:(NSString *)password;
++ (void)logInUserWithUsername:(NSString *)username andPassword:(NSString *)password;
++ (void)logOut;
++ (void)setDelegate:(id<UserDelegate>)userDelegate;
++ (id<UserDelegate>)delegate;
++ (PFUser *)currentUser;
+
+- (void)signUp;
 - (void)save;
 
 @end

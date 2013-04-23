@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Object.h"
+#import "iPrestaObject.h"
 
-@interface Book : Object
+@interface Book : iPrestaObject
 
 @property(strong, nonatomic) NSString *name;
 @property(strong, nonatomic) NSString *editorial;

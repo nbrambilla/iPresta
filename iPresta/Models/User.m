@@ -11,9 +11,8 @@
 
 @implementation User
 
-static User *loggedUser = nil;
+static id<UserDelegate> delegate;
 
-@synthesize delegate = _delegate;
 @synthesize id = _id;
 @synthesize name = _name;
 @synthesize lastNames = _lastNames;
@@ -23,70 +22,80 @@ static User *loggedUser = nil;
 
 #pragma mark - Public methods
 
-+ (User *)loggedUser
-{
-    @synchronized(self){
-        if (!loggedUser) {
-            loggedUser = [self new];
-        }
-    }
-    return loggedUser;
-}
-
-- (id)initWithUsermame:(NSString *)username password:(NSString *)password
-{
-    self = [super init];
-    if (self) {
-        
-        if ([User existsUserwithUsername:username]) {
-            [self logInWithUsername:username andPassword:password];
-        } else {
-            [self signInWithUsername:username andPassword:password];
-        }
-    }
-    loggedUser = self;
-    
-    return self;
-}
-
 -  (void)save
 {
-    [currentUser save];
+    [[PFUser currentUser] setObject:_username forKey:@"username"];
+    [[PFUser currentUser] setObject:_email forKey:@"email"];
+    [[PFUser currentUser] setObject:_password forKey:@"password"];
+    [[PFUser currentUser] setObject:_name forKey:@"name"];
+    [[PFUser currentUser] setObject:_lastNames forKey:@"email"];
+    
+    [[PFUser currentUser] save];
+}
+
++ (void)logOut
+{
+    [PFUser logOut];
+}
+
++ (void)logInUserWithUsername:(NSString *)username andPassword:(NSString *)password
+{
+    [PFUser logInWithUsernameInBackground:username password:password target:delegate selector:@selector(backFromLogin:)];
+}
+
+- (void)signUp
+{
+    PFUser *newUser = [PFUser new];
+    newUser.username = self.username;
+    newUser.email = self.username;
+    newUser.password = self.password;
+    
+    [newUser signUpInBackgroundWithTarget:delegate selector:@selector(backFromSignUp)];
 }
 
 #pragma mark - User Setters
 
++ (void)setDelegate:(id<UserDelegate>)userDelegate
+{
+    delegate = userDelegate;
+}
+
 - (void)setUsername:(NSString *)username
 {
     _username = username;
-    [currentUser setObject:username forKey:@"username"];
 }
 
 - (void)setEmail:(NSString *)email
 {
     _email = email;
-    currentUser.email = email;
 }
 
 - (void)setPassword:(NSString *)password
 {
     _password = password;
-    currentUser.password = password;
 }
 
 - (void)setName:(NSString *)name
 {
     _name = name;
-    [currentUser setObject:name forKey:@"name"];
 }
 
 - (void)setLastNames:(NSString *)lastNames
 {
     _lastNames = lastNames;
-    [currentUser setObject:lastNames forKey:@"lastNames"];
 }
 
 #pragma mark - User Getters
+
++ (PFUser *)currentUser
+{
+    return [PFUser currentUser];
+}
+
++ (id<UserDelegate>)delegate
+{
+    return delegate;
+}
 
 - (NSString *)username
 {
@@ -115,45 +124,5 @@ static User *loggedUser = nil;
 
 #pragma mark - Private methods
 
-+ (BOOL)existsUserwithUsername:(NSString *)username
-{
-    PFQuery *query = [PFUser query];
-    [query whereKey:@"username" equalTo:username];
-    
-    return ([query countObjects] > 0);
-}
-
-- (void)logInWithUsername:(NSString *)username andPassword:(NSString *)password
-{
-    NSError *error;
-    [PFUser logInWithUsername:username password:password error:&error];
-    
-    if (!error) {
-        currentUser = [PFUser currentUser];
-    } else {
-        if ([_delegate respondsToSelector:@selector(errorToSaveUser)]) {
-            [_delegate errorToSaveUser];
-        }
-    }
-}
-
-- (void)signInWithUsername:(NSString *)username andPassword:(NSString *)password
-{
-    PFUser *user = [PFUser user];
-    user.username = username;
-    user.password = password;
-    
-    NSError *error;
-    [user signUp:&error];
-    
-    if (!error) {
-        currentUser = [PFUser currentUser];
-    } else {
-        if ([_delegate respondsToSelector:@selector(errorToSaveUser)]) {
-            [_delegate errorToSaveUser];
-        }
-    }
-
-}
 
 @end

@@ -28,9 +28,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    User *user = [User loggedUser];
-    NSLog(@"%@", user);
     // Do any additional setup after loading the view from its nib.
 }
 
