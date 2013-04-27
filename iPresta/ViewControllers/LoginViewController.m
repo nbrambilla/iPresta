@@ -9,6 +9,9 @@
 #import "LoginViewController.h"
 #import "CreateCountViewController.h"
 #import "MBProgressHUD.h"
+#import "AuthenticateEmailViewController.h"
+#import "iPrestaNavigationController.h"
+#import "iPrestaNSString.h"
 
 @interface LoginViewController ()
 
@@ -50,7 +53,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
     emailTextField = nil;
     passwordTextField = nil;
     entrarButton = nil;
@@ -62,63 +66,45 @@
 - (IBAction)goToCreateCount:(id)sender
 {
     CreateCountViewController *createCountViewController = [[CreateCountViewController alloc] initWithNibName:@"CreateCountViewController" bundle:nil];
-    
     [self.navigationController pushViewController:createCountViewController animated:YES];
 }
 
 - (IBAction)login:(id)sender
 {
-    [User logOut];
-    
-    if ([self fieldsAreSet])
+    // Si los campos estan completados, se realiza el login
+    if ([NSString areSetUsername:emailTextField.text andPassword:passwordTextField.text])
     {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [User logInUserWithUsername:emailTextField.text andPassword:passwordTextField.text];
     }
 }
 
 #pragma mark - Login Functions
 
-- (void)backFromLogin
+- (void)logInSuccess
 {
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    if ([User currentUser] != nil)
+    UIViewController *viewController;
+    UINavigationController *navigationController;
+    
+    // Si es un usuario ya autenticado, accede a la aplicacion
+    
+    if ([User emailVerified])
     {
-        [self loginOk];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Email Verificado!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        
+        [alert show];
     }
+    // Si el usuario no esta autenticado, debe hacerlo confirmando su email. Accede a la pantalla de autenticacion
     else
     {
-        [self errorToLogin];
-    }
-}
-
-- (void)errorToLogin
-{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Email y/o password incorrecto" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    
-        [alert show];
-}
-
-- (void)loginOk
-{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Login OK!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    
-    [alert show];
-}
-
-#pragma mark - Check Fields Functions
-
-- (BOOL)fieldsAreSet
-{
-    BOOL bReturn = ([emailTextField.text length] == 0 || [passwordTextField.text length] == 0);
-    
-    if (!bReturn)
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Deben completarse el email y la contraseña" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
+        viewController =  [[AuthenticateEmailViewController alloc] initWithNibName:@"AuthenticateEmailViewController" bundle:nil];
+        [navigationController pushViewController:viewController animated:NO];
+        
+        [self presentModalViewController:navigationController animated:YES];
     }
     
-    return bReturn;
+    viewController = nil;
+    navigationController = nil;
 }
 
 @end

@@ -7,7 +7,10 @@
 //
 
 #import "CreateCountViewController.h"
+#import "AuthenticateEmailViewController.h"
+#import "iPrestaNavigationController.h"
 #import "MBProgressHUD.h"
+#import "iPrestaNSString.h"
 
 @interface CreateCountViewController ()
 
@@ -47,7 +50,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
     emailTextField = nil;
     passwordTextField = nil;
     repeatPasswordTextField = nil;
@@ -58,51 +62,54 @@
 
 - (IBAction)createCount:(id)sender
 {
-    if ([self isValidEmail])
+    if ([emailTextField.text isValidEmail])
     {
-        if ([self paswordsMatch])
+        if ([passwordTextField.text isValidPassword])
         {
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            
-            [User logOut];
-            
-            User *newUser = [User new];
-            newUser.username = emailTextField.text;
-            newUser.email = emailTextField.text;
-            newUser.password = passwordTextField.text;
-            
-            [newUser signUp];
+            if ([self paswordsMatch])
+            {
+                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                
+                User *newUser = [User new];
+                newUser.username = emailTextField.text;
+                newUser.email = emailTextField.text;
+                newUser.password = passwordTextField.text;
+                
+                [newUser signIn];
+            }
         }
     }
 }
 
 #pragma mark - SignUp Functions
 
-- (void)backFromSignUp
+- (void)backFromSignUp:(PFUser *)user error:(NSError *)error
 {
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    if ([User currentUser] != nil)
-    {
-        [self signUpOk];
-    }
-    else
-    {
-        [self errorToSignUp];
-    }
+//    [MBProgressHUD hideHUDForView:self.view animated:YES];
+//    
+//    if (error)
+//    {
+//        [User signInError:error];
+//    }
+//    else
+//    {
+//        [self signUpOk];
+//    }
 }
 
-- (void)errorToSignUp
+- (void)signInSuccess
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Error" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIViewController *viewController;
+    UINavigationController *navigationController;
     
-    [alert show];
-}
-
-- (void)signUpOk
-{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Usuario creado!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
+    viewController =  [[AuthenticateEmailViewController alloc] initWithNibName:@"AuthenticateEmailViewController" bundle:nil];
+    [navigationController pushViewController:viewController animated:NO];
     
-    [alert show];
+    [self presentModalViewController:navigationController animated:YES];
+    
+    viewController = nil;
+    navigationController = nil;
 }
 
 #pragma mark - Check Fields Functions
@@ -118,28 +125,6 @@
     }
     
     return bReturn;
-}
-
-- (BOOL)isValidEmail
-{
-    BOOL bReturn;
-    
-    BOOL stricterFilter = YES;
-    NSString *stricterFilterString = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-    NSString *laxString = @".+@.+\\.[A-Za-z]{2}[A-Za-z]*";
-    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-    bReturn = [emailTest evaluateWithObject:emailTextField.text];
-    
-    if (!bReturn)
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Email no válido" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        
-        bReturn = NO;
-    }
-    
-    return  bReturn;
 }
 
 @end

@@ -10,6 +10,8 @@
 		15124E5216FDDD9100520FE2 /* MusicalObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 15124E5116FDDD9100520FE2 /* MusicalObject.m */; };
 		15124E5816FDDE5000520FE2 /* VisualObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 15124E5716FDDE5000520FE2 /* VisualObject.m */; };
 		15124E5B16FDDFBD00520FE2 /* Lending.m in Sources */ = {isa = PBXBuildFile; fileRef = 15124E5A16FDDFBD00520FE2 /* Lending.m */; };
+		154C92DC172997680030915B /* AuthenticateEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C92DA172997680030915B /* AuthenticateEmailViewController.m */; };
+		154C92DD172997680030915B /* AuthenticateEmailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154C92DB172997680030915B /* AuthenticateEmailViewController.xib */; };
 		154F20511720597B00E65121 /* iPrestaNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154F204F1720597B00E65121 /* iPrestaNavigationController.m */; };
 		154F20521720597B00E65121 /* iPrestaNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154F20501720597B00E65121 /* iPrestaNavigationController.xib */; };
 		154F205717205E7D00E65121 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154F205517205E7D00E65121 /* LoginViewController.m */; };
@@ -46,6 +48,9 @@
 		15B85BDB16F49CFE00FB5674 /* iPrestaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B85BDA16F49CFE00FB5674 /* iPrestaObject.m */; };
 		15B85BDF16F4A75D00FB5674 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B85BDE16F4A75D00FB5674 /* Book.m */; };
 		15C44D6A16FE026B0071E7EC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C44D6916FE026B0071E7EC /* FacebookSDK.framework */; };
+		15C99479172C0515000672B4 /* ChangeEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C99477172C0515000672B4 /* ChangeEmailViewController.m */; };
+		15C9947A172C0515000672B4 /* ChangeEmailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15C99478172C0515000672B4 /* ChangeEmailViewController.xib */; };
+		15E6B2191729AE380050763A /* iPrestaNSString.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E6B2181729AE380050763A /* iPrestaNSString.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +60,9 @@
 		15124E5716FDDE5000520FE2 /* VisualObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VisualObject.m; path = iPresta/Models/VisualObject.m; sourceTree = "<group>"; };
 		15124E5916FDDFBD00520FE2 /* Lending.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Lending.h; path = iPresta/Models/Lending.h; sourceTree = "<group>"; };
 		15124E5A16FDDFBD00520FE2 /* Lending.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Lending.m; path = iPresta/Models/Lending.m; sourceTree = "<group>"; };
+		154C92D9172997680030915B /* AuthenticateEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthenticateEmailViewController.h; path = ViewControllers/AuthenticateEmailViewController.h; sourceTree = "<group>"; };
+		154C92DA172997680030915B /* AuthenticateEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthenticateEmailViewController.m; path = ViewControllers/AuthenticateEmailViewController.m; sourceTree = "<group>"; };
+		154C92DB172997680030915B /* AuthenticateEmailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AuthenticateEmailViewController.xib; path = ViewControllers/AuthenticateEmailViewController.xib; sourceTree = "<group>"; };
 		154F204E1720597B00E65121 /* iPrestaNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaNavigationController.h; path = ViewControllers/iPrestaNavigationController.h; sourceTree = "<group>"; };
 		154F204F1720597B00E65121 /* iPrestaNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaNavigationController.m; path = ViewControllers/iPrestaNavigationController.m; sourceTree = "<group>"; };
 		154F20501720597B00E65121 /* iPrestaNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = iPrestaNavigationController.xib; path = ViewControllers/iPrestaNavigationController.xib; sourceTree = "<group>"; };
@@ -103,6 +111,11 @@
 		15B85BDD16F4A75D00FB5674 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Book.h; path = iPresta/Models/Book.h; sourceTree = "<group>"; };
 		15B85BDE16F4A75D00FB5674 /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Book.m; path = iPresta/Models/Book.m; sourceTree = "<group>"; };
 		15C44D6916FE026B0071E7EC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		15C99476172C0515000672B4 /* ChangeEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangeEmailViewController.h; path = ViewControllers/ChangeEmailViewController.h; sourceTree = "<group>"; };
+		15C99477172C0515000672B4 /* ChangeEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangeEmailViewController.m; path = ViewControllers/ChangeEmailViewController.m; sourceTree = "<group>"; };
+		15C99478172C0515000672B4 /* ChangeEmailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ChangeEmailViewController.xib; path = ViewControllers/ChangeEmailViewController.xib; sourceTree = "<group>"; };
+		15E6B2171729AE380050763A /* iPrestaNSString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaNSString.h; path = "External Frameworks/Extends NSString/iPrestaNSString.h"; sourceTree = "<group>"; };
+		15E6B2181729AE380050763A /* iPrestaNSString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaNSString.m; path = "External Frameworks/Extends NSString/iPrestaNSString.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +150,7 @@
 		15517A0C1725C976002FFB69 /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15E6B2161729ADE30050763A /* Extends NSString */,
 				15517A0D1725C9FB002FFB69 /* MBProgressHUD */,
 			);
 			name = "External Frameworks";
@@ -235,6 +249,12 @@
 				154F2059172065A800E65121 /* CreateCountViewController.h */,
 				154F205A172065A800E65121 /* CreateCountViewController.m */,
 				154F205B172065A800E65121 /* CreateCountViewController.xib */,
+				154C92D9172997680030915B /* AuthenticateEmailViewController.h */,
+				154C92DA172997680030915B /* AuthenticateEmailViewController.m */,
+				154C92DB172997680030915B /* AuthenticateEmailViewController.xib */,
+				15C99476172C0515000672B4 /* ChangeEmailViewController.h */,
+				15C99477172C0515000672B4 /* ChangeEmailViewController.m */,
+				15C99478172C0515000672B4 /* ChangeEmailViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -256,6 +276,15 @@
 				15124E5A16FDDFBD00520FE2 /* Lending.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		15E6B2161729ADE30050763A /* Extends NSString */ = {
+			isa = PBXGroup;
+			children = (
+				15E6B2171729AE380050763A /* iPrestaNSString.h */,
+				15E6B2181729AE380050763A /* iPrestaNSString.m */,
+			);
+			name = "Extends NSString";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -319,6 +348,8 @@
 				154F20521720597B00E65121 /* iPrestaNavigationController.xib in Resources */,
 				154F205817205E7D00E65121 /* LoginViewController.xib in Resources */,
 				154F205D172065A800E65121 /* CreateCountViewController.xib in Resources */,
+				154C92DD172997680030915B /* AuthenticateEmailViewController.xib in Resources */,
+				15C9947A172C0515000672B4 /* ChangeEmailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,6 +373,9 @@
 				154F205717205E7D00E65121 /* LoginViewController.m in Sources */,
 				154F205C172065A800E65121 /* CreateCountViewController.m in Sources */,
 				15517A101725CA10002FFB69 /* MBProgressHUD.m in Sources */,
+				154C92DC172997680030915B /* AuthenticateEmailViewController.m in Sources */,
+				15E6B2191729AE380050763A /* iPrestaNSString.m in Sources */,
+				15C99479172C0515000672B4 /* ChangeEmailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

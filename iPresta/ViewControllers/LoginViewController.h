@@ -16,4 +16,6 @@
     __weak IBOutlet UIButton *entrarButton;
 }
 
+- (void)logInSuccess;
+
 @end

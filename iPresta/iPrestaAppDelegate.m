@@ -7,7 +7,7 @@
 //
 
 #import "iPrestaAppDelegate.h"
-//#import "ObjetosMenuViewController.h"
+#import "AuthenticateEmailViewController.h"
 #import "iPrestaNavigationController.h"
 #import "LoginViewController.h"
 #import <Parse/Parse.h>
@@ -22,7 +22,26 @@
                   clientKey:@"xceoaXQrBv8vRium67iyjZrQfFI8lI0AROGhXsfR"];
     
     self.navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
-    self.viewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    
+    // Si el usuario existe
+    if ([User currentUserEmail] != nil)
+    {
+        // Si el usuario autentico su email, se redirige a la aplicacion
+        if ([User emailVerified])
+        {
+
+        }
+        // Sino, se redirige a la pantalla de autenticacion
+        else
+        {
+            self.viewController = [[AuthenticateEmailViewController alloc] initWithNibName:@"AuthenticateEmailViewController" bundle:nil];
+        }
+    }
+    // Si el usuario no existe
+    else
+    {
+        self.viewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    }
     
     [self.navigationController pushViewController:self.viewController animated:NO];
     

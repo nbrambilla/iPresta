@@ -16,4 +16,6 @@
     __weak IBOutlet UITextField *repeatPasswordTextField;
 }
 
+- (void)signInSuccess;
+
 @end

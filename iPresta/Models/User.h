@@ -10,30 +10,30 @@
 #import <Foundation/Foundation.h>
 
 @protocol UserDelegate <NSObject>
-
-@optional
-- (void)errorToLogin;
-- (void)loginOk;
-
+//
+//@optional
+//- (void)errorToLogin;
+//- (void)loginOk;
+//
 @end
 
 @interface User : NSObject
 
-@property(strong, nonatomic) id<UserDelegate> delegate;
-@property(strong, nonatomic) NSString *id;
-@property(strong, nonatomic) NSString *name;
-@property(strong, nonatomic) NSString *lastNames;
 @property(strong, nonatomic) NSString *email;
 @property(strong, nonatomic) NSString *username;
 @property(strong, nonatomic) NSString *password;
 
++ (BOOL)existsCurrentUser;
 + (void)logInUserWithUsername:(NSString *)username andPassword:(NSString *)password;
 + (void)logOut;
 + (void)setDelegate:(id<UserDelegate>)userDelegate;
 + (id<UserDelegate>)delegate;
-+ (PFUser *)currentUser;
++ (void)save;
++ (BOOL)emailVerified;
++ (NSString *)currentUserEmail;
++ (void)setCurrentUserEmail:(NSString *)email;
++ (void)setCurrentUserUsername:(NSString *)username;
 
-- (void)signUp;
-- (void)save;
+- (void)signIn;
 
 @end
