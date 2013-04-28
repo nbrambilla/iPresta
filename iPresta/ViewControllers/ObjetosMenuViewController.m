@@ -35,6 +35,8 @@
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error de conexion" message:@"Parece no estar conectado a la red. Intentelo mas tarde." delegate:self cancelButtonTitle:@"Cancelar" otherButtonTitles:nil];
     [alert show];
+    
+    alert = nil;
 }
 
 - (void)didReceiveMemoryWarning

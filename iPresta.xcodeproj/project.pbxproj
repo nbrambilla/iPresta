@@ -10,6 +10,8 @@
 		15124E5216FDDD9100520FE2 /* MusicalObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 15124E5116FDDD9100520FE2 /* MusicalObject.m */; };
 		15124E5816FDDE5000520FE2 /* VisualObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 15124E5716FDDE5000520FE2 /* VisualObject.m */; };
 		15124E5B16FDDFBD00520FE2 /* Lending.m in Sources */ = {isa = PBXBuildFile; fileRef = 15124E5A16FDDFBD00520FE2 /* Lending.m */; };
+		153BF38C172D759900819918 /* AppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 153BF38A172D759900819918 /* AppViewController.m */; };
+		153BF38D172D759900819918 /* AppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 153BF38B172D759900819918 /* AppViewController.xib */; };
 		154C92DC172997680030915B /* AuthenticateEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C92DA172997680030915B /* AuthenticateEmailViewController.m */; };
 		154C92DD172997680030915B /* AuthenticateEmailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154C92DB172997680030915B /* AuthenticateEmailViewController.xib */; };
 		154F20511720597B00E65121 /* iPrestaNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154F204F1720597B00E65121 /* iPrestaNavigationController.m */; };
@@ -45,6 +47,8 @@
 		156FDE4A16F39E1700F4BEEA /* ObjetosMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156FDE4816F39E1700F4BEEA /* ObjetosMenuViewController.m */; };
 		156FDE4B16F39E1700F4BEEA /* ObjetosMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156FDE4916F39E1700F4BEEA /* ObjetosMenuViewController.xib */; };
 		156FDE5116F3A04500F4BEEA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 156FDE5016F3A04500F4BEEA /* User.m */; };
+		15A877B6172C875300E8BDA2 /* RequestPasswordResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A877B4172C875200E8BDA2 /* RequestPasswordResetViewController.m */; };
+		15A877B7172C875300E8BDA2 /* RequestPasswordResetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15A877B5172C875300E8BDA2 /* RequestPasswordResetViewController.xib */; };
 		15B85BDB16F49CFE00FB5674 /* iPrestaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B85BDA16F49CFE00FB5674 /* iPrestaObject.m */; };
 		15B85BDF16F4A75D00FB5674 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B85BDE16F4A75D00FB5674 /* Book.m */; };
 		15C44D6A16FE026B0071E7EC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C44D6916FE026B0071E7EC /* FacebookSDK.framework */; };
@@ -60,6 +64,9 @@
 		15124E5716FDDE5000520FE2 /* VisualObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VisualObject.m; path = iPresta/Models/VisualObject.m; sourceTree = "<group>"; };
 		15124E5916FDDFBD00520FE2 /* Lending.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Lending.h; path = iPresta/Models/Lending.h; sourceTree = "<group>"; };
 		15124E5A16FDDFBD00520FE2 /* Lending.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Lending.m; path = iPresta/Models/Lending.m; sourceTree = "<group>"; };
+		153BF389172D759800819918 /* AppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppViewController.h; path = ViewControllers/AppViewController.h; sourceTree = "<group>"; };
+		153BF38A172D759900819918 /* AppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppViewController.m; path = ViewControllers/AppViewController.m; sourceTree = "<group>"; };
+		153BF38B172D759900819918 /* AppViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AppViewController.xib; path = ViewControllers/AppViewController.xib; sourceTree = "<group>"; };
 		154C92D9172997680030915B /* AuthenticateEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthenticateEmailViewController.h; path = ViewControllers/AuthenticateEmailViewController.h; sourceTree = "<group>"; };
 		154C92DA172997680030915B /* AuthenticateEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthenticateEmailViewController.m; path = ViewControllers/AuthenticateEmailViewController.m; sourceTree = "<group>"; };
 		154C92DB172997680030915B /* AuthenticateEmailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AuthenticateEmailViewController.xib; path = ViewControllers/AuthenticateEmailViewController.xib; sourceTree = "<group>"; };
@@ -106,6 +113,9 @@
 		156FDE4916F39E1700F4BEEA /* ObjetosMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ObjetosMenuViewController.xib; path = ViewControllers/ObjetosMenuViewController.xib; sourceTree = "<group>"; };
 		156FDE4F16F3A04500F4BEEA /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = iPresta/Models/User.h; sourceTree = "<group>"; };
 		156FDE5016F3A04500F4BEEA /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = iPresta/Models/User.m; sourceTree = "<group>"; };
+		15A877B3172C875200E8BDA2 /* RequestPasswordResetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RequestPasswordResetViewController.h; path = ViewControllers/RequestPasswordResetViewController.h; sourceTree = "<group>"; };
+		15A877B4172C875200E8BDA2 /* RequestPasswordResetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestPasswordResetViewController.m; path = ViewControllers/RequestPasswordResetViewController.m; sourceTree = "<group>"; };
+		15A877B5172C875300E8BDA2 /* RequestPasswordResetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RequestPasswordResetViewController.xib; path = ViewControllers/RequestPasswordResetViewController.xib; sourceTree = "<group>"; };
 		15B85BD916F49CFE00FB5674 /* iPrestaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaObject.h; path = iPresta/Models/iPrestaObject.h; sourceTree = "<group>"; };
 		15B85BDA16F49CFE00FB5674 /* iPrestaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaObject.m; path = iPresta/Models/iPrestaObject.m; sourceTree = "<group>"; };
 		15B85BDD16F4A75D00FB5674 /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Book.h; path = iPresta/Models/Book.h; sourceTree = "<group>"; };
@@ -255,6 +265,12 @@
 				15C99476172C0515000672B4 /* ChangeEmailViewController.h */,
 				15C99477172C0515000672B4 /* ChangeEmailViewController.m */,
 				15C99478172C0515000672B4 /* ChangeEmailViewController.xib */,
+				15A877B3172C875200E8BDA2 /* RequestPasswordResetViewController.h */,
+				15A877B4172C875200E8BDA2 /* RequestPasswordResetViewController.m */,
+				15A877B5172C875300E8BDA2 /* RequestPasswordResetViewController.xib */,
+				153BF389172D759800819918 /* AppViewController.h */,
+				153BF38A172D759900819918 /* AppViewController.m */,
+				153BF38B172D759900819918 /* AppViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -350,6 +366,8 @@
 				154F205D172065A800E65121 /* CreateCountViewController.xib in Resources */,
 				154C92DD172997680030915B /* AuthenticateEmailViewController.xib in Resources */,
 				15C9947A172C0515000672B4 /* ChangeEmailViewController.xib in Resources */,
+				15A877B7172C875300E8BDA2 /* RequestPasswordResetViewController.xib in Resources */,
+				153BF38D172D759900819918 /* AppViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,6 +394,8 @@
 				154C92DC172997680030915B /* AuthenticateEmailViewController.m in Sources */,
 				15E6B2191729AE380050763A /* iPrestaNSString.m in Sources */,
 				15C99479172C0515000672B4 /* ChangeEmailViewController.m in Sources */,
+				15A877B6172C875300E8BDA2 /* RequestPasswordResetViewController.m in Sources */,
+				153BF38C172D759900819918 /* AppViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

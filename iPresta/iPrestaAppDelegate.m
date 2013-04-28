@@ -10,7 +10,8 @@
 #import "AuthenticateEmailViewController.h"
 #import "iPrestaNavigationController.h"
 #import "LoginViewController.h"
-#import <Parse/Parse.h>
+#import "AppViewController.h"
+#import "User.h"
 
 @implementation iPrestaAppDelegate
 
@@ -21,33 +22,43 @@
     [Parse setApplicationId:@"ke5qAMdl1hxNkKPbmJyiOkCqfDkUtvwnRX6PKlXA"
                   clientKey:@"xceoaXQrBv8vRium67iyjZrQfFI8lI0AROGhXsfR"];
     
-    self.navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
+    // Se carga LoginViewController, la pantalla raiz
     
-    // Si el usuario existe
-    if ([User currentUserEmail] != nil)
+    iPrestaNavigationController *rootNavigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
+    LoginViewController *loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    
+    [rootNavigationController pushViewController:loginViewController animated:NO];
+    
+    self.window.rootViewController = rootNavigationController;
+    [self.window makeKeyAndVisible];
+    
+    // Si existe un usuario logueado...
+    if ([[User currentUser] email] != nil)
     {
+        iPrestaNavigationController *navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
+        UIViewController *viewController;
+        
         // Si el usuario autentico su email, se redirige a la aplicacion
-        if ([User emailVerified])
+        if ([[User currentUser] emailVerified])
         {
-
+            viewController = [[AppViewController alloc] initWithNibName:@"AppViewController" bundle:nil];
         }
         // Sino, se redirige a la pantalla de autenticacion
         else
         {
-            self.viewController = [[AuthenticateEmailViewController alloc] initWithNibName:@"AuthenticateEmailViewController" bundle:nil];
+            viewController = [[AuthenticateEmailViewController alloc] initWithNibName:@"AuthenticateEmailViewController" bundle:nil];
         }
+        
+        [navigationController pushViewController:viewController animated:NO];
+        
+        [rootNavigationController presentModalViewController:navigationController animated:NO];
     }
-    // Si el usuario no existe
-    else
-    {
-        self.viewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-    }
+//    // Si el usuario no existe
+//    else
+//    {
+//        self.viewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+//    }
     
-    [self.navigationController pushViewController:self.viewController animated:NO];
-    
-    self.window.rootViewController = self.navigationController;
-    [self.window makeKeyAndVisible];
-
     return YES;
 }
 

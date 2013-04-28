@@ -32,8 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [User setDelegate:self];
+
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -66,9 +65,9 @@
     {
         if ([passwordTextField.text isValidPassword])
         {
-            if ([self paswordsMatch])
-            {
-                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            if ([passwordTextField.text matchWith:repeatPasswordTextField.text])
+            {                
+                [User setDelegate:self];
                 
                 User *newUser = [User new];
                 newUser.username = emailTextField.text;
@@ -83,20 +82,6 @@
 
 #pragma mark - SignUp Functions
 
-- (void)backFromSignUp:(PFUser *)user error:(NSError *)error
-{
-//    [MBProgressHUD hideHUDForView:self.view animated:YES];
-//    
-//    if (error)
-//    {
-//        [User signInError:error];
-//    }
-//    else
-//    {
-//        [self signUpOk];
-//    }
-}
-
 - (void)signInSuccess
 {
     UIViewController *viewController;
@@ -110,21 +95,6 @@
     
     viewController = nil;
     navigationController = nil;
-}
-
-#pragma mark - Check Fields Functions
-
-- (BOOL)paswordsMatch
-{
-    BOOL bReturn = ([passwordTextField.text isEqualToString:repeatPasswordTextField.text] && [passwordTextField.text length] > 0);
-    
-    if (!bReturn)
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Las contraseñas son diferentes" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-    }
-    
-    return bReturn;
 }
 
 @end

@@ -15,4 +15,6 @@
     __weak IBOutlet UITextField *emailTextField;
 }
 
+- (void)changeEmailSuccess;
+
 @end

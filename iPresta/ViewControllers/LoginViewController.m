@@ -11,6 +11,8 @@
 #import "MBProgressHUD.h"
 #import "AuthenticateEmailViewController.h"
 #import "iPrestaNavigationController.h"
+#import "RequestPasswordResetViewController.h"
+#import "AppViewController.h"
 #import "iPrestaNSString.h"
 
 @interface LoginViewController ()
@@ -35,8 +37,6 @@
     [super viewDidLoad];
     
     self.title = @"iPresta";
-    
-    [User setDelegate:self];
     
     // Do any additional setup after loading the view from its nib.
 }
@@ -67,15 +67,27 @@
 {
     CreateCountViewController *createCountViewController = [[CreateCountViewController alloc] initWithNibName:@"CreateCountViewController" bundle:nil];
     [self.navigationController pushViewController:createCountViewController animated:YES];
+    
+    createCountViewController = nil;
 }
 
 - (IBAction)login:(id)sender
 {
+    [User setDelegate:self];
+    
     // Si los campos estan completados, se realiza el login
     if ([NSString areSetUsername:emailTextField.text andPassword:passwordTextField.text])
     {
         [User logInUserWithUsername:emailTextField.text andPassword:passwordTextField.text];
     }
+}
+
+- (IBAction)goToRequestPasswordReset:(id)sender
+{
+    RequestPasswordResetViewController *requestPasswordResetViewController = [[RequestPasswordResetViewController alloc] initWithNibName:@"RequestPasswordResetViewController" bundle:nil];
+    [self.navigationController pushViewController:requestPasswordResetViewController animated:YES];
+    
+    requestPasswordResetViewController = nil;
 }
 
 #pragma mark - Login Functions
@@ -87,11 +99,13 @@
     
     // Si es un usuario ya autenticado, accede a la aplicacion
     
-    if ([User emailVerified])
+    if ([[User currentUser] emailVerified])
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Email Verificado!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UINavigationController *navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
+        AppViewController *appViewController = [[AppViewController alloc] initWithNibName:@"AppViewController" bundle:nil];
+        [navigationController pushViewController:appViewController animated:NO];
         
-        [alert show];
+        [self presentModalViewController:navigationController animated:YES];
     }
     // Si el usuario no esta autenticado, debe hacerlo confirmando su email. Accede a la pantalla de autenticacion
     else

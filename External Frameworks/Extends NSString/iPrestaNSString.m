@@ -18,6 +18,23 @@
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Deben completarse el email y la contraseña" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
+        
+        alert = nil;
+    }
+    
+    return bReturn;
+}
+
+- (BOOL)matchWith:(NSString *)confirmPassword
+{
+    BOOL bReturn = ([self isEqualToString:confirmPassword]);
+    
+    if (!bReturn)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Las contraseñas son diferentes" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        
+        alert = nil;
     }
     
     return bReturn;
@@ -40,6 +57,8 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"El email no tiene un formato válido" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         
+        alert = nil;
+        
         bReturn = NO;
     }
     
@@ -58,6 +77,8 @@
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"El email debe tener entre 6 y 12 caracteres. Solo podrá contener números o letras" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
+        
+        alert = nil;
         
         bReturn = NO;
     }

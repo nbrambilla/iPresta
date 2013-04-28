@@ -31,9 +31,8 @@
     
     self.title = @"Cambiar email";
     
-    changeMailTextLabel.text = [NSString stringWithFormat:@"Su email actual es %@. Si desea cambiarlo, ingrese el nuevo y presione Cambiar email", [User currentUserEmail]];
+    changeMailTextLabel.text = [NSString stringWithFormat:@"Su email actual es %@. Si desea cambiarlo, ingrese el nuevo y presione Cambiar email", [[User currentUser] email]];
     
-    [User setDelegate:self];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -41,11 +40,9 @@
 {
     if ([emailTextField.text isValidEmail])
     {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        
-        [User setCurrentUserEmail:emailTextField.text];
-        [User setCurrentUserUsername:emailTextField.text];
-        [User save];
+        [User setDelegate:self];
+
+        [[User currentUser] changeEmail:emailTextField.text];
     }
 }
 
@@ -54,7 +51,7 @@
     if ([emailTextField isFirstResponder]) [emailTextField resignFirstResponder];
 }
 
-- (void)saveUser
+- (void)changeEmailSuccess
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     
@@ -62,6 +59,8 @@
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Email cambiado" message:@"Ahora auntentique el nuevo email y presione Entrar" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
+    
+    alert = nil;
 }
 
 - (void)didReceiveMemoryWarning

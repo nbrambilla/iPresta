@@ -11,5 +11,6 @@
 + (BOOL)areSetUsername:(NSString *)username andPassword:(NSString *)password;
 - (BOOL)isValidEmail;
 - (BOOL)isValidPassword;
+- (BOOL)matchWith:(NSString *)confirmPassword;
 
 @end

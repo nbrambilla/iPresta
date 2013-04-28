@@ -22,18 +22,19 @@
 @property(strong, nonatomic) NSString *email;
 @property(strong, nonatomic) NSString *username;
 @property(strong, nonatomic) NSString *password;
+@property(assign, nonatomic) BOOL emailVerified;
 
++ (User *)currentUser;
 + (BOOL)existsCurrentUser;
 + (void)logInUserWithUsername:(NSString *)username andPassword:(NSString *)password;
 + (void)logOut;
 + (void)setDelegate:(id<UserDelegate>)userDelegate;
 + (id<UserDelegate>)delegate;
 + (void)save;
-+ (BOOL)emailVerified;
-+ (NSString *)currentUserEmail;
-+ (void)setCurrentUserEmail:(NSString *)email;
-+ (void)setCurrentUserUsername:(NSString *)username;
++ (void)requestPasswordResetForEmail:(NSString *)email;
 
+- (void)checkEmailAuthentication;
+- (void)changeEmail:(NSString *)newEmail;
 - (void)signIn;
 
 @end
