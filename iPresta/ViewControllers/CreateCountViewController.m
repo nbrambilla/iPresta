@@ -34,6 +34,12 @@
     [super viewDidLoad];
 
     // Do any additional setup after loading the view from its nib.
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Volver", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(backToBegin)];
+}
+
+- (void)backToBegin
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)hideKeyboard:(id)sender
@@ -84,17 +90,10 @@
 
 - (void)signInSuccess
 {
-    UIViewController *viewController;
-    UINavigationController *navigationController;
+    AuthenticateEmailViewController *authenticateEmailViewController = [[AuthenticateEmailViewController alloc] initWithNibName:@"AuthenticateEmailViewController" bundle:nil];
+    [self.navigationController pushViewController:authenticateEmailViewController animated:YES];
     
-    navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
-    viewController =  [[AuthenticateEmailViewController alloc] initWithNibName:@"AuthenticateEmailViewController" bundle:nil];
-    [navigationController pushViewController:viewController animated:NO];
-    
-    [self presentModalViewController:navigationController animated:YES];
-    
-    viewController = nil;
-    navigationController = nil;
+    authenticateEmailViewController = nil;
 }
 
 @end

@@ -35,10 +35,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
     
     self.title = @"iPresta";
     
-    // Do any additional setup after loading the view from its nib.
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Volver", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(backToBegin)];
+}
+
+- (void)backToBegin
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)hideKeyboard:(id)sender
@@ -62,14 +68,6 @@
 }
 
 #pragma mark - Button Functions
-
-- (IBAction)goToCreateCount:(id)sender
-{
-    CreateCountViewController *createCountViewController = [[CreateCountViewController alloc] initWithNibName:@"CreateCountViewController" bundle:nil];
-    [self.navigationController pushViewController:createCountViewController animated:YES];
-    
-    createCountViewController = nil;
-}
 
 - (IBAction)login:(id)sender
 {
@@ -110,11 +108,10 @@
     // Si el usuario no esta autenticado, debe hacerlo confirmando su email. Accede a la pantalla de autenticacion
     else
     {
-        navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
         viewController =  [[AuthenticateEmailViewController alloc] initWithNibName:@"AuthenticateEmailViewController" bundle:nil];
         [navigationController pushViewController:viewController animated:NO];
         
-        [self presentModalViewController:navigationController animated:YES];
+        [self.navigationController pushViewController:viewController animated:YES];
     }
     
     viewController = nil;

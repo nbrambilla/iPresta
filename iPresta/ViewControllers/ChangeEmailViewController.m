@@ -31,7 +31,7 @@
     
     self.title = @"Cambiar email";
     
-    changeMailTextLabel.text = [NSString stringWithFormat:@"Su email actual es %@. Si desea cambiarlo, ingrese el nuevo y presione Cambiar email", [[User currentUser] email]];
+    changeMailTextLabel.text = [NSString stringWithFormat:@"Su email actual es %@. Si desea cambiarlo, ingrese el nuevo y presione \"Cambiar email\"", [[User currentUser] email]];
     
     // Do any additional setup after loading the view from its nib.
 }

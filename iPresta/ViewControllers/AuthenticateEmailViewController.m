@@ -34,6 +34,8 @@
     
     self.title = @"Autenticar email";
     
+    [self.navigationItem setHidesBackButton:YES animated:NO];
+    
     UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithTitle:@"Cambiar email" style:UIBarButtonItemStylePlain target:self action:@selector(goToChangeEmail)];
     self.navigationItem.rightBarButtonItem = anotherButton;
     

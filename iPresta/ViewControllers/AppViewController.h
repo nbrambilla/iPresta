@@ -11,7 +11,6 @@
 @interface AppViewController : UIViewController
 {
     __weak IBOutlet UILabel *textLabel;
-    
 }
 
 @end

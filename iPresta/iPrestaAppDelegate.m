@@ -11,6 +11,7 @@
 #import "iPrestaNavigationController.h"
 #import "LoginViewController.h"
 #import "AppViewController.h"
+#import "iPrestaViewController.h"
 #import "User.h"
 
 @implementation iPrestaAppDelegate
@@ -22,14 +23,11 @@
     [Parse setApplicationId:@"ke5qAMdl1hxNkKPbmJyiOkCqfDkUtvwnRX6PKlXA"
                   clientKey:@"xceoaXQrBv8vRium67iyjZrQfFI8lI0AROGhXsfR"];
     
-    // Se carga LoginViewController, la pantalla raiz
+    // Se carga iPrestaViewController, la pantalla raiz
     
-    iPrestaNavigationController *rootNavigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
-    LoginViewController *loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    iPrestaViewController *iprestaViewController = [[iPrestaViewController alloc] initWithNibName:@"iPrestaViewController" bundle:nil];
     
-    [rootNavigationController pushViewController:loginViewController animated:NO];
-    
-    self.window.rootViewController = rootNavigationController;
+    self.window.rootViewController = iprestaViewController;
     [self.window makeKeyAndVisible];
     
     // Si existe un usuario logueado...
@@ -50,14 +48,8 @@
         }
         
         [navigationController pushViewController:viewController animated:NO];
-        
-        [rootNavigationController presentModalViewController:navigationController animated:NO];
+        [iprestaViewController presentModalViewController:navigationController animated:NO];
     }
-//    // Si el usuario no existe
-//    else
-//    {
-//        self.viewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-//    }
     
     return YES;
 }

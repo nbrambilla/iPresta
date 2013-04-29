@@ -10,6 +10,7 @@
 #import "LoginViewController.h"
 #import "User.h"
 #import "iPrestaNavigationController.h"
+#import "iPrestaViewController.h"
 
 @interface AppViewController ()
 
@@ -29,11 +30,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSLog(@"%@", self.parentViewController);
+    // Do any additional setup after loading the view from its nib.
     
     textLabel.text = [NSString stringWithFormat:@"Dentro de la appa con el usuario %@", [[User currentUser] email]];
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,8 +49,13 @@
 - (IBAction)logOut:(id)sender
 {
     [User logOut];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if ([self.presentingViewController isKindOfClass:[iPrestaViewController class]]) {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }
+    else
+    {
+        [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 @end

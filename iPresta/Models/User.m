@@ -104,7 +104,7 @@ static id<UserDelegate> delegate;
     {
         NSError *error = [[NSError alloc] initWithDomain:nil code:NOTCURRENTUSER_ERROR userInfo:nil];
         
-        [User changeEmailError:error];
+        [User manageError:error];
         
         error = nil;
     }
@@ -118,7 +118,7 @@ static id<UserDelegate> delegate;
     // Si hay error en el cambio de email
     if (error)
     {
-        [User checkEmailAuthenticationError:error];
+        [User manageError:error];
     }
     // Si el cambio de email se realiza correctamente
     else
@@ -150,7 +150,7 @@ static id<UserDelegate> delegate;
     {
         NSError *error = [[NSError alloc] initWithDomain:nil code:NOTCURRENTUSER_ERROR userInfo:nil];
         
-        [User changeEmailError:error];
+        [User manageError:error];
         
         error = nil;
     }
@@ -164,7 +164,7 @@ static id<UserDelegate> delegate;
     // Si hay error en el cambio de email
     if (error)
     {
-        [User changeEmailError:error];
+        [User manageError:error];
     }
     // Si el cambio de email se realiza correctamente
     else
@@ -217,7 +217,7 @@ static id<UserDelegate> delegate;
     // Si hay error en la recuperación del password
     if (error)
     {
-        [User requestPasswordResetError:error];
+        [User manageError:error];
     }
     // Si la recuperación del password se realiza correctamente
     else
@@ -236,7 +236,7 @@ static id<UserDelegate> delegate;
     // Si hay error en el login
     if (error)
     {
-        [User logInError:error];
+        [User manageError:error];
     }
     // Si el login se realiza correctamente
     else
@@ -270,7 +270,7 @@ static id<UserDelegate> delegate;
     // Si hay error en el registro
     if (error)
     {
-        [User signInError:error];
+        [User manageError:error];
     }
     // Si el registro se realiza correctamente
     else
@@ -296,106 +296,35 @@ static id<UserDelegate> delegate;
     return delegate;
 }
 
-+ (void)logInError:(NSError *)error
++ (void)manageError:(NSError *)error
 {
-    if ([error code] == CONNECTION_ERROR)
-    {
-        // Error de conexíon
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Error de Conexión" delegate:delegate cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        
-        alert = nil;
-        
+    NSString *message;
+    
+    switch ([error code]) {
+        case CONNECTION_ERROR: // Error de conexión
+            message = @"Error de Conexión";
+            break;
+        case LOGIN_ERROR: // Error de Login
+            message = @"Email y/o password incorrecto/s";
+            break;
+        case SIGNIN_ERROR: // Error de registro
+            message = @"Ya existe un usuario registrado con este email";
+            break;
+        case REQUESTPASSWORDRESET_ERROR: // Error de recuperación de email
+            message = @"No existe un usuario registrado con este email";
+            break;
+        case NOTCURRENTUSER_ERROR: // Error al modificar un usuario que no es el logueado
+            message = @"No se puede modificar los datos de un usuario que no esta logueado";
+            break;
+        default:
+            break;
     }
-    else if ([error code] == LOGIN_ERROR)
-    {
-        // Error de login
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Email y/o password incorrecto/s" delegate:delegate cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        
-        alert = nil;
-    }
-}
-
-+ (void)signInError:(NSError *)error
-{
-    if ([error code] == CONNECTION_ERROR)
-    {
-        // Error de conexíon
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Error de Conexión" delegate:delegate cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        
-        alert = nil;
-    }
-    else if ([error code] == SIGNIN_ERROR)
-    {
-        // Error de registro
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Ya existe un usuario registrado con este email" delegate:delegate cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        
-        alert = nil;
-    }
-}
-
-+ (void)requestPasswordResetError:(NSError *)error
-{
-    if ([error code] == CONNECTION_ERROR)
-    {
-        // Error de conexíon
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Error de Conexión" delegate:delegate cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        
-        alert = nil;
-        
-    }
-    else if ([error code] == REQUESTPASSWORDRESET_ERROR)
-    {
-        // Error de recuperación de email
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"No existe un usuario registrado con este email" delegate:delegate cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        
-        alert = nil;
-    }
-}
-
-+ (void)changeEmailError:(NSError *)error
-{
-    if ([error code] == CONNECTION_ERROR)
-    {
-        // Error de conexíon
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Error de Conexión" delegate:delegate cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        
-        alert = nil;
-    }
-    else if ([error code] == SIGNIN_ERROR)
-    {
-        // Error de registro
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Ya existe un usuario registrado con este email" delegate:delegate cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        
-        alert = nil;
-    }
-    else if ([error code] == NOTCURRENTUSER_ERROR)
-    {
-        // Error de registro
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"No se puede cambiar el email a un usuario que no esta logueado" delegate:delegate cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        
-        alert = nil;
-    }
-}
-
-+ (void)checkEmailAuthenticationError:(NSError *)error
-{
-    if ([error code] == CONNECTION_ERROR)
-    {
-        // Error de conexíon
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Error de Conexión" delegate:delegate cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        
-        alert = nil;
-    }
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:delegate cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    
+    alert = nil;
+    
 }
 
 #pragma mark - Private methods
