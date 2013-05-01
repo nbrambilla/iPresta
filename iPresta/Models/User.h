@@ -10,11 +10,15 @@
 #import <Foundation/Foundation.h>
 
 @protocol UserDelegate <NSObject>
-//
-//@optional
-//- (void)errorToLogin;
-//- (void)loginOk;
-//
+
+@optional
+- (void)logInSuccess;
+- (void)signInSuccess;
+- (void)requestPasswordResetSuccess;
+- (void)checkEmailAuthenticationSuccess;
+- (void)resendAuthenticateMessageSuccess;
+- (void)changeEmailSuccess;
+
 @end
 
 @interface User : NSObject
@@ -30,11 +34,11 @@
 + (void)logOut;
 + (void)setDelegate:(id<UserDelegate>)userDelegate;
 + (id<UserDelegate>)delegate;
-+ (void)save;
 + (void)requestPasswordResetForEmail:(NSString *)email;
 
 - (void)checkEmailAuthentication;
 - (void)changeEmail:(NSString *)newEmail;
 - (void)signIn;
+- (void)resendAuthenticateMessage;
 
 @end

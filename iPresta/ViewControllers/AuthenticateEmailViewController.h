@@ -12,5 +12,6 @@
 @interface AuthenticateEmailViewController : UIViewController <UserDelegate>
 
 - (void)checkEmailAuthenticationSuccess;
+- (void)resendAuthenticateMessageSuccess; 
 
 @end

@@ -71,12 +71,14 @@
 
 - (IBAction)login:(id)sender
 {
-    [User setDelegate:self];
-    
-    // Si los campos estan completados, se realiza el login
-    if ([NSString areSetUsername:emailTextField.text andPassword:passwordTextField.text])
+    if ([NSString areSetUsername:emailTextField.text andPassword:passwordTextField.text]) // Si los campos estan completados
     {
-        [User logInUserWithUsername:emailTextField.text andPassword:passwordTextField.text];
+        if ([emailTextField.text isValidEmail]) // Si el email tiene el formato valido
+        {
+            [User setDelegate:self];
+            
+            [User logInUserWithUsername:emailTextField.text andPassword:passwordTextField.text];
+        }
     }
 }
 

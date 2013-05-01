@@ -45,7 +45,15 @@
 - (IBAction)resendAuthenticateEmailMassage:(id)sender
 {
     [User setDelegate:self];
-//    [User requestPasswordResetForEmail:[[User currentUser] email]];
+    [[User currentUser] resendAuthenticateMessage];
+}
+
+- (void)resendAuthenticateMessageSuccess
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Mensaje enviado" message:@"Cheque se email y auentique su cuenta" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    
+    alert = nil;
 }
 
 - (IBAction)goToApp:(id)sender

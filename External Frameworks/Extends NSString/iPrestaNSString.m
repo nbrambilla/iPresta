@@ -75,7 +75,7 @@
     
     if (!bReturn)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"El email debe tener entre 6 y 12 caracteres. Solo podrá contener números o letras" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"La contraseña debe tener entre 6 y 12 caracteres. Solo podrá contener números o letras" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         
         alert = nil;

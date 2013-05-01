@@ -20,8 +20,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    [Parse setApplicationId:@"ke5qAMdl1hxNkKPbmJyiOkCqfDkUtvwnRX6PKlXA"
-                  clientKey:@"xceoaXQrBv8vRium67iyjZrQfFI8lI0AROGhXsfR"];
+    [Parse setApplicationId:@"ke5qAMdl1hxNkKPbmJyiOkCqfDkUtvwnRX6PKlXA" clientKey:@"xceoaXQrBv8vRium67iyjZrQfFI8lI0AROGhXsfR"];
     
     // Se carga iPrestaViewController, la pantalla raiz
     
@@ -31,7 +30,7 @@
     [self.window makeKeyAndVisible];
     
     // Si existe un usuario logueado...
-    if ([[User currentUser] email] != nil)
+    if ([User existsCurrentUser])
     {
         iPrestaNavigationController *navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
         UIViewController *viewController;

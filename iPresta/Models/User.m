@@ -9,17 +9,12 @@
 #import "User.h"
 #import "Book.h"
 #import "MBProgressHUD.h"
-#import "LoginViewController.h"
-#import "CreateCountViewController.h"
-#import "RequestPasswordResetViewController.h"
-#import "ChangeEmailViewController.h"
-#import "AuthenticateEmailViewController.h"
 
 #define CONNECTION_ERROR 100
 #define LOGIN_ERROR 101
 #define SIGNIN_ERROR 202
 #define REQUESTPASSWORDRESET_ERROR 205
-#define NOTCURRENTUSER_ERROR 206
+#define NOTCURRENTUSER_ERROR 700
 
 @implementation User
 
@@ -32,6 +27,11 @@ static id<UserDelegate> delegate;
 
 
 #pragma mark - User Setters
+
++ (void)setDelegate:(id<UserDelegate>)userDelegate
+{
+    delegate = userDelegate;
+}
 
 - (void)setUsername:(NSString *)username
 {
@@ -55,6 +55,11 @@ static id<UserDelegate> delegate;
 
 #pragma mark - User Getters
 
++ (id<UserDelegate>)delegate
+{
+    return delegate;
+}
+
 - (NSString *)username
 {
     return _username;
@@ -75,7 +80,7 @@ static id<UserDelegate> delegate;
     return _emailVerified;
 }
 
-#pragma mark - Current User Methods
+#pragma mark - Class Methods
 
 + (User *)currentUser
 {
@@ -91,13 +96,94 @@ static id<UserDelegate> delegate;
     return currentUser;
 }
 
++ (void)logOut
+{
+    [PFUser logOut];
+}
+
++ (BOOL)existsCurrentUser
+{
+    return ([[User currentUser] email] != nil);
+}
+
+#pragma mark - SignIn Methods
+
+- (void)signIn
+{
+    [User showProgressHUD];
+    
+    PFUser *newUser = [PFUser new];
+    newUser.username = self.username;
+    newUser.email = self.username;
+    newUser.password = self.password;
+    
+    [newUser signUpInBackgroundWithTarget:self selector:@selector(signInResponse:error:)];
+    
+    newUser = nil;
+}
+
+- (void)signInResponse:(PFUser *)user error:(NSError *)error
+{
+    UIViewController *viewController = (UIViewController *)delegate;
+    [MBProgressHUD hideHUDForView:viewController.view.window animated:YES];
+    
+    if (error) [User manageError:error];    // Si hay error en el registro
+    else [delegate signInSuccess];          // Si el registro se realiza correctamente
+    
+    viewController = nil;
+}
+
+#pragma mark - LogIn Methods
+
++ (void)logInUserWithUsername:(NSString *)username andPassword:(NSString *)password
+{
+    [User showProgressHUD];
+    
+    User *currentUser = [User currentUser];
+    currentUser.username = username;
+    currentUser.email = username;
+    currentUser.password = password;
+    
+    [PFUser logInWithUsernameInBackground:username password:password target:[User class] selector:@selector(logInResponse:error:)];
+}
+
++ (void)logInResponse:(PFUser *)user error:(NSError *)error
+{
+    [User hideProgressHUD];
+    
+    if (error) [User manageError:error];    // Si hay error en el login
+    else [delegate logInSuccess];           // Si el login se realiza correctamente
+}
+
+#pragma mark - Reset Password Methods
+
++ (void)requestPasswordResetForEmail:(NSString *)email
+{
+    [User showProgressHUD];
+    
+    [PFUser requestPasswordResetForEmailInBackground:email target:[User class] selector:@selector(requestPasswordResetResponse:error:)];
+}
+
++ (void)requestPasswordResetResponse:(PFUser *)user error:(NSError *)error
+{
+    [User hideProgressHUD];
+    
+    if (error) [User manageError:error];        // Si hay error en la recuperación del password
+    else {                                      // Si la recuperación del password se realiza correctamente
+        [[User currentUser] setPassword:[[PFUser currentUser] password]];
+        
+        [delegate requestPasswordResetSuccess];
+    }
+}
+
+#pragma mark - Check Email Authentication Methods
+
 - (void)checkEmailAuthentication
 {
+    [User showProgressHUD];
+    
     if (self.email == [[PFUser currentUser] email])
     {
-        UIViewController *viewController = (UIViewController *)delegate;
-        [MBProgressHUD showHUDAddedTo:viewController.view animated:YES];
-        
         [[PFUser currentUser] refreshInBackgroundWithTarget:self selector:@selector(checkEmailAuthenticationResponse:error:)];
     }
     else
@@ -112,34 +198,50 @@ static id<UserDelegate> delegate;
 
 - (void)checkEmailAuthenticationResponse:(PFUser *)user error:(NSError *)error
 {
-    AuthenticateEmailViewController *authenticateEmailViewController = (AuthenticateEmailViewController *)delegate;
-    [MBProgressHUD hideHUDForView:authenticateEmailViewController.view animated:YES];
+    [User hideProgressHUD];
     
-    // Si hay error en el cambio de email
-    if (error)
-    {
-        [User manageError:error];
-    }
-    // Si el cambio de email se realiza correctamente
-    else
-    {
-        [authenticateEmailViewController checkEmailAuthenticationSuccess];
-    }
+    if (error) [User manageError:error];                // Si hay error en el cambio de email
+    else [delegate checkEmailAuthenticationSuccess];    // Si el cambio de email se realiza correctamente
     
-    authenticateEmailViewController = nil;
 }
 
-+ (void)save
+#pragma mark - Resend Authenticate Message Methods
+
+- (void)resendAuthenticateMessage
 {
-    [[PFUser currentUser] saveInBackgroundWithTarget:delegate selector:@selector(saveUser)];
+    [User showProgressHUD];
+    
+    if (self.email == [[PFUser currentUser] email])
+    {
+        [[PFUser currentUser] setEmail:self.email];
+        
+        [[PFUser currentUser] saveInBackgroundWithTarget:self selector:@selector(resendAuthenticateMessageResponse:error:)];
+    }
+    else
+    {
+        NSError *error = [[NSError alloc] initWithDomain:nil code:NOTCURRENTUSER_ERROR userInfo:nil];
+        
+        [User manageError:error];
+        
+        error = nil;
+    }
 }
+
+- (void)resendAuthenticateMessageResponse:(PFUser *)user error:(NSError *)error
+{
+    [User hideProgressHUD];
+    
+    if (error) [User manageError:error];                 // Si hay error en el cambio de email
+    else [delegate resendAuthenticateMessageSuccess];    // Si el cambio de email se realiza correctamente
+}
+
+#pragma mark - Change Email Methods
 
 - (void)changeEmail:(NSString *)newEmail
 {
     if (self.email == [[PFUser currentUser] email])
     {
-        UIViewController *viewController = (UIViewController *)delegate;
-        [MBProgressHUD showHUDAddedTo:viewController.view animated:YES];
+        [User showProgressHUD];
         
         [[PFUser currentUser] setEmail:newEmail];
         [[PFUser currentUser] setUsername:newEmail];
@@ -158,143 +260,25 @@ static id<UserDelegate> delegate;
 
 - (void)changeEmailResponse:(PFUser *)user error:(NSError *)error
 {
-    ChangeEmailViewController *changeEmailViewController = (ChangeEmailViewController *)delegate;
-    [MBProgressHUD hideHUDForView:changeEmailViewController.view animated:YES];
+    [User hideProgressHUD];
     
-    // Si hay error en el cambio de email
-    if (error)
+    if (error) // Si hay error en el cambio de email
     {
-        [User manageError:error];
-    }
-    // Si el cambio de email se realiza correctamente
-    else
-    {
+        [[PFUser currentUser] setEmail:self.email];
+        [[PFUser currentUser] setUsername:self.email];
         
-        [self setEmail:[[PFUser currentUser] email]];
-        [self setUsername:[[PFUser currentUser] username]];
+        [User manageError:error]; 
+    }
+    else // Si el cambio de email se realiza correctamente
+    {
+        [[User currentUser] setEmail:[[PFUser currentUser] email]];
+        [[User currentUser] setUsername:[[PFUser currentUser] username]];
         
-        [changeEmailViewController changeEmailSuccess];
+        [delegate changeEmailSuccess];
     }
-    
-    changeEmailViewController = nil;
 }
 
-+ (void)logOut
-{
-    [PFUser logOut];
-}
-
-+ (void)logInUserWithUsername:(NSString *)username andPassword:(NSString *)password
-{
-    User *currentUser = [User currentUser];
-    currentUser.username = username;
-    currentUser.email = username;
-    currentUser.password = password;
-    
-    UIViewController * viewController = (UIViewController *)delegate;
-    [MBProgressHUD showHUDAddedTo:viewController.view animated:YES];
-    
-    [PFUser logInWithUsernameInBackground:username password:password target:[User class] selector:@selector(logInResponse:error:)];
-    
-    viewController = nil;
-}
-
-+ (void)requestPasswordResetForEmail:(NSString *)email
-{
-    UIViewController * viewController = (UIViewController *)delegate;
-    [MBProgressHUD showHUDAddedTo:viewController.view animated:YES];
-    
-    [PFUser requestPasswordResetForEmailInBackground:email target:[User class] selector:@selector(requestPasswordResetResponse:error:)];
-
-    viewController = nil;
-}
-
-+ (void)requestPasswordResetResponse:(PFUser *)user error:(NSError *)error
-{
-    RequestPasswordResetViewController *requestPasswordResetViewController = (RequestPasswordResetViewController *)delegate;
-    [MBProgressHUD hideHUDForView:requestPasswordResetViewController.view animated:YES];
-    
-    // Si hay error en la recuperación del password
-    if (error)
-    {
-        [User manageError:error];
-    }
-    // Si la recuperación del password se realiza correctamente
-    else
-    {
-        [requestPasswordResetViewController requestPasswordResetSuccess];
-    }
-    
-    requestPasswordResetViewController = nil;
-}
-
-+ (void)logInResponse:(PFUser *)user error:(NSError *)error
-{
-    LoginViewController *loginViewController = (LoginViewController *)delegate;
-    [MBProgressHUD hideHUDForView:loginViewController.view animated:YES];
-    
-    // Si hay error en el login
-    if (error)
-    {
-        [User manageError:error];
-    }
-    // Si el login se realiza correctamente
-    else
-    {
-        [loginViewController logInSuccess];
-    }
-    
-    loginViewController = nil;
-}
-
-- (void)signIn
-{
-    CreateCountViewController *createCountViewController = (CreateCountViewController *)delegate;
-    [MBProgressHUD showHUDAddedTo:createCountViewController.view animated:YES];
-    
-    PFUser *newUser = [PFUser new];
-    newUser.username = self.username;
-    newUser.email = self.username;
-    newUser.password = self.password;
-    
-    [newUser signUpInBackgroundWithTarget:self selector:@selector(signInResponse:error:)];
-    
-    newUser = nil;
-}
-
-- (void)signInResponse:(PFUser *)user error:(NSError *)error
-{
-    CreateCountViewController *createCountViewController = (CreateCountViewController *)delegate;
-    [MBProgressHUD hideHUDForView:createCountViewController.view animated:YES];
-    
-    // Si hay error en el registro
-    if (error)
-    {
-        [User manageError:error];
-    }
-    // Si el registro se realiza correctamente
-    else
-    {
-        [createCountViewController signInSuccess];
-    }
-    
-    createCountViewController = nil;
-}
-
-+ (BOOL)existsCurrentUser
-{
-    return ([PFUser currentUser] != nil);
-}
-
-+ (void)setDelegate:(id<UserDelegate>)userDelegate
-{
-    delegate = userDelegate;
-}
-
-+ (id<UserDelegate>)delegate
-{
-    return delegate;
-}
+#pragma mark - Manage Errors Methods
 
 + (void)manageError:(NSError *)error
 {
@@ -324,10 +308,24 @@ static id<UserDelegate> delegate;
     [alert show];
     
     alert = nil;
-    
 }
 
-#pragma mark - Private methods
+#pragma mark - ProgressHUD Methods
 
++ (void)showProgressHUD
+{
+    UIViewController *viewController = (UIViewController *)delegate;
+    [MBProgressHUD showHUDAddedTo:viewController.view.window animated:YES];
+    
+    viewController = nil;
+}
+
++ (void)hideProgressHUD
+{
+    UIViewController *viewController = (UIViewController *)delegate;
+    [MBProgressHUD hideHUDForView:viewController.view.window animated:YES];
+    
+    viewController = nil;
+}
 
 @end
