@@ -124,13 +124,16 @@ static id<UserDelegate> delegate;
 
 - (void)signInResponse:(PFUser *)user error:(NSError *)error
 {
-    UIViewController *viewController = (UIViewController *)delegate;
-    [MBProgressHUD hideHUDForView:viewController.view.window animated:YES];
+    [User hideProgressHUD];
     
     if (error) [User manageError:error];    // Si hay error en el registro
-    else [delegate signInSuccess];          // Si el registro se realiza correctamente
-    
-    viewController = nil;
+    else                                    // Si el registro se realiza correctamente
+    {
+        if ([delegate respondsToSelector:@selector(signInSuccess)])
+        {
+            [delegate signInSuccess];
+        }
+    }
 }
 
 #pragma mark - LogIn Methods
@@ -152,7 +155,13 @@ static id<UserDelegate> delegate;
     [User hideProgressHUD];
     
     if (error) [User manageError:error];    // Si hay error en el login
-    else [delegate logInSuccess];           // Si el login se realiza correctamente
+    else                                    // Si el login se realiza correctamente
+    {
+        if ([delegate respondsToSelector:@selector(logInSuccess)])
+        {
+            [delegate logInSuccess];
+        }
+    }
 }
 
 #pragma mark - Reset Password Methods
@@ -169,10 +178,14 @@ static id<UserDelegate> delegate;
     [User hideProgressHUD];
     
     if (error) [User manageError:error];        // Si hay error en la recuperación del password
-    else {                                      // Si la recuperación del password se realiza correctamente
+    else                                        // Si la recuperación del password se realiza correctamente
+    {
         [[User currentUser] setPassword:[[PFUser currentUser] password]];
         
-        [delegate requestPasswordResetSuccess];
+        if ([delegate respondsToSelector:@selector(requestPasswordResetSuccess)])
+        {
+            [delegate requestPasswordResetSuccess];
+        }
     }
 }
 
@@ -200,8 +213,14 @@ static id<UserDelegate> delegate;
 {
     [User hideProgressHUD];
     
-    if (error) [User manageError:error];                // Si hay error en el cambio de email
-    else [delegate checkEmailAuthenticationSuccess];    // Si el cambio de email se realiza correctamente
+    if (error) [User manageError:error];    // Si hay error en el cambio de email
+    else                                    // Si el cambio de email se realiza correctamente
+    {
+        if ([delegate respondsToSelector:@selector(checkEmailAuthenticationSuccess)])
+        {
+            [delegate checkEmailAuthenticationSuccess];
+        }
+    }
     
 }
 
@@ -231,8 +250,14 @@ static id<UserDelegate> delegate;
 {
     [User hideProgressHUD];
     
-    if (error) [User manageError:error];                 // Si hay error en el cambio de email
-    else [delegate resendAuthenticateMessageSuccess];    // Si el cambio de email se realiza correctamente
+    if (error) [User manageError:error];     // Si hay error en el cambio de email
+    else                                     // Si el cambio de email se realiza correctamente
+    {
+        if ([delegate respondsToSelector:@selector(resendAuthenticateMessageSuccess)])
+        {
+            [delegate resendAuthenticateMessageSuccess];
+        }
+    }
 }
 
 #pragma mark - Change Email Methods
@@ -274,7 +299,10 @@ static id<UserDelegate> delegate;
         [[User currentUser] setEmail:[[PFUser currentUser] email]];
         [[User currentUser] setUsername:[[PFUser currentUser] username]];
         
-        [delegate changeEmailSuccess];
+        if ([delegate respondsToSelector:@selector(changeEmailSucess)])
+        {
+            [delegate changeEmailSuccess];
+        }
     }
 }
 
