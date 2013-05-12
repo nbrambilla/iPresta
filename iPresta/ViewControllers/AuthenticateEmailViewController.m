@@ -10,7 +10,7 @@
 #import "MBProgressHUD.h"
 #import "iPrestaNSString.h"
 #import "ChangeEmailViewController.h"
-#import "AppViewController.h"
+#import "ObjectsListViewController.h"
 #import "iPrestaNavigationController.h"
 
 @interface AuthenticateEmailViewController ()
@@ -31,15 +31,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
     
     self.title = @"Autenticar email";
     
     [self.navigationItem setHidesBackButton:YES animated:NO];
     
-    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithTitle:@"Cambiar email" style:UIBarButtonItemStylePlain target:self action:@selector(goToChangeEmail)];
-    self.navigationItem.rightBarButtonItem = anotherButton;
+    UIBarButtonItem *changeEmailButton = [[UIBarButtonItem alloc] initWithTitle:@"Cambiar email" style:UIBarButtonItemStylePlain target:self action:@selector(goToChangeEmail)];
+    self.navigationItem.rightBarButtonItem = changeEmailButton;
     
-    // Do any additional setup after loading the view from its nib.
+    changeEmailButton = nil;
 }
 
 - (IBAction)resendAuthenticateEmailMassage:(id)sender
@@ -67,10 +68,13 @@
     if ([[User currentUser] emailVerified])
     {
         UINavigationController *navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
-        AppViewController *appViewController = [[AppViewController alloc] initWithNibName:@"AppViewController" bundle:nil];
-        [navigationController pushViewController:appViewController animated:NO];
+        UITableViewController *tableViewController = [[ObjectsListViewController alloc] initWithNibName:@"ObjectsListViewController" bundle:nil];
+        [navigationController pushViewController:tableViewController animated:NO];
         
         [self presentModalViewController:navigationController animated:YES];
+        
+        navigationController = nil;
+        tableViewController = nil;
     }
     else
     {
@@ -83,9 +87,10 @@
 
 - (void)goToChangeEmail
 {
-    ChangeEmailViewController *changeEmailViewController = [[ChangeEmailViewController alloc] initWithNibName:@"ChangeEmailViewController" bundle:nil];
-    
+    ChangeEmailViewController *changeEmailViewController = [[ChangeEmailViewController alloc] initWithNibName:@"ChangeEmailViewController" bundle:nil];    
     [self.navigationController pushViewController:changeEmailViewController animated:YES];
+    
+    changeEmailViewController = nil;
 }
 
 - (void)viewDidUnload

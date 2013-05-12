@@ -10,9 +10,10 @@
 #import "AuthenticateEmailViewController.h"
 #import "iPrestaNavigationController.h"
 #import "LoginViewController.h"
-#import "AppViewController.h"
+#import "ObjectsListViewController.h"
 #import "iPrestaViewController.h"
-#import "User.h"
+
+@class User;
 
 @implementation iPrestaAppDelegate
 
@@ -38,7 +39,7 @@
         // Si el usuario autentico su email, se redirige a la aplicacion
         if ([[User currentUser] emailVerified])
         {
-            viewController = [[AppViewController alloc] initWithNibName:@"AppViewController" bundle:nil];
+            viewController = [[ObjectsListViewController alloc] initWithNibName:@"ObjectsListViewController" bundle:nil];
         }
         // Sino, se redirige a la pantalla de autenticacion
         else

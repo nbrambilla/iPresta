@@ -12,7 +12,7 @@
 #import "AuthenticateEmailViewController.h"
 #import "iPrestaNavigationController.h"
 #import "RequestPasswordResetViewController.h"
-#import "AppViewController.h"
+#import "ObjectsListViewController.h"
 #import "iPrestaNSString.h"
 
 @interface LoginViewController ()
@@ -94,7 +94,6 @@
 
 - (void)logInSuccess
 {
-    UIViewController *viewController;
     UINavigationController *navigationController;
     
     // Si es un usuario ya autenticado, accede a la aplicacion
@@ -102,21 +101,26 @@
     if ([[User currentUser] emailVerified])
     {
         UINavigationController *navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
-        AppViewController *appViewController = [[AppViewController alloc] initWithNibName:@"AppViewController" bundle:nil];
-        [navigationController pushViewController:appViewController animated:NO];
+        UITableViewController *tableViewcontroller = [[ObjectsListViewController alloc] initWithNibName:@"ObjectsListViewController" bundle:nil];
+        [navigationController pushViewController:tableViewcontroller animated:NO];
         
         [self presentModalViewController:navigationController animated:YES];
+        
+        tableViewcontroller = nil;
     }
     // Si el usuario no esta autenticado, debe hacerlo confirmando su email. Accede a la pantalla de autenticacion
     else
     {
+        UIViewController *viewController;
+
         viewController =  [[AuthenticateEmailViewController alloc] initWithNibName:@"AuthenticateEmailViewController" bundle:nil];
         [navigationController pushViewController:viewController animated:NO];
         
         [self.navigationController pushViewController:viewController animated:YES];
+        
+        viewController = nil;
     }
     
-    viewController = nil;
     navigationController = nil;
 }
 

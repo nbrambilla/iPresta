@@ -7,19 +7,14 @@
 //
 
 #import "User.h"
-#import "Book.h"
-#import "MBProgressHUD.h"
-
-#define CONNECTION_ERROR 100
-#define LOGIN_ERROR 101
-#define SIGNIN_ERROR 202
-#define REQUESTPASSWORDRESET_ERROR 205
-#define NOTCURRENTUSER_ERROR 700
+#import "ProgressHUD.h"
+#import "iPrestaNSError.h"
 
 @implementation User
 
 static id<UserDelegate> delegate;
 
+@synthesize objectId = _objectId;
 @synthesize email = _email;
 @synthesize username = _username;
 @synthesize password = _password;
@@ -31,6 +26,11 @@ static id<UserDelegate> delegate;
 + (void)setDelegate:(id<UserDelegate>)userDelegate
 {
     delegate = userDelegate;
+}
+
+- (void)setObjectId:(NSString *)objectId
+{
+    _objectId = objectId;
 }
 
 - (void)setUsername:(NSString *)username
@@ -58,6 +58,11 @@ static id<UserDelegate> delegate;
 + (id<UserDelegate>)delegate
 {
     return delegate;
+}
+
+- (NSString *)objectId
+{
+    return _objectId;
 }
 
 - (NSString *)username
@@ -88,6 +93,7 @@ static id<UserDelegate> delegate;
     
     if([PFUser currentUser])
     {
+        currentUser.objectId = [[PFUser currentUser] objectId];
         currentUser.username = [[PFUser currentUser] email];
         currentUser.email = [[PFUser currentUser] email];
         currentUser.password = [[PFUser currentUser] password];
@@ -110,7 +116,7 @@ static id<UserDelegate> delegate;
 
 - (void)signIn
 {
-    [User showProgressHUD];
+    [ProgressHUD showProgressHUDIn:delegate];
     
     PFUser *newUser = [PFUser new];
     newUser.username = self.username;
@@ -124,9 +130,9 @@ static id<UserDelegate> delegate;
 
 - (void)signInResponse:(PFUser *)user error:(NSError *)error
 {
-    [User hideProgressHUD];
+    [ProgressHUD hideProgressHUDIn:delegate];
     
-    if (error) [User manageError:error];    // Si hay error en el registro
+    if (error) [error manageErrorTo:delegate];    // Si hay error en el registro
     else                                    // Si el registro se realiza correctamente
     {
         if ([delegate respondsToSelector:@selector(signInSuccess)])
@@ -140,7 +146,7 @@ static id<UserDelegate> delegate;
 
 + (void)logInUserWithUsername:(NSString *)username andPassword:(NSString *)password
 {
-    [User showProgressHUD];
+    [ProgressHUD showProgressHUDIn:delegate];
     
     User *currentUser = [User currentUser];
     currentUser.username = username;
@@ -152,10 +158,10 @@ static id<UserDelegate> delegate;
 
 + (void)logInResponse:(PFUser *)user error:(NSError *)error
 {
-    [User hideProgressHUD];
+    [ProgressHUD hideProgressHUDIn:delegate];
     
-    if (error) [User manageError:error];    // Si hay error en el login
-    else                                    // Si el login se realiza correctamente
+    if (error) [error manageErrorTo:delegate];      // Si hay error en el login
+    else                                            // Si el login se realiza correctamente
     {
         if ([delegate respondsToSelector:@selector(logInSuccess)])
         {
@@ -168,16 +174,16 @@ static id<UserDelegate> delegate;
 
 + (void)requestPasswordResetForEmail:(NSString *)email
 {
-    [User showProgressHUD];
+    [ProgressHUD showProgressHUDIn:delegate];
     
     [PFUser requestPasswordResetForEmailInBackground:email target:[User class] selector:@selector(requestPasswordResetResponse:error:)];
 }
 
 + (void)requestPasswordResetResponse:(PFUser *)user error:(NSError *)error
 {
-    [User hideProgressHUD];
+    [ProgressHUD hideProgressHUDIn:delegate];
     
-    if (error) [User manageError:error];        // Si hay error en la recuperación del password
+    if (error) [error manageErrorTo:delegate];  // Si hay error en la recuperación del password
     else                                        // Si la recuperación del password se realiza correctamente
     {
         [[User currentUser] setPassword:[[PFUser currentUser] password]];
@@ -193,7 +199,7 @@ static id<UserDelegate> delegate;
 
 - (void)checkEmailAuthentication
 {
-    [User showProgressHUD];
+    [ProgressHUD showProgressHUDIn:delegate];
     
     if (self.email == [[PFUser currentUser] email])
     {
@@ -201,9 +207,9 @@ static id<UserDelegate> delegate;
     }
     else
     {
-        NSError *error = [[NSError alloc] initWithDomain:nil code:NOTCURRENTUSER_ERROR userInfo:nil];
+        NSError *error = [[NSError alloc] initWithDomain:@"error" code:NOTCURRENTUSER_ERROR userInfo:nil];
         
-        [User manageError:error];
+        [error manageErrorTo:delegate];
         
         error = nil;
     }
@@ -211,9 +217,9 @@ static id<UserDelegate> delegate;
 
 - (void)checkEmailAuthenticationResponse:(PFUser *)user error:(NSError *)error
 {
-    [User hideProgressHUD];
+    [ProgressHUD hideProgressHUDIn:delegate];
     
-    if (error) [User manageError:error];    // Si hay error en el cambio de email
+    if (error) [error manageErrorTo:delegate];    // Si hay error en el cambio de email
     else                                    // Si el cambio de email se realiza correctamente
     {
         if ([delegate respondsToSelector:@selector(checkEmailAuthenticationSuccess)])
@@ -228,7 +234,7 @@ static id<UserDelegate> delegate;
 
 - (void)resendAuthenticateMessage
 {
-    [User showProgressHUD];
+    [ProgressHUD showProgressHUDIn:delegate];
     
     if (self.email == [[PFUser currentUser] email])
     {
@@ -238,9 +244,9 @@ static id<UserDelegate> delegate;
     }
     else
     {
-        NSError *error = [[NSError alloc] initWithDomain:nil code:NOTCURRENTUSER_ERROR userInfo:nil];
+        NSError *error = [[NSError alloc] initWithDomain:@"error" code:NOTCURRENTUSER_ERROR userInfo:nil];
         
-        [User manageError:error];
+        [error manageErrorTo:delegate];
         
         error = nil;
     }
@@ -248,9 +254,9 @@ static id<UserDelegate> delegate;
 
 - (void)resendAuthenticateMessageResponse:(PFUser *)user error:(NSError *)error
 {
-    [User hideProgressHUD];
+    [ProgressHUD hideProgressHUDIn:delegate];
     
-    if (error) [User manageError:error];     // Si hay error en el cambio de email
+    if (error) [error manageErrorTo:delegate];     // Si hay error en el cambio de email
     else                                     // Si el cambio de email se realiza correctamente
     {
         if ([delegate respondsToSelector:@selector(resendAuthenticateMessageSuccess)])
@@ -266,7 +272,7 @@ static id<UserDelegate> delegate;
 {
     if (self.email == [[PFUser currentUser] email])
     {
-        [User showProgressHUD];
+        [ProgressHUD showProgressHUDIn:delegate];
         
         [[PFUser currentUser] setEmail:newEmail];
         [[PFUser currentUser] setUsername:newEmail];
@@ -275,9 +281,9 @@ static id<UserDelegate> delegate;
     }
     else
     {
-        NSError *error = [[NSError alloc] initWithDomain:nil code:NOTCURRENTUSER_ERROR userInfo:nil];
+        NSError *error = [[NSError alloc] initWithDomain:@"error" code:NOTCURRENTUSER_ERROR userInfo:nil];
         
-        [User manageError:error];
+        [error manageErrorTo:delegate];
         
         error = nil;
     }
@@ -285,14 +291,14 @@ static id<UserDelegate> delegate;
 
 - (void)changeEmailResponse:(PFUser *)user error:(NSError *)error
 {
-    [User hideProgressHUD];
+    [ProgressHUD hideProgressHUDIn:delegate];
     
     if (error) // Si hay error en el cambio de email
     {
         [[PFUser currentUser] setEmail:self.email];
         [[PFUser currentUser] setUsername:self.email];
         
-        [User manageError:error]; 
+        [error manageErrorTo:delegate];
     }
     else // Si el cambio de email se realiza correctamente
     {
@@ -304,56 +310,6 @@ static id<UserDelegate> delegate;
             [delegate changeEmailSuccess];
         }
     }
-}
-
-#pragma mark - Manage Errors Methods
-
-+ (void)manageError:(NSError *)error
-{
-    NSString *message;
-    
-    switch ([error code]) {
-        case CONNECTION_ERROR: // Error de conexión
-            message = @"Error de Conexión";
-            break;
-        case LOGIN_ERROR: // Error de Login
-            message = @"Email y/o password incorrecto/s";
-            break;
-        case SIGNIN_ERROR: // Error de registro
-            message = @"Ya existe un usuario registrado con este email";
-            break;
-        case REQUESTPASSWORDRESET_ERROR: // Error de recuperación de email
-            message = @"No existe un usuario registrado con este email";
-            break;
-        case NOTCURRENTUSER_ERROR: // Error al modificar un usuario que no es el logueado
-            message = @"No se puede modificar los datos de un usuario que no esta logueado";
-            break;
-        default:
-            break;
-    }
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:delegate cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
-    
-    alert = nil;
-}
-
-#pragma mark - ProgressHUD Methods
-
-+ (void)showProgressHUD
-{
-    UIViewController *viewController = (UIViewController *)delegate;
-    [MBProgressHUD showHUDAddedTo:viewController.view.window animated:YES];
-    
-    viewController = nil;
-}
-
-+ (void)hideProgressHUD
-{
-    UIViewController *viewController = (UIViewController *)delegate;
-    [MBProgressHUD hideHUDForView:viewController.view.window animated:YES];
-    
-    viewController = nil;
 }
 
 @end

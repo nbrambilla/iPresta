@@ -9,6 +9,8 @@
 #import <Parse/Parse.h>
 #import <Foundation/Foundation.h>
 
+@class iPrestaObject;
+
 @protocol UserDelegate <NSObject>
 
 @optional
@@ -23,6 +25,7 @@
 
 @interface User : NSObject
 
+@property(strong, nonatomic) NSString *objectId;
 @property(strong, nonatomic) NSString *email;
 @property(strong, nonatomic) NSString *username;
 @property(strong, nonatomic) NSString *password;

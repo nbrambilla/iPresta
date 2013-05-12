@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class ObjetosMenuViewController;
-
 @interface iPrestaAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
