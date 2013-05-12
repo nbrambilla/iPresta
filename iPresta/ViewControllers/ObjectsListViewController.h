@@ -10,9 +10,6 @@
 #import "iPrestaObject.h"
 
 @interface ObjectsListViewController : UITableViewController <iPrestaObjectDelegate, UITableViewDataSource, UITableViewDelegate>
-{
-    NSMutableArray *objectsArray;
-}
 
 @property(strong, nonatomic) NSMutableArray *objectsArray;
 

@@ -37,6 +37,7 @@
     
     newObject = [iPrestaObject new];
     newObject.delegate = self;
+    [iPrestaObject setDelegate:self];
     
     typesArray = [iPrestaObject objectTypes];
     audioTypesArray = [iPrestaObject audioObjectTypes];

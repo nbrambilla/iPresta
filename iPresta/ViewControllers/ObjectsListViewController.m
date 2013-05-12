@@ -93,7 +93,7 @@
     iPrestaObject *object = [objectsArray objectAtIndex:indexPath.row];
     
     cell.textLabel.text = object.name;
-    cell.detailTextLabel.text =  [[iPrestaObject objectTypes] objectAtIndex:[[object objectForKey:@"type"] integerValue]] ;
+    cell.detailTextLabel.text = object.textType;
     
     return cell;
 }
@@ -150,4 +150,8 @@
      */
 }
 
+- (void)viewDidUnload {
+    [self setTableView:nil];
+    [super viewDidUnload];
+}
 @end

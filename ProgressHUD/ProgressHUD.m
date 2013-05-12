@@ -13,7 +13,7 @@
 + (void)showProgressHUDIn:(id)delegate
 {
     UIViewController *viewController = (UIViewController *)delegate;
-    [MBProgressHUD showHUDAddedTo:viewController.view.window animated:YES];
+    [MBProgressHUD showHUDAddedTo:viewController.view animated:YES];
     
     viewController = nil;
 }
@@ -21,7 +21,7 @@
 + (void)hideProgressHUDIn:(id)delegate
 {
     UIViewController *viewController = (UIViewController *)delegate;
-    [MBProgressHUD hideHUDForView:viewController.view.window animated:YES];
+    [MBProgressHUD hideHUDForView:viewController.view animated:YES];
     
     viewController = nil;
 }

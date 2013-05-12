@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Nacho. All rights reserved.
 //
 
+#import <Parse/PFObject+Subclass.h>
 #import "iPrestaObject.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
@@ -16,14 +17,20 @@
 static id<iPrestaObjectDelegate> delegate;
 
 @synthesize delegate = _delegate;
-@synthesize state = _state;
-@synthesize type = _type;
-@synthesize description = _description;
-@synthesize name = _name;
-@synthesize author = _author;
-@synthesize editorial = _editorial;
-@synthesize audioType = _audioType;
-@synthesize videoType = _videoType;
+@synthesize owner;
+@dynamic state;
+@dynamic type;
+@dynamic description;
+@dynamic name;
+@dynamic author;
+@dynamic editorial;
+@dynamic audioType;
+@dynamic videoType;
+
++ (NSString *)parseClassName
+{
+    return @"iPrestaObject";
+}
 
 - (id)init
 {
@@ -41,46 +48,6 @@ static id<iPrestaObjectDelegate> delegate;
     delegate = userDelegate;
 }
 
-- (void)setState:(ObjectState)state
-{
-    _state = state;
-}
-
-- (void)setType:(ObjectType)type
-{
-    _type = type;
-}
-
-- (void)setDescription:(NSString *)description
-{
-    _description = description;
-}
-
-- (void)setName:(NSString *)name
-{
-    [self setObject:name forKey:@"name"];
-}
-
-- (void)setAuthor:(NSString *)author
-{
-    _author = author;
-}
-
-- (void)setEditorial:(NSString *)editorial
-{
-    _editorial = editorial;
-}
-
-- (void)setAudioType:(AudioObjectType)audioType
-{
-    _audioType = audioType;
-}
-
-- (void)setVideoType:(VideoObjectType)videoType
-{
-    _videoType = videoType;
-}
-
 #pragma mark - User Getters
 
 + (id<iPrestaObjectDelegate>)delegate
@@ -88,51 +55,18 @@ static id<iPrestaObjectDelegate> delegate;
     return delegate;
 }
 
-- (ObjectState)state
+- (NSString *)textType
 {
-    return _state;
-}
-
-- (ObjectType)type
-{
-    return _type;
-}
-
-- (NSString *)description
-{
-    return _description;
-}
-
-- (NSString *)name
-{
-    return [self objectForKey:@"name"];
-}
-
-- (NSString *)author
-{
-    return  _author;
-}
-
-- (NSString *)editorial
-{
-    return _editorial;
-}
-
-- (AudioObjectType)audioType
-{
-    return _audioType;
-}
-
-- (VideoObjectType)videoType
-{
-    return _videoType;
+    return [[iPrestaObject objectTypes] objectAtIndex:self.type];
 }
 
 #pragma mark - Get Objects From User
 
 + (void)getObjectsFromUser:(User *)user
 {
-    PFQuery *postQuery = [PFQuery queryWithClassName:@"Objeto"];
+    [ProgressHUD showProgressHUDIn:delegate];
+    
+    PFQuery *postQuery = [iPrestaObject query];
     [postQuery whereKey:@"owner" equalTo:[PFUser currentUser]];
     
     [postQuery findObjectsInBackgroundWithTarget:[iPrestaObject class] selector:@selector(getObjectsFromUserResponse:error:)];
@@ -158,30 +92,32 @@ static id<iPrestaObjectDelegate> delegate;
 {
     [ProgressHUD showProgressHUDIn:_delegate];
     
-    PFObject *object = [PFObject objectWithClassName:@"Objeto"];
-    [object setObject:[PFUser currentUser] forKey:@"owner"];
-    [object setObject:[NSNumber numberWithInteger:_state] forKey:@"state"];
-    [object setObject:[NSNumber numberWithInteger:_type] forKey:@"type"];
-    [object setObject:self.name forKey:@"name"];
-    if ([_author length] > 0)
+    iPrestaObject *object = [iPrestaObject object];
+    
+    object.owner = [PFUser currentUser];
+    object.state = self.state;
+    object.type = self.type;
+    object.name = self.name;
+    
+    if ([self.author length] > 0)
     {
-        [object setObject:_author forKey:@"author"];
+        object.author = self.author;
     }
-    if ([_editorial length] > 0)
+    if ([self.editorial length] > 0)
     {
-        [object setObject:_editorial forKey:@"editorial"];
+        object.editorial = self.editorial;
     }
-    if ([_description length] > 0)
+    if ([self.description length] > 0)
     {
-        [object setObject:_description forKey:@"description"];
+        object.description = self.description;
     }
-    if (_audioType != NoneAudioObjectType)
+    if (self.audioType != NoneAudioObjectType)
     {
-        [object setObject:[NSNumber numberWithInteger:_audioType] forKey:@"audioType"];
+        object.audioType = self.audioType;
     }
-    if (_videoType != NoneVideoObjectType)
+    if (self.videoType != NoneVideoObjectType)
     {
-        [object setObject:[NSNumber numberWithInteger:_videoType] forKey:@"videoType"];
+        object.videoType =  self.videoType;
     }
     
     [object saveInBackgroundWithTarget:self selector:@selector(saveResponse:error:)];

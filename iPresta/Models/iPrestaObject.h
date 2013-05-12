@@ -34,7 +34,7 @@ typedef NS_ENUM(NSUInteger, ObjectType) {
 };
 
 
-typedef NS_ENUM(NSUInteger, AudioObjectType)
+typedef NS_ENUM(NSInteger, AudioObjectType)
 {
     NoneAudioObjectType = -1,
     CDAudioObjectType = 0,
@@ -42,28 +42,27 @@ typedef NS_ENUM(NSUInteger, AudioObjectType)
     VinylAudioObjectType = 2,
 };
 
-typedef NS_ENUM(NSUInteger, VideoObjectType) {
+typedef NS_ENUM(NSInteger, VideoObjectType) {
     NoneVideoObjectType = -1,
     DVDVideoObjectType = 0,
     BluRayVideoObjectType = 1,
     VHSVideoObjectType = 2,
 };
 
-@interface iPrestaObject : PFObject
+@interface iPrestaObject : PFObject<PFSubclassing>
 
 @property(strong, nonatomic) id<iPrestaObjectDelegate> delegate;
-@property(assign, nonatomic) ObjectState state;
-@property(assign, nonatomic) ObjectType type;
-@property(strong, nonatomic) NSString *description;
-@property(strong, nonatomic) NSString *name;
+@property(retain) PFUser *owner;
+@property ObjectState state;
+@property ObjectType type;
+@property(retain) NSString *description;
+@property(retain) NSString *name;
+@property(retain) NSString *author;
+@property(retain) NSString *editorial;
+@property AudioObjectType audioType;
+@property VideoObjectType videoType;
 
-@property(strong, nonatomic) NSString *author;
-@property(strong, nonatomic) NSString *editorial;
-
-@property(assign, nonatomic) AudioObjectType audioType;
-
-@property(assign, nonatomic) VideoObjectType videoType;
-
++ (NSString *)parseClassName;
 + (NSArray *)objectTypes;
 + (NSArray *)audioObjectTypes;
 + (NSArray *)videoObjectTypes;
@@ -73,5 +72,6 @@ typedef NS_ENUM(NSUInteger, VideoObjectType) {
 
 - (void)getObjectData:(NSString *)objectCode;
 - (void)addToCurrentUser;
+- (NSString *)textType;
 
 @end
