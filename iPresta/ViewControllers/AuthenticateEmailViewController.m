@@ -7,7 +7,6 @@
 //
 
 #import "AuthenticateEmailViewController.h"
-#import "MBProgressHUD.h"
 #import "iPrestaNSString.h"
 #import "ChangeEmailViewController.h"
 #import "ObjectsListViewController.h"

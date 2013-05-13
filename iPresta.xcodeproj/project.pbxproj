@@ -19,7 +19,6 @@
 		154F205817205E7D00E65121 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154F205617205E7D00E65121 /* LoginViewController.xib */; };
 		154F205C172065A800E65121 /* CreateCountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154F205A172065A800E65121 /* CreateCountViewController.m */; };
 		154F205D172065A800E65121 /* CreateCountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154F205B172065A800E65121 /* CreateCountViewController.xib */; };
-		15517A101725CA10002FFB69 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 15517A0F1725CA10002FFB69 /* MBProgressHUD.m */; };
 		1563FF77173F9ABE00826DC4 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1563FF71173F9ABE00826DC4 /* libzbar.a */; };
 		1563FF78173F9ABE00826DC4 /* zbar-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 1563FF73173F9ABE00826DC4 /* zbar-back.png */; };
 		1563FF79173F9ABE00826DC4 /* zbar-help.html in Resources */ = {isa = PBXBuildFile; fileRef = 1563FF74173F9ABE00826DC4 /* zbar-help.html */; };
@@ -30,6 +29,7 @@
 		1563FF81173F9C7000826DC4 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1563FF80173F9C7000826DC4 /* libiconv.dylib */; };
 		1563FF83173F9CAF00826DC4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1563FF82173F9CAF00826DC4 /* AVFoundation.framework */; };
 		1563FF87173FA1E700826DC4 /* ConnectionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1563FF86173FA1E700826DC4 /* ConnectionData.m */; };
+		1563FF8E17404B8000826DC4 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1563FF8D17404B8000826DC4 /* ProgressHUD.m */; };
 		156DF704172EF5B900AAB7E6 /* iPrestaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156DF702172EF5B900AAB7E6 /* iPrestaViewController.m */; };
 		156DF705172EF5B900AAB7E6 /* iPrestaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156DF703172EF5B900AAB7E6 /* iPrestaViewController.xib */; };
 		156FDE0A16F399E900F4BEEA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE0916F399E900F4BEEA /* UIKit.framework */; };
@@ -68,7 +68,6 @@
 		15D1706917396AA700CF1F98 /* ObjectsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1706717396AA700CF1F98 /* ObjectsListViewController.xib */; };
 		15D1706D1739706600CF1F98 /* AddObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1706B1739706500CF1F98 /* AddObjectViewController.m */; };
 		15D1706E1739706600CF1F98 /* AddObjectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1706C1739706600CF1F98 /* AddObjectViewController.xib */; };
-		15D1707217398F6D00CF1F98 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1707117398F6D00CF1F98 /* ProgressHUD.m */; };
 		15E6B2191729AE380050763A /* iPrestaNSString.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E6B2181729AE380050763A /* iPrestaNSString.m */; };
 		15EF0992173ADED50001C8EF /* iPrestaNSError.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EF0991173ADED50001C8EF /* iPrestaNSError.m */; };
 		15EF0999173ADFEE0001C8EF /* STComboText.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EF0995173ADFEE0001C8EF /* STComboText.m */; };
@@ -95,8 +94,6 @@
 		154F2059172065A800E65121 /* CreateCountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateCountViewController.h; path = ViewControllers/CreateCountViewController.h; sourceTree = "<group>"; };
 		154F205A172065A800E65121 /* CreateCountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateCountViewController.m; path = ViewControllers/CreateCountViewController.m; sourceTree = "<group>"; };
 		154F205B172065A800E65121 /* CreateCountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CreateCountViewController.xib; path = ViewControllers/CreateCountViewController.xib; sourceTree = "<group>"; };
-		15517A0E1725CA10002FFB69 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = "External Frameworks/MBProgressHUD/MBProgressHUD.h"; sourceTree = "<group>"; };
-		15517A0F1725CA10002FFB69 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = "External Frameworks/MBProgressHUD/MBProgressHUD.m"; sourceTree = "<group>"; };
 		1563FF5D173F9ABE00826DC4 /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
 		1563FF5E173F9ABE00826DC4 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
 		1563FF5F173F9ABE00826DC4 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
@@ -128,6 +125,8 @@
 		1563FF82173F9CAF00826DC4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1563FF85173FA1E700826DC4 /* ConnectionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionData.h; sourceTree = "<group>"; };
 		1563FF86173FA1E700826DC4 /* ConnectionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionData.m; sourceTree = "<group>"; };
+		1563FF8C17404B8000826DC4 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
+		1563FF8D17404B8000826DC4 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
 		156DF701172EF5B900AAB7E6 /* iPrestaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaViewController.h; path = ViewControllers/iPrestaViewController.h; sourceTree = "<group>"; };
 		156DF702172EF5B900AAB7E6 /* iPrestaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaViewController.m; path = ViewControllers/iPrestaViewController.m; sourceTree = "<group>"; };
 		156DF703172EF5B900AAB7E6 /* iPrestaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = iPrestaViewController.xib; path = ViewControllers/iPrestaViewController.xib; sourceTree = "<group>"; };
@@ -178,8 +177,6 @@
 		15D1706A1739706500CF1F98 /* AddObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddObjectViewController.h; path = ViewControllers/AddObjectViewController.h; sourceTree = "<group>"; };
 		15D1706B1739706500CF1F98 /* AddObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddObjectViewController.m; path = ViewControllers/AddObjectViewController.m; sourceTree = "<group>"; };
 		15D1706C1739706600CF1F98 /* AddObjectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AddObjectViewController.xib; path = ViewControllers/AddObjectViewController.xib; sourceTree = "<group>"; };
-		15D1707017398F6D00CF1F98 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProgressHUD.h; path = ProgressHUD/ProgressHUD.h; sourceTree = "<group>"; };
-		15D1707117398F6D00CF1F98 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProgressHUD.m; path = ProgressHUD/ProgressHUD.m; sourceTree = "<group>"; };
 		15E6B2171729AE380050763A /* iPrestaNSString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaNSString.h; path = "External Frameworks/Extends NSString/iPrestaNSString.h"; sourceTree = "<group>"; };
 		15E6B2181729AE380050763A /* iPrestaNSString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaNSString.m; path = "External Frameworks/Extends NSString/iPrestaNSString.m"; sourceTree = "<group>"; };
 		15EF0990173ADED50001C8EF /* iPrestaNSError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaNSError.h; path = "External Frameworks/Extends NSError/iPrestaNSError.h"; sourceTree = "<group>"; };
@@ -237,25 +234,15 @@
 		15517A0C1725C976002FFB69 /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1563FF8B17404B8000826DC4 /* ProgressHUD */,
 				1563FF84173FA1E700826DC4 /* ConnectionData */,
 				1563FF59173F9A6700826DC4 /* ZBarSDK */,
 				15212EEC173C534400A7A764 /* Extends UIControl */,
 				15EF0993173ADFEE0001C8EF /* STControls */,
 				15600EF0173AB9B3004302A2 /* Extends NSError */,
-				15D1706F17398EEE00CF1F98 /* ProgressHUD */,
 				15E6B2161729ADE30050763A /* Extends NSString */,
-				15517A0D1725C9FB002FFB69 /* MBProgressHUD */,
 			);
 			name = "External Frameworks";
-			sourceTree = "<group>";
-		};
-		15517A0D1725C9FB002FFB69 /* MBProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				15517A0E1725CA10002FFB69 /* MBProgressHUD.h */,
-				15517A0F1725CA10002FFB69 /* MBProgressHUD.m */,
-			);
-			name = MBProgressHUD;
 			sourceTree = "<group>";
 		};
 		15600EF0173AB9B3004302A2 /* Extends NSError */ = {
@@ -341,6 +328,16 @@
 			);
 			name = ConnectionData;
 			path = "External Frameworks/ConnectionData";
+			sourceTree = "<group>";
+		};
+		1563FF8B17404B8000826DC4 /* ProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				1563FF8C17404B8000826DC4 /* ProgressHUD.h */,
+				1563FF8D17404B8000826DC4 /* ProgressHUD.m */,
+			);
+			name = ProgressHUD;
+			path = "External Frameworks/ProgressHUD";
 			sourceTree = "<group>";
 		};
 		156FDDFA16F399E800F4BEEA = {
@@ -469,15 +466,6 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-		15D1706F17398EEE00CF1F98 /* ProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				15D1707017398F6D00CF1F98 /* ProgressHUD.h */,
-				15D1707117398F6D00CF1F98 /* ProgressHUD.m */,
-			);
-			name = ProgressHUD;
-			sourceTree = "<group>";
-		};
 		15E6B2161729ADE30050763A /* Extends NSString */ = {
 			isa = PBXGroup;
 			children = (
@@ -591,7 +579,6 @@
 				154F20511720597B00E65121 /* iPrestaNavigationController.m in Sources */,
 				154F205717205E7D00E65121 /* LoginViewController.m in Sources */,
 				154F205C172065A800E65121 /* CreateCountViewController.m in Sources */,
-				15517A101725CA10002FFB69 /* MBProgressHUD.m in Sources */,
 				154C92DC172997680030915B /* AuthenticateEmailViewController.m in Sources */,
 				15E6B2191729AE380050763A /* iPrestaNSString.m in Sources */,
 				15C99479172C0515000672B4 /* ChangeEmailViewController.m in Sources */,
@@ -600,12 +587,12 @@
 				156DF704172EF5B900AAB7E6 /* iPrestaViewController.m in Sources */,
 				15D1706817396AA700CF1F98 /* ObjectsListViewController.m in Sources */,
 				15D1706D1739706600CF1F98 /* AddObjectViewController.m in Sources */,
-				15D1707217398F6D00CF1F98 /* ProgressHUD.m in Sources */,
 				15EF0992173ADED50001C8EF /* iPrestaNSError.m in Sources */,
 				15EF0999173ADFEE0001C8EF /* STComboText.m in Sources */,
 				15EF099A173ADFEE0001C8EF /* STDateText.m in Sources */,
 				15212EEF173C53CF00A7A764 /* iPrestaUIControl.m in Sources */,
 				1563FF87173FA1E700826DC4 /* ConnectionData.m in Sources */,
+				1563FF8E17404B8000826DC4 /* ProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

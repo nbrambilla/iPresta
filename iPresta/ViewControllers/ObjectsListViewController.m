@@ -18,6 +18,8 @@
 
 @synthesize objectsArray;
 
+#pragma mark - Lifecycle Methods
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -36,17 +38,36 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-
-    self.title = @"Objetos";
     
-    [iPrestaObject setDelegate:self];
-    [iPrestaObject getObjectsFromUser:[User currentUser]];
+    self.title = @"Objetos";
     
     UIBarButtonItem *addObjectlButton = [[UIBarButtonItem alloc] initWithTitle:@"Agregar objeto" style:UIBarButtonItemStylePlain target:self action:@selector(goToAddObject)];
     self.navigationItem.rightBarButtonItem = addObjectlButton;
     
     addObjectlButton = nil;
+    
+    [iPrestaObject setDelegate:self];
+    [iPrestaObject getObjectsFromUser:[User currentUser]];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addObjectToList:) name:@"addObjectToListDelegate" object:nil];
 }
+
+- (void)viewDidUnload
+{
+    [self setTableView:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [super viewDidUnload];
+
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Get Object List Methods
 
 - (void)getObjectsFromUserSuccess:(NSArray *)result
 {
@@ -54,18 +75,20 @@
     [self.tableView reloadData];
 }
 
+- (void)addObjectToList:(NSNotification *)notification
+{
+    [objectsArray addObject:notification.object];
+    [self.tableView reloadData];
+}
+
+#pragma mark - Change ViewController Methods
+
 - (void)goToAddObject
 {
     AddObjectViewController *addObjectViewController = [[AddObjectViewController alloc] initWithNibName:@"AddObjectViewController" bundle:nil];
     [self.navigationController pushViewController:addObjectViewController animated:YES];
     
     addObjectViewController = nil;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -150,8 +173,4 @@
      */
 }
 
-- (void)viewDidUnload {
-    [self setTableView:nil];
-    [super viewDidUnload];
-}
 @end

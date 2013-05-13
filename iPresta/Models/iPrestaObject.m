@@ -16,8 +16,7 @@
 
 static id<iPrestaObjectDelegate> delegate;
 
-@synthesize delegate = _delegate;
-@synthesize owner;
+@dynamic owner;
 @dynamic state;
 @dynamic type;
 @dynamic description;
@@ -90,7 +89,7 @@ static id<iPrestaObjectDelegate> delegate;
 
 - (void)addToCurrentUser
 {
-    [ProgressHUD showProgressHUDIn:_delegate];
+    [ProgressHUD showProgressHUDIn:delegate];
     
     iPrestaObject *object = [iPrestaObject object];
     
@@ -125,14 +124,14 @@ static id<iPrestaObjectDelegate> delegate;
 
 - (void)saveResponse:(PFObject *)object error:(NSError *)error
 {
-    [ProgressHUD hideProgressHUDIn:_delegate];
+    [ProgressHUD hideProgressHUDIn:delegate];
     
-    if (error) [error manageErrorTo:_delegate];     // Si hay al guardar el objeto
+    if (error) [error manageErrorTo:delegate];     // Si hay al guardar el objeto
     else                                            // Si el objeto se guarda correctamente
     {
-        if ([_delegate respondsToSelector:@selector(addToCurrentUserSuccess)])
+        if ([delegate respondsToSelector:@selector(addToCurrentUserSuccess)])
         {
-            [_delegate addToCurrentUserSuccess];
+            [delegate addToCurrentUserSuccess];
         }
     }
 }
@@ -141,7 +140,7 @@ static id<iPrestaObjectDelegate> delegate;
 
 - (void)getObjectData:(NSString *)objectCode
 {
-    [ProgressHUD showProgressHUDIn:_delegate];
+    [ProgressHUD showProgressHUDIn:delegate];
     
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/books/v1/volumes?q=isbn:%@", objectCode];
     
@@ -162,15 +161,15 @@ static id<iPrestaObjectDelegate> delegate;
 
 - (void)dataFinishLoading:(ConnectionData *)connection error:(NSError *)error;
 {
-    [ProgressHUD hideProgressHUDIn:_delegate];
+    [ProgressHUD hideProgressHUDIn:delegate];
     
-    if (error) [error manageErrorTo:_delegate];     // Si error hay al buscar el objeto
+    if (error) [error manageErrorTo:delegate];     // Si error hay al buscar el objeto
     else
     {
         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:connection.requestData options:NSJSONReadingMutableContainers error:&error];
         if ([[response objectForKey:@"totalItems"] integerValue] > 0)
         {
-            if ([_delegate respondsToSelector:@selector(getObjectDataSuccess)])
+            if ([delegate respondsToSelector:@selector(getObjectDataSuccess)])
             {
                 id volumeInfo = [[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"volumeInfo"];
                 
@@ -194,9 +193,9 @@ static id<iPrestaObjectDelegate> delegate;
                 // Se setea la editorial del objeto
                 self.editorial = ([volumeInfo objectForKey:@"publisher"]) ? self.editorial = [volumeInfo objectForKey:@"publisher"] : @"";
                 
-                if ([_delegate respondsToSelector:@selector(getObjectDataSuccess)])
+                if ([delegate respondsToSelector:@selector(getObjectDataSuccess)])
                 {
-                    [_delegate getObjectDataSuccess];
+                    [delegate getObjectDataSuccess];
                 }
             }
         }
@@ -204,7 +203,7 @@ static id<iPrestaObjectDelegate> delegate;
         {
             error = [[NSError alloc] initWithDomain:@"error" code:EMPTYOBJECTDATA_ERROR userInfo:nil];
             
-            [error manageErrorTo:_delegate];
+            [error manageErrorTo:delegate];
         }
     }
 }

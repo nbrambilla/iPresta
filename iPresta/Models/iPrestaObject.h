@@ -51,7 +51,6 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 
 @interface iPrestaObject : PFObject<PFSubclassing>
 
-@property(strong, nonatomic) id<iPrestaObjectDelegate> delegate;
 @property(retain) PFUser *owner;
 @property ObjectState state;
 @property ObjectType type;

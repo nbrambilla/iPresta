@@ -29,14 +29,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-
+    
     UIBarButtonItem *detectObjectButton = [[UIBarButtonItem alloc] initWithTitle:@"Detectar" style:UIBarButtonItemStylePlain target:self action:@selector(goToDetectObject)];
     self.navigationItem.rightBarButtonItem = detectObjectButton;
     
     detectObjectButton = nil;
     
     newObject = [iPrestaObject new];
-    newObject.delegate = self;
+    
     [iPrestaObject setDelegate:self];
     
     typesArray = [iPrestaObject objectTypes];
@@ -63,7 +63,6 @@
     
     // present and release the controller
     [self presentViewController:reader animated:YES completion:nil];
-    
     reader = nil;
 }
 
@@ -97,6 +96,7 @@
 
 - (void)viewDidUnload
 {
+    [iPrestaObject setDelegate:nil];
     descriptionTextField = nil;
     typeComboText = nil;
     nameTextField = nil;
@@ -143,6 +143,7 @@
 
 - (void)addToCurrentUserSuccess
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"addObjectToListDelegate" object:newObject];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

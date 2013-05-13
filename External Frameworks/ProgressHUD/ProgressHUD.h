@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Nacho. All rights reserved.
 //
 
-#import "MBProgressHUD.h"
+#import <Parse/PF_MBProgressHUD.h>
 
-@interface ProgressHUD : MBProgressHUD
+@interface ProgressHUD : PF_MBProgressHUD
 
 + (void)showProgressHUDIn:(id)delegate;
 + (void)hideProgressHUDIn:(id)delegate;

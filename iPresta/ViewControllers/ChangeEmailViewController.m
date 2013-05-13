@@ -8,7 +8,6 @@
 
 #import "ChangeEmailViewController.h"
 #import "iPrestaNSString.h"
-#import "MBProgressHUD.h"
 
 @interface ChangeEmailViewController ()
 
@@ -52,9 +51,7 @@
 }
 
 - (void)changeEmailSuccess
-{
-    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-    
+{    
     [self.navigationController popViewControllerAnimated:YES];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Email cambiado" message:@"Ahora auntentique el nuevo email y presione Entrar" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
