@@ -104,6 +104,7 @@
     editorialTextField = nil;
     audioTypeComboText = nil;
     videoTypeComboText = nil;
+    newObject = nil;
     [super viewDidUnload];
 }
 
@@ -127,8 +128,8 @@
         newObject.author = authorTextField.text;
         newObject.editorial = editorialTextField.text;
         newObject.description = descriptionTextField.text;
-        newObject.audioType = audioTypeSelectedIndex;
-        newObject.videoType = videoTypeSelectedIndex;
+        if (audioTypeSelectedIndex != NoneAudioObjectType) newObject.audioType = audioTypeSelectedIndex;
+        if (videoTypeSelectedIndex != NoneVideoObjectType) newObject.videoType = videoTypeSelectedIndex;
         
         [newObject addToCurrentUser];
     }

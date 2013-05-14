@@ -91,35 +91,8 @@ static id<iPrestaObjectDelegate> delegate;
 {
     [ProgressHUD showProgressHUDIn:delegate];
     
-    iPrestaObject *object = [iPrestaObject object];
-    
-    object.owner = [PFUser currentUser];
-    object.state = self.state;
-    object.type = self.type;
-    object.name = self.name;
-    
-    if ([self.author length] > 0)
-    {
-        object.author = self.author;
-    }
-    if ([self.editorial length] > 0)
-    {
-        object.editorial = self.editorial;
-    }
-    if ([self.description length] > 0)
-    {
-        object.description = self.description;
-    }
-    if (self.audioType != NoneAudioObjectType)
-    {
-        object.audioType = self.audioType;
-    }
-    if (self.videoType != NoneVideoObjectType)
-    {
-        object.videoType =  self.videoType;
-    }
-    
-    [object saveInBackgroundWithTarget:self selector:@selector(saveResponse:error:)];
+    self.owner = [PFUser currentUser];
+    [self saveInBackgroundWithTarget:self selector:@selector(saveResponse:error:)];
 }
 
 - (void)saveResponse:(PFObject *)object error:(NSError *)error
