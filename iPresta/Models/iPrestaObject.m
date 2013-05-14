@@ -20,7 +20,7 @@ static id<iPrestaObjectDelegate> delegate;
 @dynamic owner;
 @dynamic state;
 @dynamic type;
-@dynamic description;
+@dynamic descriptionObject;
 @dynamic name;
 @dynamic author;
 @dynamic editorial;
@@ -55,9 +55,24 @@ static id<iPrestaObjectDelegate> delegate;
     return delegate;
 }
 
+- (NSString *)textState
+{
+    return [[iPrestaObject stateTypes] objectAtIndex:self.state];
+}
+
 - (NSString *)textType
 {
     return [[iPrestaObject objectTypes] objectAtIndex:self.type];
+}
+
+- (NSString *)textAudioType
+{
+    return [[iPrestaObject audioObjectTypes] objectAtIndex:self.audioType];
+}
+
+- (NSString *)textVideoType
+{
+    return [[iPrestaObject videoObjectTypes] objectAtIndex:self.videoType];
 }
 
 #pragma mark - Get Objects From User
@@ -183,6 +198,11 @@ static id<iPrestaObjectDelegate> delegate;
 }
 
 #pragma mark - Constants Methods
+
++ (NSArray *)stateTypes
+{
+    return [NSArray arrayWithObjects:@"No prestado", @"Prestado", @"A devolver", nil];
+}
 
 + (NSArray *)objectTypes
 {

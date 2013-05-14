@@ -8,6 +8,7 @@
 
 #import "ObjectsListViewController.h"
 #import "AddObjectViewController.h"
+#import "ObjectDetailViewController.h"
 #import "User.h"
 
 @interface ObjectsListViewController ()
@@ -55,10 +56,10 @@
 - (void)viewDidUnload
 {
     [self setTableView:nil];
+    [self setObjectsArray:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [super viewDidUnload];
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -91,6 +92,17 @@
     addObjectViewController = nil;
 }
 
+- (void)goToObjectDetail:(iPrestaObject *)object
+{
+    ObjectDetailViewController *objectDetailViewController = [[ObjectDetailViewController alloc] initWithNibName:@"ObjectDetailViewController" bundle:nil];
+    objectDetailViewController.object = object;
+    
+    [self.navigationController pushViewController:objectDetailViewController animated:YES];
+    
+    objectDetailViewController = nil;
+}
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -117,6 +129,8 @@
     
     cell.textLabel.text = object.name;
     cell.detailTextLabel.text = object.textType;
+    
+    object = nil;
     
     return cell;
 }
@@ -171,6 +185,9 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+    
+    [self goToObjectDetail:[objectsArray objectAtIndex:indexPath.row]];
+    
 }
 
 @end

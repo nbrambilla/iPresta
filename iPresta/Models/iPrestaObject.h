@@ -54,7 +54,7 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 @property(retain) User *owner;
 @property ObjectState state;
 @property ObjectType type;
-@property(retain) NSString *description;
+@property(retain) NSString *descriptionObject;
 @property(retain) NSString *name;
 @property(retain) NSString *author;
 @property(retain) NSString *editorial;
@@ -71,6 +71,9 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 
 - (void)getObjectData:(NSString *)objectCode;
 - (void)addToCurrentUser;
+- (NSString *)textState;
 - (NSString *)textType;
+- (NSString *)textAudioType;
+- (NSString *)textVideoType;
 
 @end

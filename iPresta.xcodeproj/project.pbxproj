@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		15124E5B16FDDFBD00520FE2 /* Lending.m in Sources */ = {isa = PBXBuildFile; fileRef = 15124E5A16FDDFBD00520FE2 /* Lending.m */; };
 		15212EEF173C53CF00A7A764 /* iPrestaUIControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 15212EEE173C53CF00A7A764 /* iPrestaUIControl.m */; };
+		15393FF51742BA020012BA4F /* ObjectDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15393FF31742BA020012BA4F /* ObjectDetailViewController.m */; };
+		15393FF61742BA020012BA4F /* ObjectDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15393FF41742BA020012BA4F /* ObjectDetailViewController.xib */; };
 		153BF38C172D759900819918 /* AppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 153BF38A172D759900819918 /* AppViewController.m */; };
 		153BF38D172D759900819918 /* AppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 153BF38B172D759900819918 /* AppViewController.xib */; };
 		154C92DC172997680030915B /* AuthenticateEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C92DA172997680030915B /* AuthenticateEmailViewController.m */; };
@@ -79,6 +81,9 @@
 		15124E5A16FDDFBD00520FE2 /* Lending.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Lending.m; path = iPresta/Models/Lending.m; sourceTree = "<group>"; };
 		15212EED173C53CF00A7A764 /* iPrestaUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaUIControl.h; path = "External Frameworks/Extends UIControl/iPrestaUIControl.h"; sourceTree = "<group>"; };
 		15212EEE173C53CF00A7A764 /* iPrestaUIControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaUIControl.m; path = "External Frameworks/Extends UIControl/iPrestaUIControl.m"; sourceTree = "<group>"; };
+		15393FF21742BA020012BA4F /* ObjectDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectDetailViewController.h; path = ViewControllers/ObjectDetailViewController.h; sourceTree = "<group>"; };
+		15393FF31742BA020012BA4F /* ObjectDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectDetailViewController.m; path = ViewControllers/ObjectDetailViewController.m; sourceTree = "<group>"; };
+		15393FF41742BA020012BA4F /* ObjectDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ObjectDetailViewController.xib; path = ViewControllers/ObjectDetailViewController.xib; sourceTree = "<group>"; };
 		153BF389172D759800819918 /* AppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppViewController.h; path = ViewControllers/AppViewController.h; sourceTree = "<group>"; };
 		153BF38A172D759900819918 /* AppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppViewController.m; path = ViewControllers/AppViewController.m; sourceTree = "<group>"; };
 		153BF38B172D759900819918 /* AppViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AppViewController.xib; path = ViewControllers/AppViewController.xib; sourceTree = "<group>"; };
@@ -449,6 +454,9 @@
 				15D1706A1739706500CF1F98 /* AddObjectViewController.h */,
 				15D1706B1739706500CF1F98 /* AddObjectViewController.m */,
 				15D1706C1739706600CF1F98 /* AddObjectViewController.xib */,
+				15393FF21742BA020012BA4F /* ObjectDetailViewController.h */,
+				15393FF31742BA020012BA4F /* ObjectDetailViewController.m */,
+				15393FF41742BA020012BA4F /* ObjectDetailViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -560,6 +568,7 @@
 				1563FF79173F9ABE00826DC4 /* zbar-help.html in Resources */,
 				1563FF7A173F9ABE00826DC4 /* zbar-helpicons.png in Resources */,
 				1563FF7B173F9ABE00826DC4 /* zbar-samples.png in Resources */,
+				15393FF61742BA020012BA4F /* ObjectDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,6 +602,7 @@
 				15212EEF173C53CF00A7A764 /* iPrestaUIControl.m in Sources */,
 				1563FF87173FA1E700826DC4 /* ConnectionData.m in Sources */,
 				1563FF8E17404B8000826DC4 /* ProgressHUD.m in Sources */,
+				15393FF51742BA020012BA4F /* ObjectDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -35,6 +35,11 @@
     
     detectObjectButton = nil;
     
+    nameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    authorTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    editorialTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    descriptionTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    
     newObject = [iPrestaObject new];
     
     [iPrestaObject setDelegate:self];
@@ -89,9 +94,9 @@
 
 - (void)getObjectDataSuccess
 {
-    nameTextField.text = newObject.name;
-    authorTextField.text = newObject.author;
-    editorialTextField.text = newObject.editorial;
+    nameTextField.text = [newObject.name capitalizedString];
+    authorTextField.text = [newObject.author capitalizedString];
+    editorialTextField.text = [newObject.editorial capitalizedString];
 }
 
 - (void)viewDidUnload
@@ -125,9 +130,9 @@
         newObject.state = Property;
         newObject.type = typeSelectedIndex;
         newObject.name = nameTextField.text;
-        newObject.author = authorTextField.text;
-        newObject.editorial = editorialTextField.text;
-        newObject.description = descriptionTextField.text;
+        newObject.author = [authorTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        newObject.editorial = [editorialTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        newObject.descriptionObject = [descriptionTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if (audioTypeSelectedIndex != NoneAudioObjectType) newObject.audioType = audioTypeSelectedIndex;
         if (videoTypeSelectedIndex != NoneVideoObjectType) newObject.videoType = videoTypeSelectedIndex;
         
