@@ -45,19 +45,19 @@
     }
 }
 
-- (IBAction)hideKeyboard:(id)sender
-{
-    if ([emailTextField isFirstResponder]) [emailTextField resignFirstResponder];
-}
-
 - (void)changeEmailSuccess
-{    
+{
     [self.navigationController popViewControllerAnimated:YES];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Email cambiado" message:@"Ahora auntentique el nuevo email y presione Entrar" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     
     alert = nil;
+}
+
+- (IBAction)hideKeyboard:(id)sender
+{
+    if ([emailTextField isFirstResponder]) [emailTextField resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning

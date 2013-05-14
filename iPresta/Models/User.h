@@ -23,16 +23,15 @@
 
 @end
 
-@interface User : NSObject
+@interface User : PFUser<PFSubclassing>
 
-@property(strong, nonatomic) NSString *objectId;
-@property(strong, nonatomic) NSString *email;
-@property(strong, nonatomic) NSString *username;
-@property(strong, nonatomic) NSString *password;
-@property(assign, nonatomic) BOOL emailVerified;
+@property(retain) NSString *objectId;
+@property(retain, nonatomic) NSString *email;
+@property(retain, nonatomic) NSString *username;
+@property(retain, nonatomic) NSString *password;
 
++ (BOOL)currentUserHasEmailVerified;
 + (User *)currentUser;
-+ (BOOL)existsCurrentUser;
 + (void)logInUserWithUsername:(NSString *)username andPassword:(NSString *)password;
 + (void)logOut;
 + (void)setDelegate:(id<UserDelegate>)userDelegate;

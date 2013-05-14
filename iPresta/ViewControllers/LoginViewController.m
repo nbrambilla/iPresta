@@ -97,7 +97,7 @@
     
     // Si es un usuario ya autenticado, accede a la aplicacion
     
-    if ([[User currentUser] emailVerified])
+    if ([User currentUserHasEmailVerified])
     {
         UINavigationController *navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
         UITableViewController *tableViewcontroller = [[ObjectsListViewController alloc] initWithNibName:@"ObjectsListViewController" bundle:nil];

@@ -8,6 +8,7 @@
 
 #import <Parse/PFObject+Subclass.h>
 #import "iPrestaObject.h"
+#import "User.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
 #import "ConnectionData.h"
@@ -66,7 +67,7 @@ static id<iPrestaObjectDelegate> delegate;
     [ProgressHUD showProgressHUDIn:delegate];
     
     PFQuery *postQuery = [iPrestaObject query];
-    [postQuery whereKey:@"owner" equalTo:[PFUser currentUser]];
+    [postQuery whereKey:@"owner" equalTo:user];
     
     [postQuery findObjectsInBackgroundWithTarget:[iPrestaObject class] selector:@selector(getObjectsFromUserResponse:error:)];
 }
@@ -91,11 +92,11 @@ static id<iPrestaObjectDelegate> delegate;
 {
     [ProgressHUD showProgressHUDIn:delegate];
     
-    self.owner = [PFUser currentUser];
+    self.owner = [User currentUser];
     [self saveInBackgroundWithTarget:self selector:@selector(saveResponse:error:)];
 }
 
-- (void)saveResponse:(PFObject *)object error:(NSError *)error
+- (void)saveResponse:(iPrestaObject *)object error:(NSError *)error
 {
     [ProgressHUD hideProgressHUDIn:delegate];
     

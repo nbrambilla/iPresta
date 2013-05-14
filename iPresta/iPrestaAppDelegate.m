@@ -7,6 +7,7 @@
 //
 
 #import "iPrestaObject.h"
+#import "User.h"
 #import "iPrestaAppDelegate.h"
 #import "AuthenticateEmailViewController.h"
 #import "iPrestaNavigationController.h"
@@ -14,14 +15,13 @@
 #import "ObjectsListViewController.h"
 #import "iPrestaViewController.h"
 
-@class User;
-
 @implementation iPrestaAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    [User registerSubclass];
     [iPrestaObject registerSubclass];
     [Parse setApplicationId:@"ke5qAMdl1hxNkKPbmJyiOkCqfDkUtvwnRX6PKlXA" clientKey:@"xceoaXQrBv8vRium67iyjZrQfFI8lI0AROGhXsfR"];
     
@@ -33,13 +33,13 @@
     [self.window makeKeyAndVisible];
     
     // Si existe un usuario logueado...
-    if ([User existsCurrentUser])
+    if ([User currentUser])
     {
         iPrestaNavigationController *navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
         UIViewController *viewController;
         
         // Si el usuario autentico su email, se redirige a la aplicacion
-        if ([[User currentUser] emailVerified])
+        if ([User currentUserHasEmailVerified])
         {
             viewController = [[ObjectsListViewController alloc] initWithNibName:@"ObjectsListViewController" bundle:nil];
         }

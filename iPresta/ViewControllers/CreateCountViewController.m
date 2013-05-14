@@ -74,7 +74,7 @@
             {                
                 [User setDelegate:self];
                 
-                User *newUser = [User new];
+                User *newUser = [User object];
                 newUser.username = emailTextField.text;
                 newUser.email = emailTextField.text;
                 newUser.password = passwordTextField.text;
