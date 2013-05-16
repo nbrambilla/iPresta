@@ -7,6 +7,8 @@
 //
 
 #import "AddObjectViewController.h"
+#import "iPrestaNSError.h"
+#import "ProgressHUD.h"
 
 @interface AddObjectViewController ()
 
@@ -40,7 +42,7 @@
     editorialTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     descriptionTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     
-    newObject = [iPrestaObject new];
+    newObject = [iPrestaObject object];
     
     [iPrestaObject setDelegate:self];
     
@@ -50,6 +52,28 @@
 
     [self stComboText:typeComboText didSelectRow:BookType];
 }
+
+- (void)viewDidUnload
+{
+    [iPrestaObject setDelegate:nil];
+    descriptionTextField = nil;
+    typeComboText = nil;
+    nameTextField = nil;
+    authorTextField = nil;
+    editorialTextField = nil;
+    audioTypeComboText = nil;
+    videoTypeComboText = nil;
+    newObject = nil;
+    [super viewDidUnload];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Detect Object Methods
 
 - (void)goToDetectObject
 {
@@ -89,54 +113,24 @@
     // ADD: dismiss the controller (NB dismiss from the *reader*!)
     [reader dismissViewControllerAnimated:YES completion:nil];
     
-    [newObject getObjectData:symbol.data];
+    [newObject getData:symbol.data];
 }
 
-- (void)getObjectDataSuccess
+- (void)getDataSuccess
 {
-    nameTextField.text = [newObject.name capitalizedString];
-    authorTextField.text = [newObject.author capitalizedString];
-    editorialTextField.text = [newObject.editorial capitalizedString];
-}
-
-- (void)viewDidUnload
-{
-    [iPrestaObject setDelegate:nil];
-    descriptionTextField = nil;
-    typeComboText = nil;
-    nameTextField = nil;
-    authorTextField = nil;
-    editorialTextField = nil;
-    audioTypeComboText = nil;
-    videoTypeComboText = nil;
-    newObject = nil;
-    [super viewDidUnload];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self setTextFields];
 }
 
 #pragma mark - Save Objects Methods
 
-- (IBAction)addToCurrentUser:(id)sender
+- (IBAction)pressAddToCurrentUser:(id)sender
 {
     nameTextField.text = [nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     if ([nameTextField.text length] > 0)
     {
-        newObject.state = Property;
-        newObject.type = typeSelectedIndex;
-        newObject.name = nameTextField.text;
-        newObject.author = [authorTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        newObject.editorial = [editorialTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        newObject.descriptionObject = [descriptionTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        if (audioTypeSelectedIndex != NoneAudioObjectType) newObject.audioType = audioTypeSelectedIndex;
-        if (videoTypeSelectedIndex != NoneVideoObjectType) newObject.videoType = videoTypeSelectedIndex;
-        
-        [newObject addToCurrentUser];
+        [self setNewObject];
+        [self saveNewObject];
     }
     else
     {
@@ -147,10 +141,21 @@
     }
 }
 
-- (void)addToCurrentUserSuccess
+- (void)saveNewObject
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"addObjectToListDelegate" object:newObject];
-    [self.navigationController popViewControllerAnimated:YES];
+    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    [newObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+    {
+        [ProgressHUD hideHUDForView:self.view animated:YES];
+         
+        if (error) [error manageErrorTo:self];      // Si hay al guardar el objeto
+        else                                        // Si el objeto se guarda correctamente
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"addObjectToListDelegate" object:newObject];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }];
 }
 
 #pragma mark - Keyboard Methods
@@ -170,6 +175,30 @@
     }
 }
 
+#pragma mark - Set Methods
+
+- (void)setTextFields
+{
+    nameTextField.text = [newObject.name capitalizedString];
+    authorTextField.text = [newObject.author capitalizedString];
+    editorialTextField.text = [newObject.editorial capitalizedString];
+}
+
+- (void)setNewObject
+{
+    newObject.owner = [User currentUser];
+    newObject.state = Property;
+    newObject.type = typeSelectedIndex;
+    newObject.name = nameTextField.text;
+    if (authorTextField.text) newObject.author = [authorTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (editorialTextField.text) newObject.editorial = [editorialTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (descriptionTextField.text) newObject.descriptionObject = [descriptionTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (audioTypeSelectedIndex != NoneAudioObjectType) newObject.audioType = audioTypeSelectedIndex;
+    if (videoTypeSelectedIndex != NoneVideoObjectType) newObject.videoType = videoTypeSelectedIndex;
+}
+
+#pragma mark - STCombo Methods
+
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     if([textField isKindOfClass:[STComboText class]])
@@ -179,8 +208,6 @@
     }
     return YES;
 }
-
-#pragma mark - STCombo Methods
 
 - (NSString*)stComboText:(STComboText*)stComboText textForRow:(NSUInteger)row
 {

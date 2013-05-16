@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Nacho. All rights reserved.
 //
 
+#import "ProgressHUD.h"
+#import "iPrestaNSError.h"
 #import "ObjectsListViewController.h"
 #import "AddObjectViewController.h"
 #import "ObjectDetailViewController.h"
@@ -47,10 +49,29 @@
     
     addObjectlButton = nil;
     
-    [iPrestaObject setDelegate:self];
-    [iPrestaObject getObjectsFromUser:[User currentUser]];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addObjectToList:) name:@"addObjectToListDelegate" object:nil];
+        
+    [self setTableView];
+}
+
+- (void)setTableView
+{
+    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    PFQuery *getObjectsQuery = [iPrestaObject query];
+    [getObjectsQuery whereKey:@"owner" equalTo:[User currentUser]];
+    
+    [getObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+     {
+         [ProgressHUD hideHUDForView:self.view animated:YES];
+         
+         if (error) [error manageErrorTo:self];          // Si hay error al obtener los objetos
+         else                                            // Si se obtienen los objetos, se listan
+         {
+             objectsArray = [objects mutableCopy];
+             [self.tableView reloadData];
+         }
+     }];
 }
 
 - (void)viewDidUnload
@@ -68,18 +89,31 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Get Object List Methods
-
-- (void)getObjectsFromUserSuccess:(NSArray *)result
-{
-    objectsArray = [result mutableCopy];
-    [self.tableView reloadData];
-}
+#pragma mark - Add/Delete Object Methods
 
 - (void)addObjectToList:(NSNotification *)notification
 {
     [objectsArray addObject:notification.object];
     [self.tableView reloadData];
+}
+
+- (void)deleteObjectWithIndex:(NSIndexPath *)indexPath
+{
+    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    iPrestaObject *object = [objectsArray objectAtIndex:indexPath.row];
+    
+    [object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+     {
+         [ProgressHUD hideHUDForView:self.view animated:YES];
+         
+         if (error) [error manageErrorTo:self];          // Si hay error al eliminar el objeto
+         else                                            // Si se elimina el objetoo, se actualiza la lista
+         {
+             [objectsArray removeObjectAtIndex:indexPath.row];
+             [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+         }
+     }];
 }
 
 #pragma mark - Change ViewController Methods
@@ -102,7 +136,6 @@
     objectDetailViewController = nil;
 }
 
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -121,7 +154,8 @@
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
+    if (cell == nil)
+    {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
@@ -135,28 +169,23 @@
     return cell;
 }
 
-/*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
         // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+        [self deleteObjectWithIndex:indexPath];
+       
+    }  
 }
-*/
 
 /*
 // Override to support rearranging the table view.

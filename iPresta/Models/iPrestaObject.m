@@ -75,59 +75,9 @@ static id<iPrestaObjectDelegate> delegate;
     return [[iPrestaObject videoObjectTypes] objectAtIndex:self.videoType];
 }
 
-#pragma mark - Get Objects From User
-
-+ (void)getObjectsFromUser:(User *)user
-{
-    [ProgressHUD showProgressHUDIn:delegate];
-    
-    PFQuery *postQuery = [iPrestaObject query];
-    [postQuery whereKey:@"owner" equalTo:user];
-    
-    [postQuery findObjectsInBackgroundWithTarget:[iPrestaObject class] selector:@selector(getObjectsFromUserResponse:error:)];
-}
-
-+ (void)getObjectsFromUserResponse:(NSArray *)result error:(NSError *)error
-{
-    [ProgressHUD hideProgressHUDIn:delegate];
-    
-    if (error) [error manageErrorTo:delegate];     // Si hay al guardar el objeto
-    else                                            // Si el objeto se guarda correctamente
-    {
-        if ([delegate respondsToSelector:@selector(getObjectsFromUserSuccess:)])
-        {
-            [delegate getObjectsFromUserSuccess:result];
-        }
-    }
-}
-
-#pragma mark - Save Methods
-
-- (void)addToCurrentUser
-{
-    [ProgressHUD showProgressHUDIn:delegate];
-    
-    self.owner = [User currentUser];
-    [self saveInBackgroundWithTarget:self selector:@selector(saveResponse:error:)];
-}
-
-- (void)saveResponse:(iPrestaObject *)object error:(NSError *)error
-{
-    [ProgressHUD hideProgressHUDIn:delegate];
-    
-    if (error) [error manageErrorTo:delegate];     // Si hay al guardar el objeto
-    else                                            // Si el objeto se guarda correctamente
-    {
-        if ([delegate respondsToSelector:@selector(addToCurrentUserSuccess)])
-        {
-            [delegate addToCurrentUserSuccess];
-        }
-    }
-}
-
 #pragma mark - Get Object Data Methods
 
-- (void)getObjectData:(NSString *)objectCode
+- (void)getData:(NSString *)objectCode
 {
     [ProgressHUD showProgressHUDIn:delegate];
     
@@ -158,7 +108,7 @@ static id<iPrestaObjectDelegate> delegate;
         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:connection.requestData options:NSJSONReadingMutableContainers error:&error];
         if ([[response objectForKey:@"totalItems"] integerValue] > 0)
         {
-            if ([delegate respondsToSelector:@selector(getObjectDataSuccess)])
+            if ([delegate respondsToSelector:@selector(getDataSuccess)])
             {
                 id volumeInfo = [[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"volumeInfo"];
                 
@@ -182,10 +132,7 @@ static id<iPrestaObjectDelegate> delegate;
                 // Se setea la editorial del objeto
                 self.editorial = ([volumeInfo objectForKey:@"publisher"]) ? self.editorial = [volumeInfo objectForKey:@"publisher"] : @"";
                 
-                if ([delegate respondsToSelector:@selector(getObjectDataSuccess)])
-                {
-                    [delegate getObjectDataSuccess];
-                }
+                [delegate getDataSuccess];
             }
         }
         else

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "iPrestaObject.h"
+#import "User.h"
 #import "STControls.h"
 #import "ZBarSDK.h"
 

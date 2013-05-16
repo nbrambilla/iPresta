@@ -247,7 +247,6 @@
 						<string key="NSFrame">{{95, 367}, {130, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -388,12 +387,12 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">addToCurrentUser:</string>
+						<string key="label">pressAddToCurrentUser:</string>
 						<reference key="source" ref="442442059"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">13</int>
+					<int key="connectionID">40</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -544,7 +543,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">38</int>
+			<int key="maxID">40</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -552,16 +551,16 @@
 					<string key="className">AddObjectViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="addToCurrentUser:">id</string>
 						<string key="hideKeyboard:">id</string>
+						<string key="pressAddToCurrentUser:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="addToCurrentUser:">
-							<string key="name">addToCurrentUser:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="hideKeyboard:">
 							<string key="name">hideKeyboard:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="pressAddToCurrentUser:">
+							<string key="name">pressAddToCurrentUser:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
@@ -570,7 +569,6 @@
 						<string key="authorTextField">UITextField</string>
 						<string key="descriptionTextField">UITextField</string>
 						<string key="editorialTextField">UITextField</string>
-						<string key="isbnTextField">UITextField</string>
 						<string key="nameTextField">UITextField</string>
 						<string key="typeComboText">STComboText</string>
 						<string key="videoTypeComboText">STComboText</string>
@@ -590,10 +588,6 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="editorialTextField">
 							<string key="name">editorialTextField</string>
-							<string key="candidateClassName">UITextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="isbnTextField">
-							<string key="name">isbnTextField</string>
 							<string key="candidateClassName">UITextField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="nameTextField">

@@ -14,9 +14,8 @@
 @protocol iPrestaObjectDelegate <NSObject>
 
 @optional
-- (void)addToCurrentUserSuccess;
-- (void)getObjectDataSuccess;
-- (void)getObjectsFromUserSuccess:(NSArray *)result;
+
+- (void)getDataSuccess;
 
 @end
 
@@ -67,10 +66,8 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 + (NSArray *)videoObjectTypes;
 + (void)setDelegate:(id<iPrestaObjectDelegate>)userDelegate;
 + (id<iPrestaObjectDelegate>)delegate;
-+ (void)getObjectsFromUser:(User *)user;
 
-- (void)getObjectData:(NSString *)objectCode;
-- (void)addToCurrentUser;
+- (void)getData:(NSString *)objectCode;
 - (NSString *)textState;
 - (NSString *)textType;
 - (NSString *)textAudioType;
