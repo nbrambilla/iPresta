@@ -8,6 +8,9 @@
 
 #import "ChangeEmailViewController.h"
 #import "iPrestaNSString.h"
+#import "ProgressHUD.h"
+#import "iPrestaNSError.h"
+#import "User.h"
 
 @interface ChangeEmailViewController ()
 
@@ -39,9 +42,18 @@
 {
     if ([emailTextField.text isValidEmail])
     {
-        [User setDelegate:self];
-
-        [[User currentUser] changeEmail:emailTextField.text];
+        [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
+        
+        [[PFUser currentUser] setEmail:emailTextField.text];
+        [[PFUser currentUser] setUsername:emailTextField.text];
+        
+        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+        {
+            [ProgressHUD hideHUDForView:self.view.window animated:YES];
+            
+            if (error) [error manageErrorTo:self];  // Si hay error en el cambio de email
+            else [self changeEmailSuccess];         // Si el cambio de email se realiza correctamente
+        }];
     }
 }
 

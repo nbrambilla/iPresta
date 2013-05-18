@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "iPrestaObject.h"
 
-@interface ObjectsListViewController : UITableViewController <iPrestaObjectDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface ObjectsListViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 {
     @private
     NSMutableArray *objectsArray;

@@ -15,8 +15,6 @@
 
 @implementation iPrestaObject
 
-static id<iPrestaObjectDelegate> delegate;
-
 @dynamic owner;
 @dynamic state;
 @dynamic type;
@@ -26,6 +24,7 @@ static id<iPrestaObjectDelegate> delegate;
 @dynamic editorial;
 @dynamic audioType;
 @dynamic videoType;
+@synthesize delegate = _delegate;
 
 + (NSString *)parseClassName
 {
@@ -43,17 +42,19 @@ static id<iPrestaObjectDelegate> delegate;
 
 #pragma mark - User Setters
 
-+ (void)setDelegate:(id<iPrestaObjectDelegate>)userDelegate
+- (void)setDelegate:(id<iPrestaObjectDelegate>)delegate
 {
-    delegate = userDelegate;
+    _delegate = delegate;
 }
 
 #pragma mark - User Getters
 
-+ (id<iPrestaObjectDelegate>)delegate
+- (id<iPrestaObjectDelegate>)delegate
 {
-    return delegate;
+    return _delegate;
 }
+
+#pragma mark -  Array Types Methods
 
 - (NSString *)textState
 {
@@ -145,9 +146,9 @@ static id<iPrestaObjectDelegate> delegate;
         }
     }
 
-    if ([delegate respondsToSelector:@selector(getDataResponseWithError:)])
+    if ([_delegate respondsToSelector:@selector(getDataResponseWithError:)])
     {
-        [delegate getDataResponseWithError:error];
+        [_delegate getDataResponseWithError:error];
     }
 }
 

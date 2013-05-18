@@ -8,6 +8,9 @@
 
 #import "iPrestaNSString.h"
 #import "RequestPasswordResetViewController.h"
+#import "ProgressHUD.h"
+#import "iPrestaNSError.h"
+#import "User.h"
 
 @interface RequestPasswordResetViewController ()
 
@@ -51,10 +54,15 @@
 {
     if ([emailTextField.text isValidEmail])
     {
-        [User setDelegate:self];
+        [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
         
-        [User requestPasswordResetForEmail:emailTextField.text];
-
+        [User requestPasswordResetForEmailInBackground:emailTextField.text block:^(BOOL succeeded, NSError *error)
+        {
+            [ProgressHUD hideHUDForView:self.view.window animated:YES];
+            
+            if (error) [error manageErrorTo:self];      // Si hay error en la recuperación del password
+            else [self requestPasswordResetSuccess];    // Si la recuperación del password se realiza correctamente
+        }];
     }
 }
 

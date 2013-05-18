@@ -11,6 +11,7 @@
 #import "ObjectsListViewController.h"
 #import "AddObjectViewController.h"
 #import "ObjectDetailViewController.h"
+#import "iPrestaObject.h"
 #import "User.h"
 
 @interface ObjectsListViewController ()
@@ -62,7 +63,7 @@
     [getObjectsQuery whereKey:@"owner" equalTo:[User currentUser]];
     
     [getObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-     {
+    {
          [ProgressHUD hideHUDForView:self.view animated:YES];
          
          if (error) [error manageErrorTo:self];          // Si hay error al obtener los objetos

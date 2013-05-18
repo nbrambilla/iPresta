@@ -7,11 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "User.h"
 
-@interface AuthenticateEmailViewController : UIViewController <UserDelegate>
-
-- (void)checkEmailAuthenticationSuccess;
-- (void)resendAuthenticateMessageSuccess; 
+@interface AuthenticateEmailViewController : UIViewController
 
 @end

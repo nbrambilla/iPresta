@@ -43,8 +43,7 @@
     descriptionTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     
     newObject = [iPrestaObject object];
-    
-    [iPrestaObject setDelegate:self];
+    newObject.delegate = self;
     
     typesArray = [iPrestaObject objectTypes];
     audioTypesArray = [iPrestaObject audioObjectTypes];
@@ -55,7 +54,6 @@
 
 - (void)viewDidUnload
 {
-    [iPrestaObject setDelegate:nil];
     descriptionTextField = nil;
     typeComboText = nil;
     nameTextField = nil;

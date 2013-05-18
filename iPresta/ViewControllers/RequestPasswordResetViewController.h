@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "User.h"
 
-@interface RequestPasswordResetViewController : UIViewController <UserDelegate>
+@interface RequestPasswordResetViewController : UIViewController
 {
-    __weak IBOutlet UITextField *emailTextField;
+    @private
+    IBOutlet UITextField *emailTextField;
 }
-
-- (void)requestPasswordResetSuccess;
 
 @end

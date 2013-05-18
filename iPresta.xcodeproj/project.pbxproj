@@ -32,8 +32,6 @@
 		1563FF83173F9CAF00826DC4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1563FF82173F9CAF00826DC4 /* AVFoundation.framework */; };
 		1563FF87173FA1E700826DC4 /* ConnectionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1563FF86173FA1E700826DC4 /* ConnectionData.m */; };
 		1563FF8E17404B8000826DC4 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1563FF8D17404B8000826DC4 /* ProgressHUD.m */; };
-		156DF704172EF5B900AAB7E6 /* iPrestaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156DF702172EF5B900AAB7E6 /* iPrestaViewController.m */; };
-		156DF705172EF5B900AAB7E6 /* iPrestaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156DF703172EF5B900AAB7E6 /* iPrestaViewController.xib */; };
 		156FDE0A16F399E900F4BEEA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE0916F399E900F4BEEA /* UIKit.framework */; };
 		156FDE0C16F399E900F4BEEA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE0B16F399E900F4BEEA /* Foundation.framework */; };
 		156FDE0E16F399E900F4BEEA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE0D16F399E900F4BEEA /* CoreGraphics.framework */; };
@@ -57,8 +55,6 @@
 		156FDE4116F39CCF00F4BEEA /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE4016F39CCF00F4BEEA /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		156FDE4316F39CF900F4BEEA /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE4216F39CF900F4BEEA /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		156FDE4516F39D4200F4BEEA /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE4416F39D4200F4BEEA /* libsqlite3.dylib */; };
-		156FDE4A16F39E1700F4BEEA /* ObjetosMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156FDE4816F39E1700F4BEEA /* ObjetosMenuViewController.m */; };
-		156FDE4B16F39E1700F4BEEA /* ObjetosMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156FDE4916F39E1700F4BEEA /* ObjetosMenuViewController.xib */; };
 		156FDE5116F3A04500F4BEEA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 156FDE5016F3A04500F4BEEA /* User.m */; };
 		15A877B6172C875300E8BDA2 /* RequestPasswordResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A877B4172C875200E8BDA2 /* RequestPasswordResetViewController.m */; };
 		15A877B7172C875300E8BDA2 /* RequestPasswordResetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15A877B5172C875300E8BDA2 /* RequestPasswordResetViewController.xib */; };
@@ -74,6 +70,8 @@
 		15EF0992173ADED50001C8EF /* iPrestaNSError.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EF0991173ADED50001C8EF /* iPrestaNSError.m */; };
 		15EF0999173ADFEE0001C8EF /* STComboText.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EF0995173ADFEE0001C8EF /* STComboText.m */; };
 		15EF099A173ADFEE0001C8EF /* STDateText.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EF0998173ADFEE0001C8EF /* STDateText.m */; };
+		15FEB8361747C88100BB6750 /* iPrestaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FEB8341747C88000BB6750 /* iPrestaViewController.m */; };
+		15FEB8371747C88100BB6750 /* iPrestaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FEB8351747C88100BB6750 /* iPrestaViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,9 +130,6 @@
 		1563FF86173FA1E700826DC4 /* ConnectionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionData.m; sourceTree = "<group>"; };
 		1563FF8C17404B8000826DC4 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
 		1563FF8D17404B8000826DC4 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
-		156DF701172EF5B900AAB7E6 /* iPrestaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaViewController.h; path = ViewControllers/iPrestaViewController.h; sourceTree = "<group>"; };
-		156DF702172EF5B900AAB7E6 /* iPrestaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaViewController.m; path = ViewControllers/iPrestaViewController.m; sourceTree = "<group>"; };
-		156DF703172EF5B900AAB7E6 /* iPrestaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = iPrestaViewController.xib; path = ViewControllers/iPrestaViewController.xib; sourceTree = "<group>"; };
 		156FDE0516F399E900F4BEEA /* iPresta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPresta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		156FDE0916F399E900F4BEEA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		156FDE0B16F399E900F4BEEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -162,9 +157,6 @@
 		156FDE4016F39CCF00F4BEEA /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		156FDE4216F39CF900F4BEEA /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		156FDE4416F39D4200F4BEEA /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		156FDE4716F39E1700F4BEEA /* ObjetosMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjetosMenuViewController.h; path = ViewControllers/ObjetosMenuViewController.h; sourceTree = "<group>"; };
-		156FDE4816F39E1700F4BEEA /* ObjetosMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjetosMenuViewController.m; path = ViewControllers/ObjetosMenuViewController.m; sourceTree = "<group>"; };
-		156FDE4916F39E1700F4BEEA /* ObjetosMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ObjetosMenuViewController.xib; path = ViewControllers/ObjetosMenuViewController.xib; sourceTree = "<group>"; };
 		156FDE4F16F3A04500F4BEEA /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = iPresta/Models/User.h; sourceTree = "<group>"; };
 		156FDE5016F3A04500F4BEEA /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = iPresta/Models/User.m; sourceTree = "<group>"; };
 		15A877B3172C875200E8BDA2 /* RequestPasswordResetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RequestPasswordResetViewController.h; path = ViewControllers/RequestPasswordResetViewController.h; sourceTree = "<group>"; };
@@ -191,6 +183,9 @@
 		15EF0996173ADFEE0001C8EF /* STControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STControls.h; sourceTree = "<group>"; };
 		15EF0997173ADFEE0001C8EF /* STDateText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STDateText.h; sourceTree = "<group>"; };
 		15EF0998173ADFEE0001C8EF /* STDateText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STDateText.m; sourceTree = "<group>"; };
+		15FEB8331747C88000BB6750 /* iPrestaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaViewController.h; path = ViewControllers/iPrestaViewController.h; sourceTree = "<group>"; };
+		15FEB8341747C88000BB6750 /* iPrestaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaViewController.m; path = ViewControllers/iPrestaViewController.m; sourceTree = "<group>"; };
+		15FEB8351747C88100BB6750 /* iPrestaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = iPrestaViewController.xib; path = ViewControllers/iPrestaViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -421,9 +416,9 @@
 		156FDE4616F39DCC00F4BEEA /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				156FDE4716F39E1700F4BEEA /* ObjetosMenuViewController.h */,
-				156FDE4816F39E1700F4BEEA /* ObjetosMenuViewController.m */,
-				156FDE4916F39E1700F4BEEA /* ObjetosMenuViewController.xib */,
+				15FEB8331747C88000BB6750 /* iPrestaViewController.h */,
+				15FEB8341747C88000BB6750 /* iPrestaViewController.m */,
+				15FEB8351747C88100BB6750 /* iPrestaViewController.xib */,
 				154F204E1720597B00E65121 /* iPrestaNavigationController.h */,
 				154F204F1720597B00E65121 /* iPrestaNavigationController.m */,
 				154F20501720597B00E65121 /* iPrestaNavigationController.xib */,
@@ -445,9 +440,6 @@
 				153BF389172D759800819918 /* AppViewController.h */,
 				153BF38A172D759900819918 /* AppViewController.m */,
 				153BF38B172D759900819918 /* AppViewController.xib */,
-				156DF701172EF5B900AAB7E6 /* iPrestaViewController.h */,
-				156DF702172EF5B900AAB7E6 /* iPrestaViewController.m */,
-				156DF703172EF5B900AAB7E6 /* iPrestaViewController.xib */,
 				15D1706517396AA700CF1F98 /* ObjectsListViewController.h */,
 				15D1706617396AA700CF1F98 /* ObjectsListViewController.m */,
 				15D1706717396AA700CF1F98 /* ObjectsListViewController.xib */,
@@ -553,7 +545,6 @@
 				156FDE1C16F399E900F4BEEA /* Default.png in Resources */,
 				156FDE1E16F399E900F4BEEA /* Default@2x.png in Resources */,
 				156FDE2016F399E900F4BEEA /* Default-568h@2x.png in Resources */,
-				156FDE4B16F39E1700F4BEEA /* ObjetosMenuViewController.xib in Resources */,
 				154F20521720597B00E65121 /* iPrestaNavigationController.xib in Resources */,
 				154F205817205E7D00E65121 /* LoginViewController.xib in Resources */,
 				154F205D172065A800E65121 /* CreateCountViewController.xib in Resources */,
@@ -561,7 +552,6 @@
 				15C9947A172C0515000672B4 /* ChangeEmailViewController.xib in Resources */,
 				15A877B7172C875300E8BDA2 /* RequestPasswordResetViewController.xib in Resources */,
 				153BF38D172D759900819918 /* AppViewController.xib in Resources */,
-				156DF705172EF5B900AAB7E6 /* iPrestaViewController.xib in Resources */,
 				15D1706917396AA700CF1F98 /* ObjectsListViewController.xib in Resources */,
 				15D1706E1739706600CF1F98 /* AddObjectViewController.xib in Resources */,
 				1563FF78173F9ABE00826DC4 /* zbar-back.png in Resources */,
@@ -569,6 +559,7 @@
 				1563FF7A173F9ABE00826DC4 /* zbar-helpicons.png in Resources */,
 				1563FF7B173F9ABE00826DC4 /* zbar-samples.png in Resources */,
 				15393FF61742BA020012BA4F /* ObjectDetailViewController.xib in Resources */,
+				15FEB8371747C88100BB6750 /* iPrestaViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,7 +572,6 @@
 			files = (
 				156FDE1616F399E900F4BEEA /* main.m in Sources */,
 				156FDE1A16F399E900F4BEEA /* iPrestaAppDelegate.m in Sources */,
-				156FDE4A16F39E1700F4BEEA /* ObjetosMenuViewController.m in Sources */,
 				156FDE5116F3A04500F4BEEA /* User.m in Sources */,
 				15B85BDB16F49CFE00FB5674 /* iPrestaObject.m in Sources */,
 				15124E5B16FDDFBD00520FE2 /* Lending.m in Sources */,
@@ -593,7 +583,6 @@
 				15C99479172C0515000672B4 /* ChangeEmailViewController.m in Sources */,
 				15A877B6172C875300E8BDA2 /* RequestPasswordResetViewController.m in Sources */,
 				153BF38C172D759900819918 /* AppViewController.m in Sources */,
-				156DF704172EF5B900AAB7E6 /* iPrestaViewController.m in Sources */,
 				15D1706817396AA700CF1F98 /* ObjectsListViewController.m in Sources */,
 				15D1706D1739706600CF1F98 /* AddObjectViewController.m in Sources */,
 				15EF0992173ADED50001C8EF /* iPrestaNSError.m in Sources */,
@@ -603,6 +592,7 @@
 				1563FF87173FA1E700826DC4 /* ConnectionData.m in Sources */,
 				1563FF8E17404B8000826DC4 /* ProgressHUD.m in Sources */,
 				15393FF51742BA020012BA4F /* ObjectDetailViewController.m in Sources */,
+				15FEB8361747C88100BB6750 /* iPrestaViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

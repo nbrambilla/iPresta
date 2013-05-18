@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "User.h"
 
-@interface ChangeEmailViewController : UIViewController <UserDelegate>
+
+@interface ChangeEmailViewController : UIViewController
 {
-    __weak IBOutlet UILabel *changeMailTextLabel;
-    __weak IBOutlet UITextField *emailTextField;
+    @private
+    IBOutlet UILabel *changeMailTextLabel;
+    IBOutlet UITextField *emailTextField;
 }
-
-- (void)changeEmailSuccess;
 
 @end

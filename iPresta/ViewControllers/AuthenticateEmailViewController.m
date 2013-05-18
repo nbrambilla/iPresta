@@ -11,6 +11,9 @@
 #import "ChangeEmailViewController.h"
 #import "ObjectsListViewController.h"
 #import "iPrestaNavigationController.h"
+#import "ProgressHUD.h"
+#import "iPrestaNSError.h"
+#import "User.h"
 
 @interface AuthenticateEmailViewController ()
 
@@ -44,8 +47,17 @@
 
 - (IBAction)resendAuthenticateEmailMassage:(id)sender
 {
-    [User setDelegate:self];
-    [[User currentUser] resendAuthenticateMessage];
+    [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
+    
+    //[[PFUser currentUser] setEmail:self.email];
+        
+    [[User currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+    {
+        [ProgressHUD hideHUDForView:self.view.window animated:YES];
+        
+        if (error) [error manageErrorTo:self];          // Si hay error en el cambio de email
+        else [self resendAuthenticateMessageSuccess];   // Si el cambio de email se realiza correctamente
+    }];
 }
 
 - (void)resendAuthenticateMessageSuccess
@@ -58,8 +70,15 @@
 
 - (IBAction)goToApp:(id)sender
 {
-    [User setDelegate:self];
-    [[User currentUser] checkEmailAuthentication];
+    [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
+    
+    [[PFUser currentUser] refreshInBackgroundWithBlock:^(PFObject *object, NSError *error)
+    {
+        [ProgressHUD hideHUDForView:self.view.window animated:YES];
+        
+        if (error) [error manageErrorTo:self];          // Si hay error en el cambio de email
+        else [self checkEmailAuthenticationSuccess];    // Si el cambio de email se realiza correctamente
+    }];
 }
 
 - (void)checkEmailAuthenticationSuccess

@@ -7,15 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "User.h"
 
-@interface CreateCountViewController : UIViewController <UserDelegate>
+@interface CreateCountViewController : UIViewController
 {
-    __weak IBOutlet UITextField *emailTextField;
-    __weak IBOutlet UITextField *passwordTextField;
-    __weak IBOutlet UITextField *repeatPasswordTextField;
+    @private
+    IBOutlet UITextField *emailTextField;
+    IBOutlet UITextField *passwordTextField;
+    IBOutlet UITextField *repeatPasswordTextField;
 }
-
-- (void)signInSuccess;
 
 @end

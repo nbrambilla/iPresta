@@ -48,7 +48,7 @@
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUIText"/>
+						<string key="IBUIText">ignacio.brambilla@gmail.com</string>
 						<int key="IBUIBorderStyle">3</int>
 						<string key="IBUIPlaceholder">Email</string>
 						<object class="NSColor" key="IBUITextColor">
@@ -108,7 +108,6 @@
 						<string key="NSFrame">{{124, 367}, {73, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -345,16 +344,11 @@
 					<string key="className">LoginViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="goToCreateCount:">id</string>
 						<string key="goToRequestPasswordReset:">id</string>
 						<string key="hideKeyboard:">id</string>
 						<string key="login:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="goToCreateCount:">
-							<string key="name">goToCreateCount:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="goToRequestPasswordReset:">
 							<string key="name">goToRequestPasswordReset:</string>
 							<string key="candidateClassName">id</string>

@@ -10,6 +10,9 @@
 #import "AuthenticateEmailViewController.h"
 #import "iPrestaNavigationController.h"
 #import "iPrestaNSString.h"
+#import "iPrestaNSError.h"
+#import "ProgressHUD.h"
+#import "User.h"
 
 @interface CreateCountViewController ()
 
@@ -59,6 +62,7 @@
     emailTextField = nil;
     passwordTextField = nil;
     repeatPasswordTextField = nil;
+    
     [super viewDidUnload];
 }
 
@@ -71,15 +75,23 @@
         if ([passwordTextField.text isValidPassword])
         {
             if ([passwordTextField.text matchWith:repeatPasswordTextField.text])
-            {                
-                [User setDelegate:self];
+            {
+                [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
+                
+                // Se crea un nuevo usuario
                 
                 User *newUser = [User object];
                 newUser.username = emailTextField.text;
                 newUser.email = emailTextField.text;
                 newUser.password = passwordTextField.text;
                 
-                [newUser signIn];
+                [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+                {
+                    [ProgressHUD hideHUDForView:self.view.window animated:YES];
+                    
+                    if (error) [error manageErrorTo:self];  // Si hay error en el registro
+                    else [self signInSuccess];              // Si el registro se realiza correctamente
+                }];
             }
         }
     }

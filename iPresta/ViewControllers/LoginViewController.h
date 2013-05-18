@@ -7,15 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "User.h"
 
-@interface LoginViewController : UIViewController <UserDelegate>
+@interface LoginViewController : UIViewController
 {
-    __weak IBOutlet UITextField *emailTextField;
-    __weak IBOutlet UITextField *passwordTextField;
-    __weak IBOutlet UIButton *entrarButton;
+    @private
+    IBOutlet UITextField *emailTextField;
+    IBOutlet UITextField *passwordTextField;
+    IBOutlet UIButton *entrarButton;
 }
-
-- (void)logInSuccess;
 
 @end

@@ -59,13 +59,13 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 @property(retain) NSString *editorial;
 @property AudioObjectType audioType;
 @property VideoObjectType videoType;
+@property(strong, nonatomic) id<iPrestaObjectDelegate> delegate;
+
 
 + (NSString *)parseClassName;
 + (NSArray *)objectTypes;
 + (NSArray *)audioObjectTypes;
 + (NSArray *)videoObjectTypes;
-+ (void)setDelegate:(id<iPrestaObjectDelegate>)userDelegate;
-+ (id<iPrestaObjectDelegate>)delegate;
 
 - (void)getData:(NSString *)objectCode;
 - (NSString *)textState;
