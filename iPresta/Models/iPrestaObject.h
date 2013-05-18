@@ -15,7 +15,7 @@
 
 @optional
 
-- (void)getDataSuccess;
+- (void)getDataResponseWithError:(NSError *)error;
 
 @end
 

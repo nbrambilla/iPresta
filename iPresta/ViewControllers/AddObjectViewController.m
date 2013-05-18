@@ -77,48 +77,41 @@
 
 - (void)goToDetectObject
 {
-    // ADD: present a barcode reader that scans from the camera feed
     ZBarReaderViewController *reader = [ZBarReaderViewController new];
     reader.readerDelegate = self;
     reader.supportedOrientationsMask = ZBarOrientationMaskAll;
     
     ZBarImageScanner *scanner = reader.scanner;
-    // TODO: (optional) additional reader configuration here
+
+    [scanner setSymbology: ZBAR_I25 config: ZBAR_CFG_ENABLE to: 0];
     
-    // EXAMPLE: disable rarely used I2/5 to improve performance
-    [scanner setSymbology: ZBAR_I25
-                   config: ZBAR_CFG_ENABLE
-                       to: 0];
-    
-    // present and release the controller
     [self presentViewController:reader animated:YES completion:nil];
     reader = nil;
 }
 
 - (void)imagePickerController:(UIImagePickerController*)reader didFinishPickingMediaWithInfo:(NSDictionary*)info
 {
-    // ADD: get the decode results
     id<NSFastEnumeration> results = [info objectForKey: ZBarReaderControllerResults];
     ZBarSymbol *symbol = nil;
-    for(symbol in results)
-        // EXAMPLE: just grab the first barcode
-        break;
+    for(symbol in results) break;
     
-    // EXAMPLE: do something useful with the barcode data
-//    isbnTextField.text = symbol.data;
-    
-    // EXAMPLE: do something useful with the barcode image
-//    resultImage.image = [info objectForKey: UIImagePickerControllerOriginalImage];
-    
-    // ADD: dismiss the controller (NB dismiss from the *reader*!)
     [reader dismissViewControllerAnimated:YES completion:nil];
     
-    [newObject getData:symbol.data];
+    [self getObjectDataWithCode:symbol.data];
 }
 
-- (void)getDataSuccess
+- (void)getObjectDataWithCode:(NSString *)code
 {
-    [self setTextFields];
+    [ProgressHUD showHUDAddedTo:self.view.window animated:NO];
+    [newObject getData:code];
+}
+
+- (void)getDataResponseWithError:(NSError *)error
+{
+    [ProgressHUD hideHUDForView:self.view.window animated:YES];
+    
+    if (error) [error manageErrorTo:self];
+    else [self setTextFields];
 }
 
 #pragma mark - Save Objects Methods

@@ -79,8 +79,6 @@ static id<iPrestaObjectDelegate> delegate;
 
 - (void)getData:(NSString *)objectCode
 {
-    [ProgressHUD showProgressHUDIn:delegate];
-    
     NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/books/v1/volumes?q=isbn:%@", objectCode];
     
     NSURL *url = [NSURL URLWithString:urlString];
@@ -100,47 +98,56 @@ static id<iPrestaObjectDelegate> delegate;
 
 - (void)dataFinishLoading:(ConnectionData *)connection error:(NSError *)error;
 {
-    [ProgressHUD hideProgressHUDIn:delegate];
-    
-    if (error) [error manageErrorTo:delegate];     // Si error hay al buscar el objeto
-    else
+    if (!error)      // Si error hay al buscar el objeto
     {
         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:connection.requestData options:NSJSONReadingMutableContainers error:&error];
         if ([[response objectForKey:@"totalItems"] integerValue] > 0)
         {
-            if ([delegate respondsToSelector:@selector(getDataSuccess)])
+            id volumeInfo = [[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"volumeInfo"];
+            
+            self.name = @"";
+            self.author = @"";
+            self.editorial = @"";
+            
+            // Se setea el nombre del objeto
+            if ([volumeInfo objectForKey:@"title"])
             {
-                id volumeInfo = [[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"volumeInfo"];
-                
-                // Se setea el nombre del objeto
-                if ([volumeInfo objectForKey:@"title"])
+                self.name = [volumeInfo objectForKey:@"title"];
+                if ([volumeInfo objectForKey:@"subtitle"])
                 {
-                    self.name = [volumeInfo objectForKey:@"title"];
-                    if ([volumeInfo objectForKey:@"subtitle"])
+                    self.name = [self.name stringByAppendingFormat:@" %@", [volumeInfo objectForKey:@"subtitle"]];
+                }
+            }
+            
+            // Se setea el autor del objeto
+            if ([volumeInfo objectForKey:@"authors"])
+            {
+                for (NSString *author in [volumeInfo objectForKey:@"authors"])
+                {
+                    self.author = [self.author stringByAppendingString:author];
+                    
+                    if (!([[volumeInfo objectForKey:@"authors"] lastObject] == author))
                     {
-                        self.name = [self.name stringByAppendingFormat:@" %@", [volumeInfo objectForKey:@"subtitle"]];
+                            self.author = [self.author stringByAppendingString:@", "];
                     }
                 }
-                else
-                {
-                    self.name = @"";
-                }
-                
-                // Se setea el autor del objeto
-                self.author = ([volumeInfo objectForKey:@"authors"]) ? [[volumeInfo objectForKey:@"authors"] objectAtIndex:0] : @"";
-                
-                // Se setea la editorial del objeto
-                self.editorial = ([volumeInfo objectForKey:@"publisher"]) ? self.editorial = [volumeInfo objectForKey:@"publisher"] : @"";
-                
-                [delegate getDataSuccess];
+            }
+            
+            // Se setea la editorial del objeto
+            if ([volumeInfo objectForKey:@"publisher"])
+            {
+                self.editorial = self.editorial = [volumeInfo objectForKey:@"publisher"];
             }
         }
         else
         {
             error = [[NSError alloc] initWithDomain:@"error" code:EMPTYOBJECTDATA_ERROR userInfo:nil];
-            
-            [error manageErrorTo:delegate];
         }
+    }
+
+    if ([delegate respondsToSelector:@selector(getDataResponseWithError:)])
+    {
+        [delegate getDataResponseWithError:error];
     }
 }
 

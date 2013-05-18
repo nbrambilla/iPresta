@@ -181,9 +181,8 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        // Delete the row from the data source
         [self deleteObjectWithIndex:indexPath];
-       
+
     }  
 }
 
