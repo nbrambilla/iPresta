@@ -9,15 +9,6 @@
 #import <Parse/Parse.h>
 #import <Foundation/Foundation.h>
 
-@class iPrestaObject;
-
-@protocol UserDelegate <NSObject>
-
-@optional
-- (void)changeEmailSuccess;
-
-@end
-
 @interface User : PFUser<PFSubclassing>
 
 @property(retain) NSString *objectId;
@@ -27,7 +18,5 @@
 
 + (BOOL)currentUserHasEmailVerified;
 + (User *)currentUser;
-+ (void)setDelegate:(id<UserDelegate>)userDelegate;
-+ (id<UserDelegate>)delegate;
 
 @end

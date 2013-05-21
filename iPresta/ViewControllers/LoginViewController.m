@@ -9,9 +9,9 @@
 #import "LoginViewController.h"
 #import "CreateCountViewController.h"
 #import "AuthenticateEmailViewController.h"
-#import "iPrestaNavigationController.h"
 #import "RequestPasswordResetViewController.h"
-#import "ObjectsListViewController.h"
+#import "iPrestaNavigationController.h"
+#import "ObjectsMenuViewController.h"
 #import "iPrestaNSString.h"
 #import "iPrestaNSError.h"
 #import "ProgressHUD.h"
@@ -23,13 +23,13 @@
 
 @implementation LoginViewController
 
-#pragma mark - ViewController Functions
+#pragma mark - Lifecycle Methods
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.title = @"iPresta";
     }
     return self;
 }
@@ -38,8 +38,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    self.title = @"iPresta";
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Volver", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(backToBegin)];
 }
@@ -110,19 +108,17 @@
     if ([User currentUserHasEmailVerified])
     {
         UINavigationController *navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
-        UITableViewController *tableViewcontroller = [[ObjectsListViewController alloc] initWithNibName:@"ObjectsListViewController" bundle:nil];
-        [navigationController pushViewController:tableViewcontroller animated:NO];
+        UIViewController *viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
+        [navigationController pushViewController:viewController animated:NO];
         
         [self presentModalViewController:navigationController animated:YES];
-        
-        tableViewcontroller = nil;
+
+        viewController = nil;
     }
     // Si el usuario no esta autenticado, debe hacerlo confirmando su email. Accede a la pantalla de autenticacion
     else
     {
-        UIViewController *viewController;
-
-        viewController =  [[AuthenticateEmailViewController alloc] initWithNibName:@"AuthenticateEmailViewController" bundle:nil];
+        UIViewController *viewController =  [[AuthenticateEmailViewController alloc] initWithNibName:@"AuthenticateEmailViewController" bundle:nil];
         [navigationController pushViewController:viewController animated:NO];
         
         [self.navigationController pushViewController:viewController animated:YES];

@@ -28,30 +28,33 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+
     }
+    return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+
+    }      
     return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.title = @"Objetos";
+    self.title = [[iPrestaObject objectTypes] objectAtIndex:[iPrestaObject typeSelected]];
     
-    UIBarButtonItem *addObjectlButton = [[UIBarButtonItem alloc] initWithTitle:@"Agregar objeto" style:UIBarButtonItemStylePlain target:self action:@selector(goToAddObject)];
+    UIBarButtonItem *addObjectlButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(goToAddObject)];
     self.navigationItem.rightBarButtonItem = addObjectlButton;
     
     addObjectlButton = nil;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addObjectToList:) name:@"addObjectToListDelegate" object:nil];
-        
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addObjectToList:) name:@"addObjectToListObserver" object:nil];
+    
     [self setTableView];
 }
 
@@ -61,6 +64,7 @@
     
     PFQuery *getObjectsQuery = [iPrestaObject query];
     [getObjectsQuery whereKey:@"owner" equalTo:[User currentUser]];
+    [getObjectsQuery whereKey:@"type" equalTo:[NSNumber numberWithInteger:[iPrestaObject typeSelected]]];
     
     [getObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
@@ -90,7 +94,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Add/Delete Object Methods
+#pragma mark - Add / Delete Object Methods
 
 - (void)addObjectToList:(NSNotification *)notification
 {
@@ -105,16 +109,16 @@
     iPrestaObject *object = [objectsArray objectAtIndex:indexPath.row];
     
     [object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-     {
+    {
          [ProgressHUD hideHUDForView:self.view animated:YES];
          
-         if (error) [error manageErrorTo:self];          // Si hay error al eliminar el objeto
-         else                                            // Si se elimina el objetoo, se actualiza la lista
+         if (error) [error manageErrorTo:self];     // Si hay error al eliminar el objeto
+         else                                       // Si se elimina el objetoo, se actualiza la lista
          {
              [objectsArray removeObjectAtIndex:indexPath.row];
-             [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+             [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
          }
-     }];
+    }];
 }
 
 #pragma mark - Change ViewController Methods
@@ -153,7 +157,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"Object";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
     {
@@ -163,9 +167,22 @@
     iPrestaObject *object = [objectsArray objectAtIndex:indexPath.row];
     
     cell.textLabel.text = object.name;
-    cell.detailTextLabel.text = object.textType;
+    cell.detailTextLabel.text = object.author;
     
-    object = nil;
+    if (!object.imageData)
+    {
+        cell.imageView.tag = YES;
+        cell.imageView.image = [UIImage imageNamed:@"camera_icon.png"];
+        
+        [object.image getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+        {
+            if (!error)
+            {
+                object.imageData = data;
+                cell.imageView.image = [UIImage imageWithData:object.imageData];
+            }
+        }];
+    }
     
     return cell;
 }

@@ -13,6 +13,7 @@
 {
     @private
     iPrestaObject *object;
+    IBOutlet UIImageView *imageView;
     IBOutlet UILabel *typeLabel;
     IBOutlet UILabel *nameLabel;
     IBOutlet UILabel *authorLabel;

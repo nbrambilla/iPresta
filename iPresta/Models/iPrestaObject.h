@@ -57,15 +57,18 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 @property(retain) NSString *name;
 @property(retain) NSString *author;
 @property(retain) NSString *editorial;
+@property(retain) PFFile *image;
 @property AudioObjectType audioType;
 @property VideoObjectType videoType;
+@property(strong, nonatomic) NSData *imageData;
 @property(strong, nonatomic) id<iPrestaObjectDelegate> delegate;
-
 
 + (NSString *)parseClassName;
 + (NSArray *)objectTypes;
 + (NSArray *)audioObjectTypes;
 + (NSArray *)videoObjectTypes;
++ (void)setTypeSelected:(ObjectType)objectType;
++ (ObjectType)typeSelected;
 
 - (void)getData:(NSString *)objectCode;
 - (NSString *)textState;

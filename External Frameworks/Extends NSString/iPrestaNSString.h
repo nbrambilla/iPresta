@@ -12,5 +12,7 @@
 - (BOOL)isValidEmail;
 - (BOOL)isValidPassword;
 - (BOOL)matchWith:(NSString *)confirmPassword;
+- (NSString *)formatName;
+- (NSString *)formatCode;
 
 @end

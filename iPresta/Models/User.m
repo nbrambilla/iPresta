@@ -13,47 +13,32 @@
 
 @implementation User
 
-static id<UserDelegate> delegate;
-
 @dynamic objectId;
 @dynamic email;
 @dynamic username;
 @dynamic password;
 
-#pragma mark - User Setters
-
-+ (void)setDelegate:(id<UserDelegate>)userDelegate
-{
-    delegate = userDelegate;
-}
-
-#pragma mark - User Getters
-
-+ (id<UserDelegate>)delegate
-{
-    return delegate;
-}
-
 #pragma mark - Class Methods
 
 + (User *)currentUser
 {
-    User *currentUser = nil;
-    
-    if([PFUser currentUser])
-    {
-        currentUser = [User object];
-        currentUser.objectId = [[PFUser currentUser] objectId];
-        currentUser.username = [[PFUser currentUser] email];
-        currentUser.email = [[PFUser currentUser] email];
-        currentUser.password = [[PFUser currentUser] password];
-    }
-    return currentUser;
+//    User *currentUser = nil;
+//    
+//    if([PFUser currentUser])
+//    {
+//        currentUser = [User object];
+//        currentUser.objectId = [[PFUser currentUser] objectId];
+//        currentUser.username = [[PFUser currentUser] email];
+//        currentUser.email = [[PFUser currentUser] email];
+//        currentUser.password = [[PFUser currentUser] password];
+//    }
+//    return currentUser;
+    return (User *)[PFUser currentUser];
 }
 
 + (BOOL)currentUserHasEmailVerified
 {
-    return [[[PFUser currentUser] objectForKey:@"emailVerified"] boolValue];
+    return [[[User currentUser] objectForKey:@"emailVerified"] boolValue];
 }
 
 @end

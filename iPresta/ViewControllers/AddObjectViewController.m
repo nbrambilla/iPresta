@@ -8,6 +8,7 @@
 
 #import "AddObjectViewController.h"
 #import "iPrestaNSError.h"
+#import "iPrestaNSString.h"
 #import "ProgressHUD.h"
 
 @interface AddObjectViewController ()
@@ -42,26 +43,31 @@
     editorialTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     descriptionTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cameraPressed)];
+    [imageView addGestureRecognizer:tapGesture];
+    imageView.tag = NO;
+    
     newObject = [iPrestaObject object];
+    newObject.type = [iPrestaObject typeSelected];
     newObject.delegate = self;
     
-    typesArray = [iPrestaObject objectTypes];
     audioTypesArray = [iPrestaObject audioObjectTypes];
     videoTypesArray = [iPrestaObject videoObjectTypes];
-
-    [self stComboText:typeComboText didSelectRow:BookType];
+    
+    [self setObjectTypeFields:[iPrestaObject typeSelected]];
 }
 
 - (void)viewDidUnload
 {
     descriptionTextField = nil;
-    typeComboText = nil;
     nameTextField = nil;
     authorTextField = nil;
     editorialTextField = nil;
     audioTypeComboText = nil;
     videoTypeComboText = nil;
+    imageView = nil;
     newObject = nil;
+    imageView = nil;
     [super viewDidUnload];
 }
 
@@ -87,20 +93,58 @@
     reader = nil;
 }
 
-- (void)imagePickerController:(UIImagePickerController*)reader didFinishPickingMediaWithInfo:(NSDictionary*)info
+- (void)cameraPressed
 {
-    id<NSFastEnumeration> results = [info objectForKey: ZBarReaderControllerResults];
-    ZBarSymbol *symbol = nil;
-    for(symbol in results) break;
-    
-    [reader dismissViewControllerAnimated:YES completion:nil];
-    
-    [self getObjectDataWithCode:symbol.data];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES)
+    {
+        // Create image picker controller
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+        
+        // Set source to the camera
+        imagePicker.sourceType =  UIImagePickerControllerSourceTypeCamera;
+        imagePicker.allowsEditing = YES;
+        
+        // Delegate is self
+        imagePicker.delegate = self;
+        
+        // Show image picker
+        [self presentModalViewController:imagePicker animated:YES];
+    }
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    if ([info objectForKey:ZBarReaderControllerResults])
+    {
+        id<NSFastEnumeration> results = [info objectForKey:ZBarReaderControllerResults];
+        ZBarSymbol *symbol = nil;
+        for(symbol in results) break;
+        
+        [picker dismissViewControllerAnimated:YES completion:nil];
+        
+        [self getObjectDataWithCode:symbol.data];
+    }
+    else
+    {
+        // Access the uncropped image from info dictionary
+        UIImage *image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+        
+        // Resize image
+        UIGraphicsBeginImageContext(CGSizeMake(248, 248));
+        [image drawInRect: CGRectMake(0, 0, 248, 248)];
+        UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        imageView.image = smallImage;
+        imageView.tag = YES;
+        
+        [picker dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)getObjectDataWithCode:(NSString *)code
 {
-    [ProgressHUD showHUDAddedTo:self.view.window animated:NO];
+    [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
     [newObject getData:code];
 }
 
@@ -109,7 +153,7 @@
     [ProgressHUD hideHUDForView:self.view.window animated:YES];
     
     if (error) [error manageErrorTo:self];
-    else [self setTextFields];
+    [self setTextFields];
 }
 
 #pragma mark - Save Objects Methods
@@ -134,16 +178,16 @@
 
 - (void)saveNewObject
 {
-    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+    [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
     
     [newObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
     {
-        [ProgressHUD hideHUDForView:self.view animated:YES];
+        [ProgressHUD hideHUDForView:self.view.window animated:YES];
          
         if (error) [error manageErrorTo:self];      // Si hay al guardar el objeto
         else                                        // Si el objeto se guarda correctamente
         {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"addObjectToListDelegate" object:newObject];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"addObjectToListObserver" object:newObject];
             [self.navigationController popViewControllerAnimated:YES];
         }
     }];
@@ -179,8 +223,19 @@
 {
     newObject.owner = [User currentUser];
     newObject.state = Property;
-    newObject.type = typeSelectedIndex;
     newObject.name = nameTextField.text;
+
+    if (imageView.tag)
+    {
+        NSData *imageData = UIImageJPEGRepresentation(imageView.image, 0.5f);
+        newObject.image = [PFFile fileWithName:[NSString stringWithFormat:@"%@.png", [nameTextField.text formatName]] data:imageData];
+        
+        [newObject.image saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (error) [error manageErrorTo:self];
+        }];
+         
+        imageData = nil;
+    }
     if (authorTextField.text) newObject.author = [authorTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (editorialTextField.text) newObject.editorial = [editorialTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (descriptionTextField.text) newObject.descriptionObject = [descriptionTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -204,11 +259,7 @@
 {
     NSString *returnString = nil;
     
-    if(stComboText == typeComboText)
-    {
-        returnString = [typesArray objectAtIndex:row];
-    }
-    else if (stComboText == audioTypeComboText)
+    if (stComboText == audioTypeComboText)
     {
         returnString = [audioTypesArray objectAtIndex:row];
     }
@@ -224,11 +275,7 @@
 {
     NSInteger returnInt = 0;
     
-    if(stComboTextNumberOfOptions == typeComboText)
-    {
-        returnInt = typesArray.count;
-    }
-    else if (stComboTextNumberOfOptions == audioTypeComboText)
+    if (stComboTextNumberOfOptions == audioTypeComboText)
     {
         returnInt = audioTypesArray.count;
     }
@@ -242,13 +289,7 @@
 
 - (void)stComboText:(STComboText*)stComboText didSelectRow:(NSUInteger)row
 {
-    if(stComboText == typeComboText)
-    {
-        typeComboText.text = [typesArray objectAtIndex:row];
-        typeSelectedIndex = row;
-        [self setObjectTypeFields:row];
-    }
-    else if(stComboText == audioTypeComboText)
+    if(stComboText == audioTypeComboText)
     {
         audioTypeComboText.text = [audioTypesArray objectAtIndex:row];
         audioTypeSelectedIndex = row;
@@ -264,7 +305,7 @@
 
 - (void)setObjectTypeFields:(NSUInteger)objectType
 {
-    switch (objectType) {
+    switch ([iPrestaObject typeSelected]) {
         case BookType:
             [self showBookFields];
             break;

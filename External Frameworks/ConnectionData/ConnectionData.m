@@ -1,9 +1,9 @@
 //
 //  Connection.m
-//  Elche CF
+//  iPresta
 //
-//  Created by Nacho Brambilla on 28/11/12.
-//  Copyright (c) 2012 eXular. All rights reserved.
+//  Created by Nacho on 07/05/13.
+//  Copyright (c) 2013 Nacho. All rights reserved.
 //
 
 #import "ConnectionData.h"
@@ -75,7 +75,7 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    NSLog(@"Connection failed! Error - %@ %@", [error localizedDescription], [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+//    NSLog(@"Connection failed! Error - %@ %@", [error localizedDescription], [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
     workInProgress = NO;
     
     // Verify that our delegate responds to the InternetImageReady method

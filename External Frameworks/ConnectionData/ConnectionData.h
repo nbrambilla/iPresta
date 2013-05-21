@@ -1,9 +1,9 @@
 //
 //  Connection.h
-//  Elche CF
+//  iPresta
 //
-//  Created by Nacho Brambilla on 28/11/12.
-//  Copyright (c) 2012 eXular. All rights reserved.
+//  Created by Nacho on 07/05/13.
+//  Copyright (c) 2013 Nacho. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

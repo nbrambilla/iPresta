@@ -12,21 +12,20 @@
 #import "STControls.h"
 #import "ZBarSDK.h"
 
-@interface AddObjectViewController : UIViewController <iPrestaObjectDelegate, STComboTextDelegate, UITextFieldDelegate, ZBarReaderDelegate>
+@interface AddObjectViewController : UIViewController <iPrestaObjectDelegate, STComboTextDelegate, UITextFieldDelegate, ZBarReaderDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
     @private
-    IBOutlet STComboText *typeComboText;
     IBOutlet UITextField *nameTextField;
     IBOutlet UITextField *authorTextField;
     IBOutlet UITextField *descriptionTextField;
     IBOutlet UITextField *editorialTextField;
     IBOutlet STComboText *audioTypeComboText;
     IBOutlet STComboText *videoTypeComboText;
+    IBOutlet UIImageView *imageView;
     iPrestaObject *newObject;
-    NSArray *typesArray;
     NSArray *audioTypesArray;
     NSArray *videoTypesArray;
-    ObjectType typeSelectedIndex;
+    ObjectType objecType;
     AudioObjectType audioTypeSelectedIndex;
     VideoObjectType videoTypeSelectedIndex;
 }

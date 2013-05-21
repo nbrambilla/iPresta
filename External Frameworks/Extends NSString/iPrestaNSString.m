@@ -86,4 +86,25 @@
     return  bReturn;
 }
 
+- (NSString *)formatName
+{
+    NSData *asciiEncoded = [self dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    
+    NSString *accentRemoved = [[NSString alloc] initWithData:asciiEncoded encoding:NSASCIIStringEncoding];
+    
+    return [[accentRemoved lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+}
+
+- (NSString *)formatCode
+{
+    NSString *formatCode = self;
+    
+    if ([[formatCode substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"0"])
+    {
+        formatCode = [formatCode substringWithRange:NSMakeRange(1, [formatCode length] - 1)];
+    }
+    
+    return formatCode;
+}
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <Parse/PFObject+Subclass.h>
+#import "iPrestaNSString.h"
 #import "iPrestaObject.h"
 #import "User.h"
 #import "ProgressHUD.h"
@@ -15,6 +16,8 @@
 
 @implementation iPrestaObject
 
+static ObjectType typeSelected;
+
 @dynamic owner;
 @dynamic state;
 @dynamic type;
@@ -22,14 +25,11 @@
 @dynamic name;
 @dynamic author;
 @dynamic editorial;
+@dynamic image;
 @dynamic audioType;
 @dynamic videoType;
+@synthesize imageData = _imageData;
 @synthesize delegate = _delegate;
-
-+ (NSString *)parseClassName
-{
-    return @"iPrestaObject";
-}
 
 - (id)init
 {
@@ -40,6 +40,16 @@
     return self;
 }
 
++ (NSString *)parseClassName
+{
+    return @"iPrestaObject";
+}
+
++ (NSString *)title
+{
+    return [[iPrestaObject objectTypes] objectAtIndex:typeSelected];
+}
+
 #pragma mark - User Setters
 
 - (void)setDelegate:(id<iPrestaObjectDelegate>)delegate
@@ -47,11 +57,31 @@
     _delegate = delegate;
 }
 
+-  (void)setImageData:(NSData *)imageData
+{
+    _imageData = imageData;
+}
+
++ (void)setTypeSelected:(ObjectType)objectType
+{
+    typeSelected = objectType;
+}
+
 #pragma mark - User Getters
 
 - (id<iPrestaObjectDelegate>)delegate
 {
     return _delegate;
+}
+
+- (NSData *)imageData
+{
+    return _imageData;
+}
+
++ (ObjectType)typeSelected
+{
+    return typeSelected;
 }
 
 #pragma mark -  Array Types Methods
@@ -80,7 +110,18 @@
 
 - (void)getData:(NSString *)objectCode
 {
-    NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/books/v1/volumes?q=isbn:%@", objectCode];
+    objectCode = [objectCode formatCode];
+    
+    NSString *urlString;
+    
+    if (self.type == BookType)
+    {
+        urlString = [NSString stringWithFormat:@"https://www.googleapis.com/books/v1/volumes?q=isbn:%@", objectCode];
+    }
+    else if (typeSelected == AudioType || typeSelected == VideoType)
+    {
+        urlString = [NSString stringWithFormat:@"http://api.discogs.com/search?q=%@&f=json", objectCode];
+    }
     
     NSURL *url = [NSURL URLWithString:urlString];
     
@@ -102,53 +143,88 @@
     if (!error)      // Si error hay al buscar el objeto
     {
         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:connection.requestData options:NSJSONReadingMutableContainers error:&error];
-        if ([[response objectForKey:@"totalItems"] integerValue] > 0)
+        
+        self.name = @"";
+        self.author = @"";
+        self.editorial = @"";
+        
+        if (typeSelected == BookType)
         {
-            id volumeInfo = [[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"volumeInfo"];
-            
-            self.name = @"";
-            self.author = @"";
-            self.editorial = @"";
-            
-            // Se setea el nombre del objeto
-            if ([volumeInfo objectForKey:@"title"])
-            {
-                self.name = [volumeInfo objectForKey:@"title"];
-                if ([volumeInfo objectForKey:@"subtitle"])
-                {
-                    self.name = [self.name stringByAppendingFormat:@" %@", [volumeInfo objectForKey:@"subtitle"]];
-                }
-            }
-            
-            // Se setea el autor del objeto
-            if ([volumeInfo objectForKey:@"authors"])
-            {
-                for (NSString *author in [volumeInfo objectForKey:@"authors"])
-                {
-                    self.author = [self.author stringByAppendingString:author];
-                    
-                    if (!([[volumeInfo objectForKey:@"authors"] lastObject] == author))
-                    {
-                            self.author = [self.author stringByAppendingString:@", "];
-                    }
-                }
-            }
-            
-            // Se setea la editorial del objeto
-            if ([volumeInfo objectForKey:@"publisher"])
-            {
-                self.editorial = self.editorial = [volumeInfo objectForKey:@"publisher"];
-            }
+            [self setBookWithInfo:response error:&error];
         }
-        else
+        else if (typeSelected == AudioType || typeSelected == VideoType)
         {
-            error = [[NSError alloc] initWithDomain:@"error" code:EMPTYOBJECTDATA_ERROR userInfo:nil];
+            [self setMediaWithInfo:response error:&error];
         }
     }
 
     if ([_delegate respondsToSelector:@selector(getDataResponseWithError:)])
     {
         [_delegate getDataResponseWithError:error];
+    }
+}
+
+#pragma mark - Set Object Methods
+
+- (void)setBookWithInfo:(id)info error:(NSError **)error
+{
+    if ([[info objectForKey:@"totalItems"] integerValue] > 0)
+    {
+        id volumeInfo = [[[info objectForKey:@"items"] objectAtIndex:0] objectForKey:@"volumeInfo"];
+    
+        // Se setea el nombre del objeto
+        if ([volumeInfo objectForKey:@"title"])
+        {
+            self.name = [volumeInfo objectForKey:@"title"];
+            if ([volumeInfo objectForKey:@"subtitle"])
+            {
+                self.name = [self.name stringByAppendingFormat:@" %@", [volumeInfo objectForKey:@"subtitle"]];
+            }
+        }
+        
+        // Se setea el autor del objeto
+        if ([volumeInfo objectForKey:@"authors"])
+        {
+            for (NSString *author in [volumeInfo objectForKey:@"authors"])
+            {
+                self.author = [self.author stringByAppendingString:author];
+                
+                if (!([[volumeInfo objectForKey:@"authors"] lastObject] == author))
+                {
+                    self.author = [self.author stringByAppendingString:@", "];
+                }
+            }
+        }
+        
+        // Se setea la editorial del objeto
+        if ([volumeInfo objectForKey:@"publisher"])
+        {
+            self.editorial = [volumeInfo objectForKey:@"publisher"];
+        }
+        
+        volumeInfo = nil;
+    }
+    else
+    {
+        *error = [[NSError alloc] initWithDomain:@"error" code:EMPTYOBJECTDATA_ERROR userInfo:nil];
+    }
+}
+
+- (void)setMediaWithInfo:(id)info error:(NSError **)error
+{
+    if ([[[info objectForKey:@"resp"] objectForKey:@"status"] boolValue])
+    {
+        id volumeInfo = [[[[[info objectForKey:@"resp"] objectForKey:@"search"] objectForKey:@"searchresults"] objectForKey:@"results"] objectAtIndex:0];
+        id title = [[volumeInfo objectForKey:@"title"] componentsSeparatedByString: @" - "];
+        
+        self.author = [title objectAtIndex:0];
+        self.name = [title objectAtIndex:1];
+        
+        volumeInfo = nil;
+    }
+    else
+    {
+        *error = [[NSError alloc] initWithDomain:@"error" code:EMPTYOBJECTDATA_ERROR userInfo:nil];
     }
 }
 
@@ -166,7 +242,7 @@
 
 + (NSArray *)audioObjectTypes
 {
-    return [NSArray arrayWithObjects:@"CD", @"SACD", @"Vinyl", nil];
+    return [NSArray arrayWithObjects:@"CD", @"SACD", @"Vinilo", nil];
 }
 
 + (NSArray *)videoObjectTypes

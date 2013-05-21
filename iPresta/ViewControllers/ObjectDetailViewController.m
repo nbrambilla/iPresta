@@ -35,6 +35,7 @@
         editorialLabel.text = object.editorial;
         descriptionLabel.text = object.descriptionObject;
         stateLabel.text = object.textState;
+        imageView.image = [UIImage imageWithData:object.imageData];
     }
     // Do any additional setup after loading the view from its nib.
 }

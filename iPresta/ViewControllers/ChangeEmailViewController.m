@@ -22,7 +22,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.title = @"Cambiar email";
     }
     return self;
 }
@@ -30,8 +30,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.title = @"Cambiar email";
     
     changeMailTextLabel.text = [NSString stringWithFormat:@"Su email actual es %@. Si desea cambiarlo, ingrese el nuevo y presione \"Cambiar email\"", [[User currentUser] email]];
     
@@ -44,10 +42,10 @@
     {
         [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
         
-        [[PFUser currentUser] setEmail:emailTextField.text];
-        [[PFUser currentUser] setUsername:emailTextField.text];
+        [[User currentUser] setEmail:emailTextField.text];
+        [[User currentUser] setUsername:emailTextField.text];
         
-        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+        [[User currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
         {
             [ProgressHUD hideHUDForView:self.view.window animated:YES];
             

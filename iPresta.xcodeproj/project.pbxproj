@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		15124E5B16FDDFBD00520FE2 /* Lending.m in Sources */ = {isa = PBXBuildFile; fileRef = 15124E5A16FDDFBD00520FE2 /* Lending.m */; };
+		1518EA0B174A1DDE000EB0FE /* ObjectsMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1518EA09174A1DDE000EB0FE /* ObjectsMenuViewController.m */; };
+		1518EA0C174A1DDE000EB0FE /* ObjectsMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1518EA0A174A1DDE000EB0FE /* ObjectsMenuViewController.xib */; };
+		1518EA16174A6D97000EB0FE /* camera_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1518EA15174A6D97000EB0FE /* camera_icon.png */; };
+		1518EA1A174A6F26000EB0FE /* camera_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1518EA18174A6F26000EB0FE /* camera_icon@2x.png */; };
 		15212EEF173C53CF00A7A764 /* iPrestaUIControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 15212EEE173C53CF00A7A764 /* iPrestaUIControl.m */; };
 		15393FF51742BA020012BA4F /* ObjectDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15393FF31742BA020012BA4F /* ObjectDetailViewController.m */; };
 		15393FF61742BA020012BA4F /* ObjectDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15393FF41742BA020012BA4F /* ObjectDetailViewController.xib */; };
@@ -66,6 +70,8 @@
 		15D1706917396AA700CF1F98 /* ObjectsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1706717396AA700CF1F98 /* ObjectsListViewController.xib */; };
 		15D1706D1739706600CF1F98 /* AddObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1706B1739706500CF1F98 /* AddObjectViewController.m */; };
 		15D1706E1739706600CF1F98 /* AddObjectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1706C1739706600CF1F98 /* AddObjectViewController.xib */; };
+		15E3E9571748F8140056CA4C /* ConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E3E9551748F8140056CA4C /* ConfigurationViewController.m */; };
+		15E3E9581748F8140056CA4C /* ConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E3E9561748F8140056CA4C /* ConfigurationViewController.xib */; };
 		15E6B2191729AE380050763A /* iPrestaNSString.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E6B2181729AE380050763A /* iPrestaNSString.m */; };
 		15EF0992173ADED50001C8EF /* iPrestaNSError.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EF0991173ADED50001C8EF /* iPrestaNSError.m */; };
 		15EF0999173ADFEE0001C8EF /* STComboText.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EF0995173ADFEE0001C8EF /* STComboText.m */; };
@@ -77,6 +83,11 @@
 /* Begin PBXFileReference section */
 		15124E5916FDDFBD00520FE2 /* Lending.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Lending.h; path = iPresta/Models/Lending.h; sourceTree = "<group>"; };
 		15124E5A16FDDFBD00520FE2 /* Lending.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Lending.m; path = iPresta/Models/Lending.m; sourceTree = "<group>"; };
+		1518EA08174A1DDE000EB0FE /* ObjectsMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectsMenuViewController.h; path = ViewControllers/ObjectsMenuViewController.h; sourceTree = "<group>"; };
+		1518EA09174A1DDE000EB0FE /* ObjectsMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectsMenuViewController.m; path = ViewControllers/ObjectsMenuViewController.m; sourceTree = "<group>"; };
+		1518EA0A174A1DDE000EB0FE /* ObjectsMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ObjectsMenuViewController.xib; path = ViewControllers/ObjectsMenuViewController.xib; sourceTree = "<group>"; };
+		1518EA15174A6D97000EB0FE /* camera_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera_icon.png; path = Images/camera_icon.png; sourceTree = "<group>"; };
+		1518EA18174A6F26000EB0FE /* camera_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera_icon@2x.png"; path = "../../../../Desktop/PFC/iPresta/camera_icon@2x.png"; sourceTree = "<group>"; };
 		15212EED173C53CF00A7A764 /* iPrestaUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaUIControl.h; path = "External Frameworks/Extends UIControl/iPrestaUIControl.h"; sourceTree = "<group>"; };
 		15212EEE173C53CF00A7A764 /* iPrestaUIControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaUIControl.m; path = "External Frameworks/Extends UIControl/iPrestaUIControl.m"; sourceTree = "<group>"; };
 		15393FF21742BA020012BA4F /* ObjectDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectDetailViewController.h; path = ViewControllers/ObjectDetailViewController.h; sourceTree = "<group>"; };
@@ -174,6 +185,9 @@
 		15D1706A1739706500CF1F98 /* AddObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddObjectViewController.h; path = ViewControllers/AddObjectViewController.h; sourceTree = "<group>"; };
 		15D1706B1739706500CF1F98 /* AddObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddObjectViewController.m; path = ViewControllers/AddObjectViewController.m; sourceTree = "<group>"; };
 		15D1706C1739706600CF1F98 /* AddObjectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AddObjectViewController.xib; path = ViewControllers/AddObjectViewController.xib; sourceTree = "<group>"; };
+		15E3E9541748F8140056CA4C /* ConfigurationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfigurationViewController.h; path = ViewControllers/ConfigurationViewController.h; sourceTree = "<group>"; };
+		15E3E9551748F8140056CA4C /* ConfigurationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConfigurationViewController.m; path = ViewControllers/ConfigurationViewController.m; sourceTree = "<group>"; };
+		15E3E9561748F8140056CA4C /* ConfigurationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ConfigurationViewController.xib; path = ViewControllers/ConfigurationViewController.xib; sourceTree = "<group>"; };
 		15E6B2171729AE380050763A /* iPrestaNSString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaNSString.h; path = "External Frameworks/Extends NSString/iPrestaNSString.h"; sourceTree = "<group>"; };
 		15E6B2181729AE380050763A /* iPrestaNSString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaNSString.m; path = "External Frameworks/Extends NSString/iPrestaNSString.m"; sourceTree = "<group>"; };
 		15EF0990173ADED50001C8EF /* iPrestaNSError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaNSError.h; path = "External Frameworks/Extends NSError/iPrestaNSError.h"; sourceTree = "<group>"; };
@@ -222,6 +236,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1518EA14174A6D86000EB0FE /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				1518EA18174A6F26000EB0FE /* camera_icon@2x.png */,
+				1518EA15174A6D97000EB0FE /* camera_icon.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		15212EEC173C534400A7A764 /* Extends UIControl */ = {
 			isa = PBXGroup;
 			children = (
@@ -391,6 +414,7 @@
 		156FDE0F16F399E900F4BEEA /* iPresta */ = {
 			isa = PBXGroup;
 			children = (
+				1518EA14174A6D86000EB0FE /* Images */,
 				156FDE4616F39DCC00F4BEEA /* ViewControllers */,
 				156FDE1816F399E900F4BEEA /* iPrestaAppDelegate.h */,
 				156FDE1916F399E900F4BEEA /* iPrestaAppDelegate.m */,
@@ -449,6 +473,12 @@
 				15393FF21742BA020012BA4F /* ObjectDetailViewController.h */,
 				15393FF31742BA020012BA4F /* ObjectDetailViewController.m */,
 				15393FF41742BA020012BA4F /* ObjectDetailViewController.xib */,
+				15E3E9541748F8140056CA4C /* ConfigurationViewController.h */,
+				15E3E9551748F8140056CA4C /* ConfigurationViewController.m */,
+				15E3E9561748F8140056CA4C /* ConfigurationViewController.xib */,
+				1518EA08174A1DDE000EB0FE /* ObjectsMenuViewController.h */,
+				1518EA09174A1DDE000EB0FE /* ObjectsMenuViewController.m */,
+				1518EA0A174A1DDE000EB0FE /* ObjectsMenuViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -560,6 +590,10 @@
 				1563FF7B173F9ABE00826DC4 /* zbar-samples.png in Resources */,
 				15393FF61742BA020012BA4F /* ObjectDetailViewController.xib in Resources */,
 				15FEB8371747C88100BB6750 /* iPrestaViewController.xib in Resources */,
+				15E3E9581748F8140056CA4C /* ConfigurationViewController.xib in Resources */,
+				1518EA0C174A1DDE000EB0FE /* ObjectsMenuViewController.xib in Resources */,
+				1518EA16174A6D97000EB0FE /* camera_icon.png in Resources */,
+				1518EA1A174A6F26000EB0FE /* camera_icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,6 +627,8 @@
 				1563FF8E17404B8000826DC4 /* ProgressHUD.m in Sources */,
 				15393FF51742BA020012BA4F /* ObjectDetailViewController.m in Sources */,
 				15FEB8361747C88100BB6750 /* iPrestaViewController.m in Sources */,
+				15E3E9571748F8140056CA4C /* ConfigurationViewController.m in Sources */,
+				1518EA0B174A1DDE000EB0FE /* ObjectsMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

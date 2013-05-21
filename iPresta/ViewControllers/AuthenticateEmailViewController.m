@@ -9,8 +9,8 @@
 #import "AuthenticateEmailViewController.h"
 #import "iPrestaNSString.h"
 #import "ChangeEmailViewController.h"
-#import "ObjectsListViewController.h"
 #import "iPrestaNavigationController.h"
+#import "ObjectsMenuViewController.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
 #import "User.h"
@@ -25,7 +25,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.title = @"Autenticar email";
     }
     return self;
 }
@@ -34,8 +34,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    self.title = @"Autenticar email";
     
     [self.navigationItem setHidesBackButton:YES animated:NO];
     
@@ -49,8 +47,6 @@
 {
     [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
     
-    //[[PFUser currentUser] setEmail:self.email];
-        
     [[User currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
     {
         [ProgressHUD hideHUDForView:self.view.window animated:YES];
@@ -72,7 +68,7 @@
 {
     [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
     
-    [[PFUser currentUser] refreshInBackgroundWithBlock:^(PFObject *object, NSError *error)
+    [[User currentUser] refreshInBackgroundWithBlock:^(PFObject *object, NSError *error)
     {
         [ProgressHUD hideHUDForView:self.view.window animated:YES];
         
@@ -86,13 +82,12 @@
     if ([User currentUserHasEmailVerified])
     {
         UINavigationController *navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
-        UITableViewController *tableViewController = [[ObjectsListViewController alloc] initWithNibName:@"ObjectsListViewController" bundle:nil];
-        [navigationController pushViewController:tableViewController animated:NO];
+        UIViewController *viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
+        [navigationController pushViewController:viewController animated:NO];
         
         [self presentModalViewController:navigationController animated:YES];
         
-        navigationController = nil;
-        tableViewController = nil;
+        viewController = nil;
     }
     else
     {

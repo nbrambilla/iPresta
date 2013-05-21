@@ -16,10 +16,13 @@
     
     switch ([self code]) {
         case CONNECTION_ERROR: // Error de conexión
-            message = @"Error de Conexión";
+            message = @"Problemas con la conexión. Intentelo otra vez.";
             break;
         case URLCONNECTION_ERROR: // Error de conexión
-            message = @"Error de Conexión";
+            message = @"Problemas con la conexión. Intentelo otra vez.";
+            break;
+        case REQUESTTIMEOUT_ERROR: // Error de tiempo de conexion
+            message = @"Problemas con la conexión. Intentelo otra vez.";
             break;
         case LOGIN_ERROR: // Error de Login
             message = @"Email y/o password incorrecto/s";
@@ -40,7 +43,7 @@
             break;
     }
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:delegate cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:message delegate:delegate cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     
     alert = nil;
