@@ -8,6 +8,7 @@
 
 #import "ObjectsMenuViewController.h"
 #import "ObjectsListViewController.h"
+#import "ConfigurationViewController.h"
 #import "iPrestaObject.h"
 
 @interface ObjectsMenuViewController ()
@@ -29,10 +30,15 @@
 {
     [super viewDidLoad];
     
+    UIBarButtonItem *configurationObjectlButton = [[UIBarButtonItem alloc] initWithTitle:@"Config" style:UIBarButtonItemStyleBordered target:self action:@selector(goToConfiguration)];
+    self.navigationItem.rightBarButtonItem = configurationObjectlButton;
+    
     booksListButton.tag = BookType;
     audioListButton.tag = AudioType;
     videoListButton.tag = VideoType;
     othersListButton.tag = OtherType;
+
+    configurationObjectlButton = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,6 +56,16 @@
     
     viewController = nil;
     pressedButton = nil;
+}
+
+- (void)goToConfiguration
+{
+    ConfigurationViewController *viewController = [[ConfigurationViewController alloc] initWithNibName:@"ConfigurationViewController" bundle:nil];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    [self presentViewController:navigationController animated:YES completion:nil];
+    
+    viewController = nil;
+    navigationController = nil;
 }
 
 - (void)viewDidUnload

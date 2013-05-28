@@ -8,6 +8,7 @@
 
 #import "iPrestaObject.h"
 #import "User.h"
+#import "Give.h"
 #import "iPrestaAppDelegate.h"
 #import "AuthenticateEmailViewController.h"
 #import "iPrestaNavigationController.h"
@@ -23,6 +24,7 @@
     
     [User registerSubclass];
     [iPrestaObject registerSubclass];
+    [Give registerSubclass];
     [Parse setApplicationId:@"ke5qAMdl1hxNkKPbmJyiOkCqfDkUtvwnRX6PKlXA" clientKey:@"xceoaXQrBv8vRium67iyjZrQfFI8lI0AROGhXsfR"];
     
     // Se carga iPrestaViewController, la pantalla raiz

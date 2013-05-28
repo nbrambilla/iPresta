@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		15124E5B16FDDFBD00520FE2 /* Lending.m in Sources */ = {isa = PBXBuildFile; fileRef = 15124E5A16FDDFBD00520FE2 /* Lending.m */; };
+		15124E5B16FDDFBD00520FE2 /* Give.m in Sources */ = {isa = PBXBuildFile; fileRef = 15124E5A16FDDFBD00520FE2 /* Give.m */; };
+		15175A5D1753DA49005947B7 /* GiveObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15175A5B1753DA49005947B7 /* GiveObjectViewController.m */; };
+		15175A5E1753DA49005947B7 /* GiveObjectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15175A5C1753DA49005947B7 /* GiveObjectViewController.xib */; };
 		1518EA0B174A1DDE000EB0FE /* ObjectsMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1518EA09174A1DDE000EB0FE /* ObjectsMenuViewController.m */; };
 		1518EA0C174A1DDE000EB0FE /* ObjectsMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1518EA0A174A1DDE000EB0FE /* ObjectsMenuViewController.xib */; };
 		1518EA16174A6D97000EB0FE /* camera_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1518EA15174A6D97000EB0FE /* camera_icon.png */; };
 		1518EA1A174A6F26000EB0FE /* camera_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1518EA18174A6F26000EB0FE /* camera_icon@2x.png */; };
+		151AE7E11753FD4800C41740 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 151AE7E01753FD4800C41740 /* AddressBook.framework */; };
+		151AE7E31753FDA300C41740 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 151AE7E21753FDA300C41740 /* AddressBookUI.framework */; };
 		15212EEF173C53CF00A7A764 /* iPrestaUIControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 15212EEE173C53CF00A7A764 /* iPrestaUIControl.m */; };
 		15393FF51742BA020012BA4F /* ObjectDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15393FF31742BA020012BA4F /* ObjectDetailViewController.m */; };
 		15393FF61742BA020012BA4F /* ObjectDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15393FF41742BA020012BA4F /* ObjectDetailViewController.xib */; };
@@ -81,13 +85,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		15124E5916FDDFBD00520FE2 /* Lending.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Lending.h; path = iPresta/Models/Lending.h; sourceTree = "<group>"; };
-		15124E5A16FDDFBD00520FE2 /* Lending.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Lending.m; path = iPresta/Models/Lending.m; sourceTree = "<group>"; };
+		15124E5916FDDFBD00520FE2 /* Give.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Give.h; path = iPresta/Models/Give.h; sourceTree = "<group>"; };
+		15124E5A16FDDFBD00520FE2 /* Give.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Give.m; path = iPresta/Models/Give.m; sourceTree = "<group>"; };
+		15175A5A1753DA49005947B7 /* GiveObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiveObjectViewController.h; path = ViewControllers/GiveObjectViewController.h; sourceTree = "<group>"; };
+		15175A5B1753DA49005947B7 /* GiveObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GiveObjectViewController.m; path = ViewControllers/GiveObjectViewController.m; sourceTree = "<group>"; };
+		15175A5C1753DA49005947B7 /* GiveObjectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GiveObjectViewController.xib; path = ViewControllers/GiveObjectViewController.xib; sourceTree = "<group>"; };
 		1518EA08174A1DDE000EB0FE /* ObjectsMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectsMenuViewController.h; path = ViewControllers/ObjectsMenuViewController.h; sourceTree = "<group>"; };
 		1518EA09174A1DDE000EB0FE /* ObjectsMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectsMenuViewController.m; path = ViewControllers/ObjectsMenuViewController.m; sourceTree = "<group>"; };
 		1518EA0A174A1DDE000EB0FE /* ObjectsMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ObjectsMenuViewController.xib; path = ViewControllers/ObjectsMenuViewController.xib; sourceTree = "<group>"; };
 		1518EA15174A6D97000EB0FE /* camera_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera_icon.png; path = Images/camera_icon.png; sourceTree = "<group>"; };
 		1518EA18174A6F26000EB0FE /* camera_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera_icon@2x.png"; path = "../../../../Desktop/PFC/iPresta/camera_icon@2x.png"; sourceTree = "<group>"; };
+		151AE7E01753FD4800C41740 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		151AE7E21753FDA300C41740 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		15212EED173C53CF00A7A764 /* iPrestaUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaUIControl.h; path = "External Frameworks/Extends UIControl/iPrestaUIControl.h"; sourceTree = "<group>"; };
 		15212EEE173C53CF00A7A764 /* iPrestaUIControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaUIControl.m; path = "External Frameworks/Extends UIControl/iPrestaUIControl.m"; sourceTree = "<group>"; };
 		15393FF21742BA020012BA4F /* ObjectDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectDetailViewController.h; path = ViewControllers/ObjectDetailViewController.h; sourceTree = "<group>"; };
@@ -207,6 +216,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				151AE7E31753FDA300C41740 /* AddressBookUI.framework in Frameworks */,
+				151AE7E11753FD4800C41740 /* AddressBook.framework in Frameworks */,
 				1563FF83173F9CAF00826DC4 /* AVFoundation.framework in Frameworks */,
 				1563FF81173F9C7000826DC4 /* libiconv.dylib in Frameworks */,
 				1563FF7F173F9C4C00826DC4 /* CoreMedia.framework in Frameworks */,
@@ -385,6 +396,8 @@
 		156FDE0816F399E900F4BEEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				151AE7E21753FDA300C41740 /* AddressBookUI.framework */,
+				151AE7E01753FD4800C41740 /* AddressBook.framework */,
 				1563FF82173F9CAF00826DC4 /* AVFoundation.framework */,
 				1563FF80173F9C7000826DC4 /* libiconv.dylib */,
 				1563FF7E173F9C4C00826DC4 /* CoreMedia.framework */,
@@ -479,6 +492,9 @@
 				1518EA08174A1DDE000EB0FE /* ObjectsMenuViewController.h */,
 				1518EA09174A1DDE000EB0FE /* ObjectsMenuViewController.m */,
 				1518EA0A174A1DDE000EB0FE /* ObjectsMenuViewController.xib */,
+				15175A5A1753DA49005947B7 /* GiveObjectViewController.h */,
+				15175A5B1753DA49005947B7 /* GiveObjectViewController.m */,
+				15175A5C1753DA49005947B7 /* GiveObjectViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -490,8 +506,8 @@
 				156FDE5016F3A04500F4BEEA /* User.m */,
 				15B85BD916F49CFE00FB5674 /* iPrestaObject.h */,
 				15B85BDA16F49CFE00FB5674 /* iPrestaObject.m */,
-				15124E5916FDDFBD00520FE2 /* Lending.h */,
-				15124E5A16FDDFBD00520FE2 /* Lending.m */,
+				15124E5916FDDFBD00520FE2 /* Give.h */,
+				15124E5A16FDDFBD00520FE2 /* Give.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -594,6 +610,7 @@
 				1518EA0C174A1DDE000EB0FE /* ObjectsMenuViewController.xib in Resources */,
 				1518EA16174A6D97000EB0FE /* camera_icon.png in Resources */,
 				1518EA1A174A6F26000EB0FE /* camera_icon@2x.png in Resources */,
+				15175A5E1753DA49005947B7 /* GiveObjectViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,7 +625,7 @@
 				156FDE1A16F399E900F4BEEA /* iPrestaAppDelegate.m in Sources */,
 				156FDE5116F3A04500F4BEEA /* User.m in Sources */,
 				15B85BDB16F49CFE00FB5674 /* iPrestaObject.m in Sources */,
-				15124E5B16FDDFBD00520FE2 /* Lending.m in Sources */,
+				15124E5B16FDDFBD00520FE2 /* Give.m in Sources */,
 				154F20511720597B00E65121 /* iPrestaNavigationController.m in Sources */,
 				154F205717205E7D00E65121 /* LoginViewController.m in Sources */,
 				154F205C172065A800E65121 /* CreateCountViewController.m in Sources */,
@@ -629,6 +646,7 @@
 				15FEB8361747C88100BB6750 /* iPrestaViewController.m in Sources */,
 				15E3E9571748F8140056CA4C /* ConfigurationViewController.m in Sources */,
 				1518EA0B174A1DDE000EB0FE /* ObjectsMenuViewController.m in Sources */,
+				15175A5D1753DA49005947B7 /* GiveObjectViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -698,6 +716,8 @@
 		156FDE2416F399E900F4BEEA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -711,6 +731,8 @@
 				);
 				OTHER_LDFLAGS = "-fobjc-arc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "FA462E66-A9E7-4305-8B8C-9EC3D686EFF0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FA462E66-A9E7-4305-8B8C-9EC3D686EFF0";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
@@ -719,6 +741,8 @@
 		156FDE2516F399E900F4BEEA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -732,6 +756,8 @@
 				);
 				OTHER_LDFLAGS = "-fobjc-arc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "FA462E66-A9E7-4305-8B8C-9EC3D686EFF0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FA462E66-A9E7-4305-8B8C-9EC3D686EFF0";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};

@@ -22,17 +22,6 @@
 
 + (User *)currentUser
 {
-//    User *currentUser = nil;
-//    
-//    if([PFUser currentUser])
-//    {
-//        currentUser = [User object];
-//        currentUser.objectId = [[PFUser currentUser] objectId];
-//        currentUser.username = [[PFUser currentUser] email];
-//        currentUser.email = [[PFUser currentUser] email];
-//        currentUser.password = [[PFUser currentUser] password];
-//    }
-//    return currentUser;
     return (User *)[PFUser currentUser];
 }
 

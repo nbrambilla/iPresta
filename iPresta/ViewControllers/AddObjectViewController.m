@@ -74,7 +74,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Detect Object Methods
@@ -97,17 +96,13 @@
 {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES)
     {
-        // Create image picker controller
         UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
         
-        // Set source to the camera
         imagePicker.sourceType =  UIImagePickerControllerSourceTypeCamera;
         imagePicker.allowsEditing = YES;
         
-        // Delegate is self
         imagePicker.delegate = self;
         
-        // Show image picker
         [self presentModalViewController:imagePicker animated:YES];
     }
 }
@@ -126,10 +121,8 @@
     }
     else
     {
-        // Access the uncropped image from info dictionary
         UIImage *image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
         
-        // Resize image
         UIGraphicsBeginImageContext(CGSizeMake(248, 248));
         [image drawInRect: CGRectMake(0, 0, 248, 248)];
         UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -187,7 +180,7 @@
         if (error) [error manageErrorTo:self];      // Si hay al guardar el objeto
         else                                        // Si el objeto se guarda correctamente
         {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"addObjectToListObserver" object:newObject];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
             [self.navigationController popViewControllerAnimated:YES];
         }
     }];
@@ -227,7 +220,7 @@
 
     if (imageView.tag)
     {
-        NSData *imageData = UIImageJPEGRepresentation(imageView.image, 0.5f);
+        NSData *imageData = UIImageJPEGRepresentation(imageView.image, 0.1f);
         newObject.image = [PFFile fileWithName:[NSString stringWithFormat:@"%@.png", [nameTextField.text formatName]] data:imageData];
         
         [newObject.image saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

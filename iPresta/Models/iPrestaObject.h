@@ -69,6 +69,8 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 + (NSArray *)videoObjectTypes;
 + (void)setTypeSelected:(ObjectType)objectType;
 + (ObjectType)typeSelected;
++ (void)setCurrentObject:(iPrestaObject *)object;
++ (iPrestaObject *)currentObject;
 
 - (void)getData:(NSString *)objectCode;
 - (NSString *)textState;

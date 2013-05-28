@@ -53,7 +53,7 @@
     
     addObjectlButton = nil;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addObjectToList:) name:@"addObjectToListObserver" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTableView) name:@"setObjectsTableObserver" object:nil];
     
     [self setTableView];
 }
@@ -96,12 +96,6 @@
 
 #pragma mark - Add / Delete Object Methods
 
-- (void)addObjectToList:(NSNotification *)notification
-{
-    [objectsArray addObject:notification.object];
-    [self.tableView reloadData];
-}
-
 - (void)deleteObjectWithIndex:(NSIndexPath *)indexPath
 {
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -113,7 +107,7 @@
          [ProgressHUD hideHUDForView:self.view animated:YES];
          
          if (error) [error manageErrorTo:self];     // Si hay error al eliminar el objeto
-         else                                       // Si se elimina el objetoo, se actualiza la lista
+         else                                       // Si se elimina el objeto, se actualiza la lista
          {
              [objectsArray removeObjectAtIndex:indexPath.row];
              [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -134,7 +128,8 @@
 - (void)goToObjectDetail:(iPrestaObject *)object
 {
     ObjectDetailViewController *objectDetailViewController = [[ObjectDetailViewController alloc] initWithNibName:@"ObjectDetailViewController" bundle:nil];
-    objectDetailViewController.object = object;
+    
+    [iPrestaObject setCurrentObject:object];
     
     [self.navigationController pushViewController:objectDetailViewController animated:YES];
     

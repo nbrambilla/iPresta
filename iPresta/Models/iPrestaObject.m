@@ -17,6 +17,7 @@
 @implementation iPrestaObject
 
 static ObjectType typeSelected;
+static iPrestaObject *currentObject;
 
 @dynamic owner;
 @dynamic state;
@@ -67,6 +68,11 @@ static ObjectType typeSelected;
     typeSelected = objectType;
 }
 
++ (void)setCurrentObject:(iPrestaObject *)object
+{
+    currentObject = object;
+}
+
 #pragma mark - User Getters
 
 - (id<iPrestaObjectDelegate>)delegate
@@ -82,6 +88,11 @@ static ObjectType typeSelected;
 + (ObjectType)typeSelected
 {
     return typeSelected;
+}
+
++ (iPrestaObject *)currentObject
+{
+    return currentObject;
 }
 
 #pragma mark -  Array Types Methods

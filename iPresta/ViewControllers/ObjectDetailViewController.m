@@ -7,14 +7,14 @@
 //
 
 #import "ObjectDetailViewController.h"
+#import "GiveObjectViewController.h"
+#import "iPrestaObject.h"
 
 @interface ObjectDetailViewController ()
 
 @end
 
 @implementation ObjectDetailViewController
-
-@synthesize object;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,28 +28,47 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if (object) {
-        typeLabel.text = object.textType;
-        nameLabel.text = object.name;
-        authorLabel.text = object.author;
-        editorialLabel.text = object.editorial;
-        descriptionLabel.text = object.descriptionObject;
-        stateLabel.text = object.textState;
-        imageView.image = [UIImage imageWithData:object.imageData];
-    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setView) name:@"setObjectViewObserver" object:nil];
+    
+    [self setView];
+    
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)setView
+{
+    typeLabel.text = [[iPrestaObject currentObject] textType];
+    nameLabel.text = [[iPrestaObject currentObject] name];
+    authorLabel.text = [[iPrestaObject currentObject] author];
+    editorialLabel.text = [[iPrestaObject currentObject] editorial];
+    descriptionLabel.text = [[iPrestaObject currentObject] descriptionObject];
+    stateLabel.text = [[iPrestaObject currentObject] textState];
+    imageView.image = [UIImage imageWithData:[[iPrestaObject currentObject] imageData]];
+    if ([[iPrestaObject currentObject] state] == Given)
+    {
+        giveButton.hidden = YES;
+    }
 }
 
 - (void)viewDidUnload
 {
-    object = nil;
     typeLabel = nil;
     nameLabel = nil;
     authorLabel = nil;
     editorialLabel = nil;
     stateLabel = nil;
     descriptionLabel = nil;
+    giveButton = nil;
     [super viewDidUnload];
+}
+
+- (IBAction)goToGiveObject:(id)sender
+{
+    GiveObjectViewController *viewController = [[GiveObjectViewController alloc] initWithNibName:@"GiveObjectViewController" bundle:nil];
+    [self.navigationController pushViewController:viewController animated:YES];
+
+    viewController = nil;
 }
 
 - (void)didReceiveMemoryWarning

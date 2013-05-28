@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "iPrestaObject.h"
+
 
 @interface ObjectDetailViewController : UIViewController
 {
     @private
-    iPrestaObject *object;
     IBOutlet UIImageView *imageView;
     IBOutlet UILabel *typeLabel;
     IBOutlet UILabel *nameLabel;
@@ -20,8 +19,7 @@
     IBOutlet UILabel *editorialLabel;
     IBOutlet UILabel *descriptionLabel;
     IBOutlet UILabel *stateLabel;
+    IBOutlet UIButton *giveButton;
 }
-
-@property(strong, nonatomic) iPrestaObject *object;
 
 @end
