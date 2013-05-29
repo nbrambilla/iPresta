@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Nacho. All rights reserved.
 //
 
-#import <AddressBookUI/AddressBookUI.h>
+
 #import "GiveObjectViewController.h"
 #import "iPrestaObject.h"
 #import "Give.h"
@@ -47,18 +47,41 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController*)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
+{
+    giveToTextField.text = @"";
+    
+    NSString *firstName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+    NSString *middleName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonMiddleNameProperty);
+    NSString *lastName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonLastNameProperty);
+    
+    if (firstName) giveToTextField.text = [giveToTextField.text stringByAppendingString:firstName];
+    if (middleName) giveToTextField.text = [giveToTextField.text stringByAppendingFormat:@" %@", middleName];
+    if (lastName) giveToTextField.text = [giveToTextField.text stringByAppendingFormat:@" %@", lastName];
+    
+    firstName = nil;
+    middleName = nil;
+    lastName = nil;
+    
+    [self dismissModalViewControllerAnimated:YES];
+    return NO;
+}
+
+- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
+{
+    return NO;
+}
+
 - (void)goToContacts
 {
-    ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(NULL, NULL);
-    if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined) {
-        ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error) {
-            if (granted) {
-                NSLog(@"Access granted!");
-            } else {
-                NSLog(@"Access denied!");
-            }
-        });
-    }
+    ABPeoplePickerNavigationController* picker = [[ABPeoplePickerNavigationController alloc] init];
+    picker.peoplePickerDelegate = self;
+    [self presentModalViewController:picker animated:YES];
 }
 
 - (void)viewDidUnload

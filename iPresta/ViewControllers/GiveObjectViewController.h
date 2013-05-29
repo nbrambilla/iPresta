@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AddressBookUI/AddressBookUI.h>
 #import "STControls.h"
 
-@interface GiveObjectViewController : UIViewController <STDateTextDelegate, UITextFieldDelegate>
+@interface GiveObjectViewController : UIViewController <STDateTextDelegate, UITextFieldDelegate, ABPeoplePickerNavigationControllerDelegate>
 {
     @private
     IBOutlet UITextField *giveToTextField;

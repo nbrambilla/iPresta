@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface iPrestaViewController : UITableViewController
+@interface iPrestaViewController : UIViewController
 
 @end
