@@ -11,6 +11,7 @@
 #import "iPrestaObject.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
+#import "Give.h"
 
 @interface ObjectDetailViewController ()
 
@@ -51,6 +52,7 @@
     {
         giveButton.hidden = YES;
         giveBackButton.hidden = NO;
+        stateLabel.text = [stateLabel.text stringByAppendingFormat:@" a %@",  [[[iPrestaObject currentObject] actualGive] name]];
     }
     else
     {
@@ -69,6 +71,7 @@
     descriptionLabel = nil;
     giveButton = nil;
     giveBackButton = nil;
+    
     [super viewDidUnload];
 }
 
@@ -88,17 +91,22 @@
     [ProgressHUD  showHUDAddedTo:self.view.window animated:YES];
     
     [currentObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-     {
-         [ProgressHUD hideHUDForView:self.view.window animated:YES];
-         
+    {
          if (error) [error manageErrorTo:self];      // Si hay error al actualizar el objeto
          else                                        // Si el objeto se actualiza correctamente
          {
-             [iPrestaObject setCurrentObject:currentObject];
-             [self removeNotificatioWithRegisterId:[[iPrestaObject currentObject] objectId]];
+             currentObject.actualGive.actual = NO;
              
-             [self setView];
-        }
+             [currentObject.actualGive saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+             {
+                 [ProgressHUD hideHUDForView:self.view.window animated:YES];
+                 
+                 [iPrestaObject setCurrentObject:currentObject];
+                 [self removeNotificatioWithRegisterId:[[iPrestaObject currentObject] objectId]];
+                  
+                 [self setView];
+             }];
+         }
      }];
 }
 

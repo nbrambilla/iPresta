@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 
 @class User;
+@class Give;
 
 @protocol iPrestaObjectDelegate <NSObject>
 
@@ -62,6 +63,7 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 @property(assign) VideoObjectType videoType;
 @property(strong, nonatomic) NSData *imageData;
 @property(strong, nonatomic) id<iPrestaObjectDelegate> delegate;
+@property(strong, nonatomic) Give *actualGive;
 
 + (NSString *)parseClassName;
 + (NSArray *)objectTypes;

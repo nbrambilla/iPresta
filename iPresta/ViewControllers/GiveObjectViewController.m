@@ -152,6 +152,7 @@
     give.dataBegin = [dateFormat dateFromString:fromTextView.text];
     
     give.dataEnd = [dateFormat dateFromString:toTextField.text];
+    give.actual = YES;
     
     [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
     
@@ -161,7 +162,6 @@
         else                                        // Si el prestamo se realiza correctamente
         {
             give.object.state = Given;
-            give.actual = YES;
             
             [give.object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
             {
@@ -170,6 +170,7 @@
                 if (error) [error manageErrorTo:self];      // Si hay error al actualizar el objeto
                 else                                        // Si el objeto se actualiza correctamente
                 {
+                    give.object.actualGive = give;
                     [iPrestaObject setCurrentObject:give.object];
                     
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectViewObserver" object:nil];

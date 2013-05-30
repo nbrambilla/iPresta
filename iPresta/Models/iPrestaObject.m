@@ -31,6 +31,7 @@ static iPrestaObject *currentObject;
 @dynamic videoType;
 @synthesize imageData = _imageData;
 @synthesize delegate = _delegate;
+@synthesize actualGive = _actualGive;
 
 - (id)init
 {
@@ -63,6 +64,11 @@ static iPrestaObject *currentObject;
     _imageData = imageData;
 }
 
+-  (void)setActualGive:(Give *)actualGive
+{
+    _actualGive = actualGive;
+}
+
 + (void)setTypeSelected:(ObjectType)objectType
 {
     typeSelected = objectType;
@@ -83,6 +89,11 @@ static iPrestaObject *currentObject;
 - (NSData *)imageData
 {
     return _imageData;
+}
+
+- (Give *)actualGive
+{
+    return _actualGive;
 }
 
 + (ObjectType)typeSelected

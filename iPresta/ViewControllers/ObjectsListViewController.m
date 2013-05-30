@@ -13,6 +13,7 @@
 #import "ObjectDetailViewController.h"
 #import "iPrestaObject.h"
 #import "User.h"
+#import "Give.h"
 
 @interface ObjectsListViewController ()
 
@@ -73,8 +74,15 @@
          if (error) [error manageErrorTo:self];          // Si hay error al obtener los objetos
          else                                            // Si se obtienen los objetos, se listan
          {
-             objectsArray = [objects mutableCopy];
-             [self.tableView reloadData];
+             PFQuery *getCurrentGiveQuery = [Give query];
+             [getCurrentGiveQuery whereKey:@"owner" equalTo:[User currentUser]];
+             [getCurrentGiveQuery whereKey:@"type" equalTo:[NSNumber numberWithInteger:[iPrestaObject typeSelected]]];
+             
+             [getObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+             {
+                 objectsArray = [objects mutableCopy];
+                 [self.tableView reloadData];
+             }];
          }
      }];
 }
@@ -176,6 +184,18 @@
                 cell.imageView.image = [UIImage imageWithData:object.imageData];
             }
         }];
+        
+        if (object.state == Given)
+        {
+            PFQuery *getActualGiveQuery = [Give query];
+            [getActualGiveQuery whereKey:@"object" equalTo:object];
+            [getActualGiveQuery whereKey:@"actual" equalTo:[NSNumber numberWithBool:YES]];
+            
+            [getActualGiveQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+            {
+                 object.actualGive = [objects objectAtIndex:0];
+            }];
+        }
     }
     
     return cell;
