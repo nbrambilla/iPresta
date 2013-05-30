@@ -15,6 +15,7 @@
 @dynamic dataBegin;
 @dynamic dataEnd;
 @dynamic name;
+@dynamic actual;
 
 + (NSString *)parseClassName
 {

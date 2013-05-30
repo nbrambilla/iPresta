@@ -20,6 +20,7 @@
     IBOutlet UILabel *descriptionLabel;
     IBOutlet UILabel *stateLabel;
     IBOutlet UIButton *giveButton;
+    IBOutlet UIButton *giveBackButton;
 }
 
 @end

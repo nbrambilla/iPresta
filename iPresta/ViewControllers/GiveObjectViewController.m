@@ -13,6 +13,8 @@
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
 
+#define ONE_DAY 60*60*24
+
 @interface GiveObjectViewController ()
 
 @end
@@ -36,7 +38,10 @@
     self.navigationItem.rightBarButtonItem = contactsButton;
     
     fromTextView.datePickerMode = STDatePickerModeDateAndTime;
+    [self stDateText:fromTextView dateChangedTo:[NSDate date]];
+    
     toTextField.datePickerMode = STDatePickerModeDateAndTime;
+    [self stDateText:toTextField dateChangedTo:[[NSDate date] dateByAddingTimeInterval:ONE_DAY]];
     
     contactsButton = nil;
 }
@@ -123,9 +128,15 @@
 
 - (void)stDateText:(STDateText*)STDateText dateChangedTo:(NSDate*)date
 {
-     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-     [dateFormat setDateFormat:@"EEE, dd MMM yyyy HH:mm"];
-     [STDateText setText:[dateFormat stringFromDate:date]];
+    if (STDateText == fromTextView)
+    {
+        toTextField.minimumDate = [date dateByAddingTimeInterval:ONE_DAY];
+        [self stDateText:toTextField dateChangedTo:toTextField.minimumDate];
+    }
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss"];
+    [STDateText setText:[dateFormat stringFromDate:date]];
 }
 
 - (IBAction)giveObject:(id)sender
@@ -134,10 +145,10 @@
     
     give.object = [iPrestaObject currentObject];
     
-    give.name = giveToTextField.text;
+    give.name = [giveToTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"EEE, dd MMM yyyy HH:mm"];
+    [dateFormat setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss"];
     give.dataBegin = [dateFormat dateFromString:fromTextView.text];
     
     give.dataEnd = [dateFormat dateFromString:toTextField.text];
@@ -150,6 +161,7 @@
         else                                        // Si el prestamo se realiza correctamente
         {
             give.object.state = Given;
+            give.actual = YES;
             
             [give.object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
             {
@@ -163,7 +175,7 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectViewObserver" object:nil];
                     //[[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
                     
-                    [self addNotificatioToDate:give.dataEnd object:give.object.name to:give.name];
+                    [self addNotificatioToDate:give.dataEnd object:give.object.name to:give.name registerId:give.object.objectId];
                     [self.navigationController popViewControllerAnimated:YES];
                 }
             }];
@@ -173,18 +185,23 @@
     dateFormat = nil;
 }
 
-- (void)addNotificatioToDate:(NSDate *)date object:(NSString *)object to:(NSString *)name
+- (void)addNotificatioToDate:(NSDate *)date object:(NSString *)object to:(NSString *)name registerId:(NSString *)registerId
 {
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-    [localNotification setFireDate:date];
+    localNotification.fireDate = date;
     
-    [localNotification setAlertAction:@"Prestamo Vencido"];
-    [localNotification setAlertBody:[NSString stringWithFormat:@"Ha vencido el prestamo de %@ a %@", object, name]];
-    [localNotification setHasAction: YES];
-    [localNotification setApplicationIconBadgeNumber:[[UIApplication sharedApplication] applicationIconBadgeNumber]+1];
-    [localNotification setSoundName:UILocalNotificationDefaultSoundName];
+    localNotification.alertAction = @"Prestamo Vencido";
+    localNotification.alertBody = [NSString stringWithFormat:@"Ha vencido el prestamo de \"%@\" a %@", object, name];
+    localNotification.hasAction = YES;
+//    localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber];
+    localNotification.soundName = UILocalNotificationDefaultSoundName;
+    
+    NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:registerId, @"id", nil];
+    localNotification.userInfo = userInfo;
     
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    
+    userInfo = nil;
 }
 
 @end

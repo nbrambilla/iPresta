@@ -166,7 +166,6 @@
     
     if (!object.imageData)
     {
-        cell.imageView.tag = YES;
         cell.imageView.image = [UIImage imageNamed:@"camera_icon.png"];
         
         [object.image getDataInBackgroundWithBlock:^(NSData *data, NSError *error)

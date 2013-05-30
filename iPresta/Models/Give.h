@@ -17,6 +17,7 @@
 @property(retain) NSDate *dataBegin;
 @property(retain) NSDate *dataEnd;
 @property(retain) NSString *name;
+@property(assign) BOOL actual;
 
 + (NSString *)parseClassName;
 

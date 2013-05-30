@@ -9,6 +9,8 @@
 #import "ObjectDetailViewController.h"
 #import "GiveObjectViewController.h"
 #import "iPrestaObject.h"
+#import "ProgressHUD.h"
+#import "iPrestaNSError.h"
 
 @interface ObjectDetailViewController ()
 
@@ -48,6 +50,12 @@
     if ([[iPrestaObject currentObject] state] == Given)
     {
         giveButton.hidden = YES;
+        giveBackButton.hidden = NO;
+    }
+    else
+    {
+        giveButton.hidden = NO;
+        giveBackButton.hidden = YES;
     }
 }
 
@@ -60,6 +68,7 @@
     stateLabel = nil;
     descriptionLabel = nil;
     giveButton = nil;
+    giveBackButton = nil;
     [super viewDidUnload];
 }
 
@@ -69,6 +78,40 @@
     [self.navigationController pushViewController:viewController animated:YES];
 
     viewController = nil;
+}
+
+- (IBAction)giveBackObject:(id)sender
+{
+    iPrestaObject *currentObject = [iPrestaObject currentObject];
+    currentObject.state = Property;
+    
+    [ProgressHUD  showHUDAddedTo:self.view.window animated:YES];
+    
+    [currentObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+     {
+         [ProgressHUD hideHUDForView:self.view.window animated:YES];
+         
+         if (error) [error manageErrorTo:self];      // Si hay error al actualizar el objeto
+         else                                        // Si el objeto se actualiza correctamente
+         {
+             [iPrestaObject setCurrentObject:currentObject];
+             [self removeNotificatioWithRegisterId:[[iPrestaObject currentObject] objectId]];
+             
+             [self setView];
+        }
+     }];
+}
+
+- (void)removeNotificatioWithRegisterId:(NSString *)registerId
+{
+    for (UILocalNotification *notification in [[[UIApplication sharedApplication] scheduledLocalNotifications] copy])
+    {
+        if ([registerId isEqualToString:[notification.userInfo objectForKey:@"id"]])
+        {
+            [[UIApplication sharedApplication] cancelLocalNotification:notification];
+            return;
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning
