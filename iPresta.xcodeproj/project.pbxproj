@@ -17,6 +17,8 @@
 		151AE7E11753FD4800C41740 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 151AE7E01753FD4800C41740 /* AddressBook.framework */; };
 		151AE7E31753FDA300C41740 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 151AE7E21753FDA300C41740 /* AddressBookUI.framework */; };
 		15212EEF173C53CF00A7A764 /* iPrestaUIControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 15212EEE173C53CF00A7A764 /* iPrestaUIControl.m */; };
+		1535FAA4175D1B4600587AB7 /* ObjectHistoricGiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1535FAA2175D1B4500587AB7 /* ObjectHistoricGiveViewController.m */; };
+		1535FAA5175D1B4600587AB7 /* ObjectHistoricGiveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1535FAA3175D1B4500587AB7 /* ObjectHistoricGiveViewController.xib */; };
 		15393FF51742BA020012BA4F /* ObjectDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15393FF31742BA020012BA4F /* ObjectDetailViewController.m */; };
 		15393FF61742BA020012BA4F /* ObjectDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15393FF41742BA020012BA4F /* ObjectDetailViewController.xib */; };
 		153BF38C172D759900819918 /* AppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 153BF38A172D759900819918 /* AppViewController.m */; };
@@ -74,6 +76,8 @@
 		15D1706917396AA700CF1F98 /* ObjectsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1706717396AA700CF1F98 /* ObjectsListViewController.xib */; };
 		15D1706D1739706600CF1F98 /* AddObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1706B1739706500CF1F98 /* AddObjectViewController.m */; };
 		15D1706E1739706600CF1F98 /* AddObjectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1706C1739706600CF1F98 /* AddObjectViewController.xib */; };
+		15D2463C175A0FF200C594BB /* ExtendGiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D2463A175A0FF200C594BB /* ExtendGiveViewController.m */; };
+		15D2463D175A0FF200C594BB /* ExtendGiveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D2463B175A0FF200C594BB /* ExtendGiveViewController.xib */; };
 		15E3E9571748F8140056CA4C /* ConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E3E9551748F8140056CA4C /* ConfigurationViewController.m */; };
 		15E3E9581748F8140056CA4C /* ConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E3E9561748F8140056CA4C /* ConfigurationViewController.xib */; };
 		15E6B2191729AE380050763A /* iPrestaNSString.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E6B2181729AE380050763A /* iPrestaNSString.m */; };
@@ -99,6 +103,9 @@
 		151AE7E21753FDA300C41740 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		15212EED173C53CF00A7A764 /* iPrestaUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaUIControl.h; path = "External Frameworks/Extends UIControl/iPrestaUIControl.h"; sourceTree = "<group>"; };
 		15212EEE173C53CF00A7A764 /* iPrestaUIControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaUIControl.m; path = "External Frameworks/Extends UIControl/iPrestaUIControl.m"; sourceTree = "<group>"; };
+		1535FAA1175D1B4500587AB7 /* ObjectHistoricGiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectHistoricGiveViewController.h; path = ViewControllers/ObjectHistoricGiveViewController.h; sourceTree = "<group>"; };
+		1535FAA2175D1B4500587AB7 /* ObjectHistoricGiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectHistoricGiveViewController.m; path = ViewControllers/ObjectHistoricGiveViewController.m; sourceTree = "<group>"; };
+		1535FAA3175D1B4500587AB7 /* ObjectHistoricGiveViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ObjectHistoricGiveViewController.xib; path = ViewControllers/ObjectHistoricGiveViewController.xib; sourceTree = "<group>"; };
 		15393FF21742BA020012BA4F /* ObjectDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectDetailViewController.h; path = ViewControllers/ObjectDetailViewController.h; sourceTree = "<group>"; };
 		15393FF31742BA020012BA4F /* ObjectDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectDetailViewController.m; path = ViewControllers/ObjectDetailViewController.m; sourceTree = "<group>"; };
 		15393FF41742BA020012BA4F /* ObjectDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ObjectDetailViewController.xib; path = ViewControllers/ObjectDetailViewController.xib; sourceTree = "<group>"; };
@@ -194,6 +201,9 @@
 		15D1706A1739706500CF1F98 /* AddObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddObjectViewController.h; path = ViewControllers/AddObjectViewController.h; sourceTree = "<group>"; };
 		15D1706B1739706500CF1F98 /* AddObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddObjectViewController.m; path = ViewControllers/AddObjectViewController.m; sourceTree = "<group>"; };
 		15D1706C1739706600CF1F98 /* AddObjectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AddObjectViewController.xib; path = ViewControllers/AddObjectViewController.xib; sourceTree = "<group>"; };
+		15D24639175A0FF200C594BB /* ExtendGiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExtendGiveViewController.h; path = ViewControllers/ExtendGiveViewController.h; sourceTree = "<group>"; };
+		15D2463A175A0FF200C594BB /* ExtendGiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExtendGiveViewController.m; path = ViewControllers/ExtendGiveViewController.m; sourceTree = "<group>"; };
+		15D2463B175A0FF200C594BB /* ExtendGiveViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExtendGiveViewController.xib; path = ViewControllers/ExtendGiveViewController.xib; sourceTree = "<group>"; };
 		15E3E9541748F8140056CA4C /* ConfigurationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfigurationViewController.h; path = ViewControllers/ConfigurationViewController.h; sourceTree = "<group>"; };
 		15E3E9551748F8140056CA4C /* ConfigurationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConfigurationViewController.m; path = ViewControllers/ConfigurationViewController.m; sourceTree = "<group>"; };
 		15E3E9561748F8140056CA4C /* ConfigurationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ConfigurationViewController.xib; path = ViewControllers/ConfigurationViewController.xib; sourceTree = "<group>"; };
@@ -495,6 +505,12 @@
 				15175A5A1753DA49005947B7 /* GiveObjectViewController.h */,
 				15175A5B1753DA49005947B7 /* GiveObjectViewController.m */,
 				15175A5C1753DA49005947B7 /* GiveObjectViewController.xib */,
+				15D24639175A0FF200C594BB /* ExtendGiveViewController.h */,
+				15D2463A175A0FF200C594BB /* ExtendGiveViewController.m */,
+				15D2463B175A0FF200C594BB /* ExtendGiveViewController.xib */,
+				1535FAA1175D1B4500587AB7 /* ObjectHistoricGiveViewController.h */,
+				1535FAA2175D1B4500587AB7 /* ObjectHistoricGiveViewController.m */,
+				1535FAA3175D1B4500587AB7 /* ObjectHistoricGiveViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -611,6 +627,8 @@
 				1518EA16174A6D97000EB0FE /* camera_icon.png in Resources */,
 				1518EA1A174A6F26000EB0FE /* camera_icon@2x.png in Resources */,
 				15175A5E1753DA49005947B7 /* GiveObjectViewController.xib in Resources */,
+				15D2463D175A0FF200C594BB /* ExtendGiveViewController.xib in Resources */,
+				1535FAA5175D1B4600587AB7 /* ObjectHistoricGiveViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,6 +665,8 @@
 				15E3E9571748F8140056CA4C /* ConfigurationViewController.m in Sources */,
 				1518EA0B174A1DDE000EB0FE /* ObjectsMenuViewController.m in Sources */,
 				15175A5D1753DA49005947B7 /* GiveObjectViewController.m in Sources */,
+				15D2463C175A0FF200C594BB /* ExtendGiveViewController.m in Sources */,
+				1535FAA4175D1B4600587AB7 /* ObjectHistoricGiveViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

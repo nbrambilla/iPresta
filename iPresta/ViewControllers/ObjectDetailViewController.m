@@ -12,6 +12,8 @@
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
 #import "Give.h"
+#import "ExtendGiveViewController.h"
+#import "ObjectHistoricGiveViewController.h"
 
 @interface ObjectDetailViewController ()
 
@@ -59,6 +61,17 @@
         giveButton.hidden = NO;
         giveBackButton.hidden = YES;
     }
+    
+    if ([[[[iPrestaObject currentObject] actualGive] dataEnd] compare:[NSDate date]] == NSOrderedAscending)
+    {
+        loanUpLabel.hidden = NO;
+        loanUpButton.hidden = NO;
+    }
+    else
+    {
+        loanUpLabel.hidden = YES;
+        loanUpButton.hidden = YES;
+    }
 }
 
 - (void)viewDidUnload
@@ -71,7 +84,8 @@
     descriptionLabel = nil;
     giveButton = nil;
     giveBackButton = nil;
-    
+    loanUpLabel = nil;
+    loanUpButton = nil;
     [super viewDidUnload];
 }
 
@@ -80,6 +94,13 @@
     GiveObjectViewController *viewController = [[GiveObjectViewController alloc] initWithNibName:@"GiveObjectViewController" bundle:nil];
     [self.navigationController pushViewController:viewController animated:YES];
 
+    viewController = nil;
+}
+- (IBAction)goToObjectHistoricGives:(id)sender
+{
+    ObjectHistoricGiveViewController *viewController = [[ObjectHistoricGiveViewController alloc] initWithNibName:@"ObjectHistoricGiveViewController" bundle:nil];
+    [self.navigationController pushViewController:viewController animated:YES];
+    
     viewController = nil;
 }
 
@@ -96,18 +117,28 @@
          else                                        // Si el objeto se actualiza correctamente
          {
              currentObject.actualGive.actual = NO;
+             currentObject.actualGive.dataEnd = [NSDate date];
              
              [currentObject.actualGive saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
              {
                  [ProgressHUD hideHUDForView:self.view.window animated:YES];
                  
                  [iPrestaObject setCurrentObject:currentObject];
-                 [self removeNotificatioWithRegisterId:[[iPrestaObject currentObject] objectId]];
+                 [self removeNotificatioWithRegisterId:[[[iPrestaObject currentObject] actualGive] objectId]];
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
                   
                  [self setView];
              }];
          }
      }];
+}
+
+- (IBAction)goToExtendGive:(id)sender
+{
+    ExtendGiveViewController *viewController = [[ExtendGiveViewController alloc] initWithNibName:@"ExtendGiveViewController" bundle:nil];
+    [self.navigationController pushViewController:viewController animated:YES];
+    
+    viewController = nil;
 }
 
 - (void)removeNotificatioWithRegisterId:(NSString *)registerId

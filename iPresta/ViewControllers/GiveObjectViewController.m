@@ -38,9 +38,11 @@
     self.navigationItem.rightBarButtonItem = contactsButton;
     
     fromTextView.datePickerMode = STDatePickerModeDateAndTime;
+    fromTextView.date = [NSDate date];
     [self stDateText:fromTextView dateChangedTo:[NSDate date]];
     
     toTextField.datePickerMode = STDatePickerModeDateAndTime;
+    toTextField.date = [[NSDate date] dateByAddingTimeInterval:ONE_DAY];
     [self stDateText:toTextField dateChangedTo:[[NSDate date] dateByAddingTimeInterval:ONE_DAY]];
     
     contactsButton = nil;
@@ -137,6 +139,7 @@
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss"];
     [STDateText setText:[dateFormat stringFromDate:date]];
+    STDateText.date = date;
 }
 
 - (IBAction)giveObject:(id)sender
@@ -173,10 +176,10 @@
                     give.object.actualGive = give;
                     [iPrestaObject setCurrentObject:give.object];
                     
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectViewObserver" object:nil];
-                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
                     
-                    [self addNotificatioToDate:give.dataEnd object:give.object.name to:give.name registerId:give.object.objectId];
+                    [self addNotificatioToDate:give.dataEnd object:give.object.name to:give.name registerId:give.objectId];
                     [self.navigationController popViewControllerAnimated:YES];
                 }
             }];

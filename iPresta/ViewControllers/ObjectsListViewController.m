@@ -74,15 +74,9 @@
          if (error) [error manageErrorTo:self];          // Si hay error al obtener los objetos
          else                                            // Si se obtienen los objetos, se listan
          {
-             PFQuery *getCurrentGiveQuery = [Give query];
-             [getCurrentGiveQuery whereKey:@"owner" equalTo:[User currentUser]];
-             [getCurrentGiveQuery whereKey:@"type" equalTo:[NSNumber numberWithInteger:[iPrestaObject typeSelected]]];
-             
-             [getObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-             {
-                 objectsArray = [objects mutableCopy];
-                 [self.tableView reloadData];
-             }];
+             objectsArray = [objects mutableCopy];
+             [self.tableView reloadData];
+                 
          }
      }];
 }
@@ -170,7 +164,7 @@
     iPrestaObject *object = [objectsArray objectAtIndex:indexPath.row];
     
     cell.textLabel.text = object.name;
-    cell.detailTextLabel.text = object.author;
+    cell.detailTextLabel.text = [object textState];
     
     if (!object.imageData)
     {

@@ -51,11 +51,11 @@
 		[self.viewOfPicker addSubview:self.datePicker];
 		
 		self.tBar=[[UIToolbar alloc] init ];
-		UIBarButtonItem *itemCancel=[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(clear)];
+//		UIBarButtonItem *itemCancel=[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(clear)];
 		UIBarButtonItem *itemFlex=[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
 		UIBarButtonItem *itemDone=[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
 		[self.tBar setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin];
-		[self.tBar setItems:[NSArray arrayWithObjects:itemCancel,itemFlex,itemDone, nil] animated:YES];
+		[self.tBar setItems:[NSArray arrayWithObjects:/*itemCancel,*/itemFlex,itemDone, nil] animated:YES];
 		self.tBar.tag=kTagToolBar;
 		[self.viewOfPicker addSubview:self.tBar];
 		[self.datePicker addTarget:self action:@selector(datechanged:) forControlEvents:UIControlEventValueChanged];

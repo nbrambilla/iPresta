@@ -21,6 +21,8 @@
     IBOutlet UILabel *stateLabel;
     IBOutlet UIButton *giveButton;
     IBOutlet UIButton *giveBackButton;
+    IBOutlet UILabel *loanUpLabel;
+    IBOutlet UIButton *loanUpButton;
 }
 
 @end
