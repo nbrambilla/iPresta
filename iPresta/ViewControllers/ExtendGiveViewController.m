@@ -77,11 +77,11 @@
     [dateFormat setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss"];
     give.dateEnd = [dateFormat dateFromString:newToTextView.text];
     
-    [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
+    [ProgressHUD showHUDAddedTo:self.view animated:YES];
     
     [give saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
      {
-         [ProgressHUD hideHUDForView:self.view.window animated:YES];
+         [ProgressHUD hideHUDForView:self.view animated:YES];
          
          if (error) [error manageErrorTo:self];      // Si error hay al realizar el prestamo
          else                                        // Si el prestamo se realiza correctamente

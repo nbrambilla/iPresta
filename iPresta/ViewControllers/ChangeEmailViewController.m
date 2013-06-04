@@ -40,14 +40,14 @@
 {
     if ([emailTextField.text isValidEmail])
     {
-        [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
+        [ProgressHUD showHUDAddedTo:self.view animated:YES];
         
         [[User currentUser] setEmail:emailTextField.text];
         [[User currentUser] setUsername:emailTextField.text];
         
         [[User currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
         {
-            [ProgressHUD hideHUDForView:self.view.window animated:YES];
+            [ProgressHUD hideHUDForView:self.view animated:YES];
             
             if (error) [error manageErrorTo:self];  // Si hay error en el cambio de email
             else [self changeEmailSuccess];         // Si el cambio de email se realiza correctamente

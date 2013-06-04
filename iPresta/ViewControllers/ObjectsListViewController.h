@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ObjectsListViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface ObjectsListViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 {
     @private
     NSMutableArray *objectsArray;
+    NSMutableArray *filteredObjectsArray;
+    IBOutlet UISearchBar *searchBar;
 }
-
-@property(strong, nonatomic) NSMutableArray *objectsArray;
 
 @end

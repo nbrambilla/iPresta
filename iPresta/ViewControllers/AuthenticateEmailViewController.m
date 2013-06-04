@@ -45,11 +45,11 @@
 
 - (IBAction)resendAuthenticateEmailMassage:(id)sender
 {
-    [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
+    [ProgressHUD showHUDAddedTo:self.view animated:YES];
     
     [[User currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
     {
-        [ProgressHUD hideHUDForView:self.view.window animated:YES];
+        [ProgressHUD hideHUDForView:self.view animated:YES];
         
         if (error) [error manageErrorTo:self];          // Si hay error en el cambio de email
         else [self resendAuthenticateMessageSuccess];   // Si el cambio de email se realiza correctamente
@@ -66,11 +66,11 @@
 
 - (IBAction)goToApp:(id)sender
 {
-    [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
+    [ProgressHUD showHUDAddedTo:self.view animated:YES];
     
     [[User currentUser] refreshInBackgroundWithBlock:^(PFObject *object, NSError *error)
     {
-        [ProgressHUD hideHUDForView:self.view.window animated:YES];
+        [ProgressHUD hideHUDForView:self.view animated:YES];
         
         if (error) [error manageErrorTo:self];          // Si hay error en el cambio de email
         else [self checkEmailAuthenticationSuccess];    // Si el cambio de email se realiza correctamente

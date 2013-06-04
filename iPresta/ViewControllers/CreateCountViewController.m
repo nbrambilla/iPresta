@@ -76,7 +76,7 @@
         {
             if ([passwordTextField.text matchWith:repeatPasswordTextField.text])
             {
-                [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
+                [ProgressHUD showHUDAddedTo:self.view animated:YES];
                 
                 // Se crea un nuevo usuario
                 
@@ -87,7 +87,7 @@
                 
                 [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
                 {
-                    [ProgressHUD hideHUDForView:self.view.window animated:YES];
+                    [ProgressHUD hideHUDForView:self.view animated:YES];
                     
                     if (error) [error manageErrorTo:self];  // Si hay error en el registro
                     else [self signInSuccess];              // Si el registro se realiza correctamente

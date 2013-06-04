@@ -181,7 +181,7 @@
 
 - (void)saveNewGive:(Give *)give
 {
-    [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
+    [ProgressHUD showHUDAddedTo:self.view animated:YES];
     
     [give saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
      {
@@ -192,7 +192,7 @@
              
              [give.object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
               {
-                  [ProgressHUD hideHUDForView:self.view.window animated:YES];
+                  [ProgressHUD hideHUDForView:self.view animated:YES];
                   
                   if (error) [error manageErrorTo:self];      // Si hay error al actualizar el objeto
                   else                                        // Si el objeto se actualiza correctamente

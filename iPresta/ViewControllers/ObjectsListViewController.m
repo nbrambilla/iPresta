@@ -21,8 +21,6 @@
 
 @implementation ObjectsListViewController
 
-@synthesize objectsArray;
-
 #pragma mark - Lifecycle Methods
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -61,7 +59,7 @@
 
 - (void)setTableView
 {
-    [ProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
+    [ProgressHUD showHUDAddedTo:self.view animated:YES];
     
     PFQuery *getObjectsQuery = [iPrestaObject query];
     [getObjectsQuery whereKey:@"owner" equalTo:[User currentUser]];
@@ -69,8 +67,7 @@
     
     [getObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
-         [ProgressHUD hideHUDForView:[[UIApplication sharedApplication] keyWindow]
-                            animated:YES];
+         [ProgressHUD hideHUDForView:self.view animated:YES];
          
          if (error) [error manageErrorTo:self];          // Si hay error al obtener los objetos
          else                                            // Si se obtienen los objetos, se listan
@@ -83,6 +80,7 @@
              
              objectsArray = [objects mutableCopy];
              [self.tableView reloadData];
+             [self.searchDisplayController.searchResultsTableView reloadData];
                  
          }
      }];
@@ -91,9 +89,9 @@
 - (void)viewDidUnload
 {
     [self setTableView:nil];
-    [self setObjectsArray:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
+
+    searchBar = nil;
     [super viewDidUnload];
 }
 
@@ -105,11 +103,11 @@
 
 #pragma mark - Add / Delete Object Methods
 
-- (void)deleteObjectWithIndex:(NSIndexPath *)indexPath
+- (void)deleteObjectWithIndex:(NSIndexPath *)indexPath fromArray:(NSMutableArray *)array
 {
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    iPrestaObject *object = [objectsArray objectAtIndex:indexPath.row];
+    iPrestaObject *object = [array objectAtIndex:indexPath.row];
     
     [object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
     {
@@ -118,11 +116,66 @@
          if (error) [error manageErrorTo:self];     // Si hay error al eliminar el objeto
          else                                       // Si se elimina el objeto, se actualiza la lista
          {
-             [objectsArray removeObjectAtIndex:indexPath.row];
-             [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+             if (array == filteredObjectsArray)
+             {
+                 [filteredObjectsArray removeObjectAtIndex:indexPath.row];
+                 [self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                 
+                 NSIndexPath *auxIndexPath = [NSIndexPath indexPathForRow:[objectsArray indexOfObject:object] inSection:0];
+                 [objectsArray removeObjectIdenticalTo:object];
+                 [self.tableView deleteRowsAtIndexPaths:@[auxIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                 
+                 auxIndexPath = nil;
+             }
+             else
+             {
+                 [objectsArray removeObjectAtIndex:indexPath.row];
+                 [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+             }
          }
     }];
 }
+
+#pragma mark Content Filtering
+
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+{
+	// Update the filtered array based on the search text and scope.
+	
+    // Remove all objects from the filtered search array
+	[filteredObjectsArray removeAllObjects];
+    
+	// Filter the array using NSPredicate
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name contains[c] %@",searchText];
+    NSArray *tempArray = [objectsArray filteredArrayUsingPredicate:predicate];
+    
+    filteredObjectsArray = [NSMutableArray arrayWithArray:tempArray];
+}
+
+
+#pragma mark - UISearchDisplayController Delegate Methods
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    // Tells the table data source to reload when text changes
+    [self filterContentForSearchText:searchString scope:
+     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
+{
+    // Tells the table data source to reload when scope bar selection changes
+    [self filterContentForSearchText:[self.searchDisplayController.searchBar text] scope:
+     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
+    
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+
 
 #pragma mark - Change ViewController Methods
 
@@ -149,14 +202,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return [objectsArray count];
+        return [[self selectedArray:tableView] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -168,7 +219,16 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    iPrestaObject *object = [objectsArray objectAtIndex:indexPath.row];
+    iPrestaObject *object = nil;
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+	{
+        object = [filteredObjectsArray objectAtIndex:[indexPath row]];
+    }
+	else
+	{
+        object = [objectsArray objectAtIndex:[indexPath row]];
+    }
     
     cell.textLabel.text = object.name;
     cell.detailTextLabel.text = [object textState];
@@ -186,6 +246,10 @@
             }
         }];
     }
+    else
+    {
+        cell.imageView.image = [UIImage imageWithData:object.imageData];
+    }
     
     return cell;
 }
@@ -202,7 +266,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        [self deleteObjectWithIndex:indexPath];
+        [self deleteObjectWithIndex:indexPath fromArray:[self selectedArray:tableView]];
 
     }  
 }
@@ -235,8 +299,22 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
     
-    [self goToObjectDetail:[objectsArray objectAtIndex:indexPath.row]];
+    [self goToObjectDetail:[[self selectedArray:tableView] objectAtIndex:indexPath.row]];
     
+}
+
+# pragma mark - Private Methods
+
+- (NSMutableArray *)selectedArray:(UITableView *)tableView
+{
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+	{
+        return filteredObjectsArray;
+    }
+	else
+	{
+        return objectsArray;
+    }
 }
 
 @end

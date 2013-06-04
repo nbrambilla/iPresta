@@ -137,13 +137,13 @@
 
 - (void)getObjectDataWithCode:(NSString *)code
 {
-    [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
+    [ProgressHUD showHUDAddedTo:self.view animated:YES];
     [newObject getData:code];
 }
 
 - (void)getDataResponseWithError:(NSError *)error
 {
-    [ProgressHUD hideHUDForView:self.view.window animated:YES];
+    [ProgressHUD hideHUDForView:self.view animated:YES];
     
     if (error) [error manageErrorTo:self];
     [self setTextFields];
@@ -171,11 +171,11 @@
 
 - (void)saveNewObject
 {
-    [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
+    [ProgressHUD showHUDAddedTo:self.view animated:YES];
     
     [newObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
     {
-        [ProgressHUD hideHUDForView:self.view.window animated:YES];
+        [ProgressHUD hideHUDForView:self.view animated:YES];
          
         if (error) [error manageErrorTo:self];      // Si hay al guardar el objeto
         else                                        // Si el objeto se guarda correctamente

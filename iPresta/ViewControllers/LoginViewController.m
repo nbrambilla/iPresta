@@ -75,11 +75,11 @@
     {
         if ([emailTextField.text isValidEmail]) // Si el email tiene el formato valido
         {
-            [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
+            [ProgressHUD showHUDAddedTo:self.view animated:YES];
             
             [User logInWithUsernameInBackground:emailTextField.text password:passwordTextField.text block:^(PFUser *user, NSError *error)
             {
-                [ProgressHUD hideHUDForView:self.view.window animated:YES];
+                [ProgressHUD hideHUDForView:self.view animated:YES];
                 
                 if (error) [error manageErrorTo:self];      // Si hay error en el login
                 else [self logInSuccess];                   // Si el login se realiza correctamente

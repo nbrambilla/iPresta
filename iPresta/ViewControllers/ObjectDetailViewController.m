@@ -57,19 +57,20 @@
         [getActualGiveQuery whereKey:@"object" equalTo:[iPrestaObject currentObject]];
         [getActualGiveQuery whereKey:@"actual" equalTo:[NSNumber numberWithBool:YES]];
         
-         [ProgressHUD  showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
+         [ProgressHUD  showHUDAddedTo:self.view animated:YES];
         
         [getActualGiveQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
         {
-            [ProgressHUD hideHUDForView:[[UIApplication sharedApplication] keyWindow] animated:YES];
+            [ProgressHUD hideHUDForView:self.view animated:YES];
             
             [[iPrestaObject currentObject] setActualGive:[objects objectAtIndex:0]];
-            stateLabel.text = [[iPrestaObject currentObject] textState];
             stateLabel.text = [NSString stringWithFormat:@"%@ a %@", [[iPrestaObject currentObject] textState], [[[iPrestaObject currentObject] actualGive] name]];
         }];
     }
     else
     {
+        stateLabel.text = [[iPrestaObject currentObject] textState];
+        
         giveButton.hidden = NO;
         giveBackButton.hidden = YES;
     }
@@ -121,7 +122,7 @@
     iPrestaObject *currentObject = [iPrestaObject currentObject];
     currentObject.state = Property;
     
-    [ProgressHUD  showHUDAddedTo:self.view.window animated:YES];
+    [ProgressHUD  showHUDAddedTo:self.view animated:YES];
     
     [currentObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
     {
@@ -133,7 +134,7 @@
              
              [currentObject.actualGive saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
              {
-                 [ProgressHUD hideHUDForView:self.view.window animated:YES];
+                 [ProgressHUD hideHUDForView:self.view animated:YES];
                  
                  currentObject.actualGive = nil;
                  
