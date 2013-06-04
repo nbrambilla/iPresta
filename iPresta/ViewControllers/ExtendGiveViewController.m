@@ -75,7 +75,7 @@
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss"];
-    give.dataEnd = [dateFormat dateFromString:newToTextView.text];
+    give.dateEnd = [dateFormat dateFromString:newToTextView.text];
     
     [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
     
@@ -90,7 +90,7 @@
               
               [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectViewObserver" object:nil];
               
-              [self addNotificatioToDate:give.dataEnd object:give.object.name to:give.name registerId:give.objectId];
+              [self addNotificatioToDate:give.dateEnd object:give.object.name to:give.name registerId:give.objectId];
               [self.navigationController popViewControllerAnimated:YES];
          }
      }];

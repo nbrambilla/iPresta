@@ -144,49 +144,71 @@
 
 - (IBAction)giveObject:(id)sender
 {
-    Give *give = [Give object];
     
+    giveToTextField.text = [giveToTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    if ([giveToTextField.text length] > 0)
+    {
+        Give *give = [Give object];
+        
+        [self setNewGive:give];
+        [self saveNewGive:give];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"El prestamo de realizarse a otra persona" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        
+        alert = nil;
+    }
+}
+
+- (void)setNewGive:(Give *)give
+{
     give.object = [iPrestaObject currentObject];
     
     give.name = [giveToTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss"];
-    give.dataBegin = [dateFormat dateFromString:fromTextView.text];
+    give.dateBegin = [dateFormat dateFromString:fromTextView.text];
     
-    give.dataEnd = [dateFormat dateFromString:toTextField.text];
+    give.dateEnd = [dateFormat dateFromString:toTextField.text];
     give.actual = YES;
     
+    dateFormat = nil;
+}
+
+- (void)saveNewGive:(Give *)give
+{
     [ProgressHUD showHUDAddedTo:self.view.window animated:YES];
     
     [give saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-    {
-        if (error) [error manageErrorTo:self];      // Si error hay al realizar el prestamo
-        else                                        // Si el prestamo se realiza correctamente
-        {
-            give.object.state = Given;
-            
-            [give.object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-            {
-                [ProgressHUD hideHUDForView:self.view.window animated:YES];
-                
-                if (error) [error manageErrorTo:self];      // Si hay error al actualizar el objeto
-                else                                        // Si el objeto se actualiza correctamente
-                {
-                    give.object.actualGive = give;
-                    [iPrestaObject setCurrentObject:give.object];
-                    
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectViewObserver" object:nil];
-                    
-                    [self addNotificatioToDate:give.dataEnd object:give.object.name to:give.name registerId:give.objectId];
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
-            }];
-        }
-    }];
-    
-    dateFormat = nil;
+     {
+         if (error) [error manageErrorTo:self];      // Si error hay al realizar el prestamo
+         else                                        // Si el prestamo se realiza correctamente
+         {
+             give.object.state = Given;
+             
+             [give.object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+              {
+                  [ProgressHUD hideHUDForView:self.view.window animated:YES];
+                  
+                  if (error) [error manageErrorTo:self];      // Si hay error al actualizar el objeto
+                  else                                        // Si el objeto se actualiza correctamente
+                  {
+                      give.object.actualGive = give;
+                      [iPrestaObject setCurrentObject:give.object];
+                      
+                      [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
+                      [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectViewObserver" object:nil];
+                      
+                      [self addNotificatioToDate:give.dateEnd object:give.object.name to:give.name registerId:give.objectId];
+                      [self.navigationController popViewControllerAnimated:YES];
+                  }
+              }];
+         }
+     }];
 }
 
 - (void)addNotificatioToDate:(NSDate *)date object:(NSString *)object to:(NSString *)name registerId:(NSString *)registerId

@@ -12,8 +12,8 @@
 @implementation Give
 
 @dynamic object;
-@dynamic dataBegin;
-@dynamic dataEnd;
+@dynamic dateBegin;
+@dynamic dateEnd;
 @dynamic name;
 @dynamic actual;
 

@@ -14,8 +14,8 @@
 @interface Give : PFObject<PFSubclassing>
 
 @property(retain) iPrestaObject *object;
-@property(retain) NSDate *dataBegin;
-@property(retain) NSDate *dataEnd;
+@property(retain) NSDate *dateBegin;
+@property(retain) NSDate *dateEnd;
 @property(retain) NSString *name;
 @property(assign) BOOL actual;
 

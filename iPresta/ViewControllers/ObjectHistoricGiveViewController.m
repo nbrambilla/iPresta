@@ -56,8 +56,8 @@
              givesArray = [objects mutableCopy];
           
              givesArray = [givesArray sortedArrayUsingComparator:^NSComparisonResult(Give *a, Give *b) {
-                 NSDate *first = a.dataBegin;
-                 NSDate *second = b.dataBegin;
+                 NSDate *first = a.dateBegin;
+                 NSDate *second = b.dateBegin;
                  return [second compare:first];
              }];
              
@@ -92,8 +92,8 @@
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"dd/MM/yy HH:mm"];
-    NSString *dateBegin = [dateFormat stringFromDate:give.dataBegin];
-    NSString *dateEnd = [dateFormat stringFromDate:give.dataEnd];
+    NSString *dateBegin = [dateFormat stringFromDate:give.dateBegin];
+    NSString *dateEnd = [dateFormat stringFromDate:give.dateEnd];
     
     cell.detailTextLabel.text = [NSString stringWithFormat:@"Desde %@ hasta %@", dateBegin, dateEnd];
     

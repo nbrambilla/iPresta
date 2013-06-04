@@ -62,7 +62,7 @@
         giveBackButton.hidden = YES;
     }
     
-    if ([[[[iPrestaObject currentObject] actualGive] dataEnd] compare:[NSDate date]] == NSOrderedAscending)
+    if ([[[[iPrestaObject currentObject] actualGive] dateEnd] compare:[NSDate date]] == NSOrderedAscending)
     {
         loanUpLabel.hidden = NO;
         loanUpButton.hidden = NO;
@@ -117,11 +117,13 @@
          else                                        // Si el objeto se actualiza correctamente
          {
              currentObject.actualGive.actual = NO;
-             currentObject.actualGive.dataEnd = [NSDate date];
+             currentObject.actualGive.dateEnd = [NSDate date];
              
              [currentObject.actualGive saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
              {
                  [ProgressHUD hideHUDForView:self.view.window animated:YES];
+                 
+                 currentObject.actualGive = nil;
                  
                  [iPrestaObject setCurrentObject:currentObject];
                  [self removeNotificatioWithRegisterId:[[[iPrestaObject currentObject] actualGive] objectId]];
