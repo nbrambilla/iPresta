@@ -61,7 +61,7 @@
 
 - (void)setTableView
 {
-    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+    [ProgressHUD showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
     
     PFQuery *getObjectsQuery = [iPrestaObject query];
     [getObjectsQuery whereKey:@"owner" equalTo:[User currentUser]];
@@ -69,11 +69,18 @@
     
     [getObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
-         [ProgressHUD hideHUDForView:self.view animated:YES];
+         [ProgressHUD hideHUDForView:[[UIApplication sharedApplication] keyWindow]
+                            animated:YES];
          
          if (error) [error manageErrorTo:self];          // Si hay error al obtener los objetos
          else                                            // Si se obtienen los objetos, se listan
          {
+             objects = [objects sortedArrayUsingComparator:^NSComparisonResult(iPrestaObject *a, iPrestaObject *b) {
+                 NSString *first = a.name;
+                 NSString *second = b.name;
+                 return [first compare:second];
+             }];
+             
              objectsArray = [objects mutableCopy];
              [self.tableView reloadData];
                  
@@ -178,18 +185,6 @@
                 cell.imageView.image = [UIImage imageWithData:object.imageData];
             }
         }];
-        
-        if (object.state == Given)
-        {
-            PFQuery *getActualGiveQuery = [Give query];
-            [getActualGiveQuery whereKey:@"object" equalTo:object];
-            [getActualGiveQuery whereKey:@"actual" equalTo:[NSNumber numberWithBool:YES]];
-            
-            [getActualGiveQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-            {
-                 object.actualGive = [objects objectAtIndex:0];
-            }];
-        }
     }
     
     return cell;

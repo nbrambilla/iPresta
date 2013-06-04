@@ -37,8 +37,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setView) name:@"setObjectViewObserver" object:nil];
     
     [self setView];
-    
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)setView
@@ -48,13 +46,27 @@
     authorLabel.text = [[iPrestaObject currentObject] author];
     editorialLabel.text = [[iPrestaObject currentObject] editorial];
     descriptionLabel.text = [[iPrestaObject currentObject] descriptionObject];
-    stateLabel.text = [[iPrestaObject currentObject] textState];
     imageView.image = [UIImage imageWithData:[[iPrestaObject currentObject] imageData]];
+  
     if ([[iPrestaObject currentObject] state] == Given)
     {
         giveButton.hidden = YES;
         giveBackButton.hidden = NO;
-        stateLabel.text = [stateLabel.text stringByAppendingFormat:@" a %@",  [[[iPrestaObject currentObject] actualGive] name]];
+        
+        PFQuery *getActualGiveQuery = [Give query];
+        [getActualGiveQuery whereKey:@"object" equalTo:[iPrestaObject currentObject]];
+        [getActualGiveQuery whereKey:@"actual" equalTo:[NSNumber numberWithBool:YES]];
+        
+         [ProgressHUD  showHUDAddedTo:[[UIApplication sharedApplication] keyWindow] animated:YES];
+        
+        [getActualGiveQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+        {
+            [ProgressHUD hideHUDForView:[[UIApplication sharedApplication] keyWindow] animated:YES];
+            
+            [[iPrestaObject currentObject] setActualGive:[objects objectAtIndex:0]];
+            stateLabel.text = [[iPrestaObject currentObject] textState];
+            stateLabel.text = [NSString stringWithFormat:@"%@ a %@", [[iPrestaObject currentObject] textState], [[[iPrestaObject currentObject] actualGive] name]];
+        }];
     }
     else
     {

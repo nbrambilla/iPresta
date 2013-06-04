@@ -197,7 +197,6 @@
                   if (error) [error manageErrorTo:self];      // Si hay error al actualizar el objeto
                   else                                        // Si el objeto se actualiza correctamente
                   {
-                      give.object.actualGive = give;
                       [iPrestaObject setCurrentObject:give.object];
                       
                       [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
