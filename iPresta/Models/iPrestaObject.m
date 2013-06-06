@@ -47,11 +47,6 @@ static iPrestaObject *currentObject;
     return @"iPrestaObject";
 }
 
-+ (NSString *)title
-{
-    return [[iPrestaObject objectTypes] objectAtIndex:typeSelected];
-}
-
 #pragma mark - User Setters
 
 - (void)setDelegate:(id<iPrestaObjectDelegate>)delegate

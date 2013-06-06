@@ -39,6 +39,16 @@
     [self setView];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    if (self.isMovingFromParentViewController)
+    {
+        [iPrestaObject setCurrentObject:nil];
+    }
+    
+    [super viewWillDisappear:animated];
+}
+
 - (void)setView
 {
     typeLabel.text = [[iPrestaObject currentObject] textType];
@@ -136,12 +146,12 @@
              {
                  [ProgressHUD hideHUDForView:self.view animated:YES];
                  
-                 currentObject.actualGive = nil;
-                 
                  [iPrestaObject setCurrentObject:currentObject];
                  [self removeNotificatioWithRegisterId:[[[iPrestaObject currentObject] actualGive] objectId]];
+                 
+                 currentObject.actualGive = nil;
                  [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
-                  
+                 
                  [self setView];
              }];
          }
@@ -158,14 +168,13 @@
 
 - (void)removeNotificatioWithRegisterId:(NSString *)registerId
 {
-    for (UILocalNotification *notification in [[[UIApplication sharedApplication] scheduledLocalNotifications] copy])
-    {
-        if ([registerId isEqualToString:[notification.userInfo objectForKey:@"id"]])
-        {
-            [[UIApplication sharedApplication] cancelLocalNotification:notification];
-            return;
-        }
-    }
+    NSArray *notificationArray = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userInfo.id = %@", registerId];
+    
+    [[UIApplication sharedApplication] cancelLocalNotification:[[notificationArray filteredArrayUsingPredicate:predicate] objectAtIndex:0]];
+    
+    notificationArray = nil;
+    predicate = nil;
 }
 
 - (void)didReceiveMemoryWarning

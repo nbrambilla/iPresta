@@ -36,7 +36,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-
+        
     }      
     return self;
 }
@@ -45,6 +45,7 @@
 {
     [super viewDidLoad];
     
+    self.navigationController.delegate = self;
     self.title = [[iPrestaObject objectTypes] objectAtIndex:[iPrestaObject typeSelected]];
     
     UIBarButtonItem *addObjectlButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(goToAddObject)];
@@ -52,9 +53,21 @@
     
     addObjectlButton = nil;
     
+    filteredObjectsArray = [[NSMutableArray alloc] init];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTableView) name:@"setObjectsTableObserver" object:nil];
     
     [self setTableView];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    if (self.isMovingFromParentViewController)
+    {
+        [iPrestaObject setTypeSelected:NoneType];
+    }
+    
+    [super viewWillDisappear:animated];
 }
 
 - (void)setTableView
@@ -72,25 +85,17 @@
          if (error) [error manageErrorTo:self];          // Si hay error al obtener los objetos
          else                                            // Si se obtienen los objetos, se listan
          {
-             objects = [objects sortedArrayUsingComparator:^NSComparisonResult(iPrestaObject *a, iPrestaObject *b) {
-                 NSString *first = a.name;
-                 NSString *second = b.name;
-                 return [first compare:second];
-             }];
-             
-             objectsArray = [objects mutableCopy];
+             objectsArray = [NSMutableArray arrayWithArray:[self partitionObjects:objects collationStringSelector:@selector(name)]];
              [self.tableView reloadData];
              [self.searchDisplayController.searchResultsTableView reloadData];
-                 
          }
      }];
 }
 
 - (void)viewDidUnload
 {
-    [self setTableView:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-
+    
     searchBar = nil;
     [super viewDidUnload];
 }
@@ -103,11 +108,20 @@
 
 #pragma mark - Add / Delete Object Methods
 
-- (void)deleteObjectWithIndex:(NSIndexPath *)indexPath fromArray:(NSMutableArray *)array
+- (void)deleteObjectWithIndexPath:(NSIndexPath *)indexPath fromArray:(NSMutableArray *)array
 {
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    iPrestaObject *object = [array objectAtIndex:indexPath.row];
+    iPrestaObject *object = nil;
+    
+    if (array == filteredObjectsArray)
+	{
+        object = [filteredObjectsArray objectAtIndex:indexPath.row];
+    }
+	else
+	{
+        object = [[objectsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    }
     
     [object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
     {
@@ -120,18 +134,16 @@
              {
                  [filteredObjectsArray removeObjectAtIndex:indexPath.row];
                  [self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                 
-                 NSIndexPath *auxIndexPath = [NSIndexPath indexPathForRow:[objectsArray indexOfObject:object] inSection:0];
-                 [objectsArray removeObjectIdenticalTo:object];
-                 [self.tableView deleteRowsAtIndexPaths:@[auxIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-                 
-                 auxIndexPath = nil;
              }
-             else
-             {
-                 [objectsArray removeObjectAtIndex:indexPath.row];
-                 [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-             }
+        
+             NSInteger sectionIndex = [[UILocalizedIndexedCollation currentCollation] sectionForObject:object collationStringSelector:@selector(name)];
+             NSInteger objectIndex = [[objectsArray objectAtIndex:sectionIndex] indexOfObject:object];
+             [[objectsArray objectAtIndex:sectionIndex] removeObjectIdenticalTo:object];
+             
+             NSIndexPath *tableViewIndexPath = [NSIndexPath indexPathForRow:objectIndex inSection:sectionIndex];
+             [self.tableView deleteRowsAtIndexPaths:@[tableViewIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+             
+             tableViewIndexPath = nil;
          }
     }];
 }
@@ -140,42 +152,39 @@
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {
-	// Update the filtered array based on the search text and scope.
-	
-    // Remove all objects from the filtered search array
 	[filteredObjectsArray removeAllObjects];
     
-	// Filter the array using NSPredicate
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name contains[c] %@",searchText];
-    NSArray *tempArray = [objectsArray filteredArrayUsingPredicate:predicate];
-    
-    filteredObjectsArray = [NSMutableArray arrayWithArray:tempArray];
+    for (NSArray *section in objectsArray)
+    {
+        for (iPrestaObject *object in section)
+        {
+            NSComparisonResult result = [object.name compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:[object.name rangeOfString:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch)]];
+            if (result == NSOrderedSame)
+            {
+                [filteredObjectsArray addObject:object];
+            }
+        }
+    }
 }
-
 
 #pragma mark - UISearchDisplayController Delegate Methods
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
-    // Tells the table data source to reload when text changes
     [self filterContentForSearchText:searchString scope:
-     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
     
-    // Return YES to cause the search result table view to be reloaded.
     return YES;
 }
 
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
 {
-    // Tells the table data source to reload when scope bar selection changes
     [self filterContentForSearchText:[self.searchDisplayController.searchBar text] scope:
-     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
+    [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
     
-    // Return YES to cause the search result table view to be reloaded.
     return YES;
 }
-
 
 #pragma mark - Change ViewController Methods
 
@@ -200,14 +209,66 @@
 
 #pragma mark - Table view data source
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+
+{
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+	{
+        return  nil;
+    }
+    else
+    {
+        BOOL showSection = [[objectsArray objectAtIndex:section] count] != 0;
+        return (showSection) ? [[[UILocalizedIndexedCollation currentCollation] sectionTitles] objectAtIndex:section] : nil;
+    }
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+	{
+        return nil;
+    }
+    else
+    {
+        return [[UILocalizedIndexedCollation currentCollation] sectionIndexTitles];
+    }
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+	{
+        return 0;
+    }
+    else
+    {
+        return [[UILocalizedIndexedCollation currentCollation] sectionForSectionIndexTitleAtIndex:index];
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+	{
+        return 1;
+    }
+    else
+    {
+        return [[[UILocalizedIndexedCollation currentCollation] sectionTitles] count];
+    }    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-        return [[self selectedArray:tableView] count];
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+	{
+        return [filteredObjectsArray count];
+    }
+    else
+    {
+        return [[objectsArray objectAtIndex:section] count];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -223,11 +284,11 @@
     
     if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
-        object = [filteredObjectsArray objectAtIndex:[indexPath row]];
+        object = [filteredObjectsArray objectAtIndex:indexPath.row];
     }
 	else
 	{
-        object = [objectsArray objectAtIndex:[indexPath row]];
+        object = [[objectsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     }
     
     cell.textLabel.text = object.name;
@@ -266,8 +327,14 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        [self deleteObjectWithIndex:indexPath fromArray:[self selectedArray:tableView]];
-
+        if (tableView == self.searchDisplayController.searchResultsTableView)
+        {
+            [self deleteObjectWithIndexPath:indexPath fromArray:filteredObjectsArray];
+        }
+        else
+        {
+            [self deleteObjectWithIndexPath:indexPath fromArray:objectsArray];
+        }
     }  
 }
 
@@ -299,22 +366,48 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
     
-    [self goToObjectDetail:[[self selectedArray:tableView] objectAtIndex:indexPath.row]];
-    
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+	{
+        [self goToObjectDetail:[filteredObjectsArray objectAtIndex:indexPath.row]];
+    }
+    else
+    {
+        [self goToObjectDetail:[[objectsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
+    }
 }
 
 # pragma mark - Private Methods
 
-- (NSMutableArray *)selectedArray:(UITableView *)tableView
+-(NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector
+
 {
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-	{
-        return filteredObjectsArray;
+    UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
+    
+    NSInteger sectionCount = [[collation sectionTitles] count]; //section count is take from sectionTitles and not sectionIndexTitles
+    NSMutableArray *unsortedSections = [NSMutableArray arrayWithCapacity:sectionCount];
+    
+    //create an array to hold the data for each section
+    for(int i = 0; i < sectionCount; i++)
+    {
+        [unsortedSections addObject:[NSMutableArray array]];
     }
-	else
-	{
-        return objectsArray;
+    
+    //put each object into a section
+    for (iPrestaObject *object in array)
+    {
+        NSInteger index = [collation sectionForObject:object collationStringSelector:selector];
+        [[unsortedSections objectAtIndex:index] addObject:object];
     }
+    
+    NSMutableArray *sections = [NSMutableArray arrayWithCapacity:sectionCount];
+    
+    //sort each section
+    for (NSMutableArray *section in unsortedSections)
+    {
+        [sections addObject:[[collation sortedArrayFromArray:section collationStringSelector:selector] mutableCopy]];
+    }
+    
+    return sections;
 }
 
 @end

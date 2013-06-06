@@ -26,7 +26,8 @@ typedef NS_ENUM(NSUInteger, ObjectState) {
     Received = 2,
 };
 
-typedef NS_ENUM(NSUInteger, ObjectType) {
+typedef NS_ENUM(NSInteger, ObjectType) {
+    NoneType = -1,
     BookType = 0,
     AudioType = 1,
     VideoType = 2,

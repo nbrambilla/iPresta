@@ -221,7 +221,7 @@
     if (imageView.tag)
     {
         NSData *imageData = UIImageJPEGRepresentation(imageView.image, 0.1f);
-        newObject.image = [PFFile fileWithName:[NSString stringWithFormat:@"%@.png", [nameTextField.text formatName]] data:imageData];
+        newObject.image = [PFFile fileWithName:[NSString stringWithFormat:@"%@.png", [[iPrestaObject objectTypes] objectAtIndex:[iPrestaObject typeSelected]]] data:imageData];
         
         [newObject.image saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (error) [error manageErrorTo:self];
@@ -311,6 +311,7 @@
         case OtherType:
             [self showOtherFields];
             break;
+        default: break;
     }
 }
 

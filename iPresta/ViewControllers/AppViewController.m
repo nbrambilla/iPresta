@@ -32,7 +32,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    textLabel.text = [NSString stringWithFormat:@"Dentro de la appa con el usuario %@", [[User currentUser] email]];
+    textLabel.text = [NSString stringWithFormat:@"Dentro de la app con el usuario %@", [[User currentUser] email]];
 }
 
 - (void)didReceiveMemoryWarning

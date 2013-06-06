@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ObjectsListViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface ObjectsListViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UINavigationControllerDelegate>
 {
     @private
     NSMutableArray *objectsArray;
