@@ -130,6 +130,21 @@
          if (error) [error manageErrorTo:self];     // Si hay error al eliminar el objeto
          else                                       // Si se elimina el objeto, se actualiza la lista
          {
+             PFQuery *getObjectsQuery = [Give query];
+             [getObjectsQuery whereKey:@"object" equalTo:object];
+             
+             [getObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+             {
+                 if (error) [error manageErrorTo:self];     // Si hay error al buscar los prestamos del objeto
+                 else                                       // Si se encuentran los pretamos del objeto, se eliminan
+                 {
+                     for (Give *give in objects)
+                     {
+                         [give deleteInBackground];
+                     }
+                 }
+             }];
+             
              if (array == filteredObjectsArray)
              {
                  [filteredObjectsArray removeObjectAtIndex:indexPath.row];
