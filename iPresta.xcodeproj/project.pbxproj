@@ -121,6 +121,7 @@
 		154F2059172065A800E65121 /* CreateCountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateCountViewController.h; path = ViewControllers/CreateCountViewController.h; sourceTree = "<group>"; };
 		154F205A172065A800E65121 /* CreateCountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateCountViewController.m; path = ViewControllers/CreateCountViewController.m; sourceTree = "<group>"; };
 		154F205B172065A800E65121 /* CreateCountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CreateCountViewController.xib; path = ViewControllers/CreateCountViewController.xib; sourceTree = "<group>"; };
+		15510EAB1767AA4900276D63 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1563FF5D173F9ABE00826DC4 /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
 		1563FF5E173F9ABE00826DC4 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
 		1563FF5F173F9ABE00826DC4 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
@@ -602,6 +603,7 @@
 			knownRegions = (
 				en,
 				he,
+				es,
 			);
 			mainGroup = 156FDDFA16F399E800F4BEEA;
 			productRefGroup = 156FDE0616F399E900F4BEEA /* Products */;
@@ -693,6 +695,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				156FDE1316F399E900F4BEEA /* en */,
+				15510EAB1767AA4900276D63 /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

@@ -85,7 +85,7 @@
          if (error) [error manageErrorTo:self];          // Si hay error al obtener los objetos
          else                                            // Si se obtienen los objetos, se listan
          {
-             objectsArray = [NSMutableArray arrayWithArray:[self partitionObjects:objects collationStringSelector:@selector(name)]];
+             objectsArray = [NSMutableArray arrayWithArray:[self partitionObjects:objects collationStringSelector:@selector(firstLetter)]];
              [self.tableView reloadData];
              [self.searchDisplayController.searchResultsTableView reloadData];
          }
@@ -411,6 +411,7 @@
     for (iPrestaObject *object in array)
     {
         NSInteger index = [collation sectionForObject:object collationStringSelector:selector];
+        
         [[unsortedSections objectAtIndex:index] addObject:object];
     }
     
