@@ -151,7 +151,7 @@
                  [self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
              }
         
-             NSInteger sectionIndex = [[UILocalizedIndexedCollation currentCollation] sectionForObject:object collationStringSelector:@selector(name)];
+             NSInteger sectionIndex = [[UILocalizedIndexedCollation currentCollation] sectionForObject:object collationStringSelector:@selector(firstLetter)];
              NSInteger objectIndex = [[objectsArray objectAtIndex:sectionIndex] indexOfObject:object];
              [[objectsArray objectAtIndex:sectionIndex] removeObjectIdenticalTo:object];
              
