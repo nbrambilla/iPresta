@@ -48,7 +48,6 @@
     imageView.tag = NO;
     
     newObject = [iPrestaObject object];
-    newObject.type = [iPrestaObject typeSelected];
     newObject.delegate = self;
     
     audioTypesArray = [iPrestaObject audioObjectTypes];
@@ -245,17 +244,21 @@
 
 #pragma mark - IMOAutoCompletionViewDataSource Methods;
 
-- (NSArray *)sourceForAutoCompletionTextField:(IMOAutocompletionViewController *)asViewController withParam:(NSString *)param
+- (void)sourceForAutoCompletionTextField:(IMOAutocompletionViewController *)asViewController withParam:(NSString *)param
 {
     [newObject getSearchResults:param];
-    return [NSArray arrayWithObjects:@"a", @"b", @"bb", @"c", nil];
 }
 
 #pragma mark - IMOAutoCompletionViewDelegate Methods;
 
-- (void)IMOAutocompletionViewControllerReturnedCompletion:(NSString *)completion
+- (void)IMOAutocompletionViewControllerReturnedCompletion:(id)object
 {
-    nameTextField.text = completion;
+   if (object)
+   {
+       newObject = (iPrestaObject *)object;
+       [self setTextFields];
+       [self setNewObject];
+   }
 }
 
 #pragma mark - UITextFields Methods
@@ -276,10 +279,16 @@
     {
         [textField resignFirstResponder];
         
+        NSDictionary *cellColors = @{
+                                     IMOCompletionCellTopSeparatorColor: [UIColor whiteColor],
+                                     IMOCompletionCellBottomSeparatorColor: [UIColor colorWithRed:0.869 green:0.875 blue:0.885 alpha:1.000],
+                                     IMOCompletionCellBackgroundColor: [UIColor colorWithRed:0.947 green:0.941 blue:0.969 alpha:1.000]};
+        
         acvc = [[IMOAutocompletionViewController alloc]
                                                  initWithLabelString:@"Nombre:"
                                                  textFieldString:nameTextField.text
-                                                 backgroundImageName:nil];
+                                                 backgroundImageName:nil
+                                                 cellColors:cellColors];
         
         [acvc setDataSource:(id<IMOAutocompletionViewDataSource>)self];
         [acvc setDelegate:(id<IMOAutocompletionViewDelegate>)self];

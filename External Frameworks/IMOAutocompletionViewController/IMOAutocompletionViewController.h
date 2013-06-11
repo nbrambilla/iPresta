@@ -15,7 +15,7 @@
 
 @protocol IMOAutocompletionViewDataSource <NSObject>
 
-- (NSArray *)sourceForAutoCompletionTextField:(IMOAutocompletionViewController *)autocompletionViewController withParam:(NSString *)param;
+- (void)sourceForAutoCompletionTextField:(IMOAutocompletionViewController *)autocompletionViewController withParam:(NSString *)param;
 
 @end
 

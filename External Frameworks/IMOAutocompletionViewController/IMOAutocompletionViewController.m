@@ -68,8 +68,6 @@ static const CGFloat NavigationBarHeight = 44.f;
     return  self = [self initWithNibName:nil bundle:nil];
 }
 
-
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     return [self initWithLabelString:@""
                      textFieldString:@""
@@ -112,9 +110,12 @@ static const CGFloat NavigationBarHeight = 44.f;
         }
         
         [self setView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320.f, [self screenHeight])]];
+        [[self view] setBackgroundColor:[UIColor whiteColor]];
 
         
         tableView_ = [[UITableView alloc]initWithFrame:CGRectMake(0, NavigationBarHeight, 320.f, [self screenHeight]) style:UITableViewStylePlain];
+        [tableView_ setSeparatorStyle:UITableViewCellSelectionStyleGray];
+        [tableView_ setSeparatorColor:[UIColor grayColor] ];
         [[self view] addSubview:tableView_];
         
         
@@ -277,8 +278,6 @@ static const CGFloat NavigationBarHeight = 44.f;
     return 0;
 }
 
-
-
 - (void)showBannerViewShadow:(BOOL)show {
     [self bannerView ].layer.masksToBounds = show ? NO : YES;
     [self bannerView ].layer.shadowOffset = CGSizeMake(0, 3);
@@ -289,8 +288,6 @@ static const CGFloat NavigationBarHeight = 44.f;
     [[self bannerView ].layer setShouldRasterize:NO];
 }
 
-
-
 - (void)controllerCancelled {
     if ([[UIViewController class] respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]) {
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -298,9 +295,6 @@ static const CGFloat NavigationBarHeight = 44.f;
         [self dismissModalViewControllerAnimated:YES];
     }
 }
-
-
-
 
 - (void)textFieldDidChange {
 //    int totalCompletionCount = 0;
@@ -321,36 +315,22 @@ static const CGFloat NavigationBarHeight = 44.f;
 //#endif
 }
 
-
-
-
-
-
 #pragma mark - TableView delegate and data source -
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Cell size default is 44.0.
-    // This will return a size of 34.0
-    // The custom cell needs to know the - 10.0 difference
-    return 44.0 + IMOCellSizeMagnitude;
-}
-
-
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    // Cell size default is 44.0.
+//    // This will return a size of 34.0
+//    // The custom cell needs to know the - 10.0 difference
+//    return 44.0 + IMOCellSizeMagnitude;
+//}
 
 - (int)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-
 //???: Always show the banner shadow ?
 - (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    int rows = [results_ count];
-    if (rows == 0) {
-        [self showBannerViewShadow:YES];
-        return 0;
-    }
-    [self showBannerViewShadow:YES];
-    return rows;
+    return [results_ count];
 }
 
 
@@ -387,10 +367,10 @@ static const CGFloat NavigationBarHeight = 44.f;
 
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    IMOCompletionCell *selectedCell = (IMOCompletionCell *)[tableView cellForRowAtIndexPath:indexPath];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if ([[self delegate] respondsToSelector:@selector(IMOAutocompletionViewControllerReturnedCompletion:)]) {
-        [[self delegate] IMOAutocompletionViewControllerReturnedCompletion:[[selectedCell cellField] text]];
+        [[self delegate] IMOAutocompletionViewControllerReturnedCompletion:[results_ objectAtIndex:indexPath.row]];
     }
     [self dismissModalViewControllerAnimated:YES];
 }

@@ -133,12 +133,12 @@
              PFQuery *getObjectsQuery = [Give query];
              [getObjectsQuery whereKey:@"object" equalTo:object];
              
-             [getObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+             [getObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *gives, NSError *error)
              {
                  if (error) [error manageErrorTo:self];     // Si hay error al buscar los prestamos del objeto
                  else                                       // Si se encuentran los pretamos del objeto, se eliminan
                  {
-                     for (Give *give in objects)
+                     for (Give *give in gives)
                      {
                          [give deleteInBackground];
                      }

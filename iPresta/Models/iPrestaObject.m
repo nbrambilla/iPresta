@@ -165,6 +165,7 @@ static iPrestaObject *currentObject;
             self.name = @"";
             self.author = @"";
             self.editorial = @"";
+            self.type = typeSelected;
             
             if (typeSelected == BookType)
             {
@@ -200,6 +201,7 @@ static iPrestaObject *currentObject;
                 object.name = @"";
                 object.author = @"";
                 object.editorial = @"";
+                object.type = typeSelected;
                 
                 [object setBookWithInfo:[volumeInfo objectForKey:@"volumeInfo"]];
                 [searchResultArray addObject:object];
