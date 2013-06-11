@@ -10,7 +10,6 @@
 #import "CreateCountViewController.h"
 #import "AuthenticateEmailViewController.h"
 #import "RequestPasswordResetViewController.h"
-#import "iPrestaNavigationController.h"
 #import "ObjectsMenuViewController.h"
 #import "iPrestaNSString.h"
 #import "iPrestaNSError.h"
@@ -107,7 +106,7 @@
     
     if ([User currentUserHasEmailVerified])
     {
-        UINavigationController *navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
+        UINavigationController *navigationController = [[UINavigationController alloc] init];
         UIViewController *viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
         [navigationController pushViewController:viewController animated:NO];
         

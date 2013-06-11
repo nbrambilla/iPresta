@@ -8,7 +8,6 @@
 
 #import "CreateCountViewController.h"
 #import "AuthenticateEmailViewController.h"
-#import "iPrestaNavigationController.h"
 #import "iPrestaNSString.h"
 #import "iPrestaNSError.h"
 #import "ProgressHUD.h"

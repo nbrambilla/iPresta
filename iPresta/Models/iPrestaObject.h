@@ -17,6 +17,7 @@
 @optional
 
 - (void)getDataResponseWithError:(NSError *)error;
+- (void)getSearchResultsResponse:(NSArray *)searchResults withError:(NSError *)error;
 
 @end
 
@@ -75,6 +76,7 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 + (void)setCurrentObject:(iPrestaObject *)object;
 + (iPrestaObject *)currentObject;
 
+- (void)getSearchResults:(NSString *)param;
 - (void)getData:(NSString *)objectCode;
 - (NSString *)textState;
 - (NSString *)textType;

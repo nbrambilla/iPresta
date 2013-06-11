@@ -11,8 +11,9 @@
 #import "User.h"
 #import "STControls.h"
 #import "ZBarSDK.h"
+#import "IMOAutocompletionViewController.h"
 
-@interface AddObjectViewController : UIViewController <iPrestaObjectDelegate, STComboTextDelegate, UITextFieldDelegate, ZBarReaderDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface AddObjectViewController : UIViewController <iPrestaObjectDelegate, STComboTextDelegate, UITextFieldDelegate, ZBarReaderDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, IMOAutocompletionViewDataSource, IMOAutocompletionViewDelegate>
 {
     @private
     IBOutlet UITextField *nameTextField;
@@ -28,6 +29,7 @@
     ObjectType objecType;
     AudioObjectType audioTypeSelectedIndex;
     VideoObjectType videoTypeSelectedIndex;
+    IMOAutocompletionViewController *acvc;
 }
 
 @end

@@ -13,16 +13,18 @@
     id delegate;
     id identifier;
     NSURLConnection *connection;
-    NSURLRequest *request;
+    NSMutableURLRequest *request;
     NSData *requestData;
     BOOL workInProgress;
 }
 
-@property (nonatomic, strong) NSURLRequest *request;
+@property (nonatomic, strong) NSMutableURLRequest *request;
 @property (nonatomic, strong) NSData *requestData;
 @property (nonatomic, strong) id identifier;
 
 - (void)setDelegate:(id)newDelegate;
+- (id)initWithURL:(NSURL *)url;
+-(id)initWithURL:(NSURL *)url andID:(id)connIdentifier;
 - (id)initWithRequest:(NSURLRequest *)requestToData;
 - (id)initWithRequest:(NSURLRequest *)requestToData andID:(id)connectionIdentifier;
 - (void)downloadData:(id)connectionDelegate;

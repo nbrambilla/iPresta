@@ -9,7 +9,6 @@
 #import "AuthenticateEmailViewController.h"
 #import "iPrestaNSString.h"
 #import "ChangeEmailViewController.h"
-#import "iPrestaNavigationController.h"
 #import "ObjectsMenuViewController.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
@@ -81,7 +80,7 @@
 {
     if ([User currentUserHasEmailVerified])
     {
-        UINavigationController *navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
+        UINavigationController *navigationController = [[UINavigationController alloc] init];
         UIViewController *viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
         [navigationController pushViewController:viewController animated:NO];
         

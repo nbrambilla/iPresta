@@ -7,7 +7,6 @@
 //
 
 #import "iPrestaViewController.h"
-#import "iPrestaNavigationController.h"
 #import "LoginViewController.h"
 #import "CreateCountViewController.h"
 
@@ -40,7 +39,7 @@
 
 - (IBAction)goToLogIn:(id)sender
 {
-    iPrestaNavigationController *navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
+    UINavigationController *navigationController = [[UINavigationController alloc] init];
     LoginViewController *loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     [navigationController pushViewController:loginViewController animated:NO];
     
@@ -49,7 +48,7 @@
 
 - (IBAction)goToCreateCount:(id)sender
 {
-    iPrestaNavigationController *navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
+    UINavigationController *navigationController = [[UINavigationController alloc] init];
     CreateCountViewController *createCountViewController = [[CreateCountViewController alloc] initWithNibName:@"CreateCountViewController" bundle:nil];
     [navigationController pushViewController:createCountViewController animated:NO];
     

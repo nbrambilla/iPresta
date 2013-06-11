@@ -13,7 +13,6 @@
 		1518EA0B174A1DDE000EB0FE /* ObjectsMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1518EA09174A1DDE000EB0FE /* ObjectsMenuViewController.m */; };
 		1518EA0C174A1DDE000EB0FE /* ObjectsMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1518EA0A174A1DDE000EB0FE /* ObjectsMenuViewController.xib */; };
 		1518EA16174A6D97000EB0FE /* camera_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1518EA15174A6D97000EB0FE /* camera_icon.png */; };
-		1518EA1A174A6F26000EB0FE /* camera_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1518EA18174A6F26000EB0FE /* camera_icon@2x.png */; };
 		151AE7E11753FD4800C41740 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 151AE7E01753FD4800C41740 /* AddressBook.framework */; };
 		151AE7E31753FDA300C41740 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 151AE7E21753FDA300C41740 /* AddressBookUI.framework */; };
 		15212EEF173C53CF00A7A764 /* iPrestaUIControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 15212EEE173C53CF00A7A764 /* iPrestaUIControl.m */; };
@@ -25,8 +24,6 @@
 		153BF38D172D759900819918 /* AppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 153BF38B172D759900819918 /* AppViewController.xib */; };
 		154C92DC172997680030915B /* AuthenticateEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C92DA172997680030915B /* AuthenticateEmailViewController.m */; };
 		154C92DD172997680030915B /* AuthenticateEmailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154C92DB172997680030915B /* AuthenticateEmailViewController.xib */; };
-		154F20511720597B00E65121 /* iPrestaNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154F204F1720597B00E65121 /* iPrestaNavigationController.m */; };
-		154F20521720597B00E65121 /* iPrestaNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154F20501720597B00E65121 /* iPrestaNavigationController.xib */; };
 		154F205717205E7D00E65121 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154F205517205E7D00E65121 /* LoginViewController.m */; };
 		154F205817205E7D00E65121 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154F205617205E7D00E65121 /* LoginViewController.xib */; };
 		154F205C172065A800E65121 /* CreateCountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154F205A172065A800E65121 /* CreateCountViewController.m */; };
@@ -86,6 +83,10 @@
 		15EF099A173ADFEE0001C8EF /* STDateText.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EF0998173ADFEE0001C8EF /* STDateText.m */; };
 		15FEB8361747C88100BB6750 /* iPrestaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FEB8341747C88000BB6750 /* iPrestaViewController.m */; };
 		15FEB8371747C88100BB6750 /* iPrestaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FEB8351747C88100BB6750 /* iPrestaViewController.xib */; };
+		193A729217670DA4001EB94D /* camera_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193A729117670DA4001EB94D /* camera_icon@2x.png */; };
+		193A729C17672BFF001EB94D /* IMOAutocompletionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A729717672BFF001EB94D /* IMOAutocompletionViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		193A729D17672BFF001EB94D /* IMOCompletionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A729917672BFF001EB94D /* IMOCompletionCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		193A729E17672BFF001EB94D /* IMOCompletionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A729B17672BFF001EB94D /* IMOCompletionController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,7 +99,6 @@
 		1518EA09174A1DDE000EB0FE /* ObjectsMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectsMenuViewController.m; path = ViewControllers/ObjectsMenuViewController.m; sourceTree = "<group>"; };
 		1518EA0A174A1DDE000EB0FE /* ObjectsMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ObjectsMenuViewController.xib; path = ViewControllers/ObjectsMenuViewController.xib; sourceTree = "<group>"; };
 		1518EA15174A6D97000EB0FE /* camera_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera_icon.png; path = Images/camera_icon.png; sourceTree = "<group>"; };
-		1518EA18174A6F26000EB0FE /* camera_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera_icon@2x.png"; path = "../../../../Desktop/PFC/iPresta/camera_icon@2x.png"; sourceTree = "<group>"; };
 		151AE7E01753FD4800C41740 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		151AE7E21753FDA300C41740 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		15212EED173C53CF00A7A764 /* iPrestaUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaUIControl.h; path = "External Frameworks/Extends UIControl/iPrestaUIControl.h"; sourceTree = "<group>"; };
@@ -115,9 +115,6 @@
 		154C92D9172997680030915B /* AuthenticateEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthenticateEmailViewController.h; path = ViewControllers/AuthenticateEmailViewController.h; sourceTree = "<group>"; };
 		154C92DA172997680030915B /* AuthenticateEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthenticateEmailViewController.m; path = ViewControllers/AuthenticateEmailViewController.m; sourceTree = "<group>"; };
 		154C92DB172997680030915B /* AuthenticateEmailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AuthenticateEmailViewController.xib; path = ViewControllers/AuthenticateEmailViewController.xib; sourceTree = "<group>"; };
-		154F204E1720597B00E65121 /* iPrestaNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaNavigationController.h; path = ViewControllers/iPrestaNavigationController.h; sourceTree = "<group>"; };
-		154F204F1720597B00E65121 /* iPrestaNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaNavigationController.m; path = ViewControllers/iPrestaNavigationController.m; sourceTree = "<group>"; };
-		154F20501720597B00E65121 /* iPrestaNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = iPrestaNavigationController.xib; path = ViewControllers/iPrestaNavigationController.xib; sourceTree = "<group>"; };
 		154F205417205E7D00E65121 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = ViewControllers/LoginViewController.h; sourceTree = "<group>"; };
 		154F205517205E7D00E65121 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ViewControllers/LoginViewController.m; sourceTree = "<group>"; };
 		154F205617205E7D00E65121 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = ViewControllers/LoginViewController.xib; sourceTree = "<group>"; };
@@ -219,6 +216,13 @@
 		15FEB8331747C88000BB6750 /* iPrestaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaViewController.h; path = ViewControllers/iPrestaViewController.h; sourceTree = "<group>"; };
 		15FEB8341747C88000BB6750 /* iPrestaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaViewController.m; path = ViewControllers/iPrestaViewController.m; sourceTree = "<group>"; };
 		15FEB8351747C88100BB6750 /* iPrestaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = iPrestaViewController.xib; path = ViewControllers/iPrestaViewController.xib; sourceTree = "<group>"; };
+		193A729117670DA4001EB94D /* camera_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera_icon@2x.png"; path = "Images/camera_icon@2x.png"; sourceTree = "<group>"; };
+		193A729617672BFF001EB94D /* IMOAutocompletionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMOAutocompletionViewController.h; path = "External Frameworks/IMOAutocompletionViewController/IMOAutocompletionViewController.h"; sourceTree = "<group>"; };
+		193A729717672BFF001EB94D /* IMOAutocompletionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMOAutocompletionViewController.m; path = "External Frameworks/IMOAutocompletionViewController/IMOAutocompletionViewController.m"; sourceTree = "<group>"; };
+		193A729817672BFF001EB94D /* IMOCompletionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMOCompletionCell.h; path = "External Frameworks/IMOAutocompletionViewController/IMOCompletionCell.h"; sourceTree = "<group>"; };
+		193A729917672BFF001EB94D /* IMOCompletionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMOCompletionCell.m; path = "External Frameworks/IMOAutocompletionViewController/IMOCompletionCell.m"; sourceTree = "<group>"; };
+		193A729A17672BFF001EB94D /* IMOCompletionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMOCompletionController.h; path = "External Frameworks/IMOAutocompletionViewController/IMOCompletionController.h"; sourceTree = "<group>"; };
+		193A729B17672BFF001EB94D /* IMOCompletionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMOCompletionController.m; path = "External Frameworks/IMOAutocompletionViewController/IMOCompletionController.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,7 +264,7 @@
 		1518EA14174A6D86000EB0FE /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				1518EA18174A6F26000EB0FE /* camera_icon@2x.png */,
+				193A729117670DA4001EB94D /* camera_icon@2x.png */,
 				1518EA15174A6D97000EB0FE /* camera_icon.png */,
 			);
 			name = Images;
@@ -278,6 +282,7 @@
 		15517A0C1725C976002FFB69 /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				193A729517672BF0001EB94D /* IMOAutocompletionViewController */,
 				1563FF8B17404B8000826DC4 /* ProgressHUD */,
 				1563FF84173FA1E700826DC4 /* ConnectionData */,
 				1563FF59173F9A6700826DC4 /* ZBarSDK */,
@@ -466,9 +471,6 @@
 				15FEB8331747C88000BB6750 /* iPrestaViewController.h */,
 				15FEB8341747C88000BB6750 /* iPrestaViewController.m */,
 				15FEB8351747C88100BB6750 /* iPrestaViewController.xib */,
-				154F204E1720597B00E65121 /* iPrestaNavigationController.h */,
-				154F204F1720597B00E65121 /* iPrestaNavigationController.m */,
-				154F20501720597B00E65121 /* iPrestaNavigationController.xib */,
 				154F205417205E7D00E65121 /* LoginViewController.h */,
 				154F205517205E7D00E65121 /* LoginViewController.m */,
 				154F205617205E7D00E65121 /* LoginViewController.xib */,
@@ -550,6 +552,19 @@
 			path = "External Frameworks/STControls";
 			sourceTree = "<group>";
 		};
+		193A729517672BF0001EB94D /* IMOAutocompletionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				193A729617672BFF001EB94D /* IMOAutocompletionViewController.h */,
+				193A729717672BFF001EB94D /* IMOAutocompletionViewController.m */,
+				193A729817672BFF001EB94D /* IMOCompletionCell.h */,
+				193A729917672BFF001EB94D /* IMOCompletionCell.m */,
+				193A729A17672BFF001EB94D /* IMOCompletionController.h */,
+				193A729B17672BFF001EB94D /* IMOCompletionController.m */,
+			);
+			name = IMOAutocompletionViewController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -607,7 +622,6 @@
 				156FDE1C16F399E900F4BEEA /* Default.png in Resources */,
 				156FDE1E16F399E900F4BEEA /* Default@2x.png in Resources */,
 				156FDE2016F399E900F4BEEA /* Default-568h@2x.png in Resources */,
-				154F20521720597B00E65121 /* iPrestaNavigationController.xib in Resources */,
 				154F205817205E7D00E65121 /* LoginViewController.xib in Resources */,
 				154F205D172065A800E65121 /* CreateCountViewController.xib in Resources */,
 				154C92DD172997680030915B /* AuthenticateEmailViewController.xib in Resources */,
@@ -625,10 +639,10 @@
 				15E3E9581748F8140056CA4C /* ConfigurationViewController.xib in Resources */,
 				1518EA0C174A1DDE000EB0FE /* ObjectsMenuViewController.xib in Resources */,
 				1518EA16174A6D97000EB0FE /* camera_icon.png in Resources */,
-				1518EA1A174A6F26000EB0FE /* camera_icon@2x.png in Resources */,
 				15175A5E1753DA49005947B7 /* GiveObjectViewController.xib in Resources */,
 				15D2463D175A0FF200C594BB /* ExtendGiveViewController.xib in Resources */,
 				1535FAA5175D1B4600587AB7 /* ObjectHistoricGiveViewController.xib in Resources */,
+				193A729217670DA4001EB94D /* camera_icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -644,7 +658,6 @@
 				156FDE5116F3A04500F4BEEA /* User.m in Sources */,
 				15B85BDB16F49CFE00FB5674 /* iPrestaObject.m in Sources */,
 				15124E5B16FDDFBD00520FE2 /* Give.m in Sources */,
-				154F20511720597B00E65121 /* iPrestaNavigationController.m in Sources */,
 				154F205717205E7D00E65121 /* LoginViewController.m in Sources */,
 				154F205C172065A800E65121 /* CreateCountViewController.m in Sources */,
 				154C92DC172997680030915B /* AuthenticateEmailViewController.m in Sources */,
@@ -667,6 +680,9 @@
 				15175A5D1753DA49005947B7 /* GiveObjectViewController.m in Sources */,
 				15D2463C175A0FF200C594BB /* ExtendGiveViewController.m in Sources */,
 				1535FAA4175D1B4600587AB7 /* ObjectHistoricGiveViewController.m in Sources */,
+				193A729C17672BFF001EB94D /* IMOAutocompletionViewController.m in Sources */,
+				193A729D17672BFF001EB94D /* IMOCompletionCell.m in Sources */,
+				193A729E17672BFF001EB94D /* IMOCompletionController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -693,7 +709,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -707,6 +724,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				PROVISIONING_PROFILE = "FA462E66-A9E7-4305-8B8C-9EC3D686EFF0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FA462E66-A9E7-4305-8B8C-9EC3D686EFF0";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -720,7 +739,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -728,6 +748,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "FA462E66-A9E7-4305-8B8C-9EC3D686EFF0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FA462E66-A9E7-4305-8B8C-9EC3D686EFF0";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -736,8 +758,8 @@
 		156FDE2416F399E900F4BEEA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -761,8 +783,8 @@
 		156FDE2516F399E900F4BEEA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",

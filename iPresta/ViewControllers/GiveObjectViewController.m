@@ -34,7 +34,7 @@
 {
     [super viewDidLoad];
 
-    UIBarButtonItem *contactsButton = [[UIBarButtonItem alloc] initWithTitle:@"Contactos" style:UIBarButtonItemStyleBordered target:self action:@selector(goToContacts)];
+    UIBarButtonItem *contactsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(goToContacts)];
     self.navigationItem.rightBarButtonItem = contactsButton;
     
     fromTextView.datePickerMode = STDatePickerModeDateAndTime;

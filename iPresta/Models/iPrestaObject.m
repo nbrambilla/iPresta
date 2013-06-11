@@ -140,90 +140,111 @@ static iPrestaObject *currentObject;
         urlString = [NSString stringWithFormat:@"http://api.discogs.com/search?q=%@&f=json", objectCode];
     }
     
-    NSURL *url = [NSURL URLWithString:urlString];
-    
-    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData                                                        timeoutInterval:10.0];
-    [request setHTTPMethod:@"GET"];
-    [request setTimeoutInterval:2.0];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
-    ConnectionData *connection = [[ConnectionData alloc] initWithRequest:request];
+    ConnectionData *connection = [[ConnectionData alloc] initWithURL:[NSURL URLWithString:urlString] andID:@"getData"];
     [connection downloadData:self];
-    
-    urlString = nil;
-    url = nil;
-    request = nil;
 }
 
-- (void)dataFinishLoading:(ConnectionData *)connection error:(NSError *)error;
+- (void)getSearchResults:(NSString *)param
+{
+    if (typeSelected == BookType)
+    {
+        NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/books/v1/volumes?q='%@'&maxResults=20", param];
+        ConnectionData *connection = [[ConnectionData alloc] initWithURL:[NSURL URLWithString:urlString] andID:@"getSearchResults"];
+        [connection downloadData:self];
+    }
+}
+
+- (void)dataFinishLoading:(ConnectionData *)connection error:(NSError *)error
 {
     if (!error)      // Si error hay al buscar el objeto
     {
         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:connection.requestData options:NSJSONReadingMutableContainers error:&error];
-        
-        self.name = @"";
-        self.author = @"";
-        self.editorial = @"";
-        
-        if (typeSelected == BookType)
-        {
-            [self setBookWithInfo:response error:&error];
-        }
-        else if (typeSelected == AudioType || typeSelected == VideoType)
-        {
-            [self setMediaWithInfo:response error:&error];
-        }
-    }
 
-    if ([_delegate respondsToSelector:@selector(getDataResponseWithError:)])
-    {
-        [_delegate getDataResponseWithError:error];
+        if ([connection.identifier isEqual:@"getData"])
+        {
+            self.name = @"";
+            self.author = @"";
+            self.editorial = @"";
+            
+            if (typeSelected == BookType)
+            {
+                if ([[response objectForKey:@"totalItems"] integerValue] == 0)
+                {
+                    error = [[NSError alloc] initWithDomain:@"error" code:EMPTYOBJECTDATA_ERROR userInfo:nil];
+                }
+                else
+                {
+                    id volumeInfo = [[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"volumeInfo"];
+                    
+                    [self setBookWithInfo:volumeInfo];
+                }
+            }
+            else if (typeSelected == AudioType || typeSelected == VideoType)
+            {
+                [self setMediaWithInfo:response error:&error];
+            }
+            
+            if ([_delegate respondsToSelector:@selector(getDataResponseWithError:)])
+            {
+                [_delegate getDataResponseWithError:error];
+            }
+        }
+        else if ([connection.identifier isEqual:@"getSearchResults"])
+        {
+            NSMutableArray *searchResultArray = [[NSMutableArray alloc] initWithCapacity:[[response objectForKey:@"items"] count]];
+            
+            for (id volumeInfo in [response objectForKey:@"items"])
+            {
+                iPrestaObject *object = [iPrestaObject object];
+                
+                object.name = @"";
+                object.author = @"";
+                object.editorial = @"";
+                
+                [object setBookWithInfo:[volumeInfo objectForKey:@"volumeInfo"]];
+                [searchResultArray addObject:object];
+            }
+            
+            if ([_delegate respondsToSelector:@selector(getSearchResultsResponse:withError:)])
+            {
+                [_delegate getSearchResultsResponse:[searchResultArray copy] withError:error];
+            }
+        }
     }
 }
 
 #pragma mark - Set Object Methods
 
-- (void)setBookWithInfo:(id)info error:(NSError **)error
+- (void)setBookWithInfo:(id)info
 {
-    if ([[info objectForKey:@"totalItems"] integerValue] > 0)
+    // Se setea el nombre del objeto
+    if ([info objectForKey:@"title"])
     {
-        id volumeInfo = [[[info objectForKey:@"items"] objectAtIndex:0] objectForKey:@"volumeInfo"];
-    
-        // Se setea el nombre del objeto
-        if ([volumeInfo objectForKey:@"title"])
+        self.name = [info objectForKey:@"title"];
+        if ([info objectForKey:@"subtitle"])
         {
-            self.name = [volumeInfo objectForKey:@"title"];
-            if ([volumeInfo objectForKey:@"subtitle"])
-            {
-                self.name = [self.name stringByAppendingFormat:@" %@", [volumeInfo objectForKey:@"subtitle"]];
-            }
+            self.name = [self.name stringByAppendingFormat:@" %@", [info objectForKey:@"subtitle"]];
         }
-        
-        // Se setea el autor del objeto
-        if ([volumeInfo objectForKey:@"authors"])
-        {
-            for (NSString *author in [volumeInfo objectForKey:@"authors"])
-            {
-                self.author = [self.author stringByAppendingString:author];
-                
-                if (!([[volumeInfo objectForKey:@"authors"] lastObject] == author))
-                {
-                    self.author = [self.author stringByAppendingString:@", "];
-                }
-            }
-        }
-        
-        // Se setea la editorial del objeto
-        if ([volumeInfo objectForKey:@"publisher"])
-        {
-            self.editorial = [volumeInfo objectForKey:@"publisher"];
-        }
-        
-        volumeInfo = nil;
     }
-    else
+    
+    // Se setea el autor del objeto
+    if ([info objectForKey:@"authors"])
     {
-        *error = [[NSError alloc] initWithDomain:@"error" code:EMPTYOBJECTDATA_ERROR userInfo:nil];
+        for (NSString *author in [info objectForKey:@"authors"])
+        {
+            self.author = [self.author stringByAppendingString:author];
+            
+            if (!([[info objectForKey:@"authors"] lastObject] == author))
+            {
+                self.author = [self.author stringByAppendingString:@", "];
+            }
+        }
+    }
+    
+    // Se setea la editorial del objeto
+    if ([info objectForKey:@"publisher"])
+    {
+        self.editorial = [info objectForKey:@"publisher"];
     }
 }
 

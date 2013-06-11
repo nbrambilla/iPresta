@@ -141,6 +141,13 @@
     [newObject getData:code];
 }
 
+#pragma mark - iPrestaObjectDelegate Methods
+
+- (void)getSearchResultsResponse:(NSArray *)searchResults withError:(NSError *)error
+{
+    [acvc loadSearchTableWithResults:searchResults];
+}
+
 - (void)getDataResponseWithError:(NSError *)error
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
@@ -236,7 +243,22 @@
     if (videoTypeSelectedIndex != NoneVideoObjectType) newObject.videoType = videoTypeSelectedIndex;
 }
 
-#pragma mark - STCombo Methods
+#pragma mark - IMOAutoCompletionViewDataSource Methods;
+
+- (NSArray *)sourceForAutoCompletionTextField:(IMOAutocompletionViewController *)asViewController withParam:(NSString *)param
+{
+    [newObject getSearchResults:param];
+    return [NSArray arrayWithObjects:@"a", @"b", @"bb", @"c", nil];
+}
+
+#pragma mark - IMOAutoCompletionViewDelegate Methods;
+
+- (void)IMOAutocompletionViewControllerReturnedCompletion:(NSString *)completion
+{
+    nameTextField.text = completion;
+}
+
+#pragma mark - UITextFields Methods
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
@@ -247,6 +269,29 @@
     }
     return YES;
 }
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField == nameTextField)
+    {
+        [textField resignFirstResponder];
+        
+        acvc = [[IMOAutocompletionViewController alloc]
+                                                 initWithLabelString:@"Nombre:"
+                                                 textFieldString:nameTextField.text
+                                                 backgroundImageName:nil];
+        
+        [acvc setDataSource:(id<IMOAutocompletionViewDataSource>)self];
+        [acvc setDelegate:(id<IMOAutocompletionViewDelegate>)self];
+        [acvc setTitle:@"Seleccionar"];
+        
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:acvc];
+        [[self navigationController] presentModalViewController:navController animated:YES];
+
+    }
+}
+
+#pragma mark - STCombo Methods
 
 - (NSString*)stComboText:(STComboText*)stComboText textForRow:(NSUInteger)row
 {

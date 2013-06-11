@@ -9,7 +9,6 @@
 #import "AppViewController.h"
 #import "LoginViewController.h"
 #import "User.h"
-#import "iPrestaNavigationController.h"
 #import "iPrestaViewController.h"
 
 @interface AppViewController ()

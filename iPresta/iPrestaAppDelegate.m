@@ -11,7 +11,6 @@
 #import "Give.h"
 #import "iPrestaAppDelegate.h"
 #import "AuthenticateEmailViewController.h"
-#import "iPrestaNavigationController.h"
 #import "LoginViewController.h"
 #import "ObjectsMenuViewController.h"
 #import "iPrestaViewController.h"
@@ -37,7 +36,7 @@
     // Si existe un usuario logueado...
     if ([User currentUser])
     {
-        iPrestaNavigationController *navigationController = [[iPrestaNavigationController alloc] initWithNibName:@"iPrestaNavigationController" bundle:nil];
+        UINavigationController *navigationController = [[UINavigationController alloc] init];
         UIViewController *viewController;
         
         // Si el usuario autentico su email, se redirige a la aplicacion

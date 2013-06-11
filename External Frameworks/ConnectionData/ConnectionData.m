@@ -15,7 +15,7 @@
 @synthesize requestData;
 @synthesize identifier;
 
--(id)initWithRequest:(NSURLRequest*)requestToData
+-(id)initWithRequest:(NSMutableURLRequest*)requestToData
 {
 	self = [super init];
     
@@ -26,13 +26,43 @@
 	return self;
 }
 
-- (id)initWithRequest:(NSURLRequest *)requestToData andID:(id)connectionIdentifier
+- (id)initWithURL:(NSURL *)url
+{
+	self = [super init];
+    
+	if(self) {
+        self.request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+        [self.request setHTTPMethod:@"GET"];
+        [self.request setTimeoutInterval:2.0];
+        [self.request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    }
+    
+	return self;
+}
+
+- (id)initWithURL:(NSURL *)url andID:(id)connIdentifier
+{
+	self = [super init];
+    
+	if(self) {
+        self.request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+        [self.request setHTTPMethod:@"GET"];
+        [self.request setTimeoutInterval:2.0];
+        [self.request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        
+        self.identifier = connIdentifier;
+    }
+    
+	return self;
+}
+
+- (id)initWithRequest:(NSMutableURLRequest *)requestToData andID:(id)connIdentifier
 {
     self = [super init];
     
 	if(self) {
         self.request = requestToData;
-        self.identifier  = connectionIdentifier;
+        self.identifier  = connIdentifier;
     }
     
 	return self;
