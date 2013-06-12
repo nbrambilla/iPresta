@@ -48,13 +48,20 @@
     imageView.tag = NO;
     
     newObject = [iPrestaObject object];
-    newObject.delegate = self;
     
     audioTypesArray = [iPrestaObject audioObjectTypes];
     videoTypesArray = [iPrestaObject videoObjectTypes];
     
     [self setObjectTypeFields:[iPrestaObject typeSelected]];
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    newObject.delegate = self;
+}
+
 
 - (void)viewDidUnload
 {
@@ -144,6 +151,7 @@
 
 - (void)getSearchResultsResponse:(NSArray *)searchResults withError:(NSError *)error
 {
+    if (error) [error manageErrorTo:acvc.view];
     [acvc loadSearchTableWithResults:searchResults];
 }
 
@@ -216,6 +224,11 @@
     nameTextField.text = [newObject.name capitalizedString];
     authorTextField.text = [newObject.author capitalizedString];
     editorialTextField.text = [newObject.editorial capitalizedString];
+    if (newObject.imageData)
+    {
+        imageView.tag = YES;
+        imageView.image = [UIImage imageWithData:newObject.imageData];
+    }
 }
 
 - (void)setNewObject
@@ -279,24 +292,14 @@
     {
         [textField resignFirstResponder];
         
-        NSDictionary *cellColors = @{
-                                     IMOCompletionCellTopSeparatorColor: [UIColor whiteColor],
-                                     IMOCompletionCellBottomSeparatorColor: [UIColor colorWithRed:0.869 green:0.875 blue:0.885 alpha:1.000],
-                                     IMOCompletionCellBackgroundColor: [UIColor colorWithRed:0.947 green:0.941 blue:0.969 alpha:1.000]};
-        
-        acvc = [[IMOAutocompletionViewController alloc]
-                                                 initWithLabelString:@"Nombre:"
-                                                 textFieldString:nameTextField.text
-                                                 backgroundImageName:nil
-                                                 cellColors:cellColors];
+        acvc = [[IMOAutocompletionViewController alloc] init];
         
         [acvc setDataSource:(id<IMOAutocompletionViewDataSource>)self];
         [acvc setDelegate:(id<IMOAutocompletionViewDelegate>)self];
-        [acvc setTitle:@"Seleccionar"];
+        [acvc setTitle:@"Buscar"];
         
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:acvc];
         [[self navigationController] presentModalViewController:navController animated:YES];
-
     }
 }
 

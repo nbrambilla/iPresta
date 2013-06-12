@@ -295,6 +295,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
+    cell.tag = indexPath.row;
     iPrestaObject *object = nil;
     
     if (tableView == self.searchDisplayController.searchResultsTableView)
@@ -317,8 +318,19 @@
         {
             if (!error)
             {
-                object.imageData = data;
-                cell.imageView.image = [UIImage imageWithData:object.imageData];
+                object.imageData = [[NSData alloc] initWithData:data];
+                UIImage* image = [UIImage imageWithData:data];
+                if (image)
+                {
+                    dispatch_async(dispatch_get_main_queue(),
+                    ^{
+                        if (cell.tag == indexPath.row)
+                        {
+                            cell.imageView.image = image;
+                            [cell setNeedsLayout];
+                        }
+                    });
+                }
             }
         }];
     }

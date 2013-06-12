@@ -64,6 +64,7 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 @property(assign) AudioObjectType audioType;
 @property(assign) VideoObjectType videoType;
 @property(strong, nonatomic) NSData *imageData;
+@property(strong, nonatomic) NSString *imageURL;
 @property(strong, nonatomic) id<iPrestaObjectDelegate> delegate;
 @property(strong, nonatomic) Give *actualGive;
 

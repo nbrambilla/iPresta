@@ -10,7 +10,6 @@
 #import "iPrestaNSString.h"
 #import "iPrestaObject.h"
 #import "User.h"
-#import "ProgressHUD.h"
 #import "iPrestaNSError.h"
 #import "ConnectionData.h"
 
@@ -30,6 +29,7 @@ static iPrestaObject *currentObject;
 @dynamic audioType;
 @dynamic videoType;
 @synthesize imageData = _imageData;
+@synthesize imageURL = _imageURL;
 @synthesize delegate = _delegate;
 @synthesize actualGive = _actualGive;
 
@@ -59,6 +59,11 @@ static iPrestaObject *currentObject;
     _imageData = imageData;
 }
 
+-  (void)setImageURL:(NSString *)imageURL
+{
+    _imageURL = imageURL;
+}
+
 -  (void)setActualGive:(Give *)actualGive
 {
     _actualGive = actualGive;
@@ -84,6 +89,11 @@ static iPrestaObject *currentObject;
 - (NSData *)imageData
 {
     return _imageData;
+}
+
+- (NSString *)imageURL
+{
+    return _imageURL;
 }
 
 - (Give *)actualGive
@@ -131,13 +141,13 @@ static iPrestaObject *currentObject;
     
     NSString *urlString;
     
-    if (self.type == BookType)
+    if (typeSelected == BookType)
     {
         urlString = [NSString stringWithFormat:@"https://www.googleapis.com/books/v1/volumes?q=isbn:%@", objectCode];
     }
     else if (typeSelected == AudioType || typeSelected == VideoType)
     {
-        urlString = [NSString stringWithFormat:@"http://api.discogs.com/search?q=%@&f=json", objectCode];
+        urlString = [NSString stringWithFormat:@"http://api.discogs.com/search?q=%@", objectCode];
     }
     
     ConnectionData *connection = [[ConnectionData alloc] initWithURL:[NSURL URLWithString:urlString] andID:@"getData"];
@@ -146,45 +156,61 @@ static iPrestaObject *currentObject;
 
 - (void)getSearchResults:(NSString *)param
 {
+    NSString *urlString;
+    
     if (typeSelected == BookType)
     {
-        NSString *urlString = [NSString stringWithFormat:@"https://www.googleapis.com/books/v1/volumes?q='%@'&maxResults=20", param];
-        ConnectionData *connection = [[ConnectionData alloc] initWithURL:[NSURL URLWithString:urlString] andID:@"getSearchResults"];
-        [connection downloadData:self];
+        urlString = [NSString stringWithFormat:@"https://www.googleapis.com/books/v1/volumes?q='%@'&maxResults=20", param];
     }
+    else if (typeSelected == AudioType || typeSelected == VideoType)
+    {
+        urlString = [NSString stringWithFormat:@"http://api.discogs.com/database/search?title=%@&type=release", param];
+    }
+    
+    ConnectionData *connection = [[ConnectionData alloc] initWithURL:[NSURL URLWithString:urlString] andID:@"getSearchResults"];
+    [connection downloadData:self];
 }
 
 - (void)dataFinishLoading:(ConnectionData *)connection error:(NSError *)error
 {
-    if (!error)      // Si error hay al buscar el objeto
+    if (!error)      // Si error hay al buscar el/los objeto/s
     {
         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:connection.requestData options:NSJSONReadingMutableContainers error:&error];
 
         if ([connection.identifier isEqual:@"getData"])
         {
-            self.name = @"";
-            self.author = @"";
-            self.editorial = @"";
-            self.type = typeSelected;
+            id volumeInfo;
             
             if (typeSelected == BookType)
             {
-                if ([[response objectForKey:@"totalItems"] integerValue] == 0)
-                {
-                    error = [[NSError alloc] initWithDomain:@"error" code:EMPTYOBJECTDATA_ERROR userInfo:nil];
-                }
-                else
-                {
-                    id volumeInfo = [[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"volumeInfo"];
-                    
-                    [self setBookWithInfo:volumeInfo];
-                }
+                volumeInfo = [[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"volumeInfo"];
             }
             else if (typeSelected == AudioType || typeSelected == VideoType)
             {
-                [self setMediaWithInfo:response error:&error];
+                volumeInfo = [[[[[response objectForKey:@"resp"] objectForKey:@"search"] objectForKey:@"searchresults"] objectForKey:@"results"] objectAtIndex:0];
             }
             
+            if (volumeInfo)
+            {
+                self.name = @"";
+                self.author = @"";
+                self.editorial = @"";
+                self.type = typeSelected;
+                
+                if (typeSelected == BookType)
+                {
+                    [self setBookWithInfo:volumeInfo];
+                }
+                else if (typeSelected == AudioType || typeSelected == VideoType)
+                {
+                    [self setMediaWithInfo:volumeInfo];
+                }
+            }
+            else
+            {
+                error = [[NSError alloc] initWithDomain:@"error" code:EMPTYOBJECTDATA_ERROR userInfo:nil];
+            }
+        
             if ([_delegate respondsToSelector:@selector(getDataResponseWithError:)])
             {
                 [_delegate getDataResponseWithError:error];
@@ -192,24 +218,71 @@ static iPrestaObject *currentObject;
         }
         else if ([connection.identifier isEqual:@"getSearchResults"])
         {
-            NSMutableArray *searchResultArray = [[NSMutableArray alloc] initWithCapacity:[[response objectForKey:@"items"] count]];
+            NSMutableArray *searchResultArray;
+            id volumeInfoArray;
             
-            for (id volumeInfo in [response objectForKey:@"items"])
+            if (typeSelected == BookType)
             {
-                iPrestaObject *object = [iPrestaObject object];
+                volumeInfoArray = [response objectForKey:@"items"];
+            }
+            else if (typeSelected == AudioType || typeSelected == VideoType)
+            {
+                volumeInfoArray = [response objectForKey:@"results"];
+            }
+            
+            if ([volumeInfoArray count] > 0)
+            {
+                searchResultArray = [[NSMutableArray alloc] initWithCapacity:[volumeInfoArray count]];
                 
-                object.name = @"";
-                object.author = @"";
-                object.editorial = @"";
-                object.type = typeSelected;
-                
-                [object setBookWithInfo:[volumeInfo objectForKey:@"volumeInfo"]];
-                [searchResultArray addObject:object];
+                for (id volumeInfo in volumeInfoArray)
+                {
+                    iPrestaObject *object = [iPrestaObject object];
+                    
+                    object.name = @"";
+                    object.author = @"";
+                    object.editorial = @"";
+                    object.type = typeSelected;
+                    
+                    if (typeSelected == BookType)
+                    {
+                        [object setBookWithInfo:[volumeInfo objectForKey:@"volumeInfo"]];
+                    }
+                    else if (typeSelected == AudioType || typeSelected == VideoType)
+                    {
+                        [object setMediaWithInfo:volumeInfo];
+                    }
+                    
+                    [searchResultArray addObject:object];
+                }
+            }
+            else
+            {
+                error = [[NSError alloc] initWithDomain:@"error" code:EMPTYSEARCH_ERROR userInfo:nil];
             }
             
             if ([_delegate respondsToSelector:@selector(getSearchResultsResponse:withError:)])
             {
                 [_delegate getSearchResultsResponse:[searchResultArray copy] withError:error];
+            }
+            
+            searchResultArray = nil;
+            volumeInfoArray = nil;
+        }
+    }
+    else
+    {
+        if ([connection.identifier isEqual:@"getData"])
+        {
+            if ([_delegate respondsToSelector:@selector(getDataResponseWithError:)])
+            {
+                [_delegate getDataResponseWithError:error];
+            }
+        }
+        else if ([connection.identifier isEqual:@"getSearchResults"])
+        {
+            if ([_delegate respondsToSelector:@selector(getSearchResultsResponse:withError:)])
+            {
+                [_delegate getSearchResultsResponse:nil withError:error];
             }
         }
     }
@@ -250,21 +323,18 @@ static iPrestaObject *currentObject;
     }
 }
 
-- (void)setMediaWithInfo:(id)info error:(NSError **)error
+- (void)setMediaWithInfo:(id)info
 {
-    if ([[[info objectForKey:@"resp"] objectForKey:@"status"] boolValue])
+    if ([info objectForKey:@"title"])
     {
-        id volumeInfo = [[[[[info objectForKey:@"resp"] objectForKey:@"search"] objectForKey:@"searchresults"] objectForKey:@"results"] objectAtIndex:0];
-        id title = [[volumeInfo objectForKey:@"title"] componentsSeparatedByString: @" - "];
+        id title = [[info objectForKey:@"title"] componentsSeparatedByString: @" - "];
         
         self.author = [title objectAtIndex:0];
         self.name = [title objectAtIndex:1];
-        
-        volumeInfo = nil;
     }
-    else
+    if ([info objectForKey:@"thumb"])
     {
-        *error = [[NSError alloc] initWithDomain:@"error" code:EMPTYOBJECTDATA_ERROR userInfo:nil];
+        self.imageURL = [info objectForKey:@"thumb"];
     }
 }
 
