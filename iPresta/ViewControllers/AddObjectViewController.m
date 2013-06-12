@@ -224,6 +224,31 @@
     nameTextField.text = [newObject.name capitalizedString];
     authorTextField.text = [newObject.author capitalizedString];
     editorialTextField.text = [newObject.editorial capitalizedString];
+    
+    if (newObject.imageURL && newObject.imageData == nil)
+    {
+        UIActivityIndicatorView *indicatorImage = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        indicatorImage.frame = imageView.bounds;
+        [indicatorImage setHidesWhenStopped:YES];
+        [indicatorImage startAnimating];
+        [imageView addSubview:indicatorImage];
+        
+        imageView.image = [UIImage imageNamed:@"camera_icon.png"];
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+        
+        dispatch_async(queue, ^(void)
+        {
+            newObject.imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:newObject.imageURL]];
+            [indicatorImage stopAnimating];
+            UIImage* image = [UIImage imageWithData:newObject.imageData];
+            if (image)
+            {
+                imageView.tag = YES;
+                imageView.image = image;
+            }
+        });
+    }
+    
     if (newObject.imageData)
     {
         imageView.tag = YES;

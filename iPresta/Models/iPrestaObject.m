@@ -195,6 +195,8 @@ static iPrestaObject *currentObject;
                 self.name = @"";
                 self.author = @"";
                 self.editorial = @"";
+                self.imageURL = nil;
+                self.imageData = nil;
                 self.type = typeSelected;
                 
                 if (typeSelected == BookType)
@@ -301,7 +303,6 @@ static iPrestaObject *currentObject;
             self.name = [self.name stringByAppendingFormat:@" %@", [info objectForKey:@"subtitle"]];
         }
     }
-    
     // Se setea el autor del objeto
     if ([info objectForKey:@"authors"])
     {
@@ -315,16 +316,28 @@ static iPrestaObject *currentObject;
             }
         }
     }
-    
     // Se setea la editorial del objeto
     if ([info objectForKey:@"publisher"])
     {
         self.editorial = [info objectForKey:@"publisher"];
     }
+    // se setea la imagen
+    if ([info objectForKey:@"imageLinks"])
+    {
+        id images = [info objectForKey:@"imageLinks"];
+        
+        if ([images objectForKey:@"extraLarge"]) self.imageURL = [images objectForKey:@"extraLarge"];
+        else if ([images objectForKey:@"large"]) self.imageURL = [images objectForKey:@"large"];
+        else if ([images objectForKey:@"medium"]) self.imageURL = [images objectForKey:@"medium"];
+        else if ([images objectForKey:@"small"]) self.imageURL = [images objectForKey:@"small"];
+        else if ([images objectForKey:@"thumbnail"]) self.imageURL = [images objectForKey:@"thumbnail"];
+        else if ([images objectForKey:@"smallThumbnail"]) self.imageURL = [images objectForKey:@"smallThumbnail"];
+    }
 }
 
 - (void)setMediaWithInfo:(id)info
 {
+    // se setea el titulo y el autor
     if ([info objectForKey:@"title"])
     {
         id title = [[info objectForKey:@"title"] componentsSeparatedByString: @" - "];
@@ -332,6 +345,7 @@ static iPrestaObject *currentObject;
         self.author = [title objectAtIndex:0];
         self.name = [title objectAtIndex:1];
     }
+    // se setea la imagen
     if ([info objectForKey:@"thumb"])
     {
         self.imageURL = [info objectForKey:@"thumb"];
