@@ -99,7 +99,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	if ((scrollView.contentOffset.y + scrollView.frame.size.height) > (scrollView.contentSize.height) && !loading)
+	if ((scrollView.contentOffset.y + scrollView.frame.size.height) > (scrollView.contentSize.height) && !loading && !finish)
     {
         loading = YES;
         page++;
@@ -197,6 +197,7 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    finish = NO;
     page = 0;
     results_ = [[NSMutableArray alloc] init];
     [self searchResults];
@@ -223,16 +224,25 @@
 - (void)loadSearchTableWithResults:(NSArray *)searchResults
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
+
+    if (page == 0)
+    {
+        //set tableview footer
+        [[NSBundle mainBundle] loadNibNamed:@"ActivityIndicatorCell" owner:self options:nil];
+        [tableView_ setTableFooterView:activityIndicatorView_];
+    }
+    
     
     [self.footerActivityIndicator stopAnimating];
     [results_ addObjectsFromArray:searchResults];
     [[self tableView] reloadData];
     loading = NO;
-    if (page == 0)
+
+    
+    if ([searchResults count] < OFFSET)
     {
-        //set tableview footer
-        [[NSBundle mainBundle] loadNibNamed:@"ActivityIndicatorCell" owner:self options:nil];//this gets a new instance from the xib
-        [[self tableView] setTableFooterView:[self activityIndicatorView]];
+        finish = YES;
+        [tableView_ setTableFooterView:nil];
     }
 }
 

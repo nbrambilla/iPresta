@@ -32,11 +32,6 @@
 {
     [super viewDidLoad];
     
-    UIBarButtonItem *detectObjectButton = [[UIBarButtonItem alloc] initWithTitle:@"Detectar" style:UIBarButtonItemStylePlain target:self action:@selector(goToDetectObject)];
-    self.navigationItem.rightBarButtonItem = detectObjectButton;
-    
-    detectObjectButton = nil;
-    
     nameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     authorTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     editorialTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
@@ -83,7 +78,7 @@
 
 #pragma mark - Detect Object Methods
 
-- (void)goToDetectObject
+- (IBAction)detectObject:(id)sender
 {
     ZBarReaderViewController *reader = [ZBarReaderViewController new];
     reader.readerDelegate = self;
@@ -150,8 +145,8 @@
 
 - (void)getSearchResultsResponse:(NSArray *)searchResults withError:(NSError *)error
 {
-    if (error) [error manageErrorTo:acvc.view];
-    [acvc loadSearchTableWithResults:searchResults];
+    if (error) [error manageErrorTo:autoComplete.view];
+    [autoComplete loadSearchTableWithResults:searchResults];
 }
 
 - (void)getDataResponseWithError:(NSError *)error
@@ -319,22 +314,16 @@
     }
     return YES;
 }
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField
+- (IBAction)searchObject:(id)sender
 {
-    if (textField == nameTextField)
-    {
-        [textField resignFirstResponder];
+        autoComplete = [[IMOAutocompletionViewController alloc] init];
         
-        acvc = [[IMOAutocompletionViewController alloc] init];
+        [autoComplete setDataSource:self];
+        [autoComplete setDelegate:self];
+        [autoComplete setTitle:@"Buscar"];
         
-        [acvc setDataSource:(id<IMOAutocompletionViewDataSource>)self];
-        [acvc setDelegate:(id<IMOAutocompletionViewDelegate>)self];
-        [acvc setTitle:@"Buscar"];
-        
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:acvc];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:autoComplete];
         [[self navigationController] presentModalViewController:navController animated:YES];
-    }
 }
 
 #pragma mark - STCombo Methods

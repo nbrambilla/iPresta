@@ -65,6 +65,7 @@
     if (self.isMovingFromParentViewController)
     {
         [iPrestaObject setTypeSelected:NoneType];
+        [[User currentUser] setObjectsArray:nil];
     }
     
     [super viewWillDisappear:animated];
@@ -96,7 +97,8 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    searchBar = nil;
+    self.tableView = nil;
+    
     [super viewDidUnload];
 }
 

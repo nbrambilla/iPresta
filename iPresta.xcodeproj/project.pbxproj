@@ -720,8 +720,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -750,8 +750,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -760,7 +760,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "FA462E66-A9E7-4305-8B8C-9EC3D686EFF0";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "79E0D305-FF10-4C3A-9174-C2193D94FC7B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FA462E66-A9E7-4305-8B8C-9EC3D686EFF0";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -769,8 +769,8 @@
 		156FDE2416F399E900F4BEEA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -794,8 +794,8 @@
 		156FDE2516F399E900F4BEEA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",

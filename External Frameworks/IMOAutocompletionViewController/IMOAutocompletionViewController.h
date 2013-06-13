@@ -28,6 +28,7 @@
 {
     NSInteger page;
     BOOL loading;
+    BOOL finish;
 }
 
 @property (assign, nonatomic) id <IMOAutocompletionViewDataSource> dataSource;

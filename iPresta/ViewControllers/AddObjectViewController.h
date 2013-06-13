@@ -29,7 +29,7 @@
     ObjectType objecType;
     AudioObjectType audioTypeSelectedIndex;
     VideoObjectType videoTypeSelectedIndex;
-    IMOAutocompletionViewController *acvc;
+    IMOAutocompletionViewController *autoComplete;
 }
 
 @end

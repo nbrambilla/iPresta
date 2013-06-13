@@ -173,7 +173,6 @@ static iPrestaObject *currentObject;
     if (typeSelected == BookType)
     {
         urlString = [NSString stringWithFormat:@"https://www.googleapis.com/books/v1/volumes?q=%@&maxResults=%d&startIndex=%d", param, offset, page*offset];
-        NSLog(@"%@", urlString);
     }
     else if (typeSelected == AudioType)
     {
@@ -248,7 +247,7 @@ static iPrestaObject *currentObject;
             {
                 volumeInfoArray = [response objectForKey:@"result"];
             }
-            
+
             if ([volumeInfoArray count] > 0)
             {
                 searchResultArray = [[NSMutableArray alloc] initWithCapacity:[volumeInfoArray count]];
@@ -274,10 +273,13 @@ static iPrestaObject *currentObject;
                     [searchResultArray addObject:object];
                 }
             }
-            else
-            {
-                error = [[NSError alloc] initWithDomain:@"error" code:EMPTYSEARCH_ERROR userInfo:nil];
-            }
+//            else
+//            {
+//                if (typeSelected == VideoType)
+//                {
+//                    if ([[response objectForKey:@"total_found"] integerValue]) error = [[NSError alloc] initWithDomain:@"error" code:EMPTYSEARCH_ERROR userInfo:nil];
+//                }
+//            }
             
             if ([_delegate respondsToSelector:@selector(getSearchResultsResponse:withError:)])
             {
