@@ -8,6 +8,7 @@
 
 #import <Parse/Parse.h>
 #import <Foundation/Foundation.h>
+#import "iPrestaObject.h"
 
 @interface User : PFUser<PFSubclassing>
 
@@ -15,8 +16,10 @@
 @property(retain, nonatomic) NSString *email;
 @property(retain, nonatomic) NSString *username;
 @property(retain, nonatomic) NSString *password;
+@property(retain, nonatomic) NSMutableArray *objectsArray;
 
 + (BOOL)currentUserHasEmailVerified;
 + (User *)currentUser;
+- (BOOL)hasObject:(iPrestaObject *)object;
 
 @end

@@ -13,7 +13,7 @@
 
 @protocol IMOAutocompletionViewDataSource <NSObject>
 
-- (void)sourceForAutoCompletionTextField:(IMOAutocompletionViewController *)autocompletionViewController withParam:(NSString *)param;
+- (void)sourceForAutoCompletionTextField:(IMOAutocompletionViewController *)asViewController withParam:(NSString *)param page:(NSInteger)page offset:(NSInteger)offset;
 
 @end
 
@@ -25,6 +25,10 @@
 @end
 
 @interface IMOAutocompletionViewController : UIViewController <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+{
+    NSInteger page;
+    BOOL loading;
+}
 
 @property (assign, nonatomic) id <IMOAutocompletionViewDataSource> dataSource;
 @property (assign, nonatomic) id <IMOAutocompletionViewDelegate> delegate;

@@ -31,7 +31,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
     UIBarButtonItem *detectObjectButton = [[UIBarButtonItem alloc] initWithTitle:@"Detectar" style:UIBarButtonItemStylePlain target:self action:@selector(goToDetectObject)];
     self.navigationItem.rightBarButtonItem = detectObjectButton;
@@ -171,8 +170,18 @@
     
     if ([nameTextField.text length] > 0)
     {
-        [self setNewObject];
-        [self saveNewObject];
+        if (![[User currentUser] hasObject:newObject] )
+        {
+            [self setNewObject];
+            [self saveNewObject];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Este objeto ya ha sido registrado" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            
+            alert = nil;
+        }
     }
     else
     {
@@ -282,9 +291,9 @@
 
 #pragma mark - IMOAutoCompletionViewDataSource Methods;
 
-- (void)sourceForAutoCompletionTextField:(IMOAutocompletionViewController *)asViewController withParam:(NSString *)param
+- (void)sourceForAutoCompletionTextField:(IMOAutocompletionViewController *)asViewController withParam:(NSString *)param page:(NSInteger)page offset:(NSInteger)offset
 {
-    [newObject getSearchResults:param];
+    [newObject getSearchResults:param page:page offset:offset];
 }
 
 #pragma mark - IMOAutoCompletionViewDelegate Methods;

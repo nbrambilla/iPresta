@@ -11,7 +11,6 @@
 @interface ObjectsListViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UINavigationControllerDelegate>
 {
     @private
-    NSMutableArray *objectsArray;
     NSMutableArray *filteredObjectsArray;
     IBOutlet UISearchBar *searchBar;
 }

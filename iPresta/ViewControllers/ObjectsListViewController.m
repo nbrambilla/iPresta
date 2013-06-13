@@ -85,7 +85,7 @@
          if (error) [error manageErrorTo:self];          // Si hay error al obtener los objetos
          else                                            // Si se obtienen los objetos, se listan
          {
-             objectsArray = [NSMutableArray arrayWithArray:[self partitionObjects:objects collationStringSelector:@selector(firstLetter)]];
+             [[User currentUser] setObjectsArray:[NSMutableArray arrayWithArray:[self partitionObjects:objects collationStringSelector:@selector(firstLetter)]]];
              [self.tableView reloadData];
              [self.searchDisplayController.searchResultsTableView reloadData];
          }
@@ -120,7 +120,7 @@
     }
 	else
 	{
-        object = [[objectsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        object = [[[[User currentUser] objectsArray] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     }
     
     [object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
@@ -152,8 +152,8 @@
              }
         
              NSInteger sectionIndex = [[UILocalizedIndexedCollation currentCollation] sectionForObject:object collationStringSelector:@selector(firstLetter)];
-             NSInteger objectIndex = [[objectsArray objectAtIndex:sectionIndex] indexOfObject:object];
-             [[objectsArray objectAtIndex:sectionIndex] removeObjectIdenticalTo:object];
+             NSInteger objectIndex = [[[[User currentUser] objectsArray] objectAtIndex:sectionIndex] indexOfObject:object];
+             [[[[User currentUser] objectsArray] objectAtIndex:sectionIndex] removeObjectIdenticalTo:object];
              
              NSIndexPath *tableViewIndexPath = [NSIndexPath indexPathForRow:objectIndex inSection:sectionIndex];
              [self.tableView deleteRowsAtIndexPaths:@[tableViewIndexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -169,7 +169,7 @@
 {
 	[filteredObjectsArray removeAllObjects];
     
-    for (NSArray *section in objectsArray)
+    for (NSArray *section in [[User currentUser] objectsArray])
     {
         for (iPrestaObject *object in section)
         {
@@ -233,7 +233,7 @@
     }
     else
     {
-        BOOL showSection = [[objectsArray objectAtIndex:section] count] != 0;
+        BOOL showSection = [[[[User currentUser] objectsArray] objectAtIndex:section] count] != 0;
         return (showSection) ? [[[UILocalizedIndexedCollation currentCollation] sectionTitles] objectAtIndex:section] : nil;
     }
 }
@@ -282,7 +282,7 @@
     }
     else
     {
-        return [[objectsArray objectAtIndex:section] count];
+        return [[[[User currentUser] objectsArray] objectAtIndex:section] count];
     }
 }
 
@@ -304,7 +304,7 @@
     }
 	else
 	{
-        object = [[objectsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        object = [[[[User currentUser] objectsArray] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     }
     
     cell.textLabel.text = object.name;
@@ -360,7 +360,7 @@
         }
         else
         {
-            [self deleteObjectWithIndexPath:indexPath fromArray:objectsArray];
+            [self deleteObjectWithIndexPath:indexPath fromArray:[[User currentUser] objectsArray]];
         }
     }  
 }
@@ -399,7 +399,7 @@
     }
     else
     {
-        [self goToObjectDetail:[[objectsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
+        [self goToObjectDetail:[[[[User currentUser] objectsArray] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
     }
 }
 

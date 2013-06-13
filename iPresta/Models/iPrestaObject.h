@@ -60,6 +60,7 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 @property(retain) NSString *name;
 @property(retain) NSString *author;
 @property(retain) NSString *editorial;
+@property(retain) NSString *barcode;
 @property(retain) PFFile *image;
 @property(assign) AudioObjectType audioType;
 @property(assign) VideoObjectType videoType;
@@ -77,8 +78,9 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 + (void)setCurrentObject:(iPrestaObject *)object;
 + (iPrestaObject *)currentObject;
 
-- (void)getSearchResults:(NSString *)param;
+- (void)getSearchResults:(NSString *)param page:(NSInteger)page offset:(NSInteger)offset;
 - (void)getData:(NSString *)objectCode;
+- (BOOL)isEqualToObject:(iPrestaObject *)object;
 - (NSString *)textState;
 - (NSString *)textType;
 - (NSString *)textAudioType;

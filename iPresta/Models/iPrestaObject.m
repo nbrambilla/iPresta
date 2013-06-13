@@ -25,6 +25,7 @@ static iPrestaObject *currentObject;
 @dynamic name;
 @dynamic author;
 @dynamic editorial;
+@dynamic barcode;
 @dynamic image;
 @dynamic audioType;
 @dynamic videoType;
@@ -32,6 +33,9 @@ static iPrestaObject *currentObject;
 @synthesize imageURL = _imageURL;
 @synthesize delegate = _delegate;
 @synthesize actualGive = _actualGive;
+
+
+#pragma mark - Publicc Methods
 
 - (id)init
 {
@@ -45,6 +49,14 @@ static iPrestaObject *currentObject;
 + (NSString *)parseClassName
 {
     return @"iPrestaObject";
+}
+
+- (BOOL)isEqualToObject:(iPrestaObject *)object
+{
+    if (self.barcode && [self.barcode isEqual:object.barcode]) return YES;
+    if ([self.name isEqual:object.name] && [self.author isEqual:object.author])
+        return YES;
+    return  NO;
 }
 
 #pragma mark - User Setters
@@ -154,17 +166,23 @@ static iPrestaObject *currentObject;
     [connection downloadData:self];
 }
 
-- (void)getSearchResults:(NSString *)param
+- (void)getSearchResults:(NSString *)param page:(NSInteger)page offset:(NSInteger)offset
 {
     NSString *urlString;
     
     if (typeSelected == BookType)
     {
-        urlString = [NSString stringWithFormat:@"https://www.googleapis.com/books/v1/volumes?q='%@'&maxResults=20", param];
+        urlString = [NSString stringWithFormat:@"https://www.googleapis.com/books/v1/volumes?q=%@&maxResults=%d&startIndex=%d", param, offset, page*offset];
+        NSLog(@"%@", urlString);
     }
-    else if (typeSelected == AudioType || typeSelected == VideoType)
+    else if (typeSelected == AudioType)
     {
-        urlString = [NSString stringWithFormat:@"http://api.discogs.com/database/search?title=%@&type=release", param];
+        urlString = [NSString stringWithFormat:@"http://api.discogs.com/database/search?title=%@&type=release&page=%d&per_page=%d", param, page, offset];
+    }
+    
+    else if (typeSelected == VideoType)
+    {
+        urlString = [NSString stringWithFormat:@"http://mymovieapi.com/?title=%@&type=json&episode=0&limit=%d&offset=%d", param, offset, page*offset];
     }
     
     ConnectionData *connection = [[ConnectionData alloc] initWithURL:[NSURL URLWithString:urlString] andID:@"getSearchResults"];
@@ -192,11 +210,6 @@ static iPrestaObject *currentObject;
             
             if (volumeInfo)
             {
-                self.name = @"";
-                self.author = @"";
-                self.editorial = @"";
-                self.imageURL = nil;
-                self.imageData = nil;
                 self.type = typeSelected;
                 
                 if (typeSelected == BookType)
@@ -205,7 +218,7 @@ static iPrestaObject *currentObject;
                 }
                 else if (typeSelected == AudioType || typeSelected == VideoType)
                 {
-                    [self setMediaWithInfo:volumeInfo];
+                    [self setAudioWithInfo:volumeInfo];
                 }
             }
             else
@@ -227,9 +240,13 @@ static iPrestaObject *currentObject;
             {
                 volumeInfoArray = [response objectForKey:@"items"];
             }
-            else if (typeSelected == AudioType || typeSelected == VideoType)
+            else if (typeSelected == AudioType)
             {
                 volumeInfoArray = [response objectForKey:@"results"];
+            }
+            else if (typeSelected == VideoType)
+            {
+                volumeInfoArray = [response objectForKey:@"result"];
             }
             
             if ([volumeInfoArray count] > 0)
@@ -239,19 +256,19 @@ static iPrestaObject *currentObject;
                 for (id volumeInfo in volumeInfoArray)
                 {
                     iPrestaObject *object = [iPrestaObject object];
-                    
-                    object.name = @"";
-                    object.author = @"";
-                    object.editorial = @"";
                     object.type = typeSelected;
                     
                     if (typeSelected == BookType)
                     {
                         [object setBookWithInfo:[volumeInfo objectForKey:@"volumeInfo"]];
                     }
-                    else if (typeSelected == AudioType || typeSelected == VideoType)
+                    else if (typeSelected == AudioType)
                     {
-                        [object setMediaWithInfo:volumeInfo];
+                        [object setAudioWithInfo:volumeInfo];
+                    }
+                    else if (typeSelected == VideoType)
+                    {
+                        [object setVideoWithInfo:volumeInfo];
                     }
                     
                     [searchResultArray addObject:object];
@@ -306,11 +323,14 @@ static iPrestaObject *currentObject;
     // Se setea el autor del objeto
     if ([info objectForKey:@"authors"])
     {
-        for (NSString *author in [info objectForKey:@"authors"])
+        id authors = [info objectForKey:@"authors"];
+        self.author = @"";
+        
+        for (NSString *author in authors)
         {
             self.author = [self.author stringByAppendingString:author];
             
-            if (!([[info objectForKey:@"authors"] lastObject] == author))
+            if (![[authors lastObject] isEqual:author])
             {
                 self.author = [self.author stringByAppendingString:@", "];
             }
@@ -332,10 +352,30 @@ static iPrestaObject *currentObject;
         else if ([images objectForKey:@"small"]) self.imageURL = [images objectForKey:@"small"];
         else if ([images objectForKey:@"thumbnail"]) self.imageURL = [images objectForKey:@"thumbnail"];
         else if ([images objectForKey:@"smallThumbnail"]) self.imageURL = [images objectForKey:@"smallThumbnail"];
+        
+        images = nil;
+    }
+    // se setea el isbn
+    if ([info objectForKey:@"industryIdentifiers"])
+    {
+        id barcodes = [info objectForKey:@"industryIdentifiers"];
+        
+        if ([barcodes count] == 1) self.barcode = [[barcodes objectAtIndex:0] objectForKey:@"identifier"];
+        else if ([barcodes count] == 2)
+        {
+            if ([[[barcodes objectAtIndex:1] objectForKey:@"type"] isEqual: @"ISBN_13"]) self.barcode = [[barcodes objectAtIndex:1] objectForKey:@"identifier"];
+            else self.barcode = [[barcodes objectAtIndex:0] objectForKey:@"identifier"];
+        }
+        else
+        {
+             self.barcode = [[barcodes objectAtIndex:1] objectForKey:@"identifier"];
+        }
+        
+        barcodes = nil;
     }
 }
 
-- (void)setMediaWithInfo:(id)info
+- (void)setAudioWithInfo:(id)info
 {
     // se setea el titulo y el autor
     if ([info objectForKey:@"title"])
@@ -349,6 +389,41 @@ static iPrestaObject *currentObject;
     if ([info objectForKey:@"thumb"])
     {
         self.imageURL = [info objectForKey:@"thumb"];
+    }
+}
+
+- (void)setVideoWithInfo:(id)info
+{
+    // se setea el titulo
+    if ([info objectForKey:@"title"])
+    {
+        self.name = [info objectForKey:@"title"];
+    }
+    // se setea el director
+    if ([info objectForKey:@"directors"])
+    {
+        id directors = [info objectForKey:@"directors"];
+        self.author = @"";
+        
+        for (NSString *director in directors)
+        {
+            self.author = [self.author stringByAppendingString:director];
+            
+            if (![[directors lastObject] isEqual:director])
+            {
+                self.author = [self.author stringByAppendingString:@", "];
+            }
+        }
+    }
+    // se setea la imagen
+    if ([info objectForKey:@"poster"])
+    {
+        self.imageURL = [info objectForKey:@"poster"];
+    }
+    // se setea el identificador
+    if ([info objectForKey:@"imdb_id"])
+    {
+        self.barcode = [info objectForKey:@"imdb_id"];
     }
 }
 

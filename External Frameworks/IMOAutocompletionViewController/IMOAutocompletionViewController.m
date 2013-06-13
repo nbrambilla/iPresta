@@ -12,11 +12,15 @@
 #import "ProgressHUD.h"
 #import "iPrestaObject.h"
 
+#define OFFSET 10
+
 @interface IMOAutocompletionViewController ()
 
 @property (retain, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (retain, nonatomic) IBOutlet UITableView *tableView;
-@property (retain, nonatomic) NSArray *results;
+@property (retain, nonatomic) NSMutableArray *results;
+@property (retain, nonatomic) IBOutlet UIView *activityIndicatorView;
+@property (nonatomic,retain) IBOutlet UIActivityIndicatorView *footerActivityIndicator;
 
 - (void)controllerCancelled;
 - (CGFloat)screenHeight;
@@ -30,6 +34,8 @@
 @synthesize tableView = tableView_;
 @synthesize dataSource =  dataSource_;
 @synthesize delegate = delegate_;
+@synthesize activityIndicatorView = activityIndicatorView_;
+@synthesize footerActivityIndicator = footerActivityIndicator_;
 
 - (id)init {
     return  self = [self initWithNibName:nil bundle:nil];
@@ -49,6 +55,8 @@
 - (void)viewDidLoad
 {
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(controllerCancelled)];
+    
+    loading = NO;
     
     [[self navigationItem] setRightBarButtonItem:cancelButton];
     [cancelButton release];
@@ -88,6 +96,20 @@
 //    // The custom cell needs to know the - 10.0 difference
 //    return 44.0 + IMOCellSizeMagnitude;
 //}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+	if ((scrollView.contentOffset.y + scrollView.frame.size.height) > (scrollView.contentSize.height) && !loading)
+    {
+        loading = YES;
+        page++;
+        [self.footerActivityIndicator startAnimating];
+        [self searchResults];
+//        [[self footerActivityIndicator] startAnimating];
+//        [self performSelector:@selector(stopAnimatingFooter) withObject:nil afterDelay:0.5];
+//        return;
+	}
+}
 
 - (int)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -163,8 +185,6 @@
     return cell;
 }
 
-
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[self delegate] respondsToSelector:@selector(IMOAutocompletionViewControllerReturnedCompletion:)]) {
@@ -177,18 +197,24 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    page = 0;
+    results_ = [[NSMutableArray alloc] init];
+    [self searchResults];
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    if ([[self dataSource] respondsToSelector:@selector(sourceForAutoCompletionTextField:withParam:)]){
+}
+
+- (void)searchResults
+{
+    if ([[self dataSource] respondsToSelector:@selector(sourceForAutoCompletionTextField:withParam:page:offset:)]){
         
-        NSString *param = [[searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] lowercaseString];
+        NSString *param = [[searchBar_.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] lowercaseString];
         
         param = [param stringByReplacingOccurrencesOfString:@" " withString:@"+"];
         
         NSData *paramData = [param dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
         param = [[NSString alloc] initWithData:paramData encoding:NSASCIIStringEncoding];
         
-        [(id <IMOAutocompletionViewDataSource>)[self dataSource] sourceForAutoCompletionTextField:self withParam:param];
+        [(id <IMOAutocompletionViewDataSource>)[self dataSource] sourceForAutoCompletionTextField:self withParam:param page:page offset:OFFSET];
     }
     
     [searchBar_ resignFirstResponder];
@@ -198,8 +224,16 @@
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    results_ = [[NSArray alloc] initWithArray:searchResults];;
+    [self.footerActivityIndicator stopAnimating];
+    [results_ addObjectsFromArray:searchResults];
     [[self tableView] reloadData];
+    loading = NO;
+    if (page == 0)
+    {
+        //set tableview footer
+        [[NSBundle mainBundle] loadNibNamed:@"ActivityIndicatorCell" owner:self options:nil];//this gets a new instance from the xib
+        [[self tableView] setTableFooterView:[self activityIndicatorView]];
+    }
 }
 
 - (void)viewDidUnload {
