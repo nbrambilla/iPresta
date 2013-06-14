@@ -141,6 +141,8 @@
         
         return NO;
     }
+    
+    return YES;
 }
 
 - (IBAction)giveObject:(id)sender

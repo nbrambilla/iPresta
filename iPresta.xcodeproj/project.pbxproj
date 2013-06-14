@@ -90,6 +90,10 @@
 		191D1B4E176B180500DF1E48 /* MLTableAlertButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B46176B180500DF1E48 /* MLTableAlertButtonPressed@2x.png */; };
 		191D1B4F176B180500DF1E48 /* MLTableAlertShadowMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B47176B180500DF1E48 /* MLTableAlertShadowMask.png */; };
 		191D1B50176B180500DF1E48 /* MLTableAlertShadowMask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B48176B180500DF1E48 /* MLTableAlertShadowMask@2x.png */; };
+		191D1B52176B504F00DF1E48 /* iPrestaImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B51176B504F00DF1E48 /* iPrestaImageView.xib */; };
+		191D1B55176B51C200DF1E48 /* iPrestaImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 191D1B54176B51C200DF1E48 /* iPrestaImageView.m */; };
+		191D1B5B176B6EEF00DF1E48 /* close_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B59176B6EEF00DF1E48 /* close_icon.png */; };
+		191D1B5C176B6EEF00DF1E48 /* close_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B5A176B6EEF00DF1E48 /* close_icon@2x.png */; };
 		193A729217670DA4001EB94D /* camera_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193A729117670DA4001EB94D /* camera_icon@2x.png */; };
 		193A729C17672BFF001EB94D /* IMOAutocompletionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A729717672BFF001EB94D /* IMOAutocompletionViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		193A729D17672BFF001EB94D /* IMOCompletionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A729917672BFF001EB94D /* IMOCompletionCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -233,6 +237,11 @@
 		191D1B46176B180500DF1E48 /* MLTableAlertButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MLTableAlertButtonPressed@2x.png"; path = "External Frameworks/MLTableAlert/Images/MLTableAlertButtonPressed@2x.png"; sourceTree = "<group>"; };
 		191D1B47176B180500DF1E48 /* MLTableAlertShadowMask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MLTableAlertShadowMask.png; path = "External Frameworks/MLTableAlert/Images/MLTableAlertShadowMask.png"; sourceTree = "<group>"; };
 		191D1B48176B180500DF1E48 /* MLTableAlertShadowMask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MLTableAlertShadowMask@2x.png"; path = "External Frameworks/MLTableAlert/Images/MLTableAlertShadowMask@2x.png"; sourceTree = "<group>"; };
+		191D1B51176B504F00DF1E48 /* iPrestaImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = iPrestaImageView.xib; path = ViewControllers/iPrestaImageView.xib; sourceTree = "<group>"; };
+		191D1B53176B51C100DF1E48 /* iPrestaImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaImageView.h; path = ViewControllers/iPrestaImageView.h; sourceTree = "<group>"; };
+		191D1B54176B51C200DF1E48 /* iPrestaImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaImageView.m; path = ViewControllers/iPrestaImageView.m; sourceTree = "<group>"; };
+		191D1B59176B6EEF00DF1E48 /* close_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close_icon.png; path = Images/close_icon.png; sourceTree = "<group>"; };
+		191D1B5A176B6EEF00DF1E48 /* close_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "close_icon@2x.png"; path = "Images/close_icon@2x.png"; sourceTree = "<group>"; };
 		193A729117670DA4001EB94D /* camera_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera_icon@2x.png"; path = "Images/camera_icon@2x.png"; sourceTree = "<group>"; };
 		193A729617672BFF001EB94D /* IMOAutocompletionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMOAutocompletionViewController.h; path = "External Frameworks/IMOAutocompletionViewController/IMOAutocompletionViewController.h"; sourceTree = "<group>"; };
 		193A729717672BFF001EB94D /* IMOAutocompletionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMOAutocompletionViewController.m; path = "External Frameworks/IMOAutocompletionViewController/IMOAutocompletionViewController.m"; sourceTree = "<group>"; };
@@ -283,6 +292,8 @@
 		1518EA14174A6D86000EB0FE /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				191D1B59176B6EEF00DF1E48 /* close_icon.png */,
+				191D1B5A176B6EEF00DF1E48 /* close_icon@2x.png */,
 				193A729117670DA4001EB94D /* camera_icon@2x.png */,
 				1518EA15174A6D97000EB0FE /* camera_icon.png */,
 			);
@@ -530,6 +541,9 @@
 				1535FAA1175D1B4500587AB7 /* ObjectHistoricGiveViewController.h */,
 				1535FAA2175D1B4500587AB7 /* ObjectHistoricGiveViewController.m */,
 				1535FAA3175D1B4500587AB7 /* ObjectHistoricGiveViewController.xib */,
+				191D1B51176B504F00DF1E48 /* iPrestaImageView.xib */,
+				191D1B53176B51C100DF1E48 /* iPrestaImageView.h */,
+				191D1B54176B51C200DF1E48 /* iPrestaImageView.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -697,6 +711,9 @@
 				191D1B4E176B180500DF1E48 /* MLTableAlertButtonPressed@2x.png in Resources */,
 				191D1B4F176B180500DF1E48 /* MLTableAlertShadowMask.png in Resources */,
 				191D1B50176B180500DF1E48 /* MLTableAlertShadowMask@2x.png in Resources */,
+				191D1B52176B504F00DF1E48 /* iPrestaImageView.xib in Resources */,
+				191D1B5B176B6EEF00DF1E48 /* close_icon.png in Resources */,
+				191D1B5C176B6EEF00DF1E48 /* close_icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -737,6 +754,7 @@
 				193A729D17672BFF001EB94D /* IMOCompletionCell.m in Sources */,
 				193A729E17672BFF001EB94D /* IMOCompletionController.m in Sources */,
 				191D1B3F176B17E800DF1E48 /* MLTableAlert.m in Sources */,
+				191D1B55176B51C200DF1E48 /* iPrestaImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

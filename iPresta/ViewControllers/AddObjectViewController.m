@@ -32,6 +32,10 @@
 {
     [super viewDidLoad];
     
+    imageView = [iPrestaImageView new];
+    imageView.frame = CGRectMake(20, 172, 150, 150);
+    [self.view addSubview:imageView];
+    
     nameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     authorTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     editorialTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
@@ -128,8 +132,7 @@
         UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         
-        imageView.image = smallImage;
-        imageView.tag = YES;
+        imageView.pictureView.image = smallImage;
         
         [picker dismissViewControllerAnimated:YES completion:nil];
     }
@@ -229,7 +232,7 @@
     authorTextField.text = [newObject.author capitalizedString];
     editorialTextField.text = [newObject.editorial capitalizedString];
     
-    imageView.image = [UIImage imageNamed:@"camera_icon.png"];
+    [imageView deleteImage];
     
     if (newObject.imageURL && newObject.imageData == nil)
     {
@@ -248,16 +251,14 @@
             UIImage* image = [UIImage imageWithData:newObject.imageData];
             if (image)
             {
-                imageView.tag = YES;
-                imageView.image = image;
+                imageView.pictureView.image = image;
             }
         });
     }
     
     if (newObject.imageData)
     {
-        imageView.tag = YES;
-        imageView.image = [UIImage imageWithData:newObject.imageData];
+        imageView.pictureView.image = [UIImage imageWithData:newObject.imageData];
     }
 }
 
@@ -267,9 +268,9 @@
     newObject.state = Property;
     newObject.name = nameTextField.text;
 
-    if (imageView.tag)
+    if (imageView.isSetted)
     {
-        NSData *imageData = UIImageJPEGRepresentation(imageView.image, 0.1f);
+        NSData *imageData = UIImageJPEGRepresentation(imageView.pictureView.image, 0.1f);
         newObject.image = [PFFile fileWithName:[NSString stringWithFormat:@"%@.png", [[iPrestaObject objectTypes] objectAtIndex:[iPrestaObject typeSelected]]] data:imageData];
         
         [newObject.image saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

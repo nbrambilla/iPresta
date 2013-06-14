@@ -11,6 +11,7 @@
 #import "User.h"
 #import "STControls.h"
 #import "ZBarSDK.h"
+#import "iPrestaImageView.h"
 #import "IMOAutocompletionViewController.h"
 
 @interface AddObjectViewController : UIViewController <iPrestaObjectDelegate, STComboTextDelegate, UITextFieldDelegate, ZBarReaderDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, IMOAutocompletionViewDataSource, IMOAutocompletionViewDelegate>
@@ -22,7 +23,7 @@
     IBOutlet UITextField *editorialTextField;
     IBOutlet STComboText *audioTypeComboText;
     IBOutlet STComboText *videoTypeComboText;
-    IBOutlet UIImageView *imageView;
+    iPrestaImageView *imageView;
     iPrestaObject *newObject;
     NSArray *audioTypesArray;
     NSArray *videoTypesArray;

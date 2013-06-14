@@ -194,7 +194,6 @@
     return YES;
 }
 
-
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
 {
     [self filterContentForSearchText:[self.searchDisplayController.searchBar text] scope:
@@ -207,10 +206,10 @@
 
 - (void)goToAddObject
 {
-    AddObjectViewController *addObjectViewController = [[AddObjectViewController alloc] initWithNibName:@"AddObjectViewController" bundle:nil];
-    [self.navigationController pushViewController:addObjectViewController animated:YES];
+    AddObjectViewController *viewController = [[AddObjectViewController alloc] initWithNibName:@"AddObjectViewController" bundle:nil];
+    [self.navigationController pushViewController:viewController animated:YES];
     
-    addObjectViewController = nil;
+    viewController = nil;
 }
 
 - (void)goToObjectDetail:(iPrestaObject *)object
