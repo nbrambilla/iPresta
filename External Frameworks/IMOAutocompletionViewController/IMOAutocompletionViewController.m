@@ -11,6 +11,7 @@
 #import "IMOCompletionController.h"
 #import "ProgressHUD.h"
 #import "iPrestaObject.h"
+#import "iPrestaNSString.h"
 
 #define OFFSET 10
 
@@ -206,16 +207,10 @@
 
 - (void)searchResults
 {
-    if ([[self dataSource] respondsToSelector:@selector(sourceForAutoCompletionTextField:withParam:page:offset:)]){
+    if ([[self dataSource] respondsToSelector:@selector(sourceForAutoCompletionTextField:withParam:page:offset:)])
+    {
         
-        NSString *param = [[searchBar_.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] lowercaseString];
-        
-        param = [param stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        
-        NSData *paramData = [param dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-        param = [[NSString alloc] initWithData:paramData encoding:NSASCIIStringEncoding];
-        
-        [(id <IMOAutocompletionViewDataSource>)[self dataSource] sourceForAutoCompletionTextField:self withParam:param page:page offset:OFFSET];
+        [(id <IMOAutocompletionViewDataSource>)[self dataSource] sourceForAutoCompletionTextField:self withParam:[searchBar_.text encodeToURL] page:page offset:OFFSET];
     }
     
     [searchBar_ resignFirstResponder];
@@ -230,6 +225,8 @@
         //set tableview footer
         [[NSBundle mainBundle] loadNibNamed:@"ActivityIndicatorCell" owner:self options:nil];
         [tableView_ setTableFooterView:activityIndicatorView_];
+        
+        [tableView_ setContentOffset:CGPointZero animated:NO];
     }
     
     

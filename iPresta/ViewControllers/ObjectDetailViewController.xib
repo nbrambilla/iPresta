@@ -177,7 +177,7 @@
 					<object class="IBUIImageView" id="251271986">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{18, 154}, {90, 90}}</string>
+						<string key="NSFrame">{{20, 159}, {124, 124}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="713672588"/>
@@ -189,7 +189,7 @@
 					<object class="IBUIButton" id="713672588">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{18, 252}, {73, 25}}</string>
+						<string key="NSFrame">{{212, 159}, {88, 25}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="682675774"/>
@@ -203,6 +203,10 @@
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="474488943">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
+						</object>
+						<object class="NSColor" key="IBUIDisabledTitleColor" id="153755870">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
 						</object>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
@@ -218,7 +222,7 @@
 					<object class="IBUIButton" id="682675774">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{99, 252}, {88, 25}}</string>
+						<string key="NSFrame">{{212, 191}, {88, 25}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="703750781"/>
@@ -230,6 +234,7 @@
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Devolver</string>
 						<reference key="IBUIHighlightedTitleColor" ref="474488943"/>
+						<reference key="IBUISelectedTitleColor" ref="153755870"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
@@ -253,6 +258,7 @@
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Extender</string>
 						<reference key="IBUIHighlightedTitleColor" ref="474488943"/>
+						<reference key="IBUIDisabledTitleColor" ref="153755870"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
@@ -285,7 +291,7 @@
 					<object class="IBUIButton" id="703750781">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{194, 252}, {85, 25}}</string>
+						<string key="NSFrame">{{214, 223}, {85, 25}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -296,6 +302,7 @@
 						<int key="IBUIButtonType">1</int>
 						<string key="IBUINormalTitle">Historial</string>
 						<reference key="IBUIHighlightedTitleColor" ref="474488943"/>
+						<reference key="IBUIDisabledTitleColor" ref="153755870"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
@@ -500,12 +507,12 @@
 							<reference ref="390490537"/>
 							<reference ref="777093511"/>
 							<reference ref="1055799033"/>
-							<reference ref="251271986"/>
+							<reference ref="355038153"/>
 							<reference ref="713672588"/>
 							<reference ref="682675774"/>
-							<reference ref="1019067016"/>
-							<reference ref="355038153"/>
 							<reference ref="703750781"/>
+							<reference ref="251271986"/>
+							<reference ref="1019067016"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -595,11 +602,15 @@
 				<string key="27.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="31.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="3" key="31.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="34.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="2" key="34.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="38.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="40.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="3" key="40.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="44.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="3" key="44.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>

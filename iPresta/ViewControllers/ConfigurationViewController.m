@@ -41,6 +41,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Volver" style:UIBarButtonItemStyleBordered target:self action:@selector(back)];
+    self.navigationItem.leftBarButtonItem = backButton;
+    backButton = nil;
+}
+
+- (void)back
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning

@@ -8,6 +8,8 @@
 
 #import "iPrestaNSString.h"
 
+#define ONE_DAY 60*60*24
+
 @implementation NSString (iPrestaNSString)
 
 + (BOOL)areSetUsername:(NSString *)username andPassword:(NSString *)password
@@ -105,6 +107,44 @@
     }
     
     return formatCode;
+}
+
+- (NSInteger)getIntegerTime
+{
+    NSInteger time = 0;
+    
+    NSString *trimString = [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSArray* dividedString = [trimString componentsSeparatedByString: @" "];
+    
+    NSInteger value = [[dividedString objectAtIndex:0] integerValue];
+    NSString *lapse = [[dividedString objectAtIndex:1] lowercaseString];
+    
+    if ([lapse isEqual:@"día"] || [lapse isEqual:@"días"])
+    {
+        time = ONE_DAY * value;
+    }
+    else if ([lapse isEqual:@"semana"] || [lapse isEqual:@"semanas"])
+    {
+        time = ONE_DAY * 7 * value;
+    }
+    else if ([lapse isEqual:@"mes"] || [lapse isEqual:@"meses"])
+    {
+        time = ONE_DAY * 30 * value;
+    }
+    
+    return time;
+}
+
+- (NSString *)encodeToURL
+{
+    NSString *param = [[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] lowercaseString];
+    
+    param = [param stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+    
+    NSData *paramData = [param dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    param = [[NSString alloc] initWithData:paramData encoding:NSASCIIStringEncoding];
+    
+    return param;
 }
 
 @end

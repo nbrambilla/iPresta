@@ -31,4 +31,9 @@
     return self;
 }
 
++ (NSArray *)giveTimesArray
+{
+    return [NSArray arrayWithObjects:@"1 Semana", @"2 Semanas", @"3 Semanas", @"1 Mes", @"2 Meses", @"3 Meses", nil];
+}
+
 @end

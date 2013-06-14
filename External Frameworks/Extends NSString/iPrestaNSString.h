@@ -14,5 +14,7 @@
 - (BOOL)matchWith:(NSString *)confirmPassword;
 - (NSString *)formatName;
 - (NSString *)formatCode;
+- (NSInteger)getIntegerTime;
+- (NSString *)encodeToURL;
 
 @end

@@ -12,8 +12,9 @@
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
 #import "Give.h"
-#import "ExtendGiveViewController.h"
+#import "MLTableAlert.h"
 #import "ObjectHistoricGiveViewController.h"
+#import "iPrestaNSString.h"
 
 @interface ObjectDetailViewController ()
 
@@ -60,8 +61,8 @@
   
     if ([[iPrestaObject currentObject] state] == Given)
     {
-        giveButton.hidden = YES;
-        giveBackButton.hidden = NO;
+        giveButton.enabled = NO;
+        giveBackButton.enabled = YES;
         
         PFQuery *getActualGiveQuery = [Give query];
         [getActualGiveQuery whereKey:@"object" equalTo:[iPrestaObject currentObject]];
@@ -81,19 +82,19 @@
     {
         stateLabel.text = [[iPrestaObject currentObject] textState];
         
-        giveButton.hidden = NO;
-        giveBackButton.hidden = YES;
+        giveButton.enabled = YES;
+        giveBackButton.enabled = NO;
     }
     
     if ([[[[iPrestaObject currentObject] actualGive] dateEnd] compare:[NSDate date]] == NSOrderedAscending)
     {
         loanUpLabel.hidden = NO;
-        loanUpButton.hidden = NO;
+        loanUpButton.enabled = YES;
     }
     else
     {
         loanUpLabel.hidden = YES;
-        loanUpButton.hidden = YES;
+        loanUpButton.enabled = NO;
     }
 }
 
@@ -160,10 +161,73 @@
 
 - (IBAction)goToExtendGive:(id)sender
 {
-    ExtendGiveViewController *viewController = [[ExtendGiveViewController alloc] initWithNibName:@"ExtendGiveViewController" bundle:nil];
-    [self.navigationController pushViewController:viewController animated:YES];
+	MLTableAlert *extendGiveTableAlert = [MLTableAlert tableAlertWithTitle:@"Extender préstamo" cancelButtonTitle:@"Cancelar" numberOfRows:^NSInteger (NSInteger section)
+                  {
+                          return [[Give giveTimesArray] count];
+                  }
+                                          andCells:^UITableViewCell* (MLTableAlert *anAlert, NSIndexPath *indexPath)
+                  {
+                      static NSString *CellIdentifier = @"CellIdentifier";
+                      UITableViewCell *cell = [anAlert.table dequeueReusableCellWithIdentifier:CellIdentifier];
+                      if (cell == nil)
+                          cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                      
+                      cell.textLabel.text = [[Give giveTimesArray] objectAtIndex:indexPath.row];
+                      
+                      return cell;
+                  }];
+	
+	extendGiveTableAlert.height = 350;
+	
+	[extendGiveTableAlert configureSelectionBlock:^(NSIndexPath *selectedIndex)
+    {
+         [self extendGive:[[[Give giveTimesArray] objectAtIndex:selectedIndex.row] getIntegerTime]];
+	} andCompletionBlock:nil];
+	
+	[extendGiveTableAlert show];
+}
+
+- (void)extendGive:(NSInteger)time
+{
+    Give *give = [[iPrestaObject currentObject] actualGive];
+    give.object = [iPrestaObject currentObject];
     
-    viewController = nil;
+    give.dateEnd = [[NSDate date] dateByAddingTimeInterval:time];
+    
+    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    [give saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+    {
+         [ProgressHUD hideHUDForView:self.view animated:YES];
+         
+         if (error) [error manageErrorTo:self];      // Si error hay al realizar el prestamo
+         else                                        // Si el prestamo se realiza correctamente
+         {
+             give.object.actualGive = give;
+             
+             [self setView];
+             [self addNotificatioToDate:give.dateEnd object:give.object.name to:give.name registerId:give.objectId];
+         }
+     }];
+}
+
+- (void)addNotificatioToDate:(NSDate *)date object:(NSString *)object to:(NSString *)name registerId:(NSString *)registerId
+{
+    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+    localNotification.fireDate = date;
+    
+    localNotification.alertAction = @"Prestamo Vencido";
+    localNotification.alertBody = [NSString stringWithFormat:@"Ha vencido el prestamo de \"%@\" a %@", object, name];
+    localNotification.hasAction = YES;
+    //    localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber];
+    localNotification.soundName = UILocalNotificationDefaultSoundName;
+    
+    NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:registerId, @"id", nil];
+    localNotification.userInfo = userInfo;
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    
+    userInfo = nil;
 }
 
 - (void)removeNotificatioWithRegisterId:(NSString *)registerId

@@ -12,8 +12,8 @@
 #import "Give.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
-
-#define ONE_DAY 60*60*24
+#import "iPrestaNSString.h"
+#import "MLTableAlert.h"
 
 @interface GiveObjectViewController ()
 
@@ -37,13 +37,7 @@
     UIBarButtonItem *contactsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(goToContacts)];
     self.navigationItem.rightBarButtonItem = contactsButton;
     
-    fromTextView.datePickerMode = STDatePickerModeDateAndTime;
-    fromTextView.date = [NSDate date];
-    [self stDateText:fromTextView dateChangedTo:[NSDate date]];
-    
-    toTextField.datePickerMode = STDatePickerModeDateAndTime;
-    toTextField.date = [[NSDate date] dateByAddingTimeInterval:ONE_DAY];
-    [self stDateText:toTextField dateChangedTo:[[NSDate date] dateByAddingTimeInterval:ONE_DAY]];
+    timeTextField.text = [[Give giveTimesArray] objectAtIndex:0];
     
     contactsButton = nil;
 }
@@ -86,6 +80,7 @@
 
 - (void)goToContacts
 {
+    if ([timeTextField isFirstResponder]) [timeTextField resignFirstResponder];
     ABPeoplePickerNavigationController* picker = [[ABPeoplePickerNavigationController alloc] init];
     picker.peoplePickerDelegate = self;
     [self presentModalViewController:picker animated:YES];
@@ -94,8 +89,7 @@
 - (void)viewDidUnload
 {
     giveToTextField = nil;
-    fromTextView = nil;
-    toTextField = nil;
+    timeTextField = nil;
     [super viewDidUnload];
 }
 
@@ -118,28 +112,35 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    if([textField isKindOfClass:[STDateText class]])
+    if (textField == timeTextField)
     {
-        STDateText *dateText = (STDateText*)textField;
-        [dateText showDatePicker];
+        MLTableAlert *extendGiveTableAlert = [MLTableAlert tableAlertWithTitle:@"Prestar" cancelButtonTitle:@"Cancelar" numberOfRows:^NSInteger (NSInteger section)
+                                              {
+                                                  return [[Give giveTimesArray] count];
+                                              }
+                                                                      andCells:^UITableViewCell* (MLTableAlert *anAlert, NSIndexPath *indexPath)
+                                              {
+                                                  static NSString *CellIdentifier = @"CellIdentifier";
+                                                  UITableViewCell *cell = [anAlert.table dequeueReusableCellWithIdentifier:CellIdentifier];
+                                                  if (cell == nil)
+                                                      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                                                  
+                                                  cell.textLabel.text = [[Give giveTimesArray] objectAtIndex:indexPath.row];
+                                                  
+                                                  return cell;
+                                              }];
+        
+        extendGiveTableAlert.height = 350;
+        
+        [extendGiveTableAlert configureSelectionBlock:^(NSIndexPath *selectedIndex)
+         {
+             timeTextField.text = [[Give giveTimesArray] objectAtIndex:selectedIndex.row];
+         } andCompletionBlock:nil];
+        
+        [extendGiveTableAlert show];
         
         return NO;
     }
-    return YES;
-}
-
-- (void)stDateText:(STDateText*)STDateText dateChangedTo:(NSDate*)date
-{
-    if (STDateText == fromTextView)
-    {
-        toTextField.minimumDate = [date dateByAddingTimeInterval:ONE_DAY];
-        [self stDateText:toTextField dateChangedTo:toTextField.minimumDate];
-    }
-    
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss"];
-    [STDateText setText:[dateFormat stringFromDate:date]];
-    STDateText.date = date;
 }
 
 - (IBAction)giveObject:(id)sender
@@ -169,14 +170,11 @@
     
     give.name = [giveToTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss"];
-    give.dateBegin = [dateFormat dateFromString:fromTextView.text];
+    give.dateBegin = [NSDate date];
     
-    give.dateEnd = [dateFormat dateFromString:toTextField.text];
+    NSInteger time = [timeTextField.text getIntegerTime];
+    give.dateEnd = [give.dateBegin dateByAddingTimeInterval:time ];
     give.actual = YES;
-    
-    dateFormat = nil;
 }
 
 - (void)saveNewGive:(Give *)give

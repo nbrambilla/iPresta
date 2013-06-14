@@ -8,14 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <AddressBookUI/AddressBookUI.h>
-#import "STControls.h"
 
-@interface GiveObjectViewController : UIViewController <STDateTextDelegate, UITextFieldDelegate, ABPeoplePickerNavigationControllerDelegate>
+@interface GiveObjectViewController : UIViewController <UITextFieldDelegate, ABPeoplePickerNavigationControllerDelegate>
 {
     @private
     IBOutlet UITextField *giveToTextField;
-    IBOutlet STDateText *fromTextView;
-    IBOutlet STDateText *toTextField;
+    IBOutlet UITextField *timeTextField;
 }
 
 @end

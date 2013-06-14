@@ -20,5 +20,6 @@
 @property(assign) BOOL actual;
 
 + (NSString *)parseClassName;
++ (NSArray *)giveTimesArray;
 
 @end

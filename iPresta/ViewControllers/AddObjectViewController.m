@@ -154,7 +154,7 @@
     [ProgressHUD hideHUDForView:self.view animated:YES];
     
     if (error) [error manageErrorTo:self];
-    [self setTextFields];
+    [self setFields];
 }
 
 #pragma mark - Save Objects Methods
@@ -223,11 +223,13 @@
 
 #pragma mark - Set Methods
 
-- (void)setTextFields
+- (void)setFields
 {
     nameTextField.text = [newObject.name capitalizedString];
     authorTextField.text = [newObject.author capitalizedString];
     editorialTextField.text = [newObject.editorial capitalizedString];
+    
+    imageView.image = [UIImage imageNamed:@"camera_icon.png"];
     
     if (newObject.imageURL && newObject.imageData == nil)
     {
@@ -237,7 +239,6 @@
         [indicatorImage startAnimating];
         [imageView addSubview:indicatorImage];
         
-        imageView.image = [UIImage imageNamed:@"camera_icon.png"];
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
         
         dispatch_async(queue, ^(void)
@@ -298,7 +299,7 @@
    if (object)
    {
        newObject = (iPrestaObject *)object;
-       [self setTextFields];
+       [self setFields];
        [self setNewObject];
    }
 }

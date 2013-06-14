@@ -73,8 +73,6 @@
 		15D1706917396AA700CF1F98 /* ObjectsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1706717396AA700CF1F98 /* ObjectsListViewController.xib */; };
 		15D1706D1739706600CF1F98 /* AddObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1706B1739706500CF1F98 /* AddObjectViewController.m */; };
 		15D1706E1739706600CF1F98 /* AddObjectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1706C1739706600CF1F98 /* AddObjectViewController.xib */; };
-		15D2463C175A0FF200C594BB /* ExtendGiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D2463A175A0FF200C594BB /* ExtendGiveViewController.m */; };
-		15D2463D175A0FF200C594BB /* ExtendGiveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D2463B175A0FF200C594BB /* ExtendGiveViewController.xib */; };
 		15E3E9571748F8140056CA4C /* ConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E3E9551748F8140056CA4C /* ConfigurationViewController.m */; };
 		15E3E9581748F8140056CA4C /* ConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E3E9561748F8140056CA4C /* ConfigurationViewController.xib */; };
 		15E6B2191729AE380050763A /* iPrestaNSString.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E6B2181729AE380050763A /* iPrestaNSString.m */; };
@@ -83,6 +81,15 @@
 		15EF099A173ADFEE0001C8EF /* STDateText.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EF0998173ADFEE0001C8EF /* STDateText.m */; };
 		15FEB8361747C88100BB6750 /* iPrestaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FEB8341747C88000BB6750 /* iPrestaViewController.m */; };
 		15FEB8371747C88100BB6750 /* iPrestaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FEB8351747C88100BB6750 /* iPrestaViewController.xib */; };
+		191D1B3F176B17E800DF1E48 /* MLTableAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 191D1B3D176B17E800DF1E48 /* MLTableAlert.m */; };
+		191D1B49176B180500DF1E48 /* MLTableAlertBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B41176B180500DF1E48 /* MLTableAlertBackground.png */; };
+		191D1B4A176B180500DF1E48 /* MLTableAlertBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B42176B180500DF1E48 /* MLTableAlertBackground@2x.png */; };
+		191D1B4B176B180500DF1E48 /* MLTableAlertButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B43176B180500DF1E48 /* MLTableAlertButton.png */; };
+		191D1B4C176B180500DF1E48 /* MLTableAlertButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B44176B180500DF1E48 /* MLTableAlertButton@2x.png */; };
+		191D1B4D176B180500DF1E48 /* MLTableAlertButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B45176B180500DF1E48 /* MLTableAlertButtonPressed.png */; };
+		191D1B4E176B180500DF1E48 /* MLTableAlertButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B46176B180500DF1E48 /* MLTableAlertButtonPressed@2x.png */; };
+		191D1B4F176B180500DF1E48 /* MLTableAlertShadowMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B47176B180500DF1E48 /* MLTableAlertShadowMask.png */; };
+		191D1B50176B180500DF1E48 /* MLTableAlertShadowMask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B48176B180500DF1E48 /* MLTableAlertShadowMask@2x.png */; };
 		193A729217670DA4001EB94D /* camera_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193A729117670DA4001EB94D /* camera_icon@2x.png */; };
 		193A729C17672BFF001EB94D /* IMOAutocompletionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A729717672BFF001EB94D /* IMOAutocompletionViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		193A729D17672BFF001EB94D /* IMOCompletionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A729917672BFF001EB94D /* IMOCompletionCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -201,9 +208,6 @@
 		15D1706A1739706500CF1F98 /* AddObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddObjectViewController.h; path = ViewControllers/AddObjectViewController.h; sourceTree = "<group>"; };
 		15D1706B1739706500CF1F98 /* AddObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddObjectViewController.m; path = ViewControllers/AddObjectViewController.m; sourceTree = "<group>"; };
 		15D1706C1739706600CF1F98 /* AddObjectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AddObjectViewController.xib; path = ViewControllers/AddObjectViewController.xib; sourceTree = "<group>"; };
-		15D24639175A0FF200C594BB /* ExtendGiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExtendGiveViewController.h; path = ViewControllers/ExtendGiveViewController.h; sourceTree = "<group>"; };
-		15D2463A175A0FF200C594BB /* ExtendGiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExtendGiveViewController.m; path = ViewControllers/ExtendGiveViewController.m; sourceTree = "<group>"; };
-		15D2463B175A0FF200C594BB /* ExtendGiveViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExtendGiveViewController.xib; path = ViewControllers/ExtendGiveViewController.xib; sourceTree = "<group>"; };
 		15E3E9541748F8140056CA4C /* ConfigurationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfigurationViewController.h; path = ViewControllers/ConfigurationViewController.h; sourceTree = "<group>"; };
 		15E3E9551748F8140056CA4C /* ConfigurationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConfigurationViewController.m; path = ViewControllers/ConfigurationViewController.m; sourceTree = "<group>"; };
 		15E3E9561748F8140056CA4C /* ConfigurationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ConfigurationViewController.xib; path = ViewControllers/ConfigurationViewController.xib; sourceTree = "<group>"; };
@@ -219,6 +223,16 @@
 		15FEB8331747C88000BB6750 /* iPrestaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaViewController.h; path = ViewControllers/iPrestaViewController.h; sourceTree = "<group>"; };
 		15FEB8341747C88000BB6750 /* iPrestaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaViewController.m; path = ViewControllers/iPrestaViewController.m; sourceTree = "<group>"; };
 		15FEB8351747C88100BB6750 /* iPrestaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = iPrestaViewController.xib; path = ViewControllers/iPrestaViewController.xib; sourceTree = "<group>"; };
+		191D1B3C176B17E800DF1E48 /* MLTableAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLTableAlert.h; path = "External Frameworks/MLTableAlert/MLTableAlert.h"; sourceTree = "<group>"; };
+		191D1B3D176B17E800DF1E48 /* MLTableAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLTableAlert.m; path = "External Frameworks/MLTableAlert/MLTableAlert.m"; sourceTree = "<group>"; };
+		191D1B41176B180500DF1E48 /* MLTableAlertBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MLTableAlertBackground.png; path = "External Frameworks/MLTableAlert/Images/MLTableAlertBackground.png"; sourceTree = "<group>"; };
+		191D1B42176B180500DF1E48 /* MLTableAlertBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MLTableAlertBackground@2x.png"; path = "External Frameworks/MLTableAlert/Images/MLTableAlertBackground@2x.png"; sourceTree = "<group>"; };
+		191D1B43176B180500DF1E48 /* MLTableAlertButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MLTableAlertButton.png; path = "External Frameworks/MLTableAlert/Images/MLTableAlertButton.png"; sourceTree = "<group>"; };
+		191D1B44176B180500DF1E48 /* MLTableAlertButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MLTableAlertButton@2x.png"; path = "External Frameworks/MLTableAlert/Images/MLTableAlertButton@2x.png"; sourceTree = "<group>"; };
+		191D1B45176B180500DF1E48 /* MLTableAlertButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MLTableAlertButtonPressed.png; path = "External Frameworks/MLTableAlert/Images/MLTableAlertButtonPressed.png"; sourceTree = "<group>"; };
+		191D1B46176B180500DF1E48 /* MLTableAlertButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MLTableAlertButtonPressed@2x.png"; path = "External Frameworks/MLTableAlert/Images/MLTableAlertButtonPressed@2x.png"; sourceTree = "<group>"; };
+		191D1B47176B180500DF1E48 /* MLTableAlertShadowMask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MLTableAlertShadowMask.png; path = "External Frameworks/MLTableAlert/Images/MLTableAlertShadowMask.png"; sourceTree = "<group>"; };
+		191D1B48176B180500DF1E48 /* MLTableAlertShadowMask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MLTableAlertShadowMask@2x.png"; path = "External Frameworks/MLTableAlert/Images/MLTableAlertShadowMask@2x.png"; sourceTree = "<group>"; };
 		193A729117670DA4001EB94D /* camera_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera_icon@2x.png"; path = "Images/camera_icon@2x.png"; sourceTree = "<group>"; };
 		193A729617672BFF001EB94D /* IMOAutocompletionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMOAutocompletionViewController.h; path = "External Frameworks/IMOAutocompletionViewController/IMOAutocompletionViewController.h"; sourceTree = "<group>"; };
 		193A729717672BFF001EB94D /* IMOAutocompletionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMOAutocompletionViewController.m; path = "External Frameworks/IMOAutocompletionViewController/IMOAutocompletionViewController.m"; sourceTree = "<group>"; };
@@ -287,6 +301,7 @@
 		15517A0C1725C976002FFB69 /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				191D1B3A176B17CE00DF1E48 /* MLTableAlert */,
 				193A729517672BF0001EB94D /* IMOAutocompletionViewController */,
 				1563FF8B17404B8000826DC4 /* ProgressHUD */,
 				1563FF84173FA1E700826DC4 /* ConnectionData */,
@@ -512,9 +527,6 @@
 				15175A5A1753DA49005947B7 /* GiveObjectViewController.h */,
 				15175A5B1753DA49005947B7 /* GiveObjectViewController.m */,
 				15175A5C1753DA49005947B7 /* GiveObjectViewController.xib */,
-				15D24639175A0FF200C594BB /* ExtendGiveViewController.h */,
-				15D2463A175A0FF200C594BB /* ExtendGiveViewController.m */,
-				15D2463B175A0FF200C594BB /* ExtendGiveViewController.xib */,
 				1535FAA1175D1B4500587AB7 /* ObjectHistoricGiveViewController.h */,
 				1535FAA2175D1B4500587AB7 /* ObjectHistoricGiveViewController.m */,
 				1535FAA3175D1B4500587AB7 /* ObjectHistoricGiveViewController.xib */,
@@ -555,6 +567,31 @@
 			);
 			name = STControls;
 			path = "External Frameworks/STControls";
+			sourceTree = "<group>";
+		};
+		191D1B3A176B17CE00DF1E48 /* MLTableAlert */ = {
+			isa = PBXGroup;
+			children = (
+				191D1B40176B17F200DF1E48 /* Images */,
+				191D1B3C176B17E800DF1E48 /* MLTableAlert.h */,
+				191D1B3D176B17E800DF1E48 /* MLTableAlert.m */,
+			);
+			name = MLTableAlert;
+			sourceTree = "<group>";
+		};
+		191D1B40176B17F200DF1E48 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				191D1B41176B180500DF1E48 /* MLTableAlertBackground.png */,
+				191D1B42176B180500DF1E48 /* MLTableAlertBackground@2x.png */,
+				191D1B43176B180500DF1E48 /* MLTableAlertButton.png */,
+				191D1B44176B180500DF1E48 /* MLTableAlertButton@2x.png */,
+				191D1B45176B180500DF1E48 /* MLTableAlertButtonPressed.png */,
+				191D1B46176B180500DF1E48 /* MLTableAlertButtonPressed@2x.png */,
+				191D1B47176B180500DF1E48 /* MLTableAlertShadowMask.png */,
+				191D1B48176B180500DF1E48 /* MLTableAlertShadowMask@2x.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		193A729517672BF0001EB94D /* IMOAutocompletionViewController */ = {
@@ -648,11 +685,18 @@
 				1518EA0C174A1DDE000EB0FE /* ObjectsMenuViewController.xib in Resources */,
 				1518EA16174A6D97000EB0FE /* camera_icon.png in Resources */,
 				15175A5E1753DA49005947B7 /* GiveObjectViewController.xib in Resources */,
-				15D2463D175A0FF200C594BB /* ExtendGiveViewController.xib in Resources */,
 				1535FAA5175D1B4600587AB7 /* ObjectHistoricGiveViewController.xib in Resources */,
 				193A729217670DA4001EB94D /* camera_icon@2x.png in Resources */,
 				1952EFA1176861990057820B /* IMOAutocompletionViewController.xib in Resources */,
 				19D9A6E5176A1D5E0000C129 /* ActivityIndicatorCell.xib in Resources */,
+				191D1B49176B180500DF1E48 /* MLTableAlertBackground.png in Resources */,
+				191D1B4A176B180500DF1E48 /* MLTableAlertBackground@2x.png in Resources */,
+				191D1B4B176B180500DF1E48 /* MLTableAlertButton.png in Resources */,
+				191D1B4C176B180500DF1E48 /* MLTableAlertButton@2x.png in Resources */,
+				191D1B4D176B180500DF1E48 /* MLTableAlertButtonPressed.png in Resources */,
+				191D1B4E176B180500DF1E48 /* MLTableAlertButtonPressed@2x.png in Resources */,
+				191D1B4F176B180500DF1E48 /* MLTableAlertShadowMask.png in Resources */,
+				191D1B50176B180500DF1E48 /* MLTableAlertShadowMask@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,11 +732,11 @@
 				15E3E9571748F8140056CA4C /* ConfigurationViewController.m in Sources */,
 				1518EA0B174A1DDE000EB0FE /* ObjectsMenuViewController.m in Sources */,
 				15175A5D1753DA49005947B7 /* GiveObjectViewController.m in Sources */,
-				15D2463C175A0FF200C594BB /* ExtendGiveViewController.m in Sources */,
 				1535FAA4175D1B4600587AB7 /* ObjectHistoricGiveViewController.m in Sources */,
 				193A729C17672BFF001EB94D /* IMOAutocompletionViewController.m in Sources */,
 				193A729D17672BFF001EB94D /* IMOCompletionCell.m in Sources */,
 				193A729E17672BFF001EB94D /* IMOCompletionController.m in Sources */,
+				191D1B3F176B17E800DF1E48 /* MLTableAlert.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -720,8 +764,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -750,8 +794,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -769,8 +813,8 @@
 		156FDE2416F399E900F4BEEA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -794,8 +838,8 @@
 		156FDE2516F399E900F4BEEA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
