@@ -33,7 +33,7 @@
     [super viewDidLoad];
     
     imageView = [iPrestaImageView new];
-    imageView.frame = CGRectMake(20, 172, 150, 150);
+    imageView.frame = CGRectMake(20.0f, 172.0f, 150.0f, 150.0f);
     [self.view addSubview:imageView];
     
     nameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
@@ -43,7 +43,6 @@
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cameraPressed)];
     [imageView addGestureRecognizer:tapGesture];
-    imageView.tag = NO;
     
     newObject = [iPrestaObject object];
     
@@ -121,6 +120,7 @@
         
         [picker dismissViewControllerAnimated:YES completion:nil];
         
+        newObject.imageData = nil;
         [self getObjectDataWithCode:symbol.data];
     }
     else
@@ -132,7 +132,7 @@
         UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         
-        imageView.pictureView.image = smallImage;
+        [imageView setImage:smallImage];
         
         [picker dismissViewControllerAnimated:YES completion:nil];
     }
@@ -251,14 +251,14 @@
             UIImage* image = [UIImage imageWithData:newObject.imageData];
             if (image)
             {
-                imageView.pictureView.image = image;
+                [imageView setImage:image];
             }
         });
     }
     
-    if (newObject.imageData)
+    else if (newObject.imageData)
     {
-        imageView.pictureView.image = [UIImage imageWithData:newObject.imageData];
+        [imageView setImage:[UIImage imageWithData:newObject.imageData]];
     }
 }
 
@@ -270,7 +270,7 @@
 
     if (imageView.isSetted)
     {
-        NSData *imageData = UIImageJPEGRepresentation(imageView.pictureView.image, 0.1f);
+        NSData *imageData = UIImageJPEGRepresentation([imageView getImage], 0.1f);
         newObject.image = [PFFile fileWithName:[NSString stringWithFormat:@"%@.png", [[iPrestaObject objectTypes] objectAtIndex:[iPrestaObject typeSelected]]] data:imageData];
         
         [newObject.image saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

@@ -9,11 +9,16 @@
 #import <UIKit/UIKit.h>
 
 @interface iPrestaImageView : UIView
+{
+    @private
+    IBOutlet UIButton *_deleteButton;
+}
 
-@property(strong, nonatomic) IBOutlet UIImageView *pictureView;
-@property (strong, nonatomic) IBOutlet UIButton *deleteButton;
+@property(readonly, nonatomic) IBOutlet UIImageView *pictureView;
 @property(readonly, nonatomic) BOOL *isSetted;
 
 - (void)deleteImage;
+- (void)setImage:(UIImage *)image;
+- (UIImage *)getImage;
 
 @end

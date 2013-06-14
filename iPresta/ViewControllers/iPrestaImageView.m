@@ -13,7 +13,6 @@
 
 @synthesize pictureView = _pictureView;
 @synthesize isSetted = _isSetted;
-@synthesize deleteButton = _deleteButton;
 
 - (id)init
 {
@@ -23,7 +22,8 @@
         _pictureView.layer.borderColor = [[UIColor blackColor] CGColor];
         _pictureView.layer.borderWidth = 1.0f;
         
-
+        _deleteButton.hidden = YES;
+        _isSetted = NO;
         
         [_pictureView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
     }
@@ -38,6 +38,16 @@
 - (void)deleteImage
 {
     _pictureView.image = [UIImage imageNamed:@"camera_icon.png"];
+}
+
+- (void)setImage:(UIImage *)image
+{
+    _pictureView.image = image;
+}
+
+- (UIImage *)getImage
+{
+    return _pictureView.image;
 }
 
 - (id)initWithFrame:(CGRect)frame
