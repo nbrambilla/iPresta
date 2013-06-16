@@ -316,10 +316,10 @@ static iPrestaObject *currentObject;
     // Se setea el nombre del objeto
     if ([info objectForKey:@"title"])
     {
-        self.name = [info objectForKey:@"title"];
+        self.name = [[info objectForKey:@"title"] capitalizedString];
         if ([info objectForKey:@"subtitle"])
         {
-            self.name = [self.name stringByAppendingFormat:@" %@", [info objectForKey:@"subtitle"]];
+            self.name = [self.name stringByAppendingFormat:@" %@", [[info objectForKey:@"subtitle"] capitalizedString]];
         }
     }
     // Se setea el autor del objeto
@@ -330,7 +330,7 @@ static iPrestaObject *currentObject;
         
         for (NSString *author in authors)
         {
-            self.author = [self.author stringByAppendingString:author];
+            self.author = [self.author stringByAppendingString:[author capitalizedString]];
             
             if (![[authors lastObject] isEqual:author])
             {
@@ -341,7 +341,7 @@ static iPrestaObject *currentObject;
     // Se setea la editorial del objeto
     if ([info objectForKey:@"publisher"])
     {
-        self.editorial = [info objectForKey:@"publisher"];
+        self.editorial = [[info objectForKey:@"publisher"] capitalizedString];
     }
     // se setea la imagen
     if ([info objectForKey:@"imageLinks"])

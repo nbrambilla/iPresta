@@ -23,7 +23,7 @@
     IBOutlet UITextField *editorialTextField;
     IBOutlet STComboText *audioTypeComboText;
     IBOutlet STComboText *videoTypeComboText;
-    iPrestaImageView *imageView;
+    IBOutlet iPrestaImageView *imageView;
     iPrestaObject *newObject;
     NSArray *audioTypesArray;
     NSArray *videoTypesArray;

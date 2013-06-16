@@ -32,9 +32,9 @@
 {
     [super viewDidLoad];
     
-    imageView = [iPrestaImageView new];
-    imageView.frame = CGRectMake(20.0f, 172.0f, 150.0f, 150.0f);
-    [self.view addSubview:imageView];
+//    imageView = [iPrestaImageView new];
+//    imageView.frame = CGRectMake(20.0f, 172.0f, 150.0f, 150.0f);
+//    [self.view addSubview:imageView];
     
     nameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     authorTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;

@@ -11,21 +11,28 @@
 
 @implementation iPrestaImageView
 
-@synthesize pictureView = _pictureView;
 @synthesize isSetted = _isSetted;
 
-- (id)init
+- (id) awakeAfterUsingCoder:(NSCoder*)aDecoder
 {
-    self = [[[NSBundle mainBundle] loadNibNamed:@"iPrestaImageView" owner:nil options:nil] objectAtIndex:0];
-    if (self) {
+    BOOL theThingThatGotLoadedWasJustAPlaceholder = ([[self subviews] count] == 0);
+    
+    if (theThingThatGotLoadedWasJustAPlaceholder)
+    {
+        // load the embedded view from its Nib
+        CGRect frame = self.frame;
+        
+        self = [[[NSBundle mainBundle] loadNibNamed: NSStringFromClass([iPrestaImageView class]) owner:nil options:nil] objectAtIndex:0];
+        
+        self.frame = frame;
+        
         [self deleteImage];
         _pictureView.layer.borderColor = [[UIColor blackColor] CGColor];
         _pictureView.layer.borderWidth = 1.0f;
+        [_pictureView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
         
         _deleteButton.hidden = YES;
         _isSetted = NO;
-        
-        [_pictureView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
     }
     return self;
 }
@@ -48,15 +55,6 @@
 - (UIImage *)getImage
 {
     return _pictureView.image;
-}
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
 }
 
 - (void) observeValueForKeyPath:(NSString *)path ofObject:(id)object change:(NSDictionary *) change context:(void *)context

@@ -12,9 +12,9 @@
 {
     @private
     IBOutlet UIButton *_deleteButton;
+    IBOutlet UIImageView *_pictureView;
 }
 
-@property(readonly, nonatomic) IBOutlet UIImageView *pictureView;
 @property(readonly, nonatomic) BOOL *isSetted;
 
 - (void)deleteImage;
