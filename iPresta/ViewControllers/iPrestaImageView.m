@@ -9,13 +9,24 @@
 #import "iPrestaImageView.h"
 #import <QuartzCore/QuartzCore.h>
 
+@interface iPrestaImageView ()
+
+@property(retain, nonatomic) IBOutlet UIButton *deleteButton;
+@property(retain, nonatomic) IBOutlet UIImageView *imageView;
+@property(readonly, nonatomic) BOOL isSetted;
+
+@end
+
 @implementation iPrestaImageView
 
+@synthesize deleteButton = _deleteButton;
+@synthesize imageView = _imageView;
 @synthesize isSetted = _isSetted;
+@synthesize delegate = _delegate;
 
 - (id) awakeAfterUsingCoder:(NSCoder*)aDecoder
 {
-    BOOL theThingThatGotLoadedWasJustAPlaceholder = ([[self subviews] count] == 0);
+    BOOL theThingThatGotLoadedWasJustAPlaceholder = ([self.subviews count] == 0);
     
     if (theThingThatGotLoadedWasJustAPlaceholder)
     {
@@ -26,15 +37,26 @@
         
         self.frame = frame;
         
+        self = [[[NSBundle mainBundle] loadNibNamed: NSStringFromClass([iPrestaImageView class]) owner:nil options:nil] objectAtIndex:0];
+        
+        self.frame = frame;
+        
         [self deleteImage];
-        _pictureView.layer.borderColor = [[UIColor blackColor] CGColor];
-        _pictureView.layer.borderWidth = 1.0f;
-        [_pictureView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
+        _imageView.layer.borderColor = [[UIColor blackColor] CGColor];
+        _imageView.layer.borderWidth = 1.0f;
+        [_imageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
         
         _deleteButton.hidden = YES;
         _isSetted = NO;
     }
     return self;
+}
+- (IBAction)tapImegeView:(id)sender
+{
+    if ([_delegate respondsToSelector:@selector(tapImageView)])
+    {
+        [_delegate tapImageView];
+    }
 }
 
 - (IBAction)deleteImage:(id)sender
@@ -44,24 +66,24 @@
 
 - (void)deleteImage
 {
-    _pictureView.image = [UIImage imageNamed:@"camera_icon.png"];
+    _imageView.image = [UIImage imageNamed:@"camera_icon.png"];
 }
 
 - (void)setImage:(UIImage *)image
 {
-    _pictureView.image = image;
+    _imageView.image = image;
 }
 
 - (UIImage *)getImage
 {
-    return _pictureView.image;
+    return _imageView.image;
 }
 
 - (void) observeValueForKeyPath:(NSString *)path ofObject:(id)object change:(NSDictionary *) change context:(void *)context
 {
     // this method is used for all observations, so you need to make sure
     // you are responding to the right one.
-    if (object == _pictureView && [path isEqualToString:@"image"])
+    if (object == _imageView && [path isEqualToString:@"image"])
     {
         UIImage *newImage = [change objectForKey:NSKeyValueChangeNewKey];
 //        UIImage *oldImage = [change objectForKey:NSKeyValueChangeOldKey];
@@ -84,12 +106,12 @@
 
 - (void)setPictureView:(UIImageView *)pictureView
 {
-    _pictureView = pictureView;
+    _imageView = pictureView;
 }
 
 - (UIImageView *)pictureView
 {
-    return _pictureView;
+    return _imageView;
 }
 
 /*

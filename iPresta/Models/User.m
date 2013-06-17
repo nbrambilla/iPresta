@@ -49,13 +49,18 @@
 
 - (BOOL)hasObject:(iPrestaObject *)object
 {
-    NSInteger sectionIndex = [[UILocalizedIndexedCollation currentCollation] sectionForObject:object collationStringSelector:@selector(firstLetter)];
+  //  NSInteger sectionIndex = [[UILocalizedIndexedCollation currentCollation] sectionForObject:object collationStringSelector:@selector(firstLetter)];
     
-    for (iPrestaObject *personalObject in [self.objectsArray objectAtIndex:sectionIndex])
+//    for (iPrestaObject *personalObject in [self.objectsArray objectAtIndex:sectionIndex])
+    
+    for (NSArray *section in _objectsArray)
     {
-        if ([object isEqualToObject:personalObject])
+        for (iPrestaObject *personalObject in section)
         {
-            return YES;
+            if ([object isEqualToObject:personalObject])
+            {
+                return YES;
+            }
         }
     }
     return NO;

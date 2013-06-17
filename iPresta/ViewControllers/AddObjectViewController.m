@@ -31,18 +31,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-//    imageView = [iPrestaImageView new];
-//    imageView.frame = CGRectMake(20.0f, 172.0f, 150.0f, 150.0f);
-//    [self.view addSubview:imageView];
-    
+
     nameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     authorTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     editorialTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     descriptionTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cameraPressed)];
-    [imageView addGestureRecognizer:tapGesture];
     
     newObject = [iPrestaObject object];
     
@@ -95,7 +88,7 @@
     reader = nil;
 }
 
-- (void)cameraPressed
+- (void)tapImageView
 {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == YES)
     {

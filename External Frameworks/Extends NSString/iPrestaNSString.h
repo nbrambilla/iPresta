@@ -16,5 +16,7 @@
 - (NSString *)formatCode;
 - (NSInteger)getIntegerTime;
 - (NSString *)encodeToURL;
+- (NSString *)serialize;
+- (NSInteger)distance:(NSString *)string;
 
 @end

@@ -8,16 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol iPrestaImageViewDelegate <NSObject>
+
+@optional
+- (void)tapImageView;
+
+@end
+
 @interface iPrestaImageView : UIView
 {
     @private
-    IBOutlet UIButton *_deleteButton;
-    IBOutlet UIImageView *_pictureView;
+    IBOutlet id<iPrestaImageViewDelegate> delegate;
 }
 
-@property(readonly, nonatomic) BOOL *isSetted;
+@property(retain, nonatomic) IBOutlet id<iPrestaImageViewDelegate> delegate;
 
 - (void)deleteImage;
+- (BOOL)isSetted;
 - (void)setImage:(UIImage *)image;
 - (UIImage *)getImage;
 

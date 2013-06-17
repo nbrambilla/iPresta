@@ -150,11 +150,11 @@
     cell.tag = indexPath.row;
     iPrestaObject *object = [results_ objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = object.name;
+    cell.textLabel.text = [object.name capitalizedString];
     
     if (object.author)
     {
-        cell.detailTextLabel.text = [object objectForKey:@"author"];
+        cell.detailTextLabel.text = [[object objectForKey:@"author"] capitalizedString];
     }
     
     cell.imageView.image = [UIImage imageNamed:@"camera_icon.png"];

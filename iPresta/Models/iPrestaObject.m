@@ -53,9 +53,16 @@ static iPrestaObject *currentObject;
 
 - (BOOL)isEqualToObject:(iPrestaObject *)object
 {
-    if (self.barcode && [self.barcode isEqual:object.barcode]) return YES;
-    if ([self.name isEqual:object.name] && [self.author isEqual:object.author])
-        return YES;
+    if (self.barcode && [self.barcode isEqualToString:object.barcode]) return YES;
+ 
+    NSString *firstChain = [[self.name stringByAppendingString:self.author] serialize];
+    NSString *secondChain = [[object.name stringByAppendingString:object.author] serialize];
+    NSLog(@"%@ %@ %d %f", firstChain, secondChain, [firstChain distance:secondChain], [firstChain length] * 0.1);
+
+    float distance = (float)[firstChain distance:secondChain];
+    
+    if (distance < [firstChain length] * 0.1) return YES;
+//    if ([[self.name serialize] isEqual:[object.name serialize]] && [[self.author serialize] isEqualToString:[object.author serialize]]) return YES;
     return  NO;
 }
 
@@ -159,7 +166,8 @@ static iPrestaObject *currentObject;
     }
     else if (typeSelected == AudioType || typeSelected == VideoType)
     {
-        urlString = [NSString stringWithFormat:@"http://api.discogs.com/search?q=%@", objectCode];
+        urlString = [NSString stringWithFormat:@"http://api.discogs.com/search?q=%@&f=json", objectCode];
+        self.barcode = objectCode;
     }
     
     ConnectionData *connection = [[ConnectionData alloc] initWithURL:[NSURL URLWithString:urlString] andID:@"getData"];
@@ -222,6 +230,7 @@ static iPrestaObject *currentObject;
             }
             else
             {
+                self.barcode = nil;
                 error = [[NSError alloc] initWithDomain:@"error" code:EMPTYOBJECTDATA_ERROR userInfo:nil];
             }
         
@@ -453,17 +462,23 @@ static iPrestaObject *currentObject;
 
 - (NSString *)firstLetter
 {
-    NSString *firstLetter = [[self.name substringWithRange:NSMakeRange(0, 1)] lowercaseString];
-    NSString *secondLetter = [[self.name substringWithRange:NSMakeRange(1, 1)] lowercaseString];
-    if ([firstLetter isEqual:@"c"] && [secondLetter isEqual:@"h"])
+    NSInteger len = [self.name length];
+    
+    if (len > 1)
     {
-        return @"ch";
+        NSString *firstLetter = [[self.name substringWithRange:NSMakeRange(0, 1)] lowercaseString];
+        NSString *secondLetter = [[self.name substringWithRange:NSMakeRange(1, 1)] lowercaseString];
+        if ([firstLetter isEqual:@"c"] && [secondLetter isEqual:@"h"])
+        {
+            return @"ch";
+        }
+        if ([firstLetter isEqual:@"l"] && [secondLetter isEqual:@"l"])
+        {
+            return @"ll";
+        }
+        return firstLetter;
     }
-    if ([firstLetter isEqual:@"l"] && [secondLetter isEqual:@"l"])
-    {
-        return @"ll";
-    }
-    return firstLetter;
+    else return self.name;
 }
 
 @end
