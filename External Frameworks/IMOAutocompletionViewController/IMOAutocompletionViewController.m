@@ -12,6 +12,7 @@
 #import "ProgressHUD.h"
 #import "iPrestaObject.h"
 #import "iPrestaNSString.h"
+#import "iPrestaNSError.h"
 
 #define OFFSET 10
 
@@ -22,6 +23,7 @@
 @property (retain, nonatomic) NSMutableArray *results;
 @property (retain, nonatomic) IBOutlet UIView *activityIndicatorView;
 @property (nonatomic,retain) IBOutlet UIActivityIndicatorView *footerActivityIndicator;
+@property (nonatomic,retain) IBOutlet UILabel *activityIndicatorLabel;
 
 - (void)controllerCancelled;
 - (CGFloat)screenHeight;
@@ -37,6 +39,7 @@
 @synthesize delegate = delegate_;
 @synthesize activityIndicatorView = activityIndicatorView_;
 @synthesize footerActivityIndicator = footerActivityIndicator_;
+@synthesize activityIndicatorLabel = activityIndicatorLabel_;
 
 - (id)init {
     return  self = [self initWithNibName:nil bundle:nil];
@@ -102,6 +105,7 @@
 {
 	if ((scrollView.contentOffset.y + scrollView.frame.size.height) > (scrollView.contentSize.height) && !loading && !finish)
     {
+        activityIndicatorLabel_.text = @"Cargando...";
         loading = YES;
         page++;
         [self.footerActivityIndicator startAnimating];
@@ -209,41 +213,50 @@
 {
     if ([[self dataSource] respondsToSelector:@selector(sourceForAutoCompletionTextField:withParam:page:offset:)])
     {
-        
         [(id <IMOAutocompletionViewDataSource>)[self dataSource] sourceForAutoCompletionTextField:self withParam:[searchBar_.text encodeToURL] page:page offset:OFFSET];
     }
     
     [searchBar_ resignFirstResponder];
 }
 
-- (void)loadSearchTableWithResults:(NSArray *)searchResults
+- (void)loadSearchTableWithResults:(NSArray *)searchResults error:(NSError *)error
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
-
-    if (page == 0)
-    {
-        //set tableview footer
-        [[NSBundle mainBundle] loadNibNamed:@"ActivityIndicatorCell" owner:self options:nil];
-        [tableView_ setTableFooterView:activityIndicatorView_];
-        
-        [tableView_ setContentOffset:CGPointZero animated:NO];
-    }
-    
-    
-    [self.footerActivityIndicator stopAnimating];
-    [results_ addObjectsFromArray:searchResults];
-    [[self tableView] reloadData];
     loading = NO;
-
     
-    if ([searchResults count] < OFFSET)
+    if (error)
     {
-        finish = YES;
-        [tableView_ setTableFooterView:nil];
+        if (page != 0)
+        {
+            [footerActivityIndicator_ stopAnimating];
+            activityIndicatorLabel_.text = @"Intentelo otra vez";
+        }
+        [error manageErrorTo:self.view];
+    }
+    else
+    {
+        if (page == 0)
+        {
+            //set tableview footer
+            [[NSBundle mainBundle] loadNibNamed:@"ActivityIndicatorCell" owner:self options:nil];
+            [tableView_ setTableFooterView:activityIndicatorView_];
+            
+            [tableView_ setContentOffset:CGPointZero animated:NO];
+        }
+        
+        [results_ addObjectsFromArray:searchResults];
+        [tableView_ reloadData];
+    
+        if ([searchResults count] < OFFSET)
+        {
+            finish = YES;
+            [tableView_ setTableFooterView:nil];
+        }
     }
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
     [self setTableView:nil];
     [self setSearchBar:nil];
     [super viewDidUnload];

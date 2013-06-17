@@ -148,8 +148,7 @@
 
 - (void)getSearchResultsResponse:(NSArray *)searchResults withError:(NSError *)error
 {
-    if (error) [error manageErrorTo:autoComplete.view];
-    [autoComplete loadSearchTableWithResults:searchResults];
+    [autoComplete loadSearchTableWithResults:searchResults error:error];
 }
 
 - (void)getDataResponseWithError:(NSError *)error

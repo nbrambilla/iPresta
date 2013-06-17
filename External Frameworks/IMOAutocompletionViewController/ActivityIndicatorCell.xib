@@ -116,6 +116,14 @@
 					</object>
 					<int key="connectionID">10</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">activityIndicatorLabel</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="275757035"/>
+					</object>
+					<int key="connectionID">11</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -196,7 +204,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">10</int>
+			<int key="maxID">11</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -208,6 +216,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>activityIndicatorLabel</string>
 							<string>activityIndicatorView</string>
 							<string>footerActivityIndicator</string>
 							<string>searchBar</string>
@@ -215,6 +224,7 @@
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UILabel</string>
 							<string>UIView</string>
 							<string>UIActivityIndicatorView</string>
 							<string>UISearchBar</string>
@@ -225,6 +235,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>activityIndicatorLabel</string>
 							<string>activityIndicatorView</string>
 							<string>footerActivityIndicator</string>
 							<string>searchBar</string>
@@ -232,6 +243,10 @@
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">activityIndicatorLabel</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">activityIndicatorView</string>
 								<string key="candidateClassName">UIView</string>
