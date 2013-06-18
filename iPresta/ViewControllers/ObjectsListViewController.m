@@ -15,6 +15,8 @@
 #import "User.h"
 #import "Give.h"
 
+#define HEADER_HEIGHT 44
+
 @interface ObjectsListViewController ()
 
 @end
@@ -45,19 +47,21 @@
 {
     [super viewDidLoad];
     
-    self.navigationController.delegate = self;
-    self.title = [[iPrestaObject objectTypes] objectAtIndex:[iPrestaObject typeSelected]];
-    
-    UIBarButtonItem *addObjectlButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(goToAddObject)];
-    self.navigationItem.rightBarButtonItem = addObjectlButton;
-    
-    addObjectlButton = nil;
     
     filteredObjectsArray = [[NSMutableArray alloc] init];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTableView) name:@"setObjectsTableObserver" object:nil];
     
     [self setTableView];
+    [self setTableViewHeader];
+    [self setNavigationBar];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.tableView setContentOffset:CGPointMake(0, HEADER_HEIGHT * 2) animated:NO];
+    
+    [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -69,6 +73,11 @@
     }
     
     [super viewWillDisappear:animated];
+}
+
+- (void)objectStateList:(id)sender
+{
+    [self.tableView reloadData];
 }
 
 - (void)setTableView
@@ -91,6 +100,42 @@
              [self.searchDisplayController.searchResultsTableView reloadData];
          }
      }];
+}
+
+- (void)setTableViewHeader
+{
+    UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, HEADER_HEIGHT, 320, HEADER_HEIGHT)];
+    
+    NSArray *itemArray = [NSArray arrayWithObjects: @"Todos", @"No Prestados", @"Prestados", nil];
+    segmentedControl = [[UISegmentedControl alloc] initWithItems:itemArray];
+    segmentedControl.frame = CGRectMake(35, 200, 230, 30);
+    segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    segmentedControl.selectedSegmentIndex = 0;
+    [segmentedControl addTarget:self action:@selector(objectStateList:) forControlEvents:UIControlEventValueChanged];
+    
+    UINavigationItem *navigationItem = [[UINavigationItem alloc] init];
+    navigationItem.titleView = segmentedControl;
+    
+    [navigationBar pushNavigationItem:navigationItem animated:NO];
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, HEADER_HEIGHT*2)];
+    
+    self.tableView.tableHeaderView = headerView;
+    
+    [headerView addSubview:searchBar];
+    [headerView addSubview:navigationBar];
+    
+    self.navigationController.delegate = self;
+}
+
+- (void)setNavigationBar
+{
+    self.title = [[iPrestaObject objectTypes] objectAtIndex:[iPrestaObject typeSelected]];
+    
+    UIBarButtonItem *addObjectlButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(goToAddObject)];
+    self.navigationItem.rightBarButtonItem = addObjectlButton;
+    
+    addObjectlButton = nil;
 }
 
 - (void)viewDidUnload
@@ -234,7 +279,21 @@
     }
     else
     {
-        BOOL showSection = [[[[User currentUser] objectsArray] objectAtIndex:section] count] != 0;
+        BOOL showSection;
+        NSArray *sectionArray = [[NSArray alloc] initWithArray:[[[User currentUser] objectsArray] objectAtIndex:section]];
+        switch (segmentedControl.selectedSegmentIndex)
+        {
+            case 0:
+                showSection = [sectionArray count] != 0;
+                break;
+            case 1:
+                showSection = [[self getObjectsInState:Property inArray:sectionArray] count] != 0;
+                break;
+            case 2:
+                showSection = [[self getObjectsInState:Given inArray:sectionArray] count] != 0;
+                break;
+        }
+        
         return (showSection) ? [[[UILocalizedIndexedCollation currentCollation] sectionTitles] objectAtIndex:section] : nil;
     }
 }
@@ -283,7 +342,22 @@
     }
     else
     {
-        return [[[[User currentUser] objectsArray] objectAtIndex:section] count];
+        NSArray *sectionArray = [[NSArray alloc] initWithArray:[[[User currentUser] objectsArray] objectAtIndex:section]];
+        switch (segmentedControl.selectedSegmentIndex)
+        {
+            case 0:
+                return [sectionArray count];
+                break;
+            case 1:
+                return [self countObjectsInState:Property inArray:sectionArray];
+                break;
+            case 2:
+                return [self countObjectsInState:Given inArray:sectionArray];
+                break;
+            default:
+                return 0;
+                break;
+        }
     }
 }
 
@@ -305,7 +379,19 @@
     }
 	else
 	{
-        object = [[[[User currentUser] objectsArray] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        NSArray *sectionArray = [[[User currentUser] objectsArray] objectAtIndex:indexPath.section];
+        switch (segmentedControl.selectedSegmentIndex)
+        {
+            case 0:
+                object = [sectionArray objectAtIndex:indexPath.row];
+                break;
+            case 1:
+                object = [[self getObjectsInState:Property inArray:sectionArray] objectAtIndex:indexPath.row];
+                break;
+            case 2:
+                object = [[self getObjectsInState:Given inArray:sectionArray] objectAtIndex:indexPath.row];
+                break;
+        }
     }
     
     cell.textLabel.text = object.name;
@@ -437,6 +523,26 @@
     }
     
     return sections;
+}
+
+- (NSInteger)countObjectsInState:(ObjectState)state inArray:(NSArray *)array
+{
+    NSInteger count = 0;
+    for (iPrestaObject *object in array)
+    {
+        if (object.state == state) count++;
+    }
+    return count;
+}
+
+- (NSMutableArray *)getObjectsInState:(ObjectState)state inArray:(NSArray *)array
+{
+    NSMutableArray *filteredArray = [[NSMutableArray alloc] init];
+    for (iPrestaObject *object in array)
+    {
+        if (object.state == state) [filteredArray addObject:object];
+    }
+    return filteredArray;
 }
 
 @end

@@ -13,6 +13,7 @@
     @private
     NSMutableArray *filteredObjectsArray;
     IBOutlet UISearchBar *searchBar;
+    UISegmentedControl *segmentedControl;
 }
 
 @end

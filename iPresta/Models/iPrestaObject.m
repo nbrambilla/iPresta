@@ -35,7 +35,7 @@ static iPrestaObject *currentObject;
 @synthesize actualGive = _actualGive;
 
 
-#pragma mark - Publicc Methods
+#pragma mark - Public Methods
 
 - (id)init
 {
@@ -57,12 +57,13 @@ static iPrestaObject *currentObject;
  
     NSString *firstChain = [[self.name stringByAppendingString:self.author] serialize];
     NSString *secondChain = [[object.name stringByAppendingString:object.author] serialize];
-    NSLog(@"%@ %@ %d %f", firstChain, secondChain, [firstChain distance:secondChain], [firstChain length] * 0.1);
+    NSLog(@"%@ %@ %d %d", firstChain, secondChain, [firstChain distance:secondChain], (int)([firstChain length] * 0.1 + 0.5));
 
-    float distance = (float)[firstChain distance:secondChain];
+    NSInteger distance = [firstChain distance:secondChain];
+    NSInteger coef = (int)([firstChain length] * 0.1 + 0.5);
     
-    if (distance < [firstChain length] * 0.1) return YES;
-//    if ([[self.name serialize] isEqual:[object.name serialize]] && [[self.author serialize] isEqualToString:[object.author serialize]]) return YES;
+    if (distance <= coef) return YES;
+    //if ([[self.name serialize] isEqual:[object.name serialize]] && [[self.author serialize] isEqualToString:[object.author serialize]]) return YES;
     return  NO;
 }
 
@@ -156,7 +157,7 @@ static iPrestaObject *currentObject;
 
 - (void)getData:(NSString *)objectCode
 {
-    objectCode = [objectCode formatCode];
+    objectCode = [objectCode checkCode];
     
     NSString *urlString;
     
@@ -230,7 +231,7 @@ static iPrestaObject *currentObject;
             }
             else
             {
-                self.barcode = nil;
+                [self setObject:[NSNull null] forKey:@"name"];
                 error = [[NSError alloc] initWithDomain:@"error" code:EMPTYOBJECTDATA_ERROR userInfo:nil];
             }
         
@@ -392,9 +393,11 @@ static iPrestaObject *currentObject;
     if ([info objectForKey:@"title"])
     {
         id title = [[info objectForKey:@"title"] componentsSeparatedByString: @" - "];
-        
-        self.author = [title objectAtIndex:0];
-        self.name = [title objectAtIndex:1];
+        if ([title count] > 1)
+        {
+            self.author = [title objectAtIndex:0];
+            self.name = [title objectAtIndex:1];
+        }
     }
     // se setea la imagen
     if ([info objectForKey:@"thumb"])

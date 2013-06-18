@@ -130,7 +130,7 @@
                                                   return cell;
                                               }];
         
-        extendGiveTableAlert.height = 350;
+        extendGiveTableAlert.height = 250;
         
         [extendGiveTableAlert configureSelectionBlock:^(NSIndexPath *selectedIndex)
          {

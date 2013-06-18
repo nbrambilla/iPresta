@@ -67,6 +67,27 @@
     return  bReturn;
 }
 
+- (BOOL)isValidBarcode
+{
+    BOOL bReturn;
+    
+    NSString *passwordRegex = @"[0-9]{8,15}";
+    NSPredicate *passwordTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", passwordRegex];
+    bReturn = [passwordTest evaluateWithObject:self];
+    
+    if (!bReturn)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"No es un código de barras" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        
+        alert = nil;
+        
+        bReturn = NO;
+    }
+    
+    return  bReturn;
+}
+
 - (BOOL)isValidPassword
 {
     BOOL bReturn;
@@ -97,7 +118,7 @@
     return [[accentRemoved lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 }
 
-- (NSString *)formatCode
+- (NSString *)checkCode
 {
     NSString *formatCode = self;
     
@@ -158,49 +179,38 @@
     return [self computeLevenshteinDistanceWithString:string];
 }
 
-- (int)computeLevenshteinDistanceWithString:(NSString *) string
+- (NSInteger)computeLevenshteinDistanceWithString:(NSString *)string
 {
-    int *d; // distance vector
-    int i,j,k; // indexes
-    int cost, distance;
+    NSInteger *mem; // distance vector
+    NSInteger k;
+    NSInteger cost, distance;
     
-    int n = [self length];
-    int m = [string length];
+    int selfLength = [self length];
+    int stringLength = [string length];
     
-    if( n!=0 && m!=0 ){
+    if(selfLength != 0 && stringLength != 0)
+    {
+        mem = malloc(sizeof(int) * (++selfLength) * (++stringLength));
         
-        d = malloc( sizeof(int) * (++n) * (++m) );
+        for(k = 0; k < selfLength; k++) mem[k] = k;
+        for(k = 0; k < stringLength; k++ ) mem[k * selfLength] = k;
         
-        for( k=0 ; k<n ; k++ )
-            d[k] = k;
-        for( k=0 ; k<m ; k++ )
-            d[k*n] = k;
-        
-        for( i=1; i<n ; i++ ) {
-            for( j=1 ;j<m ; j++ ) {
-                if( [self characterAtIndex:i-1] == [string characterAtIndex:j-1])
-                    cost = 0;
-                else
-                    cost = 1;
-                d[j*n+i]=minimum(d[(j-1)*n+i]+1,d[j*n+i-1]+1,d[(j-1)*n+i-1]+cost);
+        for(NSInteger i = 1; i < selfLength ; i++)
+        {
+            for(NSInteger j = 1; j < stringLength; j++)
+            {
+                if( [self characterAtIndex:i - 1] == [string characterAtIndex:j - 1]) cost = 0;
+                else cost = 1;
+                
+                mem[j * selfLength + i] = MIN(mem[(j - 1) * selfLength + i] + 1, MIN(mem[j * selfLength + i - 1]  + 1, mem[(j - 1) * selfLength + i - 1] + cost));
             }
         }
-        distance = d[n*m-1];
-        free(d);
+        distance = mem[selfLength * stringLength - 1];
+        free(mem);
         return distance;
     }
     
     return -1; // error
-}
-
-int minimum(int a,int b,int c)
-{
-    int min=a;
-    if(b<min)
-        min=b;
-    if(c<min)
-        min=c;
-    return min;
 }
 
 @end

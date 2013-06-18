@@ -114,7 +114,7 @@
         [picker dismissViewControllerAnimated:YES completion:nil];
         
         newObject.imageData = nil;
-        [self getObjectDataWithCode:symbol.data];
+        if ([symbol.data isValidBarcode]) [self getObjectDataWithCode:symbol.data];
     }
     else
     {
@@ -149,7 +149,7 @@
     [ProgressHUD hideHUDForView:self.view animated:YES];
     
     if (error) [error manageErrorTo:self];
-    [self setFields];
+    else [self setFields];
 }
 
 #pragma mark - Save Objects Methods
@@ -160,9 +160,10 @@
     
     if ([nameTextField.text length] > 0)
     {
+        [self setNewObject];
+        
         if (![[User currentUser] hasObject:newObject] )
         {
-            [self setNewObject];
             [self saveNewObject];
         }
         else

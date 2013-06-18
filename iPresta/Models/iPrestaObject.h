@@ -35,7 +35,6 @@ typedef NS_ENUM(NSInteger, ObjectType) {
     OtherType = 3,
 };
 
-
 typedef NS_ENUM(NSInteger, AudioObjectType)
 {
     NoneAudioObjectType = -1,
