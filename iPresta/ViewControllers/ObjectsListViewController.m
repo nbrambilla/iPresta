@@ -374,7 +374,7 @@
     }
     
     cell.textLabel.text = object.name;
-    cell.detailTextLabel.text = [object textState];
+    cell.detailTextLabel.text = (![object.author isEqual:@""]) ? object.author : @"Desconocido";
     
     if (!object.imageData)
     {
