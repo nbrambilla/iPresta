@@ -195,6 +195,13 @@
         else                                        // Si el objeto se guarda correctamente
         {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
+            
+            NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:newObject.type], @"type", nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"IncrementObjectTypeObserver" object:options];
+            options = nil;
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"SetCountLabelsObserver" object:nil];
+            
             [self.navigationController popViewControllerAnimated:YES];
         }
     }];
@@ -258,6 +265,7 @@
 - (void)setNewObject
 {
     newObject.owner = [User currentUser];
+    newObject.type = [iPrestaObject typeSelected];
     newObject.state = Property;
     newObject.name = nameTextField.text;
 

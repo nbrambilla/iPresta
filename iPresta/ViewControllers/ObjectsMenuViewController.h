@@ -15,6 +15,16 @@
     IBOutlet UIButton *audioListButton;
     IBOutlet UIButton *videoListButton;
     IBOutlet UIButton *othersListButton;
+    
+    IBOutlet UILabel *booksLabel;
+    IBOutlet UILabel *audioLabel;
+    IBOutlet UILabel *videoLabel;
+    IBOutlet UILabel *othersLabel;
+    
+    NSInteger bookCount;
+    NSInteger audioCount;
+    NSInteger videoCount;
+    NSInteger othersCount;
 }
 
 @end

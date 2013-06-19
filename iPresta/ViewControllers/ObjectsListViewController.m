@@ -47,7 +47,6 @@
 {
     [super viewDidLoad];
     
-    
     filteredObjectsArray = [[NSMutableArray alloc] init];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTableView) name:@"setObjectsTableObserver" object:nil];
@@ -59,20 +58,20 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self.tableView setContentOffset:CGPointMake(0, HEADER_HEIGHT * 2) animated:NO];
-    
     [super viewWillAppear:animated];
+    
+    [self.tableView setContentOffset:CGPointMake(0, HEADER_HEIGHT * 2) animated:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    
     if (self.isMovingFromParentViewController)
     {
         [iPrestaObject setTypeSelected:NoneType];
         [[User currentUser] setObjectsArray:nil];
     }
-    
-    [super viewWillDisappear:animated];
 }
 
 - (void)objectStateList:(id)sender
@@ -100,6 +99,8 @@
              [self.searchDisplayController.searchResultsTableView reloadData];
          }
      }];
+    
+    getObjectsQuery = nil;
 }
 
 - (void)setTableViewHeader
@@ -125,7 +126,10 @@
     [headerView addSubview:searchBar];
     [headerView addSubview:navigationBar];
     
-    self.navigationController.delegate = self;
+    navigationBar = nil;
+    itemArray = nil;
+    navigationItem = nil;
+    headerView = nil;
 }
 
 - (void)setNavigationBar
@@ -143,6 +147,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     self.tableView = nil;
+    filteredObjectsArray = nil;
+    searchBar = nil;
+    segmentedControl = nil;
     
     [super viewDidUnload];
 }
@@ -192,6 +199,8 @@
                  }
              }];
              
+             getObjectsQuery = nil;
+             
              if (array == filteredObjectsArray)
              {
                  [filteredObjectsArray removeObjectAtIndex:indexPath.row];
@@ -205,6 +214,12 @@
              NSIndexPath *tableViewIndexPath = [NSIndexPath indexPathForRow:objectIndex inSection:sectionIndex];
              [self.tableView deleteRowsAtIndexPaths:@[tableViewIndexPath] withRowAnimation:UITableViewRowAnimationFade];
              
+             NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:object.type], @"type", nil];
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"DecrementObjectTypeObserver" object:options];
+             options = nil;
+             
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"SetCountLabelsObserver" object:options];
+             
              tableViewIndexPath = nil;
          }
     }];
@@ -216,7 +231,9 @@
 {
 	[filteredObjectsArray removeAllObjects];
     
-    for (NSArray *section in [[User currentUser] objectsArray])
+    NSMutableArray *array = [self getObjectsAndSectionsArray];
+    
+    for (NSArray *section in array)
     {
         for (iPrestaObject *object in section)
         {
@@ -227,6 +244,8 @@
             }
         }
     }
+    
+    array = nil;
 }
 
 #pragma mark - UISearchDisplayController Delegate Methods
@@ -259,13 +278,13 @@
 
 - (void)goToObjectDetail:(iPrestaObject *)object
 {
-    ObjectDetailViewController *objectDetailViewController = [[ObjectDetailViewController alloc] initWithNibName:@"ObjectDetailViewController" bundle:nil];
+    ObjectDetailViewController *viewController = [[ObjectDetailViewController alloc] initWithNibName:@"ObjectDetailViewController" bundle:nil];
     
     [iPrestaObject setCurrentObject:object];
     
-    [self.navigationController pushViewController:objectDetailViewController animated:YES];
+    [self.navigationController pushViewController:viewController animated:YES];
     
-    objectDetailViewController = nil;
+    viewController = nil;
 }
 
 #pragma mark - Table view data source
@@ -279,20 +298,7 @@
     }
     else
     {
-        BOOL showSection;
-        NSArray *sectionArray = [[NSArray alloc] initWithArray:[[[User currentUser] objectsArray] objectAtIndex:section]];
-        switch (segmentedControl.selectedSegmentIndex)
-        {
-            case 0:
-                showSection = [sectionArray count] != 0;
-                break;
-            case 1:
-                showSection = [[self getObjectsInState:Property inArray:sectionArray] count] != 0;
-                break;
-            case 2:
-                showSection = [[self getObjectsInState:Given inArray:sectionArray] count] != 0;
-                break;
-        }
+        BOOL showSection = [[self getObjectsArrayInSection:section] count] != 0;
         
         return (showSection) ? [[[UILocalizedIndexedCollation currentCollation] sectionTitles] objectAtIndex:section] : nil;
     }
@@ -342,22 +348,7 @@
     }
     else
     {
-        NSArray *sectionArray = [[NSArray alloc] initWithArray:[[[User currentUser] objectsArray] objectAtIndex:section]];
-        switch (segmentedControl.selectedSegmentIndex)
-        {
-            case 0:
-                return [sectionArray count];
-                break;
-            case 1:
-                return [self countObjectsInState:Property inArray:sectionArray];
-                break;
-            case 2:
-                return [self countObjectsInState:Given inArray:sectionArray];
-                break;
-            default:
-                return 0;
-                break;
-        }
+        return [[self getObjectsArrayInSection:section] count];
     }
 }
 
@@ -379,19 +370,7 @@
     }
 	else
 	{
-        NSArray *sectionArray = [[[User currentUser] objectsArray] objectAtIndex:indexPath.section];
-        switch (segmentedControl.selectedSegmentIndex)
-        {
-            case 0:
-                object = [sectionArray objectAtIndex:indexPath.row];
-                break;
-            case 1:
-                object = [[self getObjectsInState:Property inArray:sectionArray] objectAtIndex:indexPath.row];
-                break;
-            case 2:
-                object = [[self getObjectsInState:Given inArray:sectionArray] objectAtIndex:indexPath.row];
-                break;
-        }
+        object = [[self getObjectsArrayInSection:indexPath.section] objectAtIndex:indexPath.row];
     }
     
     cell.textLabel.text = object.name;
@@ -447,7 +426,7 @@
         }
         else
         {
-            [self deleteObjectWithIndexPath:indexPath fromArray:[[User currentUser] objectsArray]];
+            [self deleteObjectWithIndexPath:indexPath fromArray:[self getObjectsAndSectionsArray]];
         }
     }  
 }
@@ -485,8 +464,8 @@
         [self goToObjectDetail:[filteredObjectsArray objectAtIndex:indexPath.row]];
     }
     else
-    {
-        [self goToObjectDetail:[[[[User currentUser] objectsArray] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
+    {        
+        [self goToObjectDetail:[[self getObjectsArrayInSection:indexPath.section] objectAtIndex:indexPath.row]];        
     }
 }
 
@@ -525,16 +504,6 @@
     return sections;
 }
 
-- (NSInteger)countObjectsInState:(ObjectState)state inArray:(NSArray *)array
-{
-    NSInteger count = 0;
-    for (iPrestaObject *object in array)
-    {
-        if (object.state == state) count++;
-    }
-    return count;
-}
-
 - (NSMutableArray *)getObjectsInState:(ObjectState)state inArray:(NSArray *)array
 {
     NSMutableArray *filteredArray = [[NSMutableArray alloc] init];
@@ -543,6 +512,58 @@
         if (object.state == state) [filteredArray addObject:object];
     }
     return filteredArray;
+}
+
+- (NSMutableArray *)getObjectsAndSectionsInState:(ObjectState)state inArray:(NSArray *)array
+{
+    NSMutableArray *filteredArray = [[NSMutableArray alloc] init];
+    
+    for (NSArray *section in array)
+    {
+        NSMutableArray *filteredSection = [[NSMutableArray alloc] init];
+        
+        for (iPrestaObject *object in section)
+        {
+            if (object.state == state) [filteredSection addObject:object];
+        }
+        
+        [filteredArray addObject:filteredSection];
+    }
+    return filteredArray;
+}
+
+- (NSMutableArray *)getObjectsAndSectionsArray
+{
+    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:[[User currentUser] objectsArray]];
+    
+    switch (segmentedControl.selectedSegmentIndex)
+    {
+        case 1:
+            array = [self getObjectsAndSectionsInState:Property inArray:array];
+            break;
+        case 2:
+            array = [self getObjectsAndSectionsInState:Given inArray:array];
+            break;
+    }
+    
+    return array;
+}
+
+- (NSMutableArray *)getObjectsArrayInSection:(NSInteger)section
+{
+    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:[[[User currentUser] objectsArray] objectAtIndex:section]];
+    
+    switch (segmentedControl.selectedSegmentIndex)
+    {
+        case 1:
+            array = [self getObjectsInState:Property inArray:array];
+            break;
+        case 2:
+            array = [self getObjectsInState:Given inArray:array];
+            break;
+    }
+    
+    return array;
 }
 
 @end

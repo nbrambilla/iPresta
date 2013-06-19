@@ -57,14 +57,18 @@ static iPrestaObject *currentObject;
  
     NSString *firstChain = [[self.name stringByAppendingString:self.author] serialize];
     NSString *secondChain = [[object.name stringByAppendingString:object.author] serialize];
-    NSLog(@"%@ %@ %d %d", firstChain, secondChain, [firstChain distance:secondChain], (int)([firstChain length] * 0.1 + 0.5));
-
+    
     NSInteger distance = [firstChain distance:secondChain];
     NSInteger coef = (int)([firstChain length] * 0.1 + 0.5);
     
     if (distance <= coef) return YES;
     //if ([[self.name serialize] isEqual:[object.name serialize]] && [[self.author serialize] isEqualToString:[object.author serialize]]) return YES;
     return  NO;
+    
+    firstChain = nil;
+    secondChain = nil;
+    distance = nil;
+    coef = nil;
 }
 
 #pragma mark - User Setters
@@ -218,8 +222,6 @@ static iPrestaObject *currentObject;
             
             if (volumeInfo)
             {
-                self.type = typeSelected;
-                
                 if (typeSelected == BookType)
                 {
                     [self setBookWithInfo:volumeInfo];
@@ -265,7 +267,6 @@ static iPrestaObject *currentObject;
                 for (id volumeInfo in volumeInfoArray)
                 {
                     iPrestaObject *object = [iPrestaObject object];
-                    object.type = typeSelected;
                     
                     if (typeSelected == BookType)
                     {
