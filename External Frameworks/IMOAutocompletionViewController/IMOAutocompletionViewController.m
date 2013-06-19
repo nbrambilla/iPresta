@@ -157,7 +157,7 @@
         cell.detailTextLabel.text = [[object objectForKey:@"author"] capitalizedString];
     }
     
-    cell.imageView.image = [UIImage imageNamed:@"camera_icon.png"];
+    cell.imageView.image = [UIImage imageNamed:[iPrestaObject imageType]];
     
     if (object.imageData)
     {

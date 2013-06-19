@@ -21,10 +21,7 @@
     IBOutlet UILabel *videoLabel;
     IBOutlet UILabel *othersLabel;
     
-    NSInteger bookCount;
-    NSInteger audioCount;
-    NSInteger videoCount;
-    NSInteger othersCount;
+    NSMutableArray *objectCountArray;
 }
 
 @end

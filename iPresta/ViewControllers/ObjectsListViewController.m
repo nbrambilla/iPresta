@@ -378,7 +378,7 @@
     
     if (!object.imageData)
     {
-        cell.imageView.image = [UIImage imageNamed:@"camera_icon.png"];
+        cell.imageView.image = [UIImage imageNamed:[iPrestaObject imageType]];
         
         [object.image getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
         {

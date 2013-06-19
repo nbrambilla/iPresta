@@ -157,6 +157,11 @@ static iPrestaObject *currentObject;
     return [[iPrestaObject videoObjectTypes] objectAtIndex:self.videoType];
 }
 
++ (NSString *)imageType
+{
+    return [[iPrestaObject imageTypes] objectAtIndex:typeSelected];
+}
+
 #pragma mark - Get Object Data Methods
 
 - (void)getData:(NSString *)objectCode
@@ -462,6 +467,11 @@ static iPrestaObject *currentObject;
 + (NSArray *)videoObjectTypes
 {
     return [NSArray arrayWithObjects:@"DVD", @"Bluray", @"VHS", nil];
+}
+
++ (NSArray *)imageTypes
+{
+    return [NSArray arrayWithObjects:@"book_icon.png", @"audio_icon.png", @"video_icon.png", @"other_icon.png", nil];
 }
 
 - (NSString *)firstLetter

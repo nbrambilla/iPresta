@@ -7,6 +7,7 @@
 //
 
 #import "iPrestaImageView.h"
+#import "iPrestaObject.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface iPrestaImageView ()
@@ -66,7 +67,7 @@
 
 - (void)deleteImage
 {
-    _imageView.image = [UIImage imageNamed:@"camera_icon.png"];
+    _imageView.image = [UIImage imageNamed:[iPrestaObject imageType]];
 }
 
 - (void)setImage:(UIImage *)image
@@ -88,7 +89,7 @@
         UIImage *newImage = [change objectForKey:NSKeyValueChangeNewKey];
 //        UIImage *oldImage = [change objectForKey:NSKeyValueChangeOldKey];
         
-        if (newImage == [UIImage imageNamed:@"camera_icon.png"])
+        if (newImage == [UIImage imageNamed:[iPrestaObject imageType]])
         {
             _deleteButton.hidden = YES;
             _isSetted = NO;

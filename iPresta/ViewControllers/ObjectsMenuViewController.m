@@ -61,35 +61,38 @@
     PFQuery *allObjectsQuery = [iPrestaObject query];
     [allObjectsQuery whereKey:@"owner" equalTo:[User currentUser]];
     
-    bookCount = audioCount = videoCount = othersCount = 0;
+    NSNumber *zero = [NSNumber numberWithInteger:0];
+    objectCountArray = [[NSMutableArray alloc] initWithObjects:zero, zero, zero, zero, nil];
     
     [allObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-     {
-         [ProgressHUD hideHUDForView:self.view animated:YES];
+    {
+        [ProgressHUD hideHUDForView:self.view animated:YES];
          
-         if (error) [error manageErrorTo:self];          // Si hay error al obtener los objetos
-         else                                            // Si se obtienen los objetos, se cuentan cuantos hay de cada tipo
-         {
-             for (iPrestaObject *object in objects)
-             {
-                 NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:object.type], @"type", nil];
-                 [[NSNotificationCenter defaultCenter] postNotificationName:@"IncrementObjectTypeObserver" object:options];
+        if (error) [error manageErrorTo:self];          // Si hay error al obtener los objetos
+        else                                            // Si se obtienen los objetos, se cuentan cuantos hay de cada tipo
+        {
+            for (iPrestaObject *object in objects)
+            {
+                NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:object.type], @"type", nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"IncrementObjectTypeObserver" object:options];
                  
-                 options = nil;
-             }
-             objects = nil;
+                options = nil;
+            }
+            objects = nil;
              
-             [self setCountLabels];
+            [self setCountLabels];
          }
      }];
+    
+     zero = nil;
 }
 
 - (void)setCountLabels
 {
-    booksLabel.text = [NSString stringWithFormat:@"Libros\r%d", bookCount];
-    audioLabel.text = [NSString stringWithFormat:@"Audio\r%d", audioCount];
-    videoLabel.text = [NSString stringWithFormat:@"Video\r%d", videoCount];
-    othersLabel.text = [NSString stringWithFormat:@"Otros\r%d", othersCount];
+    booksLabel.text = [NSString stringWithFormat:@"Libros\r%@", [objectCountArray objectAtIndex:0]];
+    audioLabel.text = [NSString stringWithFormat:@"Audio\r%@", [objectCountArray objectAtIndex:1]];
+    videoLabel.text = [NSString stringWithFormat:@"Video\r%@", [objectCountArray objectAtIndex:2]];
+    othersLabel.text = [NSString stringWithFormat:@"Otros\r%@", [objectCountArray objectAtIndex:3]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -114,8 +117,6 @@
 {
     ConfigurationViewController *viewController = [[ConfigurationViewController alloc] initWithNibName:@"ConfigurationViewController" bundle:nil];
     [self.navigationController pushViewController:viewController animated:YES];
-    
-    viewController = nil;
 }
 
 - (void)viewDidUnload
@@ -133,51 +134,24 @@
     audioLabel = nil;
     videoLabel = nil;
     othersLabel = nil;
+    
     [super viewDidUnload];
 }
 
 - (void)incrementObjectType:(NSNotification *)notification
 {
     NSInteger type = [[notification.object objectForKey:@"type"] integerValue];
-    switch (type)
-    {
-        case BookType:
-            bookCount++;
-            break;
-        case AudioType:
-            audioCount++;
-            break;
-        case VideoType:
-            videoCount++;
-            break;
-        case OtherType:
-            othersCount++;
-            break;
-        default:
-            break;
-    }
+    NSInteger count = [[objectCountArray objectAtIndex:type] integerValue] + 1;
+    
+    [objectCountArray replaceObjectAtIndex:type withObject:[NSNumber numberWithInteger:count]];
 }
 
 - (void)decrementObjectType:(NSNotification *)notification
 {
     NSInteger type = [[notification.object objectForKey:@"type"] integerValue];
-    switch (type)
-    {
-        case BookType:
-            bookCount--;
-            break;
-        case AudioType:
-            audioCount--;
-            break;
-        case VideoType:
-            videoCount--;
-            break;
-        case OtherType:
-            othersCount--;
-            break;
-        default:
-            break;
-    }
+    NSInteger count = [[objectCountArray objectAtIndex:type] integerValue] - 1;
+    
+    [objectCountArray replaceObjectAtIndex:type withObject:[NSNumber numberWithInteger:count]];
 }
 
 @end
