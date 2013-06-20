@@ -10,6 +10,7 @@
 #import "iPrestaNSError.h"
 #import "ObjectsListViewController.h"
 #import "AddObjectViewController.h"
+#import "FormBookViewController.h"
 #import "ObjectDetailViewController.h"
 #import "iPrestaObject.h"
 #import "User.h"
@@ -270,9 +271,18 @@
 
 - (void)goToAddObject
 {
-    AddObjectViewController *viewController = [[AddObjectViewController alloc] initWithNibName:@"AddObjectViewController" bundle:nil];
-    [self.navigationController pushViewController:viewController animated:YES];
+    id viewController;
     
+    if ([iPrestaObject typeSelected] == BookType)
+    {
+        viewController = [[FormBookViewController alloc] initWithNibName:@"FormBookViewController" bundle:nil];
+    }
+    else
+    {
+        viewController = [[AddObjectViewController alloc] initWithNibName:@"AddObjectViewController" bundle:nil];
+    }
+
+    [self.navigationController pushViewController:viewController animated:YES];
     viewController = nil;
 }
 

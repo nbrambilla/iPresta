@@ -27,7 +27,6 @@
     iPrestaObject *newObject;
     NSArray *audioTypesArray;
     NSArray *videoTypesArray;
-    ObjectType objecType;
     AudioObjectType audioTypeSelectedIndex;
     VideoObjectType videoTypeSelectedIndex;
     IMOAutocompletionViewController *autoComplete;

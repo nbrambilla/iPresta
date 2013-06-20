@@ -92,6 +92,10 @@
 		191D1B55176B51C200DF1E48 /* iPrestaImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 191D1B54176B51C200DF1E48 /* iPrestaImageView.m */; };
 		191D1B5B176B6EEF00DF1E48 /* close_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B59176B6EEF00DF1E48 /* close_icon.png */; };
 		191D1B5C176B6EEF00DF1E48 /* close_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B5A176B6EEF00DF1E48 /* close_icon@2x.png */; };
+		19272A401772FB9A00FC45B0 /* FormBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19272A3E1772FB9A00FC45B0 /* FormBookViewController.m */; };
+		19272A411772FB9A00FC45B0 /* FormBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19272A3F1772FB9A00FC45B0 /* FormBookViewController.xib */; };
+		19272A4417730A3900FC45B0 /* PHTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19272A4317730A3900FC45B0 /* PHTextView.m */; };
+		19272A4917731B5600FC45B0 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19272A4817731B5600FC45B0 /* TPKeyboardAvoidingScrollView.m */; };
 		193A729217670DA4001EB94D /* camera_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193A729117670DA4001EB94D /* camera_icon@2x.png */; };
 		193A729C17672BFF001EB94D /* IMOAutocompletionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A729717672BFF001EB94D /* IMOAutocompletionViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		193A729D17672BFF001EB94D /* IMOCompletionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A729917672BFF001EB94D /* IMOCompletionCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -247,6 +251,13 @@
 		191D1B54176B51C200DF1E48 /* iPrestaImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaImageView.m; path = ViewControllers/iPrestaImageView.m; sourceTree = "<group>"; };
 		191D1B59176B6EEF00DF1E48 /* close_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close_icon.png; path = Images/close_icon.png; sourceTree = "<group>"; };
 		191D1B5A176B6EEF00DF1E48 /* close_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "close_icon@2x.png"; path = "Images/close_icon@2x.png"; sourceTree = "<group>"; };
+		19272A3D1772FB9A00FC45B0 /* FormBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormBookViewController.h; sourceTree = "<group>"; };
+		19272A3E1772FB9A00FC45B0 /* FormBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormBookViewController.m; sourceTree = "<group>"; };
+		19272A3F1772FB9A00FC45B0 /* FormBookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FormBookViewController.xib; sourceTree = "<group>"; };
+		19272A4217730A3900FC45B0 /* PHTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHTextView.h; path = "External Frameworks/PHTextView/PHTextView.h"; sourceTree = SOURCE_ROOT; };
+		19272A4317730A3900FC45B0 /* PHTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHTextView.m; path = "External Frameworks/PHTextView/PHTextView.m"; sourceTree = SOURCE_ROOT; };
+		19272A4717731B5600FC45B0 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPKeyboardAvoidingScrollView.h; path = "External Frameworks/TPKeyboardAvoidingScrollView/TPKeyboardAvoidingScrollView.h"; sourceTree = "<group>"; };
+		19272A4817731B5600FC45B0 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPKeyboardAvoidingScrollView.m; path = "External Frameworks/TPKeyboardAvoidingScrollView/TPKeyboardAvoidingScrollView.m"; sourceTree = "<group>"; };
 		193A729117670DA4001EB94D /* camera_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera_icon@2x.png"; path = "Images/camera_icon@2x.png"; sourceTree = "<group>"; };
 		193A729617672BFF001EB94D /* IMOAutocompletionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMOAutocompletionViewController.h; path = "External Frameworks/IMOAutocompletionViewController/IMOAutocompletionViewController.h"; sourceTree = "<group>"; };
 		193A729717672BFF001EB94D /* IMOAutocompletionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMOAutocompletionViewController.m; path = "External Frameworks/IMOAutocompletionViewController/IMOAutocompletionViewController.m"; sourceTree = "<group>"; };
@@ -337,6 +348,8 @@
 		15517A0C1725C976002FFB69 /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				19272A4617731B4700FC45B0 /* TPKeyboardAvoidingScrollView */,
+				19272A4517730A4700FC45B0 /* PHTextView */,
 				191D1B3A176B17CE00DF1E48 /* MLTableAlert */,
 				193A729517672BF0001EB94D /* IMOAutocompletionViewController */,
 				1563FF8B17404B8000826DC4 /* ProgressHUD */,
@@ -498,10 +511,10 @@
 		156FDE0F16F399E900F4BEEA /* iPresta */ = {
 			isa = PBXGroup;
 			children = (
-				1518EA14174A6D86000EB0FE /* Images */,
-				156FDE4616F39DCC00F4BEEA /* ViewControllers */,
 				156FDE1816F399E900F4BEEA /* iPrestaAppDelegate.h */,
 				156FDE1916F399E900F4BEEA /* iPrestaAppDelegate.m */,
+				1518EA14174A6D86000EB0FE /* Images */,
+				156FDE4616F39DCC00F4BEEA /* ViewControllers */,
 				156FDE1016F399E900F4BEEA /* Supporting Files */,
 			);
 			path = iPresta;
@@ -545,9 +558,6 @@
 				15D1706517396AA700CF1F98 /* ObjectsListViewController.h */,
 				15D1706617396AA700CF1F98 /* ObjectsListViewController.m */,
 				15D1706717396AA700CF1F98 /* ObjectsListViewController.xib */,
-				15D1706A1739706500CF1F98 /* AddObjectViewController.h */,
-				15D1706B1739706500CF1F98 /* AddObjectViewController.m */,
-				15D1706C1739706600CF1F98 /* AddObjectViewController.xib */,
 				15393FF21742BA020012BA4F /* ObjectDetailViewController.h */,
 				15393FF31742BA020012BA4F /* ObjectDetailViewController.m */,
 				15393FF41742BA020012BA4F /* ObjectDetailViewController.xib */,
@@ -566,6 +576,12 @@
 				191D1B51176B504F00DF1E48 /* iPrestaImageView.xib */,
 				191D1B53176B51C100DF1E48 /* iPrestaImageView.h */,
 				191D1B54176B51C200DF1E48 /* iPrestaImageView.m */,
+				15D1706A1739706500CF1F98 /* AddObjectViewController.h */,
+				15D1706B1739706500CF1F98 /* AddObjectViewController.m */,
+				15D1706C1739706600CF1F98 /* AddObjectViewController.xib */,
+				19272A3D1772FB9A00FC45B0 /* FormBookViewController.h */,
+				19272A3E1772FB9A00FC45B0 /* FormBookViewController.m */,
+				19272A3F1772FB9A00FC45B0 /* FormBookViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -628,6 +644,24 @@
 				191D1B48176B180500DF1E48 /* MLTableAlertShadowMask@2x.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		19272A4517730A4700FC45B0 /* PHTextView */ = {
+			isa = PBXGroup;
+			children = (
+				19272A4217730A3900FC45B0 /* PHTextView.h */,
+				19272A4317730A3900FC45B0 /* PHTextView.m */,
+			);
+			name = PHTextView;
+			sourceTree = "<group>";
+		};
+		19272A4617731B4700FC45B0 /* TPKeyboardAvoidingScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				19272A4717731B5600FC45B0 /* TPKeyboardAvoidingScrollView.h */,
+				19272A4817731B5600FC45B0 /* TPKeyboardAvoidingScrollView.m */,
+			);
+			name = TPKeyboardAvoidingScrollView;
 			sourceTree = "<group>";
 		};
 		193A729517672BF0001EB94D /* IMOAutocompletionViewController */ = {
@@ -745,6 +779,7 @@
 				19DF3F261771C664004E1A06 /* other_icon@2x.png in Resources */,
 				19DF3F291771C902004E1A06 /* config_icon.png in Resources */,
 				19DF3F2A1771C902004E1A06 /* config_icon@2x.png in Resources */,
+				19272A411772FB9A00FC45B0 /* FormBookViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -785,6 +820,9 @@
 				193A729E17672BFF001EB94D /* IMOCompletionController.m in Sources */,
 				191D1B3F176B17E800DF1E48 /* MLTableAlert.m in Sources */,
 				191D1B55176B51C200DF1E48 /* iPrestaImageView.m in Sources */,
+				19272A401772FB9A00FC45B0 /* FormBookViewController.m in Sources */,
+				19272A4417730A3900FC45B0 /* PHTextView.m in Sources */,
+				19272A4917731B5600FC45B0 /* TPKeyboardAvoidingScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
