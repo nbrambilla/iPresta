@@ -1,8 +1,8 @@
 //
-//  AddObjectViewController.h
+//  FormAudioViewController.h
 //  iPresta
 //
-//  Created by Nacho on 07/05/13.
+//  Created by Nacho Brambilla on 15/07/13.
 //  Copyright (c) 2013 Nacho. All rights reserved.
 //
 
@@ -14,21 +14,21 @@
 #import "iPrestaImageView.h"
 #import "IMOAutocompletionViewController.h"
 
-@interface AddObjectViewController : UIViewController <iPrestaObjectDelegate, STComboTextDelegate, UITextFieldDelegate, ZBarReaderDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, IMOAutocompletionViewDataSource, IMOAutocompletionViewDelegate, iPrestaImageViewDelegate>
+@class PHTextView;
+@class TPKeyboardAvoidingScrollView;
+
+@interface FormAudioViewController : UIViewController <iPrestaObjectDelegate,  UITextFieldDelegate, ZBarReaderDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, IMOAutocompletionViewDataSource, IMOAutocompletionViewDelegate, iPrestaImageViewDelegate>
 {
     @private
+    IBOutlet TPKeyboardAvoidingScrollView *scrollView;
     IBOutlet UITextField *nameTextField;
     IBOutlet UITextField *authorTextField;
-    IBOutlet UITextField *descriptionTextField;
-    IBOutlet UITextField *editorialTextField;
     IBOutlet STComboText *audioTypeComboText;
-    IBOutlet STComboText *videoTypeComboText;
+    IBOutlet PHTextView *descriptionTextView;
     IBOutlet iPrestaImageView *imageView;
     iPrestaObject *newObject;
     NSArray *audioTypesArray;
-    NSArray *videoTypesArray;
     AudioObjectType audioTypeSelectedIndex;
-    VideoObjectType videoTypeSelectedIndex;
     IMOAutocompletionViewController *autoComplete;
 }
 

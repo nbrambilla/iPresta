@@ -69,8 +69,6 @@
 		15C9947A172C0515000672B4 /* ChangeEmailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15C99478172C0515000672B4 /* ChangeEmailViewController.xib */; };
 		15D1706817396AA700CF1F98 /* ObjectsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1706617396AA700CF1F98 /* ObjectsListViewController.m */; };
 		15D1706917396AA700CF1F98 /* ObjectsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1706717396AA700CF1F98 /* ObjectsListViewController.xib */; };
-		15D1706D1739706600CF1F98 /* AddObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1706B1739706500CF1F98 /* AddObjectViewController.m */; };
-		15D1706E1739706600CF1F98 /* AddObjectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D1706C1739706600CF1F98 /* AddObjectViewController.xib */; };
 		15E3E9571748F8140056CA4C /* ConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E3E9551748F8140056CA4C /* ConfigurationViewController.m */; };
 		15E3E9581748F8140056CA4C /* ConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E3E9561748F8140056CA4C /* ConfigurationViewController.xib */; };
 		15E6B2191729AE380050763A /* iPrestaNSString.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E6B2181729AE380050763A /* iPrestaNSString.m */; };
@@ -92,8 +90,6 @@
 		191D1B55176B51C200DF1E48 /* iPrestaImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 191D1B54176B51C200DF1E48 /* iPrestaImageView.m */; };
 		191D1B5B176B6EEF00DF1E48 /* close_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B59176B6EEF00DF1E48 /* close_icon.png */; };
 		191D1B5C176B6EEF00DF1E48 /* close_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B5A176B6EEF00DF1E48 /* close_icon@2x.png */; };
-		19272A401772FB9A00FC45B0 /* FormBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19272A3E1772FB9A00FC45B0 /* FormBookViewController.m */; };
-		19272A411772FB9A00FC45B0 /* FormBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19272A3F1772FB9A00FC45B0 /* FormBookViewController.xib */; };
 		19272A4417730A3900FC45B0 /* PHTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19272A4317730A3900FC45B0 /* PHTextView.m */; };
 		19272A4917731B5600FC45B0 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19272A4817731B5600FC45B0 /* TPKeyboardAvoidingScrollView.m */; };
 		193A729217670DA4001EB94D /* camera_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193A729117670DA4001EB94D /* camera_icon@2x.png */; };
@@ -101,6 +97,14 @@
 		193A729D17672BFF001EB94D /* IMOCompletionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A729917672BFF001EB94D /* IMOCompletionCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		193A729E17672BFF001EB94D /* IMOCompletionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A729B17672BFF001EB94D /* IMOCompletionController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1952EFA1176861990057820B /* IMOAutocompletionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1952EF9F176861990057820B /* IMOAutocompletionViewController.xib */; };
+		19C263AE1793F7490052DA32 /* FormBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C263AC1793F7490052DA32 /* FormBookViewController.m */; };
+		19C263AF1793F7490052DA32 /* FormBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19C263AD1793F7490052DA32 /* FormBookViewController.xib */; };
+		19C263B8179406890052DA32 /* FormAudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C263B6179406880052DA32 /* FormAudioViewController.m */; };
+		19C263B9179406890052DA32 /* FormAudioViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19C263B7179406890052DA32 /* FormAudioViewController.xib */; };
+		19C263BD179433B00052DA32 /* FormVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C263BB179433AF0052DA32 /* FormVideoViewController.m */; };
+		19C263BE179433B00052DA32 /* FormVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19C263BC179433B00052DA32 /* FormVideoViewController.xib */; };
+		19C263C217943B260052DA32 /* FormOtherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C263C017943B250052DA32 /* FormOtherViewController.m */; };
+		19C263C317943B260052DA32 /* FormOtherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19C263C117943B250052DA32 /* FormOtherViewController.xib */; };
 		19D9A6E5176A1D5E0000C129 /* ActivityIndicatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D9A6E4176A1D5E0000C129 /* ActivityIndicatorCell.xib */; };
 		19DF3F1D1771C229004E1A06 /* audio_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 19DF3F171771C229004E1A06 /* audio_icon.png */; };
 		19DF3F1E1771C229004E1A06 /* audio_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19DF3F181771C229004E1A06 /* audio_icon@2x.png */; };
@@ -218,9 +222,6 @@
 		15D1706517396AA700CF1F98 /* ObjectsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectsListViewController.h; path = ViewControllers/ObjectsListViewController.h; sourceTree = "<group>"; };
 		15D1706617396AA700CF1F98 /* ObjectsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectsListViewController.m; path = ViewControllers/ObjectsListViewController.m; sourceTree = "<group>"; };
 		15D1706717396AA700CF1F98 /* ObjectsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ObjectsListViewController.xib; path = ViewControllers/ObjectsListViewController.xib; sourceTree = "<group>"; };
-		15D1706A1739706500CF1F98 /* AddObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddObjectViewController.h; path = ViewControllers/AddObjectViewController.h; sourceTree = "<group>"; };
-		15D1706B1739706500CF1F98 /* AddObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddObjectViewController.m; path = ViewControllers/AddObjectViewController.m; sourceTree = "<group>"; };
-		15D1706C1739706600CF1F98 /* AddObjectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AddObjectViewController.xib; path = ViewControllers/AddObjectViewController.xib; sourceTree = "<group>"; };
 		15E3E9541748F8140056CA4C /* ConfigurationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfigurationViewController.h; path = ViewControllers/ConfigurationViewController.h; sourceTree = "<group>"; };
 		15E3E9551748F8140056CA4C /* ConfigurationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConfigurationViewController.m; path = ViewControllers/ConfigurationViewController.m; sourceTree = "<group>"; };
 		15E3E9561748F8140056CA4C /* ConfigurationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ConfigurationViewController.xib; path = ViewControllers/ConfigurationViewController.xib; sourceTree = "<group>"; };
@@ -251,9 +252,6 @@
 		191D1B54176B51C200DF1E48 /* iPrestaImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaImageView.m; path = ViewControllers/iPrestaImageView.m; sourceTree = "<group>"; };
 		191D1B59176B6EEF00DF1E48 /* close_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close_icon.png; path = Images/close_icon.png; sourceTree = "<group>"; };
 		191D1B5A176B6EEF00DF1E48 /* close_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "close_icon@2x.png"; path = "Images/close_icon@2x.png"; sourceTree = "<group>"; };
-		19272A3D1772FB9A00FC45B0 /* FormBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormBookViewController.h; sourceTree = "<group>"; };
-		19272A3E1772FB9A00FC45B0 /* FormBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormBookViewController.m; sourceTree = "<group>"; };
-		19272A3F1772FB9A00FC45B0 /* FormBookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FormBookViewController.xib; sourceTree = "<group>"; };
 		19272A4217730A3900FC45B0 /* PHTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHTextView.h; path = "External Frameworks/PHTextView/PHTextView.h"; sourceTree = SOURCE_ROOT; };
 		19272A4317730A3900FC45B0 /* PHTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHTextView.m; path = "External Frameworks/PHTextView/PHTextView.m"; sourceTree = SOURCE_ROOT; };
 		19272A4717731B5600FC45B0 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPKeyboardAvoidingScrollView.h; path = "External Frameworks/TPKeyboardAvoidingScrollView/TPKeyboardAvoidingScrollView.h"; sourceTree = "<group>"; };
@@ -266,6 +264,18 @@
 		193A729A17672BFF001EB94D /* IMOCompletionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMOCompletionController.h; path = "External Frameworks/IMOAutocompletionViewController/IMOCompletionController.h"; sourceTree = "<group>"; };
 		193A729B17672BFF001EB94D /* IMOCompletionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMOCompletionController.m; path = "External Frameworks/IMOAutocompletionViewController/IMOCompletionController.m"; sourceTree = "<group>"; };
 		1952EF9F176861990057820B /* IMOAutocompletionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = IMOAutocompletionViewController.xib; path = iPresta/ViewControllers/IMOAutocompletionViewController.xib; sourceTree = "<group>"; };
+		19C263AB1793F7490052DA32 /* FormBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FormBookViewController.h; path = ViewControllers/FormBookViewController.h; sourceTree = "<group>"; };
+		19C263AC1793F7490052DA32 /* FormBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FormBookViewController.m; path = ViewControllers/FormBookViewController.m; sourceTree = "<group>"; };
+		19C263AD1793F7490052DA32 /* FormBookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FormBookViewController.xib; path = ViewControllers/FormBookViewController.xib; sourceTree = "<group>"; };
+		19C263B5179406880052DA32 /* FormAudioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FormAudioViewController.h; path = ViewControllers/FormAudioViewController.h; sourceTree = "<group>"; };
+		19C263B6179406880052DA32 /* FormAudioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FormAudioViewController.m; path = ViewControllers/FormAudioViewController.m; sourceTree = "<group>"; };
+		19C263B7179406890052DA32 /* FormAudioViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FormAudioViewController.xib; path = ViewControllers/FormAudioViewController.xib; sourceTree = "<group>"; };
+		19C263BA179433AF0052DA32 /* FormVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FormVideoViewController.h; path = ViewControllers/FormVideoViewController.h; sourceTree = "<group>"; };
+		19C263BB179433AF0052DA32 /* FormVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FormVideoViewController.m; path = ViewControllers/FormVideoViewController.m; sourceTree = "<group>"; };
+		19C263BC179433B00052DA32 /* FormVideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FormVideoViewController.xib; path = ViewControllers/FormVideoViewController.xib; sourceTree = "<group>"; };
+		19C263BF17943B240052DA32 /* FormOtherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FormOtherViewController.h; path = ViewControllers/FormOtherViewController.h; sourceTree = "<group>"; };
+		19C263C017943B250052DA32 /* FormOtherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FormOtherViewController.m; path = ViewControllers/FormOtherViewController.m; sourceTree = "<group>"; };
+		19C263C117943B250052DA32 /* FormOtherViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FormOtherViewController.xib; path = ViewControllers/FormOtherViewController.xib; sourceTree = "<group>"; };
 		19D9A6E4176A1D5E0000C129 /* ActivityIndicatorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ActivityIndicatorCell.xib; path = "External Frameworks/IMOAutocompletionViewController/ActivityIndicatorCell.xib"; sourceTree = "<group>"; };
 		19DF3F171771C229004E1A06 /* audio_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = audio_icon.png; path = Images/audio_icon.png; sourceTree = "<group>"; };
 		19DF3F181771C229004E1A06 /* audio_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "audio_icon@2x.png"; path = "Images/audio_icon@2x.png"; sourceTree = "<group>"; };
@@ -576,12 +586,18 @@
 				191D1B51176B504F00DF1E48 /* iPrestaImageView.xib */,
 				191D1B53176B51C100DF1E48 /* iPrestaImageView.h */,
 				191D1B54176B51C200DF1E48 /* iPrestaImageView.m */,
-				15D1706A1739706500CF1F98 /* AddObjectViewController.h */,
-				15D1706B1739706500CF1F98 /* AddObjectViewController.m */,
-				15D1706C1739706600CF1F98 /* AddObjectViewController.xib */,
-				19272A3D1772FB9A00FC45B0 /* FormBookViewController.h */,
-				19272A3E1772FB9A00FC45B0 /* FormBookViewController.m */,
-				19272A3F1772FB9A00FC45B0 /* FormBookViewController.xib */,
+				19C263AB1793F7490052DA32 /* FormBookViewController.h */,
+				19C263AC1793F7490052DA32 /* FormBookViewController.m */,
+				19C263AD1793F7490052DA32 /* FormBookViewController.xib */,
+				19C263B5179406880052DA32 /* FormAudioViewController.h */,
+				19C263B6179406880052DA32 /* FormAudioViewController.m */,
+				19C263B7179406890052DA32 /* FormAudioViewController.xib */,
+				19C263BA179433AF0052DA32 /* FormVideoViewController.h */,
+				19C263BB179433AF0052DA32 /* FormVideoViewController.m */,
+				19C263BC179433B00052DA32 /* FormVideoViewController.xib */,
+				19C263BF17943B240052DA32 /* FormOtherViewController.h */,
+				19C263C017943B250052DA32 /* FormOtherViewController.m */,
+				19C263C117943B250052DA32 /* FormOtherViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -743,7 +759,6 @@
 				15C9947A172C0515000672B4 /* ChangeEmailViewController.xib in Resources */,
 				15A877B7172C875300E8BDA2 /* RequestPasswordResetViewController.xib in Resources */,
 				15D1706917396AA700CF1F98 /* ObjectsListViewController.xib in Resources */,
-				15D1706E1739706600CF1F98 /* AddObjectViewController.xib in Resources */,
 				1563FF78173F9ABE00826DC4 /* zbar-back.png in Resources */,
 				1563FF79173F9ABE00826DC4 /* zbar-help.html in Resources */,
 				1563FF7A173F9ABE00826DC4 /* zbar-helpicons.png in Resources */,
@@ -779,7 +794,10 @@
 				19DF3F261771C664004E1A06 /* other_icon@2x.png in Resources */,
 				19DF3F291771C902004E1A06 /* config_icon.png in Resources */,
 				19DF3F2A1771C902004E1A06 /* config_icon@2x.png in Resources */,
-				19272A411772FB9A00FC45B0 /* FormBookViewController.xib in Resources */,
+				19C263AF1793F7490052DA32 /* FormBookViewController.xib in Resources */,
+				19C263B9179406890052DA32 /* FormAudioViewController.xib in Resources */,
+				19C263BE179433B00052DA32 /* FormVideoViewController.xib in Resources */,
+				19C263C317943B260052DA32 /* FormOtherViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -802,7 +820,6 @@
 				15C99479172C0515000672B4 /* ChangeEmailViewController.m in Sources */,
 				15A877B6172C875300E8BDA2 /* RequestPasswordResetViewController.m in Sources */,
 				15D1706817396AA700CF1F98 /* ObjectsListViewController.m in Sources */,
-				15D1706D1739706600CF1F98 /* AddObjectViewController.m in Sources */,
 				15EF0992173ADED50001C8EF /* iPrestaNSError.m in Sources */,
 				15EF0999173ADFEE0001C8EF /* STComboText.m in Sources */,
 				15EF099A173ADFEE0001C8EF /* STDateText.m in Sources */,
@@ -820,9 +837,12 @@
 				193A729E17672BFF001EB94D /* IMOCompletionController.m in Sources */,
 				191D1B3F176B17E800DF1E48 /* MLTableAlert.m in Sources */,
 				191D1B55176B51C200DF1E48 /* iPrestaImageView.m in Sources */,
-				19272A401772FB9A00FC45B0 /* FormBookViewController.m in Sources */,
 				19272A4417730A3900FC45B0 /* PHTextView.m in Sources */,
 				19272A4917731B5600FC45B0 /* TPKeyboardAvoidingScrollView.m in Sources */,
+				19C263AE1793F7490052DA32 /* FormBookViewController.m in Sources */,
+				19C263B8179406890052DA32 /* FormAudioViewController.m in Sources */,
+				19C263BD179433B00052DA32 /* FormVideoViewController.m in Sources */,
+				19C263C217943B260052DA32 /* FormOtherViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

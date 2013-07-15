@@ -9,8 +9,10 @@
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
 #import "ObjectsListViewController.h"
-#import "AddObjectViewController.h"
 #import "FormBookViewController.h"
+#import "FormAudioViewController.h"
+#import "FormVideoViewController.h"
+#import "FormOtherViewController.h"
 #import "ObjectDetailViewController.h"
 #import "iPrestaObject.h"
 #import "User.h"
@@ -273,13 +275,22 @@
 {
     id viewController;
     
-    if ([iPrestaObject typeSelected] == BookType)
+    switch ([iPrestaObject typeSelected])
     {
-        viewController = [[FormBookViewController alloc] initWithNibName:@"FormBookViewController" bundle:nil];
-    }
-    else
-    {
-        viewController = [[AddObjectViewController alloc] initWithNibName:@"AddObjectViewController" bundle:nil];
+        case BookType:
+            viewController = [[FormBookViewController alloc] initWithNibName:@"FormBookViewController" bundle:nil];
+            break;
+        case AudioType:
+            viewController = [[FormAudioViewController alloc] initWithNibName:@"FormAudioViewController" bundle:nil];
+            break;
+        case VideoType:
+            viewController = [[FormVideoViewController alloc] initWithNibName:@"FormVideoViewController" bundle:nil];
+            break;
+        case OtherType:
+            viewController = [[FormOtherViewController alloc] initWithNibName:@"FormOtherViewController" bundle:nil];
+            break;
+        default:
+            break;
     }
 
     [self.navigationController pushViewController:viewController animated:YES];

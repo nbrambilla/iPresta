@@ -7,6 +7,7 @@
 //
 
 #import "PHTextView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation PHTextView
 
@@ -19,8 +20,12 @@
     placeholderLabel.textColor = [UIColor lightGrayColor];
     placeholderLabel.font = [UIFont systemFontOfSize:14.0f];
     placeholderLabel.backgroundColor = [UIColor clearColor];
+    
     [self addSubview:placeholderLabel];
     
+    self.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    self.layer.borderWidth = 1.0f;
+    self.layer.cornerRadius = 7.0f;
     self.clipsToBounds = YES;
     self.delegate = self;
     

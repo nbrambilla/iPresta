@@ -1,25 +1,22 @@
 //
-//  FormBookViewController.m
+//  FormAudioViewController.m
 //  iPresta
 //
-//  Created by Nacho Brambilla on 20/06/13.
+//  Created by Nacho Brambilla on 15/07/13.
 //  Copyright (c) 2013 Nacho. All rights reserved.
 //
 
-#import "FormBookViewController.h"
+#import "FormAudioViewController.h"
 #import "iPrestaNSError.h"
 #import "iPrestaNSString.h"
 #import "ProgressHUD.h"
 #import "PHTextView.h"
-#import <QuartzCore/QuartzCore.h>
 
-@interface FormBookViewController ()
+@interface FormAudioViewController ()
 
 @end
 
-@implementation FormBookViewController
-
-#pragma mark - Lifecycle Methods
+@implementation FormAudioViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,22 +31,15 @@
 {
     [super viewDidLoad];
     
-    [self setView];
-}
-
-- (void)setView
-{
     nameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     authorTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    editorialTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    
-    descriptionTextView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-    descriptionTextView.layer.borderWidth = 1.0f;
-    descriptionTextView.layer.cornerRadius = 7.0f;
-    descriptionTextView.clipsToBounds = YES;
+   
     descriptionTextView.placeholder = @"Descripción";
     
     newObject = [iPrestaObject object];
+    
+    audioTypesArray = [iPrestaObject audioObjectTypes];
+    [self stComboText:audioTypeComboText didSelectRow:CDAudioObjectType];    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -64,16 +54,17 @@
     descriptionTextView = nil;
     nameTextField = nil;
     authorTextField = nil;
-    editorialTextField = nil;
-    imageView = nil;
+    audioTypesArray = nil;
     newObject = nil;
     imageView = nil;
     [super viewDidUnload];
 }
 
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Detect Object Methods
@@ -135,25 +126,76 @@
     }
 }
 
+#pragma mark - UITextFields Methods
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if([textField isKindOfClass:[STComboText class]])
+    {
+        [(STComboText*)textField showOptions];
+        return NO;
+    }
+    return YES;
+}
+
+#pragma mark - STCombo Methods
+
+- (NSString *)stComboText:(STComboText *)stComboText textForRow:(NSUInteger)row
+{
+    NSString *returnString = nil;
+    
+    if (stComboText == audioTypeComboText)
+    {
+        returnString = [audioTypesArray objectAtIndex:row];
+    }
+    
+    return returnString;
+}
+
+- (NSInteger)stComboText:(STComboText *)stComboTextNumberOfOptions
+{
+    NSInteger returnInt = 0;
+    
+    if (stComboTextNumberOfOptions == audioTypeComboText)
+    {
+        returnInt = audioTypesArray.count;
+    }
+    
+    return returnInt;
+}
+
+- (void)stComboText:(STComboText *)stComboText didSelectRow:(NSUInteger)row
+{
+    if(stComboText == audioTypeComboText)
+    {
+        audioTypeComboText.text = [audioTypesArray objectAtIndex:row];
+        audioTypeSelectedIndex = row;
+    }
+}
+
 - (void)getObjectDataWithCode:(NSString *)code
 {
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
     [newObject getData:code];
 }
 
-#pragma mark - iPrestaObjectDelegate Methods
+#pragma mark - IMOAutoCompletionViewDataSource Methods;
 
-- (void)getSearchResultsResponse:(NSArray *)searchResults withError:(NSError *)error
+- (void)sourceForAutoCompletionTextField:(IMOAutocompletionViewController *)asViewController withParam:(NSString *)param page:(NSInteger)page offset:(NSInteger)offset
 {
-    [autoComplete loadSearchTableWithResults:searchResults error:error];
+    [newObject getSearchResults:param page:page offset:offset];
 }
 
-- (void)getDataResponseWithError:(NSError *)error
+#pragma mark - IMOAutoCompletionViewDelegate Methods;
+
+- (void)IMOAutocompletionViewControllerReturnedCompletion:(id)object
 {
-    [ProgressHUD hideHUDForView:self.view animated:YES];
-    
-    if (error) [error manageErrorTo:self];
-    else [self setFields];
+    if (object)
+    {
+        newObject = (iPrestaObject *)object;
+        [self setFields];
+        [self setNewObject];
+    }
 }
 
 #pragma mark - Save Objects Methods
@@ -211,30 +253,12 @@
      }];
 }
 
-#pragma mark - Keyboard Methods
-
-- (IBAction)hideKeyboard:(id)sender
-{
-    for (UIView *subview in [sender subviews])
-    {
-        if ([subview isKindOfClass:[UITextField class]] || [subview isKindOfClass:[UITextView class]])
-        {
-            if ([subview isFirstResponder])
-            {
-                [subview resignFirstResponder];
-                break;
-            }
-        }
-    }
-}
-
 #pragma mark - Set Methods
 
 - (void)setFields
 {
     nameTextField.text = [newObject.name capitalizedString];
     authorTextField.text = [newObject.author capitalizedString];
-    editorialTextField.text = [newObject.editorial capitalizedString];
     
     [imageView deleteImage];
     
@@ -249,21 +273,36 @@
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
         
         dispatch_async(queue, ^(void)
-                       {
-                           newObject.imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:newObject.imageURL]];
-                           [indicatorImage stopAnimating];
-                           UIImage* image = [UIImage imageWithData:newObject.imageData];
-                           if (image)
-                           {
-                               [imageView setImage:image];
-                           }
-                       });
+        {
+           newObject.imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:newObject.imageURL]];
+           [indicatorImage stopAnimating];
+           UIImage* image = [UIImage imageWithData:newObject.imageData];
+           if (image)
+           {
+               [imageView setImage:image];
+           }
+        });
     }
     
     else if (newObject.imageData)
     {
         [imageView setImage:[UIImage imageWithData:newObject.imageData]];
     }
+}
+
+#pragma mark - iPrestaObjectDelegate Methods
+
+- (void)getSearchResultsResponse:(NSArray *)searchResults withError:(NSError *)error
+{
+    [autoComplete loadSearchTableWithResults:searchResults error:error];
+}
+
+- (void)getDataResponseWithError:(NSError *)error
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    
+    if (error) [error manageErrorTo:self];
+    else [self setFields];
 }
 
 - (void)setNewObject
@@ -285,30 +324,11 @@
         imageData = nil;
     }
     if (authorTextField.text) newObject.author = [authorTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (editorialTextField.text) newObject.editorial = [editorialTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (descriptionTextView.text) newObject.descriptionObject = [descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (audioTypeSelectedIndex != NoneAudioObjectType) newObject.audioType = audioTypeSelectedIndex;
 }
 
-#pragma mark - IMOAutoCompletionViewDataSource Methods;
-
-- (void)sourceForAutoCompletionTextField:(IMOAutocompletionViewController *)asViewController withParam:(NSString *)param page:(NSInteger)page offset:(NSInteger)offset
-{
-    [newObject getSearchResults:param page:page offset:offset];
-}
-
-#pragma mark - IMOAutoCompletionViewDelegate Methods;
-
-- (void)IMOAutocompletionViewControllerReturnedCompletion:(id)object
-{
-    if (object)
-    {
-        newObject = (iPrestaObject *)object;
-        [self setFields];
-        [self setNewObject];
-    }
-}
-
-#pragma mark - UITextFields Methods
+#pragma mark - Button Methods
 
 - (IBAction)searchObject:(id)sender
 {
