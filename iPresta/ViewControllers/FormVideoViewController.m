@@ -31,6 +31,11 @@
 {
     [super viewDidLoad];
     
+    [self setView];
+}
+
+- (void)setView
+{
     nameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     authorTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     
@@ -40,6 +45,7 @@
     
     videoTypesArray = [iPrestaObject videoObjectTypes];
     [self stComboText:videoTypeComboText didSelectRow:CDAudioObjectType];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated

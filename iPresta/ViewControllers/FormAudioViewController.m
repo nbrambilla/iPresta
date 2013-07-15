@@ -31,15 +31,20 @@
 {
     [super viewDidLoad];
     
+    [self setView];
+}
+
+- (void)setView
+{
     nameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     authorTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-   
+    
     descriptionTextView.placeholder = @"Descripción";
     
     newObject = [iPrestaObject object];
     
     audioTypesArray = [iPrestaObject audioObjectTypes];
-    [self stComboText:audioTypeComboText didSelectRow:CDAudioObjectType];    
+    [self stComboText:audioTypeComboText didSelectRow:CDAudioObjectType];
 }
 
 - (void)viewDidAppear:(BOOL)animated

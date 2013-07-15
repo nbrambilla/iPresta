@@ -31,6 +31,11 @@
 {
     [super viewDidLoad];
     
+    [self setView];
+}
+
+- (void)setView
+{
     nameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     
     descriptionTextView.placeholder = @"Descripción";
