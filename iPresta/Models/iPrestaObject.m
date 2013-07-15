@@ -54,9 +54,10 @@ static iPrestaObject *currentObject;
 - (BOOL)isEqualToObject:(iPrestaObject *)object
 {
     if (self.barcode && [self.barcode isEqualToString:object.barcode]) return YES;
- 
-    NSString *firstChain = [[self.name stringByAppendingString:self.author] serialize];
-    NSString *secondChain = [[object.name stringByAppendingString:object.author] serialize];
+
+    NSString *firstChain = (self.author) ? [[self.name stringByAppendingString:self.author] serialize] : [self.name serialize];
+
+    NSString *secondChain = (object.author) ? [[object.name stringByAppendingString:object.author] serialize] : [object.name serialize];
     
     NSInteger distance = [firstChain distance:secondChain];
     NSInteger coef = (int)([firstChain length] * 0.1 + 0.5);
