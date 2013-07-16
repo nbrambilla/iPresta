@@ -9,6 +9,8 @@
 #import "ConnectionData.h"
 #import "iPrestaNSError.h"
 
+#define TIMEOUT_INTERVAL 20.0
+
 @implementation ConnectionData
 
 @synthesize request;
@@ -31,9 +33,8 @@
 	self = [super init];
     
 	if(self) {
-        self.request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+        self.request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:TIMEOUT_INTERVAL];
         [self.request setHTTPMethod:@"GET"];
-        [self.request setTimeoutInterval:2.0];
         [self.request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     }
     
@@ -45,9 +46,8 @@
 	self = [super init];
     
 	if(self) {
-        self.request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
+        self.request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:TIMEOUT_INTERVAL];
         [self.request setHTTPMethod:@"GET"];
-        [self.request setTimeoutInterval:2.0];
         [self.request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
         self.identifier = connIdentifier;

@@ -32,28 +32,49 @@
 
 @implementation IMOAutocompletionViewController
 
-@synthesize searchBar = searchBar_;
-@synthesize results = results_;
-@synthesize tableView = tableView_;
-@synthesize dataSource =  dataSource_;
-@synthesize delegate = delegate_;
-@synthesize activityIndicatorView = activityIndicatorView_;
-@synthesize footerActivityIndicator = footerActivityIndicator_;
-@synthesize activityIndicatorLabel = activityIndicatorLabel_;
+@synthesize searchBar = _searchBar;
+@synthesize results = _results;
+@synthesize tableView = _tableView;
+@synthesize dataSource =  _dataSource;
+@synthesize delegate = _delegate;
+@synthesize activityIndicatorView = _activityIndicatorView;
+@synthesize footerActivityIndicator = _footerActivityIndicator;
+@synthesize activityIndicatorLabel = _activityIndicatorLabel;
 
-- (id)init {
+- (id)init
+{
     return  self = [self initWithNibName:nil bundle:nil];
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    [results_ release];
-    [tableView_ release];
-    [searchBar_ release];
+    [_results release];
+    [_tableView release];
+    [_searchBar release];
+    [_dataSource release];
+    [_delegate release];
+    [_activityIndicatorView release];
+    [_footerActivityIndicator release];
+    [_activityIndicatorLabel release];
     
     [self setView:nil];
     [super dealloc];
+}
+
+- (void)viewDidUnload
+{
+    [self setResults:nil];
+    [self setTableView:nil];
+    [self setSearchBar:nil];
+    [self setDataSource:nil];
+    [self setDelegate:nil];
+    [self setActivityIndicatorView:nil];
+    [self setFooterActivityIndicator:nil];
+    [self setActivityIndicatorView:nil];
+    
+    [super viewDidUnload];
 }
 
 - (void)viewDidLoad
@@ -70,7 +91,7 @@
 {
     [super viewDidAppear:animated];
     
-    [searchBar_ becomeFirstResponder];
+    [_searchBar becomeFirstResponder];
 }
 
 #pragma mark -stuff
@@ -105,7 +126,7 @@
 {
 	if ((scrollView.contentOffset.y + scrollView.frame.size.height) > (scrollView.contentSize.height) && !loading && !finish)
     {
-        activityIndicatorLabel_.text = @"Cargando...";
+        _activityIndicatorLabel.text = @"Cargando...";
         loading = YES;
         page++;
         [self.footerActivityIndicator startAnimating];
@@ -123,7 +144,7 @@
 
 - (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [results_ count];
+    return [_results count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -148,7 +169,7 @@
     }
     
     cell.tag = indexPath.row;
-    iPrestaObject *object = [results_ objectAtIndex:indexPath.row];
+    iPrestaObject *object = [_results objectAtIndex:indexPath.row];
     
     cell.textLabel.text = [object.name capitalizedString];
     
@@ -193,7 +214,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[self delegate] respondsToSelector:@selector(IMOAutocompletionViewControllerReturnedCompletion:)]) {
-        [[self delegate] IMOAutocompletionViewControllerReturnedCompletion:[results_ objectAtIndex:indexPath.row]];
+        [[self delegate] IMOAutocompletionViewControllerReturnedCompletion:[_results objectAtIndex:indexPath.row]];
     }
     [self dismissModalViewControllerAnimated:YES];
 }
@@ -204,7 +225,7 @@
 {
     finish = NO;
     page = 0;
-    results_ = [[NSMutableArray alloc] init];
+    _results = [[NSMutableArray alloc] init];
     [self searchResults];
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
 }
@@ -213,10 +234,10 @@
 {
     if ([[self dataSource] respondsToSelector:@selector(sourceForAutoCompletionTextField:withParam:page:offset:)])
     {
-        [(id <IMOAutocompletionViewDataSource>)[self dataSource] sourceForAutoCompletionTextField:self withParam:[searchBar_.text encodeToURL] page:page offset:OFFSET];
+        [(id <IMOAutocompletionViewDataSource>)[self dataSource] sourceForAutoCompletionTextField:self withParam:[_searchBar.text encodeToURL] page:page offset:OFFSET];
     }
     
-    [searchBar_ resignFirstResponder];
+    [_searchBar resignFirstResponder];
 }
 
 - (void)loadSearchTableWithResults:(NSArray *)searchResults error:(NSError *)error
@@ -228,8 +249,8 @@
     {
         if (page != 0)
         {
-            [footerActivityIndicator_ stopAnimating];
-            activityIndicatorLabel_.text = @"Intentelo otra vez";
+            [_footerActivityIndicator stopAnimating];
+            _activityIndicatorLabel.text = @"Intentelo otra vez";
         }
         [error manageErrorTo:self.view];
     }
@@ -239,26 +260,20 @@
         {
             //set tableview footer
             [[NSBundle mainBundle] loadNibNamed:@"ActivityIndicatorCell" owner:self options:nil];
-            [tableView_ setTableFooterView:activityIndicatorView_];
+            [_tableView setTableFooterView:_activityIndicatorView];
             
-            [tableView_ setContentOffset:CGPointZero animated:NO];
+            [_tableView setContentOffset:CGPointZero animated:NO];
         }
         
-        [results_ addObjectsFromArray:searchResults];
-        [tableView_ reloadData];
+        [_results addObjectsFromArray:searchResults];
+        [_tableView reloadData];
     
         if ([searchResults count] < OFFSET)
         {
             finish = YES;
-            [tableView_ setTableFooterView:nil];
+            [_tableView setTableFooterView:nil];
         }
     }
 }
 
-- (void)viewDidUnload
-{
-    [self setTableView:nil];
-    [self setSearchBar:nil];
-    [super viewDidUnload];
-}
 @end
