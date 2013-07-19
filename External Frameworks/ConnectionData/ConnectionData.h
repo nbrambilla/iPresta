@@ -24,7 +24,7 @@
 
 - (void)setDelegate:(id)newDelegate;
 - (id)initWithURL:(NSURL *)url;
--(id)initWithURL:(NSURL *)url andID:(id)connIdentifier;
+- (id)initWithURL:(NSURL *)url andID:(id)connIdentifier;
 - (id)initWithRequest:(NSURLRequest *)requestToData;
 - (id)initWithRequest:(NSURLRequest *)requestToData andID:(id)connectionIdentifier;
 - (void)downloadData:(id)connectionDelegate;

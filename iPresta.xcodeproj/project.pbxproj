@@ -92,6 +92,10 @@
 		191D1B5C176B6EEF00DF1E48 /* close_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B5A176B6EEF00DF1E48 /* close_icon@2x.png */; };
 		19272A4417730A3900FC45B0 /* PHTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19272A4317730A3900FC45B0 /* PHTextView.m */; };
 		19272A4917731B5600FC45B0 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19272A4817731B5600FC45B0 /* TPKeyboardAvoidingScrollView.m */; };
+		19316D6417993C8E00939597 /* contacts_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 19316D6217993C8E00939597 /* contacts_icon.png */; };
+		19316D6517993C8E00939597 /* contacts_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19316D6317993C8E00939597 /* contacts_icon@2x.png */; };
+		19316D68179947E000939597 /* search_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 19316D66179947E000939597 /* search_icon.png */; };
+		19316D69179947E000939597 /* search_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19316D67179947E000939597 /* search_icon@2x.png */; };
 		193A729217670DA4001EB94D /* camera_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193A729117670DA4001EB94D /* camera_icon@2x.png */; };
 		193A729C17672BFF001EB94D /* IMOAutocompletionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A729717672BFF001EB94D /* IMOAutocompletionViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		193A729D17672BFF001EB94D /* IMOCompletionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A729917672BFF001EB94D /* IMOCompletionCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -256,6 +260,10 @@
 		19272A4317730A3900FC45B0 /* PHTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHTextView.m; path = "External Frameworks/PHTextView/PHTextView.m"; sourceTree = SOURCE_ROOT; };
 		19272A4717731B5600FC45B0 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPKeyboardAvoidingScrollView.h; path = "External Frameworks/TPKeyboardAvoidingScrollView/TPKeyboardAvoidingScrollView.h"; sourceTree = "<group>"; };
 		19272A4817731B5600FC45B0 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPKeyboardAvoidingScrollView.m; path = "External Frameworks/TPKeyboardAvoidingScrollView/TPKeyboardAvoidingScrollView.m"; sourceTree = "<group>"; };
+		19316D6217993C8E00939597 /* contacts_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = contacts_icon.png; path = Images/contacts_icon.png; sourceTree = "<group>"; };
+		19316D6317993C8E00939597 /* contacts_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "contacts_icon@2x.png"; path = "Images/contacts_icon@2x.png"; sourceTree = "<group>"; };
+		19316D66179947E000939597 /* search_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = search_icon.png; path = Images/search_icon.png; sourceTree = "<group>"; };
+		19316D67179947E000939597 /* search_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "search_icon@2x.png"; path = "Images/search_icon@2x.png"; sourceTree = "<group>"; };
 		193A729117670DA4001EB94D /* camera_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "camera_icon@2x.png"; path = "Images/camera_icon@2x.png"; sourceTree = "<group>"; };
 		193A729617672BFF001EB94D /* IMOAutocompletionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMOAutocompletionViewController.h; path = "External Frameworks/IMOAutocompletionViewController/IMOAutocompletionViewController.h"; sourceTree = "<group>"; };
 		193A729717672BFF001EB94D /* IMOAutocompletionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMOAutocompletionViewController.m; path = "External Frameworks/IMOAutocompletionViewController/IMOAutocompletionViewController.m"; sourceTree = "<group>"; };
@@ -328,6 +336,10 @@
 		1518EA14174A6D86000EB0FE /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				19316D66179947E000939597 /* search_icon.png */,
+				19316D67179947E000939597 /* search_icon@2x.png */,
+				19316D6217993C8E00939597 /* contacts_icon.png */,
+				19316D6317993C8E00939597 /* contacts_icon@2x.png */,
 				19DF3F271771C902004E1A06 /* config_icon.png */,
 				19DF3F281771C902004E1A06 /* config_icon@2x.png */,
 				19DF3F231771C664004E1A06 /* other_icon.png */,
@@ -798,6 +810,10 @@
 				19C263B9179406890052DA32 /* FormAudioViewController.xib in Resources */,
 				19C263BE179433B00052DA32 /* FormVideoViewController.xib in Resources */,
 				19C263C317943B260052DA32 /* FormOtherViewController.xib in Resources */,
+				19316D6417993C8E00939597 /* contacts_icon.png in Resources */,
+				19316D6517993C8E00939597 /* contacts_icon@2x.png in Resources */,
+				19316D68179947E000939597 /* search_icon.png in Resources */,
+				19316D69179947E000939597 /* search_icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

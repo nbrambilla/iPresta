@@ -68,7 +68,10 @@
     {
         [ProgressHUD hideHUDForView:self.view animated:YES];
          
-        if (error) [error manageErrorTo:self];          // Si hay error al obtener los objetos
+        if (error)
+        {
+            [error manageErrorTo:self];
+        }         // Si hay error al obtener los objetos
         else                                            // Si se obtienen los objetos, se cuentan cuantos hay de cada tipo
         {
             for (iPrestaObject *object in objects)
@@ -89,10 +92,10 @@
 
 - (void)setCountLabels
 {
-    booksLabel.text = [NSString stringWithFormat:@"Libros\r%@", [objectCountArray objectAtIndex:0]];
-    audioLabel.text = [NSString stringWithFormat:@"Audio\r%@", [objectCountArray objectAtIndex:1]];
-    videoLabel.text = [NSString stringWithFormat:@"Video\r%@", [objectCountArray objectAtIndex:2]];
-    othersLabel.text = [NSString stringWithFormat:@"Otros\r%@", [objectCountArray objectAtIndex:3]];
+    booksLabel.text = [NSString stringWithFormat:@"%@", [objectCountArray objectAtIndex:0]];
+    audioLabel.text = [NSString stringWithFormat:@"%@", [objectCountArray objectAtIndex:1]];
+    videoLabel.text = [NSString stringWithFormat:@"%@", [objectCountArray objectAtIndex:2]];
+    othersLabel.text = [NSString stringWithFormat:@"%@", [objectCountArray objectAtIndex:3]];
 }
 
 - (void)didReceiveMemoryWarning
