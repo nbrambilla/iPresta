@@ -50,7 +50,7 @@
 {
     [super viewDidLoad];
     
-    filteredObjectsArray = [[NSMutableArray alloc] init];
+    filteredObjectsArray = [NSMutableArray new];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTableView) name:@"setObjectsTableObserver" object:nil];
     
@@ -493,7 +493,6 @@
 # pragma mark - Private Methods
 
 -(NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector
-
 {
     UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
     

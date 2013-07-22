@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AddressBook/AddressBook.h>
+#import <AddressBookUI/AddressBookUI.h>
 
-@interface ObjectsMenuViewController : UIViewController
+@interface ObjectsMenuViewController : UIViewController <ABPeoplePickerNavigationControllerDelegate>
 {
     @private
     IBOutlet UIButton *booksListButton;

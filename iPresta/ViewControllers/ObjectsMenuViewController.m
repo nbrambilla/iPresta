@@ -13,6 +13,7 @@
 #import "iPrestaObject.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
+#import "AppContactsListViewController.h"
 
 @interface ObjectsMenuViewController ()
 
@@ -31,7 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     [self setView];
     [self countObjects];
     [self addObservers];
@@ -155,6 +156,104 @@
     NSInteger count = [[objectCountArray objectAtIndex:type] integerValue] - 1;
     
     [objectCountArray replaceObjectAtIndex:type withObject:[NSNumber numberWithInteger:count]];
+}
+
+#pragma mark - People Picker Methods
+
+- (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
+{
+    NSLog(@"%ld", ABAddressBookGetPersonCount(peoplePicker.addressBook));
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController*)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
+{
+    NSString *firstName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+    NSString *middleName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonMiddleNameProperty);
+    NSString *lastName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonLastNameProperty);
+    
+    firstName = nil;
+    middleName = nil;
+    lastName = nil;
+    
+    [self dismissModalViewControllerAnimated:YES];
+    return NO;
+}
+
+- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
+{
+    return NO;
+}
+
+- (IBAction)goToAppContacts:(id)sender
+{
+    AppContactsListViewController *viewController = [[AppContactsListViewController alloc] initWithNibName:@"AppContactsListViewController" bundle:nil];
+    [self.navigationController pushViewController:viewController animated:YES];
+    
+    viewController = nil;
+//    ABPeoplePickerNavigationController *peoplePicker = [ABPeoplePickerNavigationController new];
+//    peoplePicker.addressBook = [self filteredAddressBook];
+//    peoplePicker.peoplePickerDelegate = self;
+//    
+//    [self presentModalViewController:peoplePicker animated:YES];
+}
+
+- (ABAddressBookRef)filteredAddressBook
+{
+    ABAddressBookRef addressBook = ABAddressBookCreate();
+    CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
+    CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
+    NSLog(@"%@", ABAddressBookCopyArrayOfAllPeople(addressBook));
+    
+    for ( int i = 0; i < nPeople; i++ )
+    {
+        ABRecordRef person = CFArrayGetValueAtIndex(allPeople, i);
+        
+        NSString *fname = (__bridge NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+        NSString *lname = (__bridge NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
+        
+        NSString *name;
+        NSString *phoneNumber;
+        
+        if (lname)
+        {
+            name = [fname stringByAppendingFormat: @" %@", lname];
+        } else
+        {
+            name = fname;
+        }
+        
+        ABMultiValueRef   phoneNumbers = ABRecordCopyValue(person, kABPersonPhoneProperty);
+        int count = ABMultiValueGetCount(phoneNumbers);
+        
+        if (count > 0 && name)
+        {
+            phoneNumber = (__bridge NSString*)ABMultiValueCopyValueAtIndex(phoneNumbers, 0);
+        }
+        
+        NSString *firstChar = [[name substringToIndex:1] lowercaseString];
+        
+        if (![firstChar isEqual:@"a"])
+        {
+            ABAddressBookRemoveRecord(addressBook, person, nil);
+        }
+        else
+        {
+            
+        }
+    }
+    
+    return addressBook;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
 }
 
 @end

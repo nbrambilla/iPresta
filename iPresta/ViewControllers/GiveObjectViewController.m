@@ -21,6 +21,8 @@
 
 @implementation GiveObjectViewController
 
+#pragma mark - Lifecycle Methods
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -47,6 +49,15 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)viewDidUnload
+{
+    giveToTextField = nil;
+    timeTextField = nil;
+    [super viewDidUnload];
+}
+
+#pragma mark - People Picker Methods
 
 - (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
 {
@@ -86,13 +97,6 @@
     [self presentModalViewController:picker animated:YES];
 }
 
-- (void)viewDidUnload
-{
-    giveToTextField = nil;
-    timeTextField = nil;
-    [super viewDidUnload];
-}
-
 #pragma mark - Keyboard Methods
 
 - (IBAction)hideKeyboard:(id)sender
@@ -114,21 +118,23 @@
 {
     if (textField == timeTextField)
     {
-        MLTableAlert *extendGiveTableAlert = [MLTableAlert tableAlertWithTitle:@"Prestar" cancelButtonTitle:@"Cancelar" numberOfRows:^NSInteger (NSInteger section)
-                                              {
-                                                  return [[Give giveTimesArray] count];
-                                              }
-                                                                      andCells:^UITableViewCell* (MLTableAlert *anAlert, NSIndexPath *indexPath)
-                                              {
-                                                  static NSString *CellIdentifier = @"CellIdentifier";
-                                                  UITableViewCell *cell = [anAlert.table dequeueReusableCellWithIdentifier:CellIdentifier];
-                                                  if (cell == nil)
-                                                      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-                                                  
-                                                  cell.textLabel.text = [[Give giveTimesArray] objectAtIndex:indexPath.row];
-                                                  
-                                                  return cell;
-                                              }];
+        MLTableAlert *extendGiveTableAlert = [MLTableAlert tableAlertWithTitle:@"Prestar"                                                             cancelButtonTitle:@"Cancelar" numberOfRows:^NSInteger (NSInteger section)
+            {
+                return [[Give giveTimesArray] count];
+            }
+                andCells:^UITableViewCell* (MLTableAlert *anAlert, NSIndexPath *indexPath)
+            {
+                static NSString *CellIdentifier = @"CellIdentifier";
+                UITableViewCell *cell = [anAlert.table dequeueReusableCellWithIdentifier:CellIdentifier];
+                if (cell == nil)
+                {
+                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                }
+              
+                cell.textLabel.text = [[Give giveTimesArray] objectAtIndex:indexPath.row];
+              
+                return cell;
+            }];
         
         extendGiveTableAlert.height = 250;
         

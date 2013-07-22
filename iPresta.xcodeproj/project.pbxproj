@@ -100,6 +100,8 @@
 		193A729C17672BFF001EB94D /* IMOAutocompletionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A729717672BFF001EB94D /* IMOAutocompletionViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		193A729D17672BFF001EB94D /* IMOCompletionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A729917672BFF001EB94D /* IMOCompletionCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		193A729E17672BFF001EB94D /* IMOCompletionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A729B17672BFF001EB94D /* IMOCompletionController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		194CE55F179D75B8008BFDE0 /* AppContactsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194CE55D179D75B8008BFDE0 /* AppContactsListViewController.m */; };
+		194CE560179D75B8008BFDE0 /* AppContactsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 194CE55E179D75B8008BFDE0 /* AppContactsListViewController.xib */; };
 		1952EFA1176861990057820B /* IMOAutocompletionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1952EF9F176861990057820B /* IMOAutocompletionViewController.xib */; };
 		19C263AE1793F7490052DA32 /* FormBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C263AC1793F7490052DA32 /* FormBookViewController.m */; };
 		19C263AF1793F7490052DA32 /* FormBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19C263AD1793F7490052DA32 /* FormBookViewController.xib */; };
@@ -271,6 +273,9 @@
 		193A729917672BFF001EB94D /* IMOCompletionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMOCompletionCell.m; path = "External Frameworks/IMOAutocompletionViewController/IMOCompletionCell.m"; sourceTree = "<group>"; };
 		193A729A17672BFF001EB94D /* IMOCompletionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMOCompletionController.h; path = "External Frameworks/IMOAutocompletionViewController/IMOCompletionController.h"; sourceTree = "<group>"; };
 		193A729B17672BFF001EB94D /* IMOCompletionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMOCompletionController.m; path = "External Frameworks/IMOAutocompletionViewController/IMOCompletionController.m"; sourceTree = "<group>"; };
+		194CE55C179D75B7008BFDE0 /* AppContactsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppContactsListViewController.h; path = ViewControllers/AppContactsListViewController.h; sourceTree = "<group>"; };
+		194CE55D179D75B8008BFDE0 /* AppContactsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppContactsListViewController.m; path = ViewControllers/AppContactsListViewController.m; sourceTree = "<group>"; };
+		194CE55E179D75B8008BFDE0 /* AppContactsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AppContactsListViewController.xib; path = ViewControllers/AppContactsListViewController.xib; sourceTree = "<group>"; };
 		1952EF9F176861990057820B /* IMOAutocompletionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = IMOAutocompletionViewController.xib; path = iPresta/ViewControllers/IMOAutocompletionViewController.xib; sourceTree = "<group>"; };
 		19C263AB1793F7490052DA32 /* FormBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FormBookViewController.h; path = ViewControllers/FormBookViewController.h; sourceTree = "<group>"; };
 		19C263AC1793F7490052DA32 /* FormBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FormBookViewController.m; path = ViewControllers/FormBookViewController.m; sourceTree = "<group>"; };
@@ -610,6 +615,9 @@
 				19C263BF17943B240052DA32 /* FormOtherViewController.h */,
 				19C263C017943B250052DA32 /* FormOtherViewController.m */,
 				19C263C117943B250052DA32 /* FormOtherViewController.xib */,
+				194CE55C179D75B7008BFDE0 /* AppContactsListViewController.h */,
+				194CE55D179D75B8008BFDE0 /* AppContactsListViewController.m */,
+				194CE55E179D75B8008BFDE0 /* AppContactsListViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -814,6 +822,7 @@
 				19316D6517993C8E00939597 /* contacts_icon@2x.png in Resources */,
 				19316D68179947E000939597 /* search_icon.png in Resources */,
 				19316D69179947E000939597 /* search_icon@2x.png in Resources */,
+				194CE560179D75B8008BFDE0 /* AppContactsListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -859,6 +868,7 @@
 				19C263B8179406890052DA32 /* FormAudioViewController.m in Sources */,
 				19C263BD179433B00052DA32 /* FormVideoViewController.m in Sources */,
 				19C263C217943B260052DA32 /* FormOtherViewController.m in Sources */,
+				194CE55F179D75B8008BFDE0 /* AppContactsListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
