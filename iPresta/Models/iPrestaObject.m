@@ -493,7 +493,13 @@ static iPrestaObject *currentObject;
         }
         return firstLetter;
     }
-    else return self.name;
+    
+    return self.name;
+}
+
+- (NSString *)getCompareName
+{
+    return self.name;
 }
 
 @end

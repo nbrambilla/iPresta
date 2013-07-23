@@ -213,25 +213,4 @@
     return -1; // error
 }
 
-- (NSString *)firstLetter
-{
-    NSInteger len = [self length];
-    
-    if (len > 1)
-    {
-        NSString *firstLetter = [[self substringWithRange:NSMakeRange(0, 1)] lowercaseString];
-        NSString *secondLetter = [[self substringWithRange:NSMakeRange(1, 1)] lowercaseString];
-        if ([firstLetter isEqual:@"c"] && [secondLetter isEqual:@"h"])
-        {
-            return @"ch";
-        }
-        if ([firstLetter isEqual:@"l"] && [secondLetter isEqual:@"l"])
-        {
-            return @"ll";
-        }
-        return firstLetter;
-    }
-    else return self;
-}
-
 @end

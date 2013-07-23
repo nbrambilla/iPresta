@@ -8,6 +8,10 @@
 
 #import "AppContactsListViewController.h"
 #import "iPrestaNSString.h"
+#import "AddressBookRegister.h"
+#import "User.h"
+#import "ProgressHUD.h"
+#import "iPrestaNSError.h"
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 
@@ -51,7 +55,70 @@
 - (void)setTableView
 {
     filteredAppContactsList = [NSMutableArray new];
-    appContactsList = [NSMutableArray arrayWithArray:[self partitionObjects:[self getAppContacts] collationStringSelector:@selector(firstLetter)]];
+    NSMutableArray *appContactsArray = [NSMutableArray new];
+    NSMutableArray *emailsArray = [NSMutableArray new];
+    
+    // Se crea un objeto agenda con todos los contactos existentes en el telefono. Se crea un arrray con la agenda para poder recorrerlo
+    ABAddressBookRef addressBook = ABAddressBookCreate();
+    CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
+    NSInteger countPeople = ABAddressBookGetPersonCount(addressBook);
+    
+    
+    // se recorre el array de la agenda. Se crean un arrary de AddressBookRegisters y de emails. Con toda la agenda
+    for (NSInteger i = 0; i < countPeople; i++)
+    {
+        ABRecordRef person = CFArrayGetValueAtIndex(allPeople, i);
+        
+        NSString *firstName = (__bridge NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+        NSString *middleName = (__bridge NSString*)ABRecordCopyValue(person, kABPersonMiddleNameProperty);
+        NSString *lastName = (__bridge NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
+        
+        ABMultiValueRef emails = ABRecordCopyValue(person, kABPersonEmailProperty);
+        NSInteger countEmails = ABMultiValueGetCount(emails);
+        
+        for (NSInteger j = 0; j < countEmails; j++)
+        {
+            NSString *email = (__bridge NSString*)ABMultiValueCopyValueAtIndex(emails, j);
+            
+            AddressBookRegister *reg = [[AddressBookRegister alloc] initWithFirstName:firstName middleName:middleName lastName:lastName andEmail:email];
+            [appContactsArray addObject:reg];
+            [emailsArray addObject:email];
+        }
+    }
+    
+    // se crea una consulata para poder buscar todos los usuarios de la app de que tenemos en la agenda a partir del array de emils.
+    PFQuery *appUsersQuery = [User query];
+    [appUsersQuery whereKey:@"email" containedIn:emailsArray];
+    
+    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    [appUsersQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+         [ProgressHUD hideHUDForView:self.view animated:YES];
+        
+         appContactsList = [NSMutableArray new];
+        
+         if (error) [error manageErrorTo:self];     // Si hay error al obtener los usuarios de la app
+         else                                       // Si se obtienen los usuarios, se buscan en los registros
+         {
+             // se buscan las coincidencias en el array de AddressBookRegister para buscar los registros de los usuarios de la app. Si existe, no se debe mostrar el registro del usuario logueado
+             for (User *user in objects)
+             {
+                 for (AddressBookRegister *reg in appContactsArray)
+                 {
+                     if ([user.email isEqual:reg.email] && ![user isEqual:[User currentUser]])
+                     {
+                         reg.user = user;
+                         [appContactsList addObject:reg];
+                     }
+                 }
+             }
+             
+             // Se ordenan los usuarios de la app por indice y orden alfabetico y se recarga la tabla para poder visualizarlos
+             appContactsList = [[self partitionObjects:appContactsList collationStringSelector:@selector(firstLetter)] mutableCopy];
+             [self.tableView reloadData];
+         }
+     }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,12 +135,12 @@
     
     for (NSArray *section in appContactsList)
     {
-        for (NSString *object in section)
+        for (AddressBookRegister *reg in section)
         {
-            NSComparisonResult result = [object compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:[object rangeOfString:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch)]];
+            NSComparisonResult result = [[reg getFullName] compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:[[reg getFullName] rangeOfString:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch)]];
             if (result == NSOrderedSame)
             {
-                [filteredAppContactsList addObject:object];
+                [filteredAppContactsList addObject:reg];
             }
         }
     }    
@@ -100,7 +167,6 @@
 #pragma mark - Table view data source
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-
 {
     if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
@@ -167,17 +233,22 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
+    
+    AddressBookRegister *reg;
     
     if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
-        cell.textLabel.text = [filteredAppContactsList objectAtIndex:indexPath.row];
+        reg = [filteredAppContactsList objectAtIndex:indexPath.row];
     }
 	else
 	{
-        cell.textLabel.text = [[appContactsList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        reg = [[appContactsList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     }
+    
+    cell.textLabel.text = [reg getFullName];
+    cell.detailTextLabel.text = reg.email;
     
     return cell;
 }
@@ -232,6 +303,19 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    AddressBookRegister *reg;
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+	{
+        reg = [filteredAppContactsList objectAtIndex:indexPath.row];
+    }
+	else
+	{
+        reg = [[appContactsList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    }
 }
 
 # pragma mark - Private Methods
@@ -244,17 +328,17 @@
     NSMutableArray *unsortedSections = [NSMutableArray arrayWithCapacity:sectionCount];
     
     //create an array to hold the data for each section
-    for(int i = 0; i < sectionCount; i++)
+    for (int i = 0; i < sectionCount; i++)
     {
         [unsortedSections addObject:[NSMutableArray array]];
     }
     
     //put each object into a section
-    for (NSString *object in array)
+    for (AddressBookRegister *reg in array)
     {
-        NSInteger index = [collation sectionForObject:object collationStringSelector:selector];
+        NSInteger index = [collation sectionForObject:reg collationStringSelector:selector];
         
-        [[unsortedSections objectAtIndex:index] addObject:object];
+        [[unsortedSections objectAtIndex:index] addObject:reg];
     }
     
     NSMutableArray *sections = [NSMutableArray arrayWithCapacity:sectionCount];
@@ -262,55 +346,10 @@
     //sort each section
     for (NSMutableArray *section in unsortedSections)
     {
-        [sections addObject:[[collation sortedArrayFromArray:section collationStringSelector:selector] mutableCopy]];
+        [sections addObject:[[collation sortedArrayFromArray:section collationStringSelector:@selector(getCompareName)] mutableCopy]];
     }
     
     return sections;
-}
-
-- (NSMutableArray *)getAppContacts
-{
-    NSMutableArray *appContactsArray = [NSMutableArray new];
-    
-    ABAddressBookRef addressBook = ABAddressBookCreate();
-    CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
-    CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
-    
-    for (int i = 0; i < nPeople; i++)
-    {
-        ABRecordRef person = CFArrayGetValueAtIndex(allPeople, i);
-        
-        NSString *fname = (__bridge NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
-        NSString *lname = (__bridge NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
-        
-        NSString *name;
-        NSString *phoneNumber;
-        
-        if (lname)
-        {
-            name = [fname stringByAppendingFormat: @" %@", lname];
-        } else
-        {
-            name = fname;
-        }
-        
-        ABMultiValueRef   phoneNumbers = ABRecordCopyValue(person, kABPersonPhoneProperty);
-        int count = ABMultiValueGetCount(phoneNumbers);
-        
-        if (count > 0 && name)
-        {
-            phoneNumber = (__bridge NSString*)ABMultiValueCopyValueAtIndex(phoneNumbers, 0);
-        }
-        
-        NSString *firstChar = [[name substringToIndex:1] lowercaseString];
-        
-        if ([firstChar isEqual:@"g"])
-        {
-            [appContactsArray addObject:name];;
-        }
-    }
-    
-    return appContactsArray;
 }
 
 @end

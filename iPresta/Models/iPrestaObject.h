@@ -85,5 +85,6 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 - (NSString *)textType;
 - (NSString *)textAudioType;
 - (NSString *)textVideoType;
+- (NSString *)getCompareName;
 
 @end

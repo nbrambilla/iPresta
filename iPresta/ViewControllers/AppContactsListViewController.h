@@ -12,6 +12,7 @@
 {
     NSMutableArray *appContactsList;
     NSMutableArray *filteredAppContactsList;
+    
     IBOutlet UISearchBar *searchBar;
 }
 

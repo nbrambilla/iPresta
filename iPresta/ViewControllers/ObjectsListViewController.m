@@ -518,7 +518,7 @@
     //sort each section
     for (NSMutableArray *section in unsortedSections)
     {
-        [sections addObject:[[collation sortedArrayFromArray:section collationStringSelector:selector] mutableCopy]];
+        [sections addObject:[[collation sortedArrayFromArray:section collationStringSelector:@selector(getCompareName)] mutableCopy]];
     }
     
     return sections;

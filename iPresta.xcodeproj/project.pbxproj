@@ -103,6 +103,7 @@
 		194CE55F179D75B8008BFDE0 /* AppContactsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194CE55D179D75B8008BFDE0 /* AppContactsListViewController.m */; };
 		194CE560179D75B8008BFDE0 /* AppContactsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 194CE55E179D75B8008BFDE0 /* AppContactsListViewController.xib */; };
 		1952EFA1176861990057820B /* IMOAutocompletionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1952EF9F176861990057820B /* IMOAutocompletionViewController.xib */; };
+		19BA25CF179E6E83004F24DE /* AddressBookRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = 19BA25CE179E6E83004F24DE /* AddressBookRegister.m */; };
 		19C263AE1793F7490052DA32 /* FormBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C263AC1793F7490052DA32 /* FormBookViewController.m */; };
 		19C263AF1793F7490052DA32 /* FormBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19C263AD1793F7490052DA32 /* FormBookViewController.xib */; };
 		19C263B8179406890052DA32 /* FormAudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C263B6179406880052DA32 /* FormAudioViewController.m */; };
@@ -277,6 +278,8 @@
 		194CE55D179D75B8008BFDE0 /* AppContactsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppContactsListViewController.m; path = ViewControllers/AppContactsListViewController.m; sourceTree = "<group>"; };
 		194CE55E179D75B8008BFDE0 /* AppContactsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AppContactsListViewController.xib; path = ViewControllers/AppContactsListViewController.xib; sourceTree = "<group>"; };
 		1952EF9F176861990057820B /* IMOAutocompletionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = IMOAutocompletionViewController.xib; path = iPresta/ViewControllers/IMOAutocompletionViewController.xib; sourceTree = "<group>"; };
+		19BA25CD179E6E83004F24DE /* AddressBookRegister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddressBookRegister.h; path = iPresta/Models/AddressBookRegister.h; sourceTree = "<group>"; };
+		19BA25CE179E6E83004F24DE /* AddressBookRegister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddressBookRegister.m; path = iPresta/Models/AddressBookRegister.m; sourceTree = "<group>"; };
 		19C263AB1793F7490052DA32 /* FormBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FormBookViewController.h; path = ViewControllers/FormBookViewController.h; sourceTree = "<group>"; };
 		19C263AC1793F7490052DA32 /* FormBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FormBookViewController.m; path = ViewControllers/FormBookViewController.m; sourceTree = "<group>"; };
 		19C263AD1793F7490052DA32 /* FormBookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FormBookViewController.xib; path = ViewControllers/FormBookViewController.xib; sourceTree = "<group>"; };
@@ -631,6 +634,8 @@
 				15B85BDA16F49CFE00FB5674 /* iPrestaObject.m */,
 				15124E5916FDDFBD00520FE2 /* Give.h */,
 				15124E5A16FDDFBD00520FE2 /* Give.m */,
+				19BA25CD179E6E83004F24DE /* AddressBookRegister.h */,
+				19BA25CE179E6E83004F24DE /* AddressBookRegister.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -869,6 +874,7 @@
 				19C263BD179433B00052DA32 /* FormVideoViewController.m in Sources */,
 				19C263C217943B260052DA32 /* FormOtherViewController.m in Sources */,
 				194CE55F179D75B8008BFDE0 /* AppContactsListViewController.m in Sources */,
+				19BA25CF179E6E83004F24DE /* AddressBookRegister.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

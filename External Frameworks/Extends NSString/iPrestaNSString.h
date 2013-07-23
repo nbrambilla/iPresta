@@ -19,6 +19,5 @@
 - (NSString *)encodeToURL;
 - (NSString *)serialize;
 - (NSInteger)distance:(NSString *)string;
-- (NSString *)firstLetter;
 
 @end
