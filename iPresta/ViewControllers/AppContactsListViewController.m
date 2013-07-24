@@ -12,6 +12,7 @@
 #import "User.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
+#import "ObjectsMenuViewController.h"
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 
@@ -89,6 +90,7 @@
     // se crea una consulata para poder buscar todos los usuarios de la app de que tenemos en la agenda a partir del array de emils.
     PFQuery *appUsersQuery = [User query];
     [appUsersQuery whereKey:@"email" containedIn:emailsArray];
+    [appUsersQuery whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
     
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
     
@@ -316,6 +318,14 @@
 	{
         reg = [[appContactsList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     }
+    
+    [User setObjectsUser:reg.user];
+    
+    ObjectsMenuViewController *viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
+    [self.navigationController pushViewController:viewController animated:YES];
+    
+    reg = nil;
+    viewController = nil;
 }
 
 # pragma mark - Private Methods

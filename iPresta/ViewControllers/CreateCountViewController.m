@@ -83,6 +83,7 @@
                 newUser.username = emailTextField.text;
                 newUser.email = emailTextField.text;
                 newUser.password = passwordTextField.text;
+                newUser.visible = YES;
                 
                 [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
                 {

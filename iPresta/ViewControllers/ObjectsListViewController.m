@@ -55,7 +55,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTableView) name:@"setObjectsTableObserver" object:nil];
     
     [self setTableView];
-    [self setTableViewHeader];
+    
+    if (![User objectsUserIsSet])
+    {
+        [self setTableViewHeader];
+    }
     [self setNavigationBar];
 }
 
@@ -73,7 +77,7 @@
     if (self.isMovingFromParentViewController)
     {
         [iPrestaObject setTypeSelected:NoneType];
-        [[User currentUser] setObjectsArray:nil];
+        [[User objectsUser] setObjectsArray:nil];
     }
 }
 
@@ -87,8 +91,13 @@
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
     
     PFQuery *getObjectsQuery = [iPrestaObject query];
-    [getObjectsQuery whereKey:@"owner" equalTo:[User currentUser]];
+    [getObjectsQuery whereKey:@"owner" equalTo:[User objectsUser]];
     [getObjectsQuery whereKey:@"type" equalTo:[NSNumber numberWithInteger:[iPrestaObject typeSelected]]];
+    
+    if ([User objectsUserIsSet])
+    {
+        [getObjectsQuery whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
+    }
     
     [getObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
@@ -97,7 +106,7 @@
          if (error) [error manageErrorTo:self];          // Si hay error al obtener los objetos
          else                                            // Si se obtienen los objetos, se listan
          {
-             [[User currentUser] setObjectsArray:[NSMutableArray arrayWithArray:[self partitionObjects:objects collationStringSelector:@selector(firstLetter)]]];
+             [[User objectsUser] setObjectsArray:[NSMutableArray arrayWithArray:[self partitionObjects:objects collationStringSelector:@selector(firstLetter)]]];
              [self.tableView reloadData];
              [self.searchDisplayController.searchResultsTableView reloadData];
          }
@@ -122,7 +131,7 @@
     
     [navigationBar pushNavigationItem:navigationItem animated:NO];
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, HEADER_HEIGHT*2)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, HEADER_HEIGHT * 2)];
     
     self.tableView.tableHeaderView = headerView;
     
@@ -139,10 +148,13 @@
 {
     self.title = [[iPrestaObject objectTypes] objectAtIndex:[iPrestaObject typeSelected]];
     
-    UIBarButtonItem *addObjectlButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(goToAddObject)];
-    self.navigationItem.rightBarButtonItem = addObjectlButton;
-    
-    addObjectlButton = nil;
+    if (![User objectsUserIsSet])
+    {
+        UIBarButtonItem *addObjectlButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(goToAddObject)];
+        self.navigationItem.rightBarButtonItem = addObjectlButton;
+        
+        addObjectlButton = nil;
+    }
 }
 
 - (void)viewDidUnload
@@ -177,7 +189,7 @@
     }
 	else
 	{
-        object = [[[[User currentUser] objectsArray] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        object = [[[[User objectsUser] objectsArray] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     }
     
     [object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
@@ -211,8 +223,8 @@
              }
         
              NSInteger sectionIndex = [[UILocalizedIndexedCollation currentCollation] sectionForObject:object collationStringSelector:@selector(firstLetter)];
-             NSInteger objectIndex = [[[[User currentUser] objectsArray] objectAtIndex:sectionIndex] indexOfObject:object];
-             [[[[User currentUser] objectsArray] objectAtIndex:sectionIndex] removeObjectIdenticalTo:object];
+             NSInteger objectIndex = [[[[User objectsUser] objectsArray] objectAtIndex:sectionIndex] indexOfObject:object];
+             [[[[User objectsUser] objectsArray] objectAtIndex:sectionIndex] removeObjectIdenticalTo:object];
              
              NSIndexPath *tableViewIndexPath = [NSIndexPath indexPathForRow:objectIndex inSection:sectionIndex];
              [self.tableView deleteRowsAtIndexPaths:@[tableViewIndexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -554,7 +566,7 @@
 
 - (NSMutableArray *)getObjectsAndSectionsArray
 {
-    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:[[User currentUser] objectsArray]];
+    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:[[User objectsUser] objectsArray]];
     
     switch (segmentedControl.selectedSegmentIndex)
     {
@@ -571,7 +583,7 @@
 
 - (NSMutableArray *)getObjectsArrayInSection:(NSInteger)section
 {
-    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:[[[User currentUser] objectsArray] objectAtIndex:section]];
+    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:[[[User objectsUser] objectsArray] objectAtIndex:section]];
     
     switch (segmentedControl.selectedSegmentIndex)
     {

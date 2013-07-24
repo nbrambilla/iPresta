@@ -18,10 +18,12 @@
     IBOutlet UILabel *editorialLabel;
     IBOutlet UILabel *descriptionLabel;
     IBOutlet UILabel *stateLabel;
+    IBOutlet UILabel *loanUpLabel;
     IBOutlet UIButton *giveButton;
     IBOutlet UIButton *giveBackButton;
-    IBOutlet UILabel *loanUpLabel;
     IBOutlet UIButton *loanUpButton;
+    IBOutlet UIButton *historycButton;
+    IBOutlet UISwitch *visibleSwitch;
 }
 
 @end

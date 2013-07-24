@@ -38,6 +38,16 @@
     [self addObservers];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if (self.isMovingFromParentViewController)
+    {
+        [User setObjectsUser:nil];
+    }
+}
+
 - (void)setView
 {    
     self.title = @"Menú";
@@ -46,6 +56,11 @@
     audioListButton.tag = AudioType;
     videoListButton.tag = VideoType;
     othersListButton.tag = OtherType;
+    
+    if ([User objectsUserIsSet])
+    {
+        extrasButtonsView.hidden = YES;
+    }
 }
 
 - (void)addObservers
@@ -60,7 +75,12 @@
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
     
     PFQuery *allObjectsQuery = [iPrestaObject query];
-    [allObjectsQuery whereKey:@"owner" equalTo:[User currentUser]];
+    [allObjectsQuery whereKey:@"owner" equalTo:[User objectsUser]];
+    
+    if ([User objectsUserIsSet])
+    {
+        [allObjectsQuery whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
+    }
     
     NSNumber *zero = [NSNumber numberWithInteger:0];
     objectCountArray = [[NSMutableArray alloc] initWithObjects:zero, zero, zero, zero, nil];
@@ -104,16 +124,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)goToObjectsList:(id)sender
+- (IBAction)goToObjectsList:(UIButton *)sender
 {
     ObjectsListViewController *viewController = [[ObjectsListViewController alloc] initWithNibName:@"ObjectsListViewController" bundle:nil];
     
-    UIButton *pressedButton = (UIButton *)sender;
-    [iPrestaObject setTypeSelected:pressedButton.tag];
+    [iPrestaObject setTypeSelected:sender.tag];
     [self.navigationController pushViewController:viewController animated:YES];
     
     viewController = nil;
-    pressedButton = nil;
 }
 
 - (IBAction)goToConfiguration:(id)sender
@@ -138,6 +156,14 @@
     videoLabel = nil;
     othersLabel = nil;
     
+    configButton = nil;
+    contactsButton = nil;
+    searchButton = nil;
+    configLabel = nil;
+    contactsLabel = nil;
+    searchLabel = nil;
+    objectsButtonsView = nil;
+    extrasButtonsView = nil;
     [super viewDidUnload];
 }
 

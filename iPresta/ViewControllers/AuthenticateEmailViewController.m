@@ -105,11 +105,6 @@
     changeEmailViewController = nil;
 }
 
-- (void)viewDidUnload
-{
-
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

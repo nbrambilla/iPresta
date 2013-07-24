@@ -27,6 +27,7 @@
     IBOutlet UITextField *editorialTextField;
     IBOutlet PHTextView *descriptionTextView;
     IBOutlet iPrestaImageView *imageView;
+    IBOutlet UISwitch *visibleSwitch;
     iPrestaObject *newObject;
     IMOAutocompletionViewController *autoComplete;
 }

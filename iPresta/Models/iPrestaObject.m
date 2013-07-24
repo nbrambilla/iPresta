@@ -29,6 +29,7 @@ static iPrestaObject *currentObject;
 @dynamic image;
 @dynamic audioType;
 @dynamic videoType;
+@dynamic visible;
 @synthesize imageData = _imageData;
 @synthesize imageURL = _imageURL;
 @synthesize delegate = _delegate;

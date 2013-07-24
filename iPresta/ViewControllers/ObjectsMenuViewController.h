@@ -11,15 +11,23 @@
 @interface ObjectsMenuViewController : UIViewController
 {
     @private
+    IBOutlet UIView *objectsButtonsView;
     IBOutlet UIButton *booksListButton;
     IBOutlet UIButton *audioListButton;
     IBOutlet UIButton *videoListButton;
     IBOutlet UIButton *othersListButton;
+    IBOutlet UIButton *configButton;
+    IBOutlet UIButton *contactsButton;
+    IBOutlet UIButton *searchButton;
     
+    IBOutlet UIView *extrasButtonsView;
     IBOutlet UILabel *booksLabel;
     IBOutlet UILabel *audioLabel;
     IBOutlet UILabel *videoLabel;
     IBOutlet UILabel *othersLabel;
+    IBOutlet UILabel *configLabel;
+    IBOutlet UILabel *contactsLabel;
+    IBOutlet UILabel *searchLabel;
     
     NSMutableArray *objectCountArray;
 }

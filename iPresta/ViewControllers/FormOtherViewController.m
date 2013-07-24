@@ -56,6 +56,7 @@
     nameTextField = nil;
     newObject = nil;
     imageView = nil;
+    visibleSwitch = nil;
     [super viewDidUnload];
 }
 
@@ -193,6 +194,7 @@
     newObject.type = [iPrestaObject typeSelected];
     newObject.state = Property;
     newObject.name = nameTextField.text;
+    newObject.visible = visibleSwitch.isOn;
     
     if (imageView.isSetted)
     {

@@ -38,10 +38,6 @@
         
         self.frame = frame;
         
-        self = [[[NSBundle mainBundle] loadNibNamed: NSStringFromClass([iPrestaImageView class]) owner:nil options:nil] objectAtIndex:0];
-        
-        self.frame = frame;
-        
         [self deleteImage];
         _imageView.layer.borderColor = [[UIColor blackColor] CGColor];
         _imageView.layer.borderWidth = 1.0f;

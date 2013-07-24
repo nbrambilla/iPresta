@@ -63,6 +63,7 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 @property(retain) PFFile *image;
 @property(assign) AudioObjectType audioType;
 @property(assign) VideoObjectType videoType;
+@property(assign) BOOL visible;
 @property(strong, nonatomic) NSData *imageData;
 @property(strong, nonatomic) NSString *imageURL;
 @property(strong, nonatomic) id<iPrestaObjectDelegate> delegate;

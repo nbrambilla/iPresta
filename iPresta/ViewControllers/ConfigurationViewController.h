@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ConfigurationViewController : UIViewController
+{
+    @private
+    IBOutlet UISwitch *visibleSwitch;
+}
 
 @end

@@ -13,7 +13,10 @@
 
 @implementation User
 
+static User *objectsUser;
+
 @dynamic objectId;
+@dynamic visible;
 @dynamic email;
 @dynamic username;
 @dynamic password;
@@ -33,6 +36,11 @@
 
 #pragma mark - Class Setters
 
++ (void)setObjectsUser:(User *)user
+{
+    objectsUser = user;
+}
+
 - (void)setObjectsArray:(NSMutableArray *)objectsArray
 {
     _objectsArray = objectsArray;
@@ -43,6 +51,16 @@
 - (NSMutableArray *)objectsArray
 {
     return _objectsArray;
+}
+
++ (User *)objectsUser
+{
+    return (objectsUser) ? objectsUser : [User currentUser];
+}
+
++ (BOOL)objectsUserIsSet
+{
+    return (![[User objectsUser] isEqual:[User currentUser]]);
 }
 
 # pragma mark - Public Methods

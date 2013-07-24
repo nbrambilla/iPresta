@@ -12,6 +12,7 @@
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
 #import "Give.h"
+#import "User.h"
 #import "MLTableAlert.h"
 #import "ObjectHistoricGiveViewController.h"
 #import "iPrestaNSString.h"
@@ -50,54 +51,6 @@
     [super viewWillDisappear:animated];
 }
 
-- (void)setView
-{
-    typeLabel.text = [[iPrestaObject currentObject] textType];
-    nameLabel.text = [[iPrestaObject currentObject] name];
-    authorLabel.text = [[iPrestaObject currentObject] author];
-    editorialLabel.text = [[iPrestaObject currentObject] editorial];
-    descriptionLabel.text = [[iPrestaObject currentObject] descriptionObject];
-    imageView.image = [UIImage imageWithData:[[iPrestaObject currentObject] imageData]];
-  
-    if ([[iPrestaObject currentObject] state] == Given)
-    {
-        giveButton.enabled = NO;
-        giveBackButton.enabled = YES;
-        
-        PFQuery *getActualGiveQuery = [Give query];
-        [getActualGiveQuery whereKey:@"object" equalTo:[iPrestaObject currentObject]];
-        [getActualGiveQuery whereKey:@"actual" equalTo:[NSNumber numberWithBool:YES]];
-        
-         [ProgressHUD  showHUDAddedTo:self.view animated:YES];
-        
-        [getActualGiveQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-        {
-            [ProgressHUD hideHUDForView:self.view animated:YES];
-            
-            [[iPrestaObject currentObject] setActualGive:[objects objectAtIndex:0]];
-            stateLabel.text = [NSString stringWithFormat:@"%@ a %@", [[iPrestaObject currentObject] textState], [[[iPrestaObject currentObject] actualGive] name]];
-        }];
-    }
-    else
-    {
-        stateLabel.text = [[iPrestaObject currentObject] textState];
-        
-        giveButton.enabled = YES;
-        giveBackButton.enabled = NO;
-    }
-    
-    if ([[[[iPrestaObject currentObject] actualGive] dateEnd] compare:[NSDate date]] == NSOrderedAscending)
-    {
-        loanUpLabel.hidden = NO;
-        loanUpButton.enabled = YES;
-    }
-    else
-    {
-        loanUpLabel.hidden = YES;
-        loanUpButton.enabled = NO;
-    }
-}
-
 - (void)viewDidUnload
 {
     typeLabel = nil;
@@ -110,7 +63,88 @@
     giveBackButton = nil;
     loanUpLabel = nil;
     loanUpButton = nil;
+    historycButton = nil;
+    visibleSwitch = nil;
     [super viewDidUnload];
+}
+
+- (void)setView
+{
+    typeLabel.text = [[iPrestaObject currentObject] textType];
+    nameLabel.text = [[iPrestaObject currentObject] name];
+    authorLabel.text = [[iPrestaObject currentObject] author];
+    editorialLabel.text = [[iPrestaObject currentObject] editorial];
+    descriptionLabel.text = [[iPrestaObject currentObject] descriptionObject];
+    imageView.image = [UIImage imageWithData:[[iPrestaObject currentObject] imageData]];
+    loanUpLabel.hidden = YES;
+    
+    if (![User objectsUserIsSet])
+    {
+        [visibleSwitch setOn:[[iPrestaObject currentObject] visible]];
+        
+        if ([[iPrestaObject currentObject] state] == Given)
+        {
+            giveButton.enabled = NO;
+            giveBackButton.enabled = YES;
+            
+            PFQuery *getActualGiveQuery = [Give query];
+            [getActualGiveQuery whereKey:@"object" equalTo:[iPrestaObject currentObject]];
+            [getActualGiveQuery whereKey:@"actual" equalTo:[NSNumber numberWithBool:YES]];
+            
+            [ProgressHUD  showHUDAddedTo:self.view animated:YES];
+            
+            [getActualGiveQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+            {
+                [ProgressHUD hideHUDForView:self.view animated:YES];
+                
+                [[iPrestaObject currentObject] setActualGive:[objects objectAtIndex:0]];
+                stateLabel.text = [NSString stringWithFormat:@"%@ a %@", [[iPrestaObject currentObject] textState], [[[iPrestaObject currentObject] actualGive] name]];
+                
+                if ([[[[iPrestaObject currentObject] actualGive] dateEnd] compare:[NSDate date]] == NSOrderedAscending)
+                {
+                    loanUpLabel.hidden = NO;
+                    loanUpButton.enabled = YES;
+                }
+                else
+                {
+                    loanUpLabel.hidden = YES;
+                    loanUpButton.enabled = NO;
+                }
+            }];
+        }
+        else
+        {
+            stateLabel.text = [[iPrestaObject currentObject] textState];
+            
+            giveButton.enabled = YES;
+            giveBackButton.enabled = NO;
+        }
+    }
+    else
+    {
+        loanUpLabel.hidden = YES;
+        
+        visibleSwitch.hidden = YES;
+        loanUpButton.hidden = YES;
+        giveBackButton.hidden = YES;
+        giveButton.hidden = YES;
+        historycButton.hidden = YES;
+    }
+}
+
+- (IBAction)changeVisibility:(UISwitch *)sender
+{
+    iPrestaObject *currentObject = [iPrestaObject currentObject];
+    currentObject.visible = sender.isOn;
+    
+    [ProgressHUD  showHUDAddedTo:self.view animated:YES];
+    
+    [currentObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+    {
+        [ProgressHUD hideHUDForView:self.view animated:YES];
+        
+        if (error) [error manageErrorTo:self];      // Si hay error al actualizar el objeto
+    }];
 }
 
 - (IBAction)goToGiveObject:(id)sender

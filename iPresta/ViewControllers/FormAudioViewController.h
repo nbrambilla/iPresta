@@ -26,6 +26,7 @@
     IBOutlet STComboText *audioTypeComboText;
     IBOutlet PHTextView *descriptionTextView;
     IBOutlet iPrestaImageView *imageView;
+    IBOutlet UISwitch *visibleSwitch;
     iPrestaObject *newObject;
     NSArray *audioTypesArray;
     AudioObjectType audioTypeSelectedIndex;

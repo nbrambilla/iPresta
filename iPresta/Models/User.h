@@ -13,6 +13,7 @@
 @interface User : PFUser<PFSubclassing>
 
 @property(retain) NSString *objectId;
+@property(assign) BOOL visible;
 @property(retain, nonatomic) NSString *email;
 @property(retain, nonatomic) NSString *username;
 @property(retain, nonatomic) NSString *password;
@@ -20,6 +21,9 @@
 
 + (BOOL)currentUserHasEmailVerified;
 + (User *)currentUser;
++ (void)setObjectsUser:(User *)user;
++ (User *)objectsUser;
++ (BOOL)objectsUserIsSet;
 - (BOOL)hasObject:(iPrestaObject *)object;
 
 @end
