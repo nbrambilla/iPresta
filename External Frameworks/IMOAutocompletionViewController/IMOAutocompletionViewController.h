@@ -34,6 +34,7 @@
 @property (assign, nonatomic) id <IMOAutocompletionViewDataSource> dataSource;
 @property (assign, nonatomic) id <IMOAutocompletionViewDelegate> delegate;
 
+- (id)initWithCancelButton:(BOOL)setCancelButton;
 - (void)loadSearchTableWithResults:(NSArray *)searchResults error:(NSError *)error;
 
 @end

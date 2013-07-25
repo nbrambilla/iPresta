@@ -288,18 +288,18 @@
     }
 }
 
-#pragma mark - Button Methods
+#pragma mark - Search Methods
 
 - (IBAction)searchObject:(id)sender
 {
-    autoComplete = [[IMOAutocompletionViewController alloc] init];
+    autoComplete = [[IMOAutocompletionViewController alloc] initWithCancelButton:YES];
     
     [autoComplete setDataSource:self];
     [autoComplete setDelegate:self];
     [autoComplete setTitle:@"Buscar"];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:autoComplete];
-    [[self navigationController] presentModalViewController:navController animated:YES];
+    [self.navigationController presentModalViewController:navController animated:YES];
 }
 
 @end

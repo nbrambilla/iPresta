@@ -67,7 +67,9 @@
 {
     [super viewWillAppear:animated];
     
-    [self.tableView setContentOffset:CGPointMake(0, HEADER_HEIGHT * 2) animated:NO];
+    float offsetY = ([User objectsUserIsSet]) ? HEADER_HEIGHT : HEADER_HEIGHT * 2;
+    
+    [self.tableView setContentOffset:CGPointMake(0, offsetY) animated:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

@@ -78,6 +78,7 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 + (void)setCurrentObject:(iPrestaObject *)object;
 + (iPrestaObject *)currentObject;
 + (NSString *)imageType;
++ (NSString *)imageType:(ObjectType)objectType;
 
 - (void)getSearchResults:(NSString *)param page:(NSInteger)page offset:(NSInteger)offset;
 - (void)getData:(NSString *)objectCode;

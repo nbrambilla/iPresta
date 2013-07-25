@@ -164,6 +164,11 @@ static iPrestaObject *currentObject;
     return [[iPrestaObject imageTypes] objectAtIndex:typeSelected];
 }
 
++ (NSString *)imageType:(ObjectType)objectType
+{
+    return [[iPrestaObject imageTypes] objectAtIndex:objectType];
+}
+
 #pragma mark - Get Object Data Methods
 
 - (void)getData:(NSString *)objectCode

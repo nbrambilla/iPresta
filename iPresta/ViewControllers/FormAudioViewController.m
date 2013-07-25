@@ -339,7 +339,7 @@
 
 - (IBAction)searchObject:(id)sender
 {
-    autoComplete = [[IMOAutocompletionViewController alloc] init];
+    autoComplete = [[IMOAutocompletionViewController alloc] initWithCancelButton:YES];
     
     [autoComplete setDataSource:self];
     [autoComplete setDelegate:self];

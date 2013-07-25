@@ -116,6 +116,7 @@
         {
             stateLabel.text = [[iPrestaObject currentObject] textState];
             
+            loanUpButton.enabled = NO;
             giveButton.enabled = YES;
             giveBackButton.enabled = NO;
         }
@@ -196,20 +197,20 @@
 - (IBAction)goToExtendGive:(id)sender
 {
 	MLTableAlert *extendGiveTableAlert = [MLTableAlert tableAlertWithTitle:@"Extender préstamo" cancelButtonTitle:@"Cancelar" numberOfRows:^NSInteger (NSInteger section)
-                  {
-                          return [[Give giveTimesArray] count];
-                  }
-                                          andCells:^UITableViewCell* (MLTableAlert *anAlert, NSIndexPath *indexPath)
-                  {
-                      static NSString *CellIdentifier = @"CellIdentifier";
-                      UITableViewCell *cell = [anAlert.table dequeueReusableCellWithIdentifier:CellIdentifier];
-                      if (cell == nil)
-                          cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-                      
-                      cell.textLabel.text = [[Give giveTimesArray] objectAtIndex:indexPath.row];
-                      
-                      return cell;
-                  }];
+        {
+            return [[Give giveTimesArray] count];
+        }
+            andCells:^UITableViewCell* (MLTableAlert *anAlert, NSIndexPath *indexPath)
+        {
+          static NSString *CellIdentifier = @"CellIdentifier";
+          UITableViewCell *cell = [anAlert.table dequeueReusableCellWithIdentifier:CellIdentifier];
+          if (cell == nil)
+              cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+          
+          cell.textLabel.text = [[Give giveTimesArray] objectAtIndex:indexPath.row];
+          
+          return cell;
+        }];
 	
 	extendGiveTableAlert.height = 250;
 	

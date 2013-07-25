@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IMOAutocompletionViewController.h"
 
-@interface ObjectsMenuViewController : UIViewController
+@interface ObjectsMenuViewController : UIViewController <IMOAutocompletionViewDelegate, IMOAutocompletionViewDataSource>
 {
     @private
     IBOutlet UIView *objectsButtonsView;
@@ -30,6 +31,7 @@
     IBOutlet UILabel *searchLabel;
     
     NSMutableArray *objectCountArray;
+    IMOAutocompletionViewController *autoComplete;
 }
 
 @end

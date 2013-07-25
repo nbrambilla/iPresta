@@ -46,21 +46,19 @@
     return  self = [self initWithNibName:nil bundle:nil];
 }
 
-- (void)dealloc
+- (id)initWithCancelButton:(BOOL)setCancelButton
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    self = [super init];
     
-    [_results release];
-    [_tableView release];
-    [_searchBar release];
-    [_dataSource release];
-    [_delegate release];
-    [_activityIndicatorView release];
-    [_footerActivityIndicator release];
-    [_activityIndicatorLabel release];
+	if (self)
+    {
+        if (setCancelButton)
+        {
+            [self setCancelButton];
+        }
+    }
     
-    [self setView:nil];
-    [super dealloc];
+    return self;
 }
 
 - (void)viewDidUnload
@@ -79,12 +77,9 @@
 
 - (void)viewDidLoad
 {
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(controllerCancelled)];
+    [super viewDidLoad];
     
     loading = NO;
-    
-    [[self navigationItem] setRightBarButtonItem:cancelButton];
-    [cancelButton release];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -96,19 +91,32 @@
 
 #pragma mark -stuff
 
+- (void)setCancelButton
+{
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(controllerCancelled)];
+    self.navigationItem.rightBarButtonItem = cancelButton;
+    
+    cancelButton = nil;
+}
 
--(CGFloat)screenHeight {
-    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+- (CGFloat)screenHeight
+{
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
         CGSize result = [[UIScreen mainScreen] bounds].size;
         return result.height;
     }
     return 0;
 }
 
-- (void)controllerCancelled {
-    if ([[UIViewController class] respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]) {
+- (void)controllerCancelled
+{
+    if ([[UIViewController class] respondsToSelector:@selector(dismissViewControllerAnimated:completion:)])
+    {
         [self dismissViewControllerAnimated:YES completion:nil];
-    }else{
+    }
+    else
+    {
         [self dismissModalViewControllerAnimated:YES];
     }
 }
@@ -147,20 +155,8 @@
     return [_results count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    static NSString *completionCell = @"completionCell";
-//    
-//    IMOCompletionCell *cell = [tableView dequeueReusableCellWithIdentifier:completionCell];
-//    if (nil == cell) {
-//        if ([self cellColorsArray]) { // call with custom colors
-//            cell = [[[IMOCompletionCell alloc] initWithStyle:UITableViewCellStyleValue1
-//                                             reuseIdentifier:completionCell
-//                                                  cellColors:[self cellColorsArray]]autorelease];
-//        }else { // call with default colors
-//            cell = [[[IMOCompletionCell alloc]initWithStyle:UITableViewCellStyleValue1
-//                                            reuseIdentifier:completionCell] autorelease];
-//        }
-//    }
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *CellIdentifier = @"Object";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
@@ -178,7 +174,30 @@
         cell.detailTextLabel.text = [[object objectForKey:@"author"] capitalizedString];
     }
     
-    cell.imageView.image = [UIImage imageNamed:[iPrestaObject imageType]];
+    cell.imageView.image = [UIImage imageNamed:[iPrestaObject imageType:object.type]];
+    
+    if (!object.imageData)
+    {
+        [object.image getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+         {
+             if (!error)
+             {
+                 object.imageData = [[NSData alloc] initWithData:data];
+                 UIImage* image = [UIImage imageWithData:data];
+                 if (image)
+                 {
+                     dispatch_async(dispatch_get_main_queue(),
+                        ^{
+                            if (cell.tag == indexPath.row)
+                            {
+                                cell.imageView.image = image;
+                                [cell setNeedsLayout];
+                            }
+                        });
+                 }
+             }
+         }];
+    }
     
     if (object.imageData)
     {
