@@ -71,6 +71,7 @@
     loanUpButton = nil;
     historycButton = nil;
     visibleSwitch = nil;
+    currentUserButtonsView = nil;
     [super viewDidUnload];
 }
 
@@ -129,13 +130,7 @@
     }
     else
     {
-        loanUpLabel.hidden = YES;
-        
-        visibleSwitch.hidden = YES;
-        loanUpButton.hidden = YES;
-        giveBackButton.hidden = YES;
-        giveButton.hidden = YES;
-        historycButton.hidden = YES;
+        currentUserButtonsView.hidden = YES;
     }
 }
 

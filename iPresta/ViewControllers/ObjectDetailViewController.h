@@ -19,6 +19,8 @@
     IBOutlet UILabel *descriptionLabel;
     IBOutlet UILabel *stateLabel;
     IBOutlet UILabel *loanUpLabel;
+    
+    IBOutlet UIView *currentUserButtonsView;
     IBOutlet UIButton *giveButton;
     IBOutlet UIButton *giveBackButton;
     IBOutlet UIButton *loanUpButton;

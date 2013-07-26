@@ -78,15 +78,8 @@
     [super viewDidLoad];
     
     if (isCancelButton) [self setCancelButton];
-    
-    loading = NO;
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
     [_searchBar becomeFirstResponder];
+    loading = NO;
 }
 
 #pragma mark -stuff
