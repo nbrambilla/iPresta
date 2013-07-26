@@ -50,16 +50,8 @@
 {
     [super viewDidLoad];
     
-    filteredObjectsArray = [NSMutableArray new];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTableView) name:@"setObjectsTableObserver" object:nil];
-    
+    [self addObservers];
     [self setTableView];
-    
-    if (![User objectsUserIsSet])
-    {
-        [self setTableViewHeader];
-    }
     [self setNavigationBar];
 }
 
@@ -83,6 +75,11 @@
     }
 }
 
+- (void)addObservers
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTableView) name:@"setObjectsTableObserver" object:nil];
+}
+
 - (void)objectStateList:(id)sender
 {
     [self.tableView reloadData];
@@ -90,6 +87,8 @@
 
 - (void)setTableView
 {
+    filteredObjectsArray = [NSMutableArray new];
+    
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
     
     PFQuery *getObjectsQuery = [iPrestaObject query];
@@ -112,8 +111,10 @@
              [self.tableView reloadData];
              [self.searchDisplayController.searchResultsTableView reloadData];
          }
-     }];
+    }];
     
+    if (![User objectsUserIsSet]) [self setTableViewHeader];
+
     getObjectsQuery = nil;
 }
 
@@ -161,7 +162,7 @@
 
 - (void)viewDidUnload
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:@"setObjectsTableObserver"];
     
     self.tableView = nil;
     filteredObjectsArray = nil;

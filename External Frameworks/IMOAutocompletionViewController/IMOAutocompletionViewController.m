@@ -46,16 +46,14 @@
     return  self = [self initWithNibName:nil bundle:nil];
 }
 
-- (id)initWithCancelButton:(BOOL)setCancelButton
+- (id)initWithCancelButton:(BOOL)setCancelButton andPagination:(BOOL)setPagination
 {
     self = [super init];
     
 	if (self)
     {
-        if (setCancelButton)
-        {
-            [self setCancelButton];
-        }
+        isPaginable = setPagination;
+        isCancelButton = setCancelButton;
     }
     
     return self;
@@ -78,6 +76,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if (isCancelButton) [self setCancelButton];
     
     loading = NO;
 }
@@ -121,28 +121,26 @@
     }
 }
 
-#pragma mark - TableView delegate and data source -
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    // Cell size default is 44.0.
-//    // This will return a size of 34.0
-//    // The custom cell needs to know the - 10.0 difference
-//    return 44.0 + IMOCellSizeMagnitude;
-//}
+#pragma mark - TableView delegate and data source
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	if ((scrollView.contentOffset.y + scrollView.frame.size.height) > (scrollView.contentSize.height) && !loading && !finish)
+    if (isPaginable)
     {
-        _activityIndicatorLabel.text = @"Cargando...";
-        loading = YES;
-        page++;
-        [self.footerActivityIndicator startAnimating];
-        [self searchResults];
-//        [[self footerActivityIndicator] startAnimating];
-//        [self performSelector:@selector(stopAnimatingFooter) withObject:nil afterDelay:0.5];
-//        return;
-	}
+        if ((scrollView.contentOffset.y + scrollView.frame.size.height) > (scrollView.contentSize.height) && !loading && !finish)
+        {
+            _activityIndicatorLabel.text = @"Cargando...";
+            loading = YES;
+            page++;
+            [self.footerActivityIndicator startAnimating];
+            [self searchResults];
+        }
+    }
+    else
+    {
+        [_tableView setTableFooterView:nil];
+        //_tableView.delegate = nil;
+    }
 }
 
 - (int)numberOfSectionsInTableView:(UITableView *)tableView
@@ -232,10 +230,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[self delegate] respondsToSelector:@selector(IMOAutocompletionViewControllerReturnedCompletion:)]) {
-        [[self delegate] IMOAutocompletionViewControllerReturnedCompletion:[_results objectAtIndex:indexPath.row]];
+    [_tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if ([self.delegate respondsToSelector:@selector(IMOAutocompletionViewControllerReturnedCompletion:)])
+    {
+        [self.delegate IMOAutocompletionViewControllerReturnedCompletion:[_results objectAtIndex:indexPath.row]];
     }
-    [self dismissModalViewControllerAnimated:YES];
+    
+    if (isCancelButton) [self dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark - Textfield delegate
@@ -251,11 +253,21 @@
 
 - (void)searchResults
 {
-    if ([[self dataSource] respondsToSelector:@selector(sourceForAutoCompletionTextField:withParam:page:offset:)])
+    if (isPaginable)
     {
-        [(id <IMOAutocompletionViewDataSource>)[self dataSource] sourceForAutoCompletionTextField:self withParam:[_searchBar.text encodeToURL] page:page offset:OFFSET];
+        if ([[self dataSource] respondsToSelector:@selector(sourceForAutoCompletionTextField:withParam:page:offset:)])
+        {
+            [(id <IMOAutocompletionViewDataSource>)[self dataSource] sourceForAutoCompletionTextField:self withParam:[_searchBar.text encodeToURL] page:page offset:OFFSET];
+        }
     }
-    
+    else
+    {
+        if ([[self dataSource] respondsToSelector:@selector(sourceForAutoCompletionTextField:withParam:)])
+        {
+            [(id <IMOAutocompletionViewDataSource>)[self dataSource] sourceForAutoCompletionTextField:self withParam:[_searchBar.text encodeToURL]];
+        }
+    }
+
     [_searchBar resignFirstResponder];
 }
 

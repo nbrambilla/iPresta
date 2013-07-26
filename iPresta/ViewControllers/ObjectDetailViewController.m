@@ -35,10 +35,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setView) name:@"setObjectViewObserver" object:nil];
-
     [self setView];
+    [self addObservers];
+}
+
+- (void)addObservers
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setView) name:@"setObjectViewObserver" object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -46,6 +49,7 @@
     if (self.isMovingFromParentViewController)
     {
         [iPrestaObject setCurrentObject:nil];
+        [User setSearchUser:nil];
     }
     
     [super viewWillDisappear:animated];
@@ -53,6 +57,8 @@
 
 - (void)viewDidUnload
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:@"setObjectViewObserver"];
+    
     typeLabel = nil;
     nameLabel = nil;
     authorLabel = nil;
@@ -78,7 +84,7 @@
     imageView.image = [UIImage imageWithData:[[iPrestaObject currentObject] imageData]];
     loanUpLabel.hidden = YES;
     
-    if (![User objectsUserIsSet])
+    if (![User objectsUserIsSet] && [User searchUser] == nil)
     {
         [visibleSwitch setOn:[[iPrestaObject currentObject] visible]];
         

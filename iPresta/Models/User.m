@@ -14,6 +14,7 @@
 @implementation User
 
 static User *objectsUser;
+static User *searchUser;
 
 @dynamic objectId;
 @dynamic visible;
@@ -41,6 +42,11 @@ static User *objectsUser;
     objectsUser = user;
 }
 
++ (void)setSearchUser:(User *)user
+{
+    searchUser = user;
+}
+
 - (void)setObjectsArray:(NSMutableArray *)objectsArray
 {
     _objectsArray = objectsArray;
@@ -56,6 +62,11 @@ static User *objectsUser;
 + (User *)objectsUser
 {
     return (objectsUser) ? objectsUser : [User currentUser];
+}
+
++ (User *)searchUser
+{
+    return searchUser;
 }
 
 + (BOOL)objectsUserIsSet

@@ -23,6 +23,8 @@
 + (User *)currentUser;
 + (void)setObjectsUser:(User *)user;
 + (User *)objectsUser;
++ (void)setSearchUser:(User *)user;
++ (User *)searchUser;
 + (BOOL)objectsUserIsSet;
 - (BOOL)hasObject:(iPrestaObject *)object;
 
