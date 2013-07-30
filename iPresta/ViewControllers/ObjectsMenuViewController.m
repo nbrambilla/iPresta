@@ -279,52 +279,44 @@
 
 - (void)performObjectsSearchWithEmails:(NSArray *)emailsArray andParam:(NSString *)param
 {
-    // se crea una consulta para poder buscar todos los usuarios de la app de que tenemos en la agenda a partir del array de emils.
     PFQuery *appUsersQuery = [User query];
-    [appUsersQuery whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
     [appUsersQuery whereKey:@"email" containedIn:emailsArray];
+    [appUsersQuery whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
     
-    [appUsersQuery findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error)
-     {
-         if (error) [error manageErrorTo:self];     // Si hay error al obtener los usuarios de la app amigos
-         else                                       // Si se obtienen los usuarios, se buscan sus objetos
-         {
-             PFQuery *queryCapitalizedString = [iPrestaObject query];
-             [queryCapitalizedString whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
-             [queryCapitalizedString whereKey:@"owner" containedIn:users];
-             [queryCapitalizedString whereKey:@"name" containsString:[param capitalizedString]];
+    PFQuery *queryCapitalizedString = [iPrestaObject query];
+    [queryCapitalizedString whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
+    [queryCapitalizedString whereKey:@"owner" matchesQuery:appUsersQuery];
+    [queryCapitalizedString whereKey:@"name" containsString:[param capitalizedString]];
+    
+    //query converted user text to lowercase
+    PFQuery *queryLowerCaseString = [iPrestaObject query];
+    [queryLowerCaseString whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
+    [queryLowerCaseString whereKey:@"owner" matchesQuery:appUsersQuery];
+    [queryLowerCaseString whereKey:@"name" containsString:[param lowercaseString]];
+    
+    //query real user text
+    PFQuery *querySearchBarString = [iPrestaObject query];
+    [querySearchBarString whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
+    [querySearchBarString whereKey:@"owner" matchesQuery:appUsersQuery];
+    [querySearchBarString whereKey:@"name" containsString:param];
+    
+    // Combinacion de consultas para poder comparar el parametro con los nombres de los objetos. Subconsulta para poder encontrar los contactos con cuenta en la app.
+    PFQuery *finalQuery = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects: queryCapitalizedString,queryLowerCaseString, querySearchBarString,nil]];
+    [finalQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+        if (error) [error manageErrorTo:self];     // Si hay error al obtener los objetos de los usuarios amigos de la app
+        else                                       // Si se obtienen los objetos, se ordenan los objetos por nombre y se rellena la tabla
+        {
+            NSArray *sortedObjects = [objects sortedArrayUsingComparator:^NSComparisonResult(iPrestaObject *a, iPrestaObject *b)
+            {
+                NSString *first = a.name;
+                NSString *second = b.name;
+                return [first compare:second];
+            }];
              
-             //query converted user text to lowercase
-             PFQuery *queryLowerCaseString = [iPrestaObject query];
-             [queryLowerCaseString whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
-             [queryLowerCaseString whereKey:@"owner" containedIn:users];
-             [queryLowerCaseString whereKey:@"name" containsString:[param lowercaseString]];
-             
-             //query real user text
-             PFQuery *querySearchBarString = [iPrestaObject query];
-             [querySearchBarString whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
-             [querySearchBarString whereKey:@"owner" containedIn:users];
-             [querySearchBarString whereKey:@"name" containsString:param];
-             
-             // Combinacion de consultas para poder comparar el parametro con los nombres de los objetos
-             PFQuery *finalQuery = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects: queryCapitalizedString,queryLowerCaseString, querySearchBarString,nil]];
-             [finalQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-              {
-                  if (error) [error manageErrorTo:self];     // Si hay error al obtener los objetos de los usuarios amigos de la app
-                  else                                       // Si se obtienen los objetos, se ordenan los objetos por nombre y se rellena la tabla
-                  {
-                      NSArray *sortedObjects = [objects sortedArrayUsingComparator:^NSComparisonResult(iPrestaObject *a, iPrestaObject *b)
-                      {
-                          NSString *first = a.name;
-                          NSString *second = b.name;
-                          return [first compare:second];
-                      }];
-                      
-                      [autoComplete loadSearchTableWithResults:sortedObjects error:error];
-                  }
-              }];
-         }
-     }];
+            [autoComplete loadSearchTableWithResults:sortedObjects error:error];
+        }
+    }];
 }
 
 

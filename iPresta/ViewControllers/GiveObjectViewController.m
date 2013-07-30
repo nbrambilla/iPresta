@@ -139,7 +139,7 @@
         extendGiveTableAlert.height = 250;
         
         [extendGiveTableAlert configureSelectionBlock:^(NSIndexPath *selectedIndex)
-         {
+        {
              timeTextField.text = [[Give giveTimesArray] objectAtIndex:selectedIndex.row];
          } andCompletionBlock:nil];
         
@@ -190,29 +190,29 @@
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
     
     [give saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-     {
+    {
          if (error) [error manageErrorTo:self];      // Si error hay al realizar el prestamo
          else                                        // Si el prestamo se realiza correctamente
          {
              give.object.state = Given;
              
              [give.object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-              {
-                  [ProgressHUD hideHUDForView:self.view animated:YES];
-                  
-                  if (error) [error manageErrorTo:self];      // Si hay error al actualizar el objeto
-                  else                                        // Si el objeto se actualiza correctamente
-                  {
-                      [iPrestaObject setCurrentObject:give.object];
-                      
-                      [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
-                      [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectViewObserver" object:nil];
-                      
-                      [self addNotificatioToDate:give.dateEnd object:give.object.name to:give.name registerId:give.objectId];
-                      [self.navigationController popViewControllerAnimated:YES];
-                  }
+             {
+                [ProgressHUD hideHUDForView:self.view animated:YES];
+                 
+                    if (error) [error manageErrorTo:self];      // Si hay error al actualizar el objeto
+                    else                                        // Si el objeto se actualiza correctamente
+                    {
+                        [iPrestaObject setCurrentObject:give.object];
+
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectViewObserver" object:nil];
+
+                        [self addNotificatioToDate:give.dateEnd object:give.object.name to:give.name registerId:give.objectId];
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
               }];
-         }
+            }
      }];
 }
 

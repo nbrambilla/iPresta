@@ -87,39 +87,49 @@
         }
     }
     
-    // se crea una consulata para poder buscar todos los usuarios de la app de que tenemos en la agenda a partir del array de emils.
+    // se crea una consulata para poder buscar todos los usuarios de la app de que tenemos en la agenda a partir del array de emils. Se ordena alfabeticamente por emails.
     PFQuery *appUsersQuery = [User query];
     [appUsersQuery whereKey:@"email" containedIn:emailsArray];
     [appUsersQuery whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
+    [appUsersQuery orderByAscending:@"email"];
     
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    [appUsersQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    [appUsersQuery findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error)
     {
-         [ProgressHUD hideHUDForView:self.view animated:YES];
+        [ProgressHUD hideHUDForView:self.view animated:YES];
         
-         appContactsList = [NSMutableArray new];
+        appContactsList = [NSMutableArray new];
         
-         if (error) [error manageErrorTo:self];     // Si hay error al obtener los usuarios de la app
-         else                                       // Si se obtienen los usuarios, se buscan en los registros
-         {
-             // se buscan las coincidencias en el array de AddressBookRegister para buscar los registros de los usuarios de la app. Si existe, no se debe mostrar el registro del usuario logueado
-             for (User *user in objects)
-             {
-                 for (AddressBookRegister *reg in appContactsArray)
-                 {
-                     if ([user.email isEqual:reg.email] && ![user isEqual:[User currentUser]])
-                     {
-                         reg.user = user;
-                         [appContactsList addObject:reg];
-                     }
-                 }
-             }
-             
-             // Se ordenan los usuarios de la app por indice y orden alfabetico y se recarga la tabla para poder visualizarlos
-             appContactsList = [[self partitionObjects:appContactsList collationStringSelector:@selector(firstLetter)] mutableCopy];
-             [self.tableView reloadData];
-         }
+        // Se ordenan los registros alfabeticamente a partir del email
+        NSArray *sortedAppContactArray = [appContactsArray sortedArrayUsingComparator:^NSComparisonResult(AddressBookRegister *a, AddressBookRegister *b)
+        {
+            NSString *first = a.email;
+            NSString *second = b.email;
+            return [first compare:second];
+        }];
+        
+        if (error) [error manageErrorTo:self];     // Si hay error al obtener los usuarios de la app
+        else                                       // Si se obtienen los usuarios, se buscan en los registros
+        {
+            int i = 0;
+            
+            // se buscan las coincidencias en el array de AddressBookRegister para buscar los registros de los usuarios de la app. Si existe el registro del usuario logueado, no se debe mostrar
+            for (User *user in users)
+            {
+                while (![[[sortedAppContactArray objectAtIndex:i] email] isEqual:user.email]) i++;
+                
+                if (![user isEqual:[User currentUser]])
+                {
+                    [[sortedAppContactArray objectAtIndex:i] setUser:user];
+                    [appContactsList addObject:[sortedAppContactArray objectAtIndex:i]];
+                }
+            }
+
+            // Se ordenan los usuarios de la app por indice y orden alfabetico y se recarga la tabla para poder visualizarlos
+            appContactsList = [[self partitionObjects:appContactsList collationStringSelector:@selector(firstLetter)] mutableCopy];
+            [self.tableView reloadData];
+        }
      }];
 }
 
