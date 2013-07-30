@@ -92,6 +92,7 @@
     [appUsersQuery whereKey:@"email" containedIn:emailsArray];
     [appUsersQuery whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
     [appUsersQuery orderByAscending:@"email"];
+    appUsersQuery.limit = 1000;
     
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
     

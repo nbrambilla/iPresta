@@ -43,10 +43,11 @@
 {
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    PFQuery *getObjectsQuery = [Give query];
-    [getObjectsQuery whereKey:@"object" equalTo:[iPrestaObject currentObject]];
+    PFQuery *getObjectsGivesQuery = [Give query];
+    [getObjectsGivesQuery whereKey:@"object" equalTo:[iPrestaObject currentObject]];
+    getObjectsGivesQuery.limit = 1000;
     
-    [getObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    [getObjectsGivesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
          [ProgressHUD hideHUDForView:self.view animated:YES];
          

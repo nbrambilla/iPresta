@@ -175,6 +175,7 @@
     
     PFQuery *allObjectsQuery = [iPrestaObject query];
     [allObjectsQuery whereKey:@"owner" equalTo:[User objectsUser]];
+    allObjectsQuery.limit = 1000;
     
     if ([User objectsUserIsSet])
     {

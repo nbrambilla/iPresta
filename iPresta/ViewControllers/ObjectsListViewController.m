@@ -100,6 +100,8 @@
         [getObjectsQuery whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
     }
     
+    getObjectsQuery.limit = 1000;
+    
     [getObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
          [ProgressHUD hideHUDForView:self.view animated:YES];
@@ -204,6 +206,7 @@
          {
              PFQuery *getObjectsQuery = [Give query];
              [getObjectsQuery whereKey:@"object" equalTo:object];
+             getObjectsQuery.limit = 1000;
              
              [getObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *gives, NSError *error)
              {

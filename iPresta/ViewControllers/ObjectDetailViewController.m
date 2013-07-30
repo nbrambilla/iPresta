@@ -100,11 +100,11 @@
             
             [ProgressHUD  showHUDAddedTo:self.view animated:YES];
             
-            [getActualGiveQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+            [getActualGiveQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error)
             {
                 [ProgressHUD hideHUDForView:self.view animated:YES];
                 
-                [[iPrestaObject currentObject] setActualGive:[objects objectAtIndex:0]];
+                [[iPrestaObject currentObject] setActualGive:(Give *)object];
                 stateLabel.text = [NSString stringWithFormat:@"%@ a %@", [[iPrestaObject currentObject] textState], [[[iPrestaObject currentObject] actualGive] name]];
                 
                 if ([[[[iPrestaObject currentObject] actualGive] dateEnd] compare:[NSDate date]] == NSOrderedAscending)
