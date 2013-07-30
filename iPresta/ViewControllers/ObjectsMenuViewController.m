@@ -112,7 +112,7 @@
 
 - (IBAction)searchObject:(id)sender
 {
-    autoComplete = [[IMOAutocompletionViewController alloc] initWithCancelButton:NO andPagination:NO];
+    autoComplete = [[IMOAutocompletionViewController alloc] initWithCancelButton:NO andPagination:YES];
     
     [autoComplete setDataSource:self];
     [autoComplete setDelegate:self];
@@ -123,12 +123,12 @@
 
 #pragma mark - IMOAutoCompletionViewDataSource Methods;
 
-- (void)sourceForAutoCompletionTextField:(IMOAutocompletionViewController *)asViewController withParam:(NSString *)param
+- (void)sourceForAutoCompletionTextField:(IMOAutocompletionViewController *)asViewController withParam:(NSString *)param page:(NSInteger)page offset:(NSInteger)offset
 {
     NSArray *registersArray = [self getAddressBookRegisters];
     NSArray *emailsArray = [self getEmailsFromAddressBookRegisters:registersArray];
     
-    [self performObjectsSearchWithEmails:emailsArray andParam:param];
+    [self performObjectsSearchWithEmails:emailsArray param:param page:page andOffset:offset];
 }
 
 #pragma mark - IMOAutoCompletionViewDelegate Methods;
@@ -277,24 +277,26 @@
     return [emailsArray copy];
 }
 
-- (void)performObjectsSearchWithEmails:(NSArray *)emailsArray andParam:(NSString *)param
+- (void)performObjectsSearchWithEmails:(NSArray *)emailsArray param:(NSString *)param page:(NSInteger)page andOffset:(NSInteger)offset
 {
+    // se crea una consulta para poder buscar todos los usuarios de la app de que tenemos en la agenda a partir del array de emails.
     PFQuery *appUsersQuery = [User query];
     [appUsersQuery whereKey:@"email" containedIn:emailsArray];
     [appUsersQuery whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
     
+    // texto con primeras letras de cada palabra en mayuscula
     PFQuery *queryCapitalizedString = [iPrestaObject query];
     [queryCapitalizedString whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
     [queryCapitalizedString whereKey:@"owner" matchesQuery:appUsersQuery];
     [queryCapitalizedString whereKey:@"name" containsString:[param capitalizedString]];
     
-    //query converted user text to lowercase
+    // texto en minuscula
     PFQuery *queryLowerCaseString = [iPrestaObject query];
     [queryLowerCaseString whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
     [queryLowerCaseString whereKey:@"owner" matchesQuery:appUsersQuery];
     [queryLowerCaseString whereKey:@"name" containsString:[param lowercaseString]];
     
-    //query real user text
+    // texto real
     PFQuery *querySearchBarString = [iPrestaObject query];
     [querySearchBarString whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
     [querySearchBarString whereKey:@"owner" matchesQuery:appUsersQuery];
@@ -302,19 +304,16 @@
     
     // Combinacion de consultas para poder comparar el parametro con los nombres de los objetos. Subconsulta para poder encontrar los contactos con cuenta en la app.
     PFQuery *finalQuery = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects: queryCapitalizedString,queryLowerCaseString, querySearchBarString,nil]];
+    [finalQuery orderByAscending:@"name"];
+    finalQuery.skip = page * offset;
+    finalQuery.limit = offset;
+    
     [finalQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
         if (error) [error manageErrorTo:self];     // Si hay error al obtener los objetos de los usuarios amigos de la app
         else                                       // Si se obtienen los objetos, se ordenan los objetos por nombre y se rellena la tabla
         {
-            NSArray *sortedObjects = [objects sortedArrayUsingComparator:^NSComparisonResult(iPrestaObject *a, iPrestaObject *b)
-            {
-                NSString *first = a.name;
-                NSString *second = b.name;
-                return [first compare:second];
-            }];
-             
-            [autoComplete loadSearchTableWithResults:sortedObjects error:error];
+            [autoComplete loadSearchTableWithResults:objects error:error];
         }
     }];
 }

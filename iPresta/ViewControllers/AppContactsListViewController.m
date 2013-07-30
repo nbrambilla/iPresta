@@ -114,7 +114,7 @@
         {
             int i = 0;
             
-            // se buscan las coincidencias en el array de AddressBookRegister para buscar los registros de los usuarios de la app. Si existe el registro del usuario logueado, no se debe mostrar
+            // se buscan las coincidencias en el array de AddressBookRegister para buscar los registros de los usuarios de la app. Si existe el registro del usuario logueado, no se debe mostrar. Al estar ambas listas ordenadas, se mejora el rendimiento de la busqueda
             for (User *user in users)
             {
                 while (![[[sortedAppContactArray objectAtIndex:i] email] isEqual:user.email]) i++;
