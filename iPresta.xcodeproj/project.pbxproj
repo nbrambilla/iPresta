@@ -103,6 +103,8 @@
 		194CE55F179D75B8008BFDE0 /* AppContactsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194CE55D179D75B8008BFDE0 /* AppContactsListViewController.m */; };
 		194CE560179D75B8008BFDE0 /* AppContactsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 194CE55E179D75B8008BFDE0 /* AppContactsListViewController.xib */; };
 		1952EFA1176861990057820B /* IMOAutocompletionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1952EF9F176861990057820B /* IMOAutocompletionViewController.xib */; };
+		19B9A0E317A9141200CB6485 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19B9A0E217A9141200CB6485 /* CoreData.framework */; };
+		19B9A0E617A9170D00CB6485 /* iPresta.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 19B9A0E417A9170D00CB6485 /* iPresta.xcdatamodeld */; };
 		19BA25CF179E6E83004F24DE /* AddressBookRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = 19BA25CE179E6E83004F24DE /* AddressBookRegister.m */; };
 		19C263AE1793F7490052DA32 /* FormBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C263AC1793F7490052DA32 /* FormBookViewController.m */; };
 		19C263AF1793F7490052DA32 /* FormBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19C263AD1793F7490052DA32 /* FormBookViewController.xib */; };
@@ -278,6 +280,8 @@
 		194CE55D179D75B8008BFDE0 /* AppContactsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppContactsListViewController.m; path = ViewControllers/AppContactsListViewController.m; sourceTree = "<group>"; };
 		194CE55E179D75B8008BFDE0 /* AppContactsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AppContactsListViewController.xib; path = ViewControllers/AppContactsListViewController.xib; sourceTree = "<group>"; };
 		1952EF9F176861990057820B /* IMOAutocompletionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = IMOAutocompletionViewController.xib; path = iPresta/ViewControllers/IMOAutocompletionViewController.xib; sourceTree = "<group>"; };
+		19B9A0E217A9141200CB6485 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		19B9A0E517A9170D00CB6485 /* iPresta.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iPresta.xcdatamodel; sourceTree = "<group>"; };
 		19BA25CD179E6E83004F24DE /* AddressBookRegister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddressBookRegister.h; path = iPresta/Models/AddressBookRegister.h; sourceTree = "<group>"; };
 		19BA25CE179E6E83004F24DE /* AddressBookRegister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddressBookRegister.m; path = iPresta/Models/AddressBookRegister.m; sourceTree = "<group>"; };
 		19C263AB1793F7490052DA32 /* FormBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FormBookViewController.h; path = ViewControllers/FormBookViewController.h; sourceTree = "<group>"; };
@@ -310,6 +314,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19B9A0E317A9141200CB6485 /* CoreData.framework in Frameworks */,
 				151AE7E31753FDA300C41740 /* AddressBookUI.framework in Frameworks */,
 				151AE7E11753FD4800C41740 /* AddressBook.framework in Frameworks */,
 				1563FF83173F9CAF00826DC4 /* AVFoundation.framework in Frameworks */,
@@ -510,6 +515,7 @@
 		156FDE0816F399E900F4BEEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				19B9A0E217A9141200CB6485 /* CoreData.framework */,
 				151AE7E21753FDA300C41740 /* AddressBookUI.framework */,
 				151AE7E01753FD4800C41740 /* AddressBook.framework */,
 				1563FF82173F9CAF00826DC4 /* AVFoundation.framework */,
@@ -541,6 +547,7 @@
 		156FDE0F16F399E900F4BEEA /* iPresta */ = {
 			isa = PBXGroup;
 			children = (
+				19B9A0E417A9170D00CB6485 /* iPresta.xcdatamodeld */,
 				156FDE1816F399E900F4BEEA /* iPrestaAppDelegate.h */,
 				156FDE1916F399E900F4BEEA /* iPrestaAppDelegate.m */,
 				1518EA14174A6D86000EB0FE /* Images */,
@@ -875,6 +882,7 @@
 				19C263C217943B260052DA32 /* FormOtherViewController.m in Sources */,
 				194CE55F179D75B8008BFDE0 /* AppContactsListViewController.m in Sources */,
 				19BA25CF179E6E83004F24DE /* AddressBookRegister.m in Sources */,
+				19B9A0E617A9170D00CB6485 /* iPresta.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1020,6 +1028,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		19B9A0E417A9170D00CB6485 /* iPresta.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				19B9A0E517A9170D00CB6485 /* iPresta.xcdatamodel */,
+			);
+			currentVersion = 19B9A0E517A9170D00CB6485 /* iPresta.xcdatamodel */;
+			path = iPresta.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 156FDDFC16F399E800F4BEEA /* Project object */;
 }

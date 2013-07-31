@@ -218,7 +218,7 @@
 								<string key="NSFrame">{{-9, 128}, {94, 27}}</string>
 								<reference key="NSSuperview" ref="968239746"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSNextKeyView" ref="1485488"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -351,6 +351,46 @@
 							<object class="NSColorSpace" key="NSCustomColorSpace" id="494292626">
 								<int key="NSID">2</int>
 							</object>
+						</object>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+					</object>
+					<object class="IBUIView" id="1485488">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<array class="NSMutableArray" key="NSSubviews">
+							<object class="IBUIButton" id="665466971">
+								<reference key="NSNextResponder" ref="1485488"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrameSize">{88, 24}</string>
+								<reference key="NSSuperview" ref="1485488"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<int key="IBUIButtonType">1</int>
+								<string key="IBUINormalTitle">Pedir</string>
+								<reference key="IBUIHighlightedTitleColor" ref="474488943"/>
+								<object class="NSColor" key="IBUINormalTitleColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+								</object>
+								<reference key="IBUINormalTitleShadowColor" ref="654553331"/>
+								<reference key="IBUIFontDescription" ref="845728116"/>
+								<reference key="IBUIFont" ref="447522865"/>
+							</object>
+						</array>
+						<string key="NSFrame">{{212, 128}, {88, 155}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="665466971"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MQA</bytes>
+							<reference key="NSCustomColorSpace" ref="494292626"/>
 						</object>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
@@ -511,6 +551,14 @@
 					<int key="connectionID">51</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">otherUserButtonsView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1485488"/>
+					</object>
+					<int key="connectionID">53</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">goToGiveObject:</string>
 						<reference key="source" ref="713672588"/>
@@ -577,6 +625,7 @@
 							<reference ref="251271986"/>
 							<reference ref="355038153"/>
 							<reference ref="968239746"/>
+							<reference ref="1485488"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -669,6 +718,19 @@
 						<reference key="object" ref="1019067016"/>
 						<reference key="parent" ref="968239746"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">52</int>
+						<reference key="object" ref="1485488"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="665466971"/>
+						</array>
+						<reference key="parent" ref="191373211"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">54</int>
+						<reference key="object" ref="665466971"/>
+						<reference key="parent" ref="1485488"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -694,13 +756,15 @@
 				<real value="3" key="44.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="47.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="50.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="52.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="54.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">51</int>
+			<int key="maxID">54</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -748,6 +812,7 @@
 						<string key="loanUpButton">UIButton</string>
 						<string key="loanUpLabel">UILabel</string>
 						<string key="nameLabel">UILabel</string>
+						<string key="otherUserButtonsView">UIView</string>
 						<string key="stateLabel">UILabel</string>
 						<string key="typeLabel">UILabel</string>
 						<string key="visibleSwitch">UISwitch</string>
@@ -796,6 +861,10 @@
 						<object class="IBToOneOutletInfo" key="nameLabel">
 							<string key="name">nameLabel</string>
 							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="otherUserButtonsView">
+							<string key="name">otherUserButtonsView</string>
+							<string key="candidateClassName">UIView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="stateLabel">
 							<string key="name">stateLabel</string>

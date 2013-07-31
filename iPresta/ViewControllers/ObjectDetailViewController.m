@@ -72,6 +72,7 @@
     historycButton = nil;
     visibleSwitch = nil;
     currentUserButtonsView = nil;
+    otherUserButtonsView = nil;
     [super viewDidUnload];
 }
 
@@ -87,6 +88,9 @@
     
     if (![User objectsUserIsSet] && [User searchUser] == nil)
     {
+        currentUserButtonsView.hidden = NO;
+        otherUserButtonsView.hidden = YES;
+        
         [visibleSwitch setOn:[[iPrestaObject currentObject] visible]];
         
         if ([[iPrestaObject currentObject] state] == Given)
@@ -131,6 +135,7 @@
     else
     {
         currentUserButtonsView.hidden = YES;
+        otherUserButtonsView.hidden = NO;
     }
 }
 

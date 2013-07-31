@@ -26,6 +26,9 @@
     IBOutlet UIButton *loanUpButton;
     IBOutlet UIButton *historycButton;
     IBOutlet UISwitch *visibleSwitch;
+    
+    IBOutlet UIView *otherUserButtonsView;
+    
 }
 
 @end
