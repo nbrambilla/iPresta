@@ -11,6 +11,7 @@
 #import "ChangeEmailViewController.h"
 #import "ObjectsMenuViewController.h"
 #import "ProgressHUD.h"
+#import "SideMenuViewController.h"
 #import "iPrestaNSError.h"
 #import "User.h"
 
@@ -80,11 +81,11 @@
 {
     if ([User currentUserHasEmailVerified])
     {
-        UINavigationController *navigationController = [[UINavigationController alloc] init];
         UIViewController *viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
-        [navigationController pushViewController:viewController animated:NO];
-        
-        [self presentModalViewController:navigationController animated:YES];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        SideMenuViewController *leftMenuViewController = [[SideMenuViewController alloc] init];
+        MFSideMenuContainerViewController *container = [MFSideMenuContainerViewController containerWithCenterViewController:navigationController leftMenuViewController:leftMenuViewController rightMenuViewController:nil];
+        [self presentModalViewController:container animated:YES];
         
         viewController = nil;
     }

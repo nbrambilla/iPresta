@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "IMOAutocompletionViewController.h"
+#import "SlideViewController.h"
 
-@interface ObjectsMenuViewController : UIViewController <IMOAutocompletionViewDelegate, IMOAutocompletionViewDataSource>
+@interface ObjectsMenuViewController : SlideViewController <IMOAutocompletionViewDelegate, IMOAutocompletionViewDataSource>
 {
     @private
     IBOutlet UIView *objectsButtonsView;

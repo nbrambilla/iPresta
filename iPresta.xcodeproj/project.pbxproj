@@ -16,6 +16,16 @@
 		151AE7E11753FD4800C41740 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 151AE7E01753FD4800C41740 /* AddressBook.framework */; };
 		151AE7E31753FDA300C41740 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 151AE7E21753FDA300C41740 /* AddressBookUI.framework */; };
 		15212EEF173C53CF00A7A764 /* iPrestaUIControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 15212EEE173C53CF00A7A764 /* iPrestaUIControl.m */; };
+		153513E317BC029D00E4193D /* SideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 153513DF17BC029D00E4193D /* SideMenuViewController.m */; };
+		153513E417BC029D00E4193D /* SideMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 153513E017BC029D00E4193D /* SideMenuViewController.xib */; };
+		153513E517BC029D00E4193D /* SlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 153513E217BC029D00E4193D /* SlideViewController.m */; };
+		153513EA17BC02B300E4193D /* MFSideMenuContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 153513E917BC02B300E4193D /* MFSideMenuContainerViewController.m */; };
+		153513ED17BC1ED100E4193D /* menu-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 153513EB17BC1ED100E4193D /* menu-icon.png */; };
+		153513EE17BC1ED100E4193D /* menu-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 153513EC17BC1ED100E4193D /* menu-icon@2x.png */; };
+		153513F117BC2F6300E4193D /* objects_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 153513EF17BC2F6300E4193D /* objects_icon.png */; };
+		153513F217BC2F6300E4193D /* objects_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 153513F017BC2F6300E4193D /* objects_icon@2x.png */; };
+		153513F517BC32B400E4193D /* orders_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 153513F317BC32B400E4193D /* orders_icon.png */; };
+		153513F617BC32B400E4193D /* orders_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 153513F417BC32B400E4193D /* orders_icon@2x.png */; };
 		1535FAA4175D1B4600587AB7 /* ObjectHistoricGiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1535FAA2175D1B4500587AB7 /* ObjectHistoricGiveViewController.m */; };
 		1535FAA5175D1B4600587AB7 /* ObjectHistoricGiveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1535FAA3175D1B4500587AB7 /* ObjectHistoricGiveViewController.xib */; };
 		15393FF51742BA020012BA4F /* ObjectDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15393FF31742BA020012BA4F /* ObjectDetailViewController.m */; };
@@ -141,6 +151,20 @@
 		151AE7E21753FDA300C41740 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		15212EED173C53CF00A7A764 /* iPrestaUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaUIControl.h; path = "External Frameworks/Extends UIControl/iPrestaUIControl.h"; sourceTree = "<group>"; };
 		15212EEE173C53CF00A7A764 /* iPrestaUIControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaUIControl.m; path = "External Frameworks/Extends UIControl/iPrestaUIControl.m"; sourceTree = "<group>"; };
+		153513DE17BC029D00E4193D /* SideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideMenuViewController.h; path = ViewControllers/SideMenuViewController.h; sourceTree = "<group>"; };
+		153513DF17BC029D00E4193D /* SideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SideMenuViewController.m; path = ViewControllers/SideMenuViewController.m; sourceTree = "<group>"; };
+		153513E017BC029D00E4193D /* SideMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SideMenuViewController.xib; path = ViewControllers/SideMenuViewController.xib; sourceTree = "<group>"; };
+		153513E117BC029D00E4193D /* SlideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlideViewController.h; path = ViewControllers/SlideViewController.h; sourceTree = "<group>"; };
+		153513E217BC029D00E4193D /* SlideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlideViewController.m; path = ViewControllers/SlideViewController.m; sourceTree = "<group>"; };
+		153513E717BC02B300E4193D /* MFSideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFSideMenu.h; sourceTree = "<group>"; };
+		153513E817BC02B300E4193D /* MFSideMenuContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFSideMenuContainerViewController.h; sourceTree = "<group>"; };
+		153513E917BC02B300E4193D /* MFSideMenuContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFSideMenuContainerViewController.m; sourceTree = "<group>"; };
+		153513EB17BC1ED100E4193D /* menu-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "menu-icon.png"; path = "Images/menu-icon.png"; sourceTree = "<group>"; };
+		153513EC17BC1ED100E4193D /* menu-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "menu-icon@2x.png"; path = "Images/menu-icon@2x.png"; sourceTree = "<group>"; };
+		153513EF17BC2F6300E4193D /* objects_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = objects_icon.png; path = Images/objects_icon.png; sourceTree = "<group>"; };
+		153513F017BC2F6300E4193D /* objects_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "objects_icon@2x.png"; path = "Images/objects_icon@2x.png"; sourceTree = "<group>"; };
+		153513F317BC32B400E4193D /* orders_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = orders_icon.png; path = Images/orders_icon.png; sourceTree = "<group>"; };
+		153513F417BC32B400E4193D /* orders_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "orders_icon@2x.png"; path = "Images/orders_icon@2x.png"; sourceTree = "<group>"; };
 		1535FAA1175D1B4500587AB7 /* ObjectHistoricGiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectHistoricGiveViewController.h; path = ViewControllers/ObjectHistoricGiveViewController.h; sourceTree = "<group>"; };
 		1535FAA2175D1B4500587AB7 /* ObjectHistoricGiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectHistoricGiveViewController.m; path = ViewControllers/ObjectHistoricGiveViewController.m; sourceTree = "<group>"; };
 		1535FAA3175D1B4500587AB7 /* ObjectHistoricGiveViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ObjectHistoricGiveViewController.xib; path = ViewControllers/ObjectHistoricGiveViewController.xib; sourceTree = "<group>"; };
@@ -349,6 +373,12 @@
 		1518EA14174A6D86000EB0FE /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				153513F317BC32B400E4193D /* orders_icon.png */,
+				153513F417BC32B400E4193D /* orders_icon@2x.png */,
+				153513EF17BC2F6300E4193D /* objects_icon.png */,
+				153513F017BC2F6300E4193D /* objects_icon@2x.png */,
+				153513EB17BC1ED100E4193D /* menu-icon.png */,
+				153513EC17BC1ED100E4193D /* menu-icon@2x.png */,
 				19316D66179947E000939597 /* search_icon.png */,
 				19316D67179947E000939597 /* search_icon@2x.png */,
 				19316D6217993C8E00939597 /* contacts_icon.png */,
@@ -380,9 +410,21 @@
 			name = "Extends UIControl";
 			sourceTree = "<group>";
 		};
+		153513E617BC02B300E4193D /* MFSideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				153513E717BC02B300E4193D /* MFSideMenu.h */,
+				153513E817BC02B300E4193D /* MFSideMenuContainerViewController.h */,
+				153513E917BC02B300E4193D /* MFSideMenuContainerViewController.m */,
+			);
+			name = MFSideMenu;
+			path = "External Frameworks/MFSideMenu";
+			sourceTree = "<group>";
+		};
 		15517A0C1725C976002FFB69 /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				153513E617BC02B300E4193D /* MFSideMenu */,
 				19272A4617731B4700FC45B0 /* TPKeyboardAvoidingScrollView */,
 				19272A4517730A4700FC45B0 /* PHTextView */,
 				191D1B3A176B17CE00DF1E48 /* MLTableAlert */,
@@ -574,6 +616,11 @@
 		156FDE4616F39DCC00F4BEEA /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				153513DE17BC029D00E4193D /* SideMenuViewController.h */,
+				153513DF17BC029D00E4193D /* SideMenuViewController.m */,
+				153513E017BC029D00E4193D /* SideMenuViewController.xib */,
+				153513E117BC029D00E4193D /* SlideViewController.h */,
+				153513E217BC029D00E4193D /* SlideViewController.m */,
 				15FEB8331747C88000BB6750 /* iPrestaViewController.h */,
 				15FEB8341747C88000BB6750 /* iPrestaViewController.m */,
 				15FEB8351747C88100BB6750 /* iPrestaViewController.xib */,
@@ -835,6 +882,13 @@
 				19316D68179947E000939597 /* search_icon.png in Resources */,
 				19316D69179947E000939597 /* search_icon@2x.png in Resources */,
 				194CE560179D75B8008BFDE0 /* AppContactsListViewController.xib in Resources */,
+				153513E417BC029D00E4193D /* SideMenuViewController.xib in Resources */,
+				153513ED17BC1ED100E4193D /* menu-icon.png in Resources */,
+				153513EE17BC1ED100E4193D /* menu-icon@2x.png in Resources */,
+				153513F117BC2F6300E4193D /* objects_icon.png in Resources */,
+				153513F217BC2F6300E4193D /* objects_icon@2x.png in Resources */,
+				153513F517BC32B400E4193D /* orders_icon.png in Resources */,
+				153513F617BC32B400E4193D /* orders_icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -883,6 +937,9 @@
 				194CE55F179D75B8008BFDE0 /* AppContactsListViewController.m in Sources */,
 				19BA25CF179E6E83004F24DE /* AddressBookRegister.m in Sources */,
 				19B9A0E617A9170D00CB6485 /* iPresta.xcdatamodeld in Sources */,
+				153513E317BC029D00E4193D /* SideMenuViewController.m in Sources */,
+				153513E517BC029D00E4193D /* SlideViewController.m in Sources */,
+				153513EA17BC02B300E4193D /* MFSideMenuContainerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -910,8 +967,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -925,7 +982,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PROVISIONING_PROFILE = "79E0D305-FF10-4C3A-9174-C2193D94FC7B";
+				PROVISIONING_PROFILE = "FA462E66-A9E7-4305-8B8C-9EC3D686EFF0";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FA462E66-A9E7-4305-8B8C-9EC3D686EFF0";
 				SDKROOT = iphoneos;
 			};
@@ -940,8 +997,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -949,7 +1006,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "79E0D305-FF10-4C3A-9174-C2193D94FC7B";
+				PROVISIONING_PROFILE = "FA462E66-A9E7-4305-8B8C-9EC3D686EFF0";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FA462E66-A9E7-4305-8B8C-9EC3D686EFF0";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -959,8 +1016,8 @@
 		156FDE2416F399E900F4BEEA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -984,8 +1041,8 @@
 		156FDE2516F399E900F4BEEA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Fulgencio Cañas (WG3AYP8EZ2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",

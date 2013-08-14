@@ -14,6 +14,7 @@
 #import "LoginViewController.h"
 #import "ObjectsMenuViewController.h"
 #import "iPrestaViewController.h"
+#import "SideMenuViewController.h"
 
 @implementation iPrestaAppDelegate
 
@@ -48,15 +49,19 @@
         if ([User currentUserHasEmailVerified])
         {
             viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
+            navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+            SideMenuViewController *leftMenuViewController = [[SideMenuViewController alloc] init];
+            MFSideMenuContainerViewController *container = [MFSideMenuContainerViewController containerWithCenterViewController:navigationController leftMenuViewController:leftMenuViewController rightMenuViewController:nil];
+            [iprestaViewController presentModalViewController:container animated:NO];
         }
         // Sino, se redirige a la pantalla de autenticacion
         else
         {
+            navigationController = [[UINavigationController alloc] init];
             viewController = [[AuthenticateEmailViewController alloc] initWithNibName:@"AuthenticateEmailViewController" bundle:nil];
+            [navigationController pushViewController:viewController animated:NO];
+            [iprestaViewController presentModalViewController:navigationController animated:NO];
         }
-        
-        [navigationController pushViewController:viewController animated:NO];
-        [iprestaViewController presentModalViewController:navigationController animated:NO];
     }
     
     
