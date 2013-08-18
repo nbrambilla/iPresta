@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SlideViewController.h"
 
-@interface ConfigurationViewController : UIViewController
+@interface ConfigurationViewController : SlideViewController
 {
     @private
     IBOutlet UISwitch *visibleSwitch;

@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "MFSideMenuContainerViewController.h"
+#import "IMOAutocompletionViewController.h"
 
-@interface SlideViewController : UIViewController <UINavigationControllerDelegate>
+@interface SlideViewController : IMOAutocompletionViewController <UINavigationControllerDelegate>
 
 @end

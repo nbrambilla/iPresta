@@ -30,6 +30,9 @@
 		1535FAA5175D1B4600587AB7 /* ObjectHistoricGiveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1535FAA3175D1B4500587AB7 /* ObjectHistoricGiveViewController.xib */; };
 		15393FF51742BA020012BA4F /* ObjectDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15393FF31742BA020012BA4F /* ObjectDetailViewController.m */; };
 		15393FF61742BA020012BA4F /* ObjectDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15393FF41742BA020012BA4F /* ObjectDetailViewController.xib */; };
+		154985C117BD6DC000AE1135 /* SlideTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154985C017BD6DC000AE1135 /* SlideTableViewController.m */; };
+		154985CA17BD7C8E00AE1135 /* SearchObjectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154985C817BD7C8C00AE1135 /* SearchObjectsViewController.m */; };
+		154985CB17BD7C8E00AE1135 /* SearchObjectsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154985C917BD7C8D00AE1135 /* SearchObjectsViewController.xib */; };
 		154C92DC172997680030915B /* AuthenticateEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C92DA172997680030915B /* AuthenticateEmailViewController.m */; };
 		154C92DD172997680030915B /* AuthenticateEmailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154C92DB172997680030915B /* AuthenticateEmailViewController.xib */; };
 		154F205717205E7D00E65121 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154F205517205E7D00E65121 /* LoginViewController.m */; };
@@ -171,6 +174,11 @@
 		15393FF21742BA020012BA4F /* ObjectDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectDetailViewController.h; path = ViewControllers/ObjectDetailViewController.h; sourceTree = "<group>"; };
 		15393FF31742BA020012BA4F /* ObjectDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectDetailViewController.m; path = ViewControllers/ObjectDetailViewController.m; sourceTree = "<group>"; };
 		15393FF41742BA020012BA4F /* ObjectDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ObjectDetailViewController.xib; path = ViewControllers/ObjectDetailViewController.xib; sourceTree = "<group>"; };
+		154985BF17BD6DC000AE1135 /* SlideTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlideTableViewController.h; path = ViewControllers/SlideTableViewController.h; sourceTree = "<group>"; };
+		154985C017BD6DC000AE1135 /* SlideTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlideTableViewController.m; path = ViewControllers/SlideTableViewController.m; sourceTree = "<group>"; };
+		154985C717BD7C8C00AE1135 /* SearchObjectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchObjectsViewController.h; path = ViewControllers/SearchObjectsViewController.h; sourceTree = "<group>"; };
+		154985C817BD7C8C00AE1135 /* SearchObjectsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchObjectsViewController.m; path = ViewControllers/SearchObjectsViewController.m; sourceTree = "<group>"; };
+		154985C917BD7C8D00AE1135 /* SearchObjectsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchObjectsViewController.xib; path = ViewControllers/SearchObjectsViewController.xib; sourceTree = "<group>"; };
 		154C92D9172997680030915B /* AuthenticateEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthenticateEmailViewController.h; path = ViewControllers/AuthenticateEmailViewController.h; sourceTree = "<group>"; };
 		154C92DA172997680030915B /* AuthenticateEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthenticateEmailViewController.m; path = ViewControllers/AuthenticateEmailViewController.m; sourceTree = "<group>"; };
 		154C92DB172997680030915B /* AuthenticateEmailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AuthenticateEmailViewController.xib; path = ViewControllers/AuthenticateEmailViewController.xib; sourceTree = "<group>"; };
@@ -621,6 +629,8 @@
 				153513E017BC029D00E4193D /* SideMenuViewController.xib */,
 				153513E117BC029D00E4193D /* SlideViewController.h */,
 				153513E217BC029D00E4193D /* SlideViewController.m */,
+				154985BF17BD6DC000AE1135 /* SlideTableViewController.h */,
+				154985C017BD6DC000AE1135 /* SlideTableViewController.m */,
 				15FEB8331747C88000BB6750 /* iPrestaViewController.h */,
 				15FEB8341747C88000BB6750 /* iPrestaViewController.m */,
 				15FEB8351747C88100BB6750 /* iPrestaViewController.xib */,
@@ -675,6 +685,9 @@
 				194CE55C179D75B7008BFDE0 /* AppContactsListViewController.h */,
 				194CE55D179D75B8008BFDE0 /* AppContactsListViewController.m */,
 				194CE55E179D75B8008BFDE0 /* AppContactsListViewController.xib */,
+				154985C717BD7C8C00AE1135 /* SearchObjectsViewController.h */,
+				154985C817BD7C8C00AE1135 /* SearchObjectsViewController.m */,
+				154985C917BD7C8D00AE1135 /* SearchObjectsViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -889,6 +902,7 @@
 				153513F217BC2F6300E4193D /* objects_icon@2x.png in Resources */,
 				153513F517BC32B400E4193D /* orders_icon.png in Resources */,
 				153513F617BC32B400E4193D /* orders_icon@2x.png in Resources */,
+				154985CB17BD7C8E00AE1135 /* SearchObjectsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -940,6 +954,8 @@
 				153513E317BC029D00E4193D /* SideMenuViewController.m in Sources */,
 				153513E517BC029D00E4193D /* SlideViewController.m in Sources */,
 				153513EA17BC02B300E4193D /* MFSideMenuContainerViewController.m in Sources */,
+				154985C117BD6DC000AE1135 /* SlideTableViewController.m in Sources */,
+				154985CA17BD7C8E00AE1135 /* SearchObjectsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

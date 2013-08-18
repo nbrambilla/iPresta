@@ -41,9 +41,23 @@
 @synthesize footerActivityIndicator = _footerActivityIndicator;
 @synthesize activityIndicatorLabel = _activityIndicatorLabel;
 
+
 - (id)init
 {
     return  self = [self initWithNibName:nil bundle:nil];
+}
+
+- (id)initWithCancelButton:(BOOL)setCancelButton andPagination:(BOOL)setPagination nibName:(NSString *)nibNameOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nil];
+    
+	if (self)
+    {
+        isPaginable = setPagination;
+        isCancelButton = setCancelButton;
+    }
+    
+    return self;
 }
 
 - (id)initWithCancelButton:(BOOL)setCancelButton andPagination:(BOOL)setPagination

@@ -9,6 +9,10 @@
 #import "SideMenuViewController.h"
 #import "MFSideMenuContainerViewController.h"
 #import "ObjectsMenuViewController.h"
+#import "AppContactsListViewController.h"
+#import "ConfigurationViewController.h"
+#import "SearchObjectsViewController.h"
+#import "IMOAutocompletionViewController.h"
 
 @interface SideMenuViewController ()
 
@@ -149,16 +153,16 @@
                 viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
                 break;
             case 1:
-                
+                viewController = [[SearchObjectsViewController alloc] initWithCancelButton:NO andPagination:YES nibName:@"IMOAutocompletionViewController"];
                 break;
             case 2:
-                
+                viewController = [[AppContactsListViewController alloc] initWithNibName:@"AppContactsListViewController" bundle:nil];
                 break;
             case 3:
                 
                 break;
             case 4:
-                
+                viewController = [[ConfigurationViewController alloc] initWithNibName:@"ConfigurationViewController" bundle:nil];
                 break;
         }
         

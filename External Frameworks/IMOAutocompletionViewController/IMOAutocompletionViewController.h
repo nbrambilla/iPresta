@@ -14,7 +14,7 @@
 @protocol IMOAutocompletionViewDataSource <NSObject>
 
 @optional
-- (void)sourceForAutoCompletionTextField:(IMOAutocompletionViewController *)asViewController withParam:(NSString *)param page:(NSInteger)page offset:(NSInteger)offset;
+- (void)sourceForAutoCompletionTextField:(IMOAutocompletionViewController *)asViewController withParam:(NSString *)param page:(NSInteger)_page offset:(NSInteger)offset;
 - (void)sourceForAutoCompletionTextField:(IMOAutocompletionViewController *)asViewController withParam:(NSString *)param;
 
 @end
@@ -40,6 +40,7 @@
 
 - (id)initWithCancelButton:(BOOL)setCancelButton andPagination:(BOOL)setPagination;
 - (void)loadSearchTableWithResults:(NSArray *)searchResults error:(NSError *)error;
+- (id)initWithCancelButton:(BOOL)setCancelButton andPagination:(BOOL)setPagination nibName:(NSString *)nibNameOrNil;
 
 @end
 

@@ -48,6 +48,7 @@
     }
     return self;
 }
+
 - (IBAction)tapImegeView:(id)sender
 {
     if ([_delegate respondsToSelector:@selector(tapImageView)])

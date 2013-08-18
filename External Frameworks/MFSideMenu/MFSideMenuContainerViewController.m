@@ -81,14 +81,14 @@ typedef enum {
     
     self.menuContainerView = [[UIView alloc] init];
     self.menuState = MFSideMenuStateClosed;
-    self.menuWidth = 270.0f;
+    self.menuWidth = 210.0f;
     self.shadowRadius = 10.0f;
     self.shadowOpacity = 0.75f;
     self.shadowColor = [UIColor blackColor];
     self.menuSlideAnimationFactor = 3.0f;
     self.shadowEnabled = YES;
-    self.menuAnimationDefaultDuration = 0.4f;
-    self.menuAnimationMaxDuration = 0.6f;
+    self.menuAnimationDefaultDuration = 0.2f;
+    self.menuAnimationMaxDuration = 0.4f;
     self.panMode = MFSideMenuPanModeDefault;
 }
 

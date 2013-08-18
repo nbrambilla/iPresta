@@ -1,24 +1,22 @@
 //
-//  SlideViewController.m
-//  UseTaxi
+//  SlideTableViewController.m
+//  iPresta
 //
-//  Created by Nacho on 07/08/13.
-//  Copyright (c) 2013 Nostro Studio. All rights reserved.
+//  Created by Nacho on 15/08/13.
+//  Copyright (c) 2013 Nacho. All rights reserved.
 //
 
-#import "SlideViewController.h"
-#import "User.h"
+#import "SlideTableViewController.h"
 
-
-@interface SlideViewController ()
+@interface SlideTableViewController ()
 
 @end
 
-@implementation SlideViewController
+@implementation SlideTableViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
     }
@@ -29,7 +27,7 @@
 {
     [super viewDidLoad];
     
-    if (![User objectsUserIsSet]) self.navigationItem.leftBarButtonItem = [self leftMenuBarButtonItem];
+    self.navigationItem.leftBarButtonItem = [self leftMenuBarButtonItem];
 }
 
 - (MFSideMenuContainerViewController *)menuContainerViewController
@@ -63,7 +61,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (![User objectsUserIsSet]) self.menuContainerViewController.panMode = MFSideMenuPanModeDefault;
+    self.menuContainerViewController.panMode = MFSideMenuPanModeDefault;
 }
 
 - (void)viewWillDisappear:(BOOL)animated

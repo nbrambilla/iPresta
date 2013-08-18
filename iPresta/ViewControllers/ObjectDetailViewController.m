@@ -273,13 +273,19 @@
 
 - (void)removeNotificatioWithRegisterId:(NSString *)registerId
 {
-    NSArray *notificationArray = [[UIApplication sharedApplication] scheduledLocalNotifications];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"userInfo.id = %@", registerId];
+    NSArray *notificationsArray = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    for (UILocalNotification *localNotification in notificationsArray)
+    {
+        NSDictionary *userInfoCurrent = localNotification.userInfo;
+        NSString *id = [NSString stringWithFormat:@"%@",[userInfoCurrent valueForKey:@"id"]];
+        if ([id isEqualToString:registerId])
+        {
+            [[UIApplication sharedApplication] cancelLocalNotification:localNotification];
+            break;
+        }
+    }
     
-    [[UIApplication sharedApplication] cancelLocalNotification:[[notificationArray filteredArrayUsingPredicate:predicate] objectAtIndex:0]];
-    
-    notificationArray = nil;
-    predicate = nil;
+    notificationsArray = nil;
 }
 
 - (void)didReceiveMemoryWarning
