@@ -7,7 +7,8 @@
 //
 
 #import "ObjectsMenuViewController.h"
-#import "User.h"
+#import "UserIP.h"
+#import "ObjectIP.h"
 #import "iPrestaObject.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
@@ -38,11 +39,20 @@
     [self addObservers];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [ObjectIP setDelegate:self];
+    [ObjectIP setSelectedType:NoneType];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    if (self.isMovingFromParentViewController) [User setObjectsUser:nil];
+    [ObjectIP setDelegate:nil];
+    if (self.isMovingFromParentViewController) [UserIP setObjectsUser:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,8 +85,7 @@
 - (IBAction)goToObjectsList:(UIButton *)sender
 {
     ObjectsListViewController *viewController = [[ObjectsListViewController alloc] initWithNibName:@"ObjectsListViewController" bundle:nil];
-    
-    [iPrestaObject setTypeSelected:sender.tag];
+    [ObjectIP setSelectedType:sender.tag];
     [self.navigationController pushViewController:viewController animated:YES];
     
     viewController = nil;
@@ -103,43 +112,26 @@
 
 - (void)countObjects
 {
-    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+    objectCountArray = [[ObjectIP countAllByType] mutableCopy];
     
-    PFQuery *allObjectsQuery = [iPrestaObject query];
-    [allObjectsQuery whereKey:@"owner" equalTo:[User objectsUser]];
-    allObjectsQuery.limit = 1000;
+    if (![UserIP objectsUserIsSet])[self setCountLabels];
+    else [ProgressHUD showHUDAddedTo:self.view animated:YES];
+}
+
+- (void)countAllByTypeSuccess:(NSArray *)array
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    if ([User objectsUserIsSet])
-    {
-        [allObjectsQuery whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
-    }
+    objectCountArray = [array mutableCopy];
     
-    NSNumber *zero = [NSNumber numberWithInteger:0];
-    objectCountArray = [[NSMutableArray alloc] initWithObjects:zero, zero, zero, zero, nil];
+    [self setCountLabels];
+}
+
+- (void)countAllByTypeError:(NSError *)error
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    [allObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-     {
-         [ProgressHUD hideHUDForView:self.view animated:YES];
-         
-         if (error)      // Si hay error al obtener los objetos
-         {
-             [error manageErrorTo:self];
-         }
-         else            // Si se obtienen los objetos, se cuentan cuantos hay de cada tipo
-         {
-             for (iPrestaObject *object in objects)
-             {
-                 NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:object.type], @"type", nil];
-                 [[NSNotificationCenter defaultCenter] postNotificationName:@"IncrementObjectTypeObserver" object:options];
-                 
-                 options = nil;
-             }
-             
-             [self setCountLabels];
-         }
-     }];
-    
-    zero = nil;
+    [error manageErrorTo:self];
 }
 
 - (void)setCountLabels

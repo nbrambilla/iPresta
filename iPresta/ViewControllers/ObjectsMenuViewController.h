@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "SlideViewController.h"
+#import "ObjectIP.h"
 
-@interface ObjectsMenuViewController : SlideViewController
+@interface ObjectsMenuViewController : SlideViewController <ObjectIPDelegate>
 {
     @private
     IBOutlet UIButton *booksListButton;

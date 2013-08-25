@@ -11,7 +11,7 @@
 #import "iPrestaNSString.h"
 #import "iPrestaNSError.h"
 #import "ProgressHUD.h"
-#import "User.h"
+#import "UserIP.h"
 
 @interface CreateCountViewController ()
 
@@ -36,6 +36,16 @@
 
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Volver", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(backToBegin)];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [UserIP setDelegate:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [UserIP setDelegate:nil];
 }
 
 - (void)backToBegin
@@ -65,7 +75,7 @@
     [super viewDidUnload];
 }
 
-#pragma mark - Button Functions
+#pragma mark - SignUp Functions
 
 - (IBAction)createCount:(id)sender
 {
@@ -77,27 +87,19 @@
             {
                 [ProgressHUD showHUDAddedTo:self.view animated:YES];
                 
-                // Se crea un nuevo usuario
-                
-                User *newUser = [User object];
-                newUser.username = emailTextField.text;
-                newUser.email = emailTextField.text;
-                newUser.password = passwordTextField.text;
-                newUser.visible = YES;
-                
-                [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-                {
-                    [ProgressHUD hideHUDForView:self.view animated:YES];
-                    
-                    if (error) [error manageErrorTo:self];  // Si hay error en el registro
-                    else [self signInSuccess];              // Si el registro se realiza correctamente
-                }];
+                [UserIP signUpWithEmail:emailTextField.text andPassword:passwordTextField.text];
             }
         }
     }
 }
 
-#pragma mark - SignUp Functions
+- (void)signUpResult:(NSError *)error
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    
+    if (error) [error manageErrorTo:self];  // Si hay error en el registro
+    else [self signInSuccess];              // Si el registro se realiza correctamente
+}
 
 - (void)signInSuccess
 {

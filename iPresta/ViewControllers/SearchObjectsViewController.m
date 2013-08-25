@@ -9,6 +9,7 @@
 #import "SearchObjectsViewController.h"
 #import "iPrestaObject.h"
 #import "User.h"
+#import "UserIP.h"
 #import "ObjectDetailViewController.h"
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
@@ -42,6 +43,13 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if (self.isMovingFromParentViewController) [User setSearchUser:nil];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -67,7 +75,7 @@
         ObjectDetailViewController *viewController = [[ObjectDetailViewController alloc] initWithNibName:@"ObjectDetailViewController" bundle:nil];
         
         [iPrestaObject setCurrentObject:object];
-        [User setSearchUser:object.owner];
+        [UserIP setSearchUser:object.owner];
         
         [self.navigationController pushViewController:viewController animated:YES];
         

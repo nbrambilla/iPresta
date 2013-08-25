@@ -21,48 +21,48 @@
 
 @end
 
-typedef NS_ENUM(NSUInteger, ObjectState) {
-    Property = 0,
-    Given = 1,
-    Received = 2,
+typedef NS_ENUM(NSUInteger, ObjectStatee) {
+    Propertye = 0,
+    Givene = 1,
+    Receivede = 2,
 };
 
-typedef NS_ENUM(NSInteger, ObjectType) {
-    NoneType = -1,
-    BookType = 0,
-    AudioType = 1,
-    VideoType = 2,
-    OtherType = 3,
+typedef NS_ENUM(NSInteger, ObjectTypee) {
+    NoneTypee = -1,
+    BookTypee = 0,
+    AudioTypee = 1,
+    VideoTypee = 2,
+    OtherTypee = 3,
 };
 
-typedef NS_ENUM(NSInteger, AudioObjectType)
+typedef NS_ENUM(NSInteger, AudioObjectTypee)
 {
-    NoneAudioObjectType = -1,
-    CDAudioObjectType = 0,
-    SACDAudioObjectType = 1,
-    VinylAudioObjectType = 2,
+    NoneAudioObjectTypee = -1,
+    CDAudioObjectTypee = 0,
+    SACDAudioObjectTypee = 1,
+    VinylAudioObjectTypee = 2,
 };
 
-typedef NS_ENUM(NSInteger, VideoObjectType) {
-    NoneVideoObjectType = -1,
-    DVDVideoObjectType = 0,
-    BluRayVideoObjectType = 1,
-    VHSVideoObjectType = 2,
+typedef NS_ENUM(NSInteger, VideoObjectTypee) {
+    NoneVideoObjectTypee = -1,
+    DVDVideoObjectTypee = 0,
+    BluRayVideoObjectTypee = 1,
+    VHSVideoObjectTypee = 2,
 };
 
 @interface iPrestaObject : PFObject<PFSubclassing>
 
 @property(retain) User *owner;
-@property(assign) ObjectState state;
-@property(assign) ObjectType type;
+@property(assign) ObjectStatee state;
+@property(assign) ObjectTypee type;
 @property(retain) NSString *descriptionObject;
 @property(retain) NSString *name;
 @property(retain) NSString *author;
 @property(retain) NSString *editorial;
 @property(retain) NSString *barcode;
 @property(retain) PFFile *image;
-@property(assign) AudioObjectType audioType;
-@property(assign) VideoObjectType videoType;
+@property(assign) AudioObjectTypee audioType;
+@property(assign) VideoObjectTypee videoType;
 @property(assign) BOOL visible;
 @property(strong, nonatomic) NSData *imageData;
 @property(strong, nonatomic) NSString *imageURL;
@@ -73,12 +73,12 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 + (NSArray *)objectTypes;
 + (NSArray *)audioObjectTypes;
 + (NSArray *)videoObjectTypes;
-+ (void)setTypeSelected:(ObjectType)objectType;
-+ (ObjectType)typeSelected;
++ (void)setTypeSelected:(ObjectTypee)objectType;
++ (ObjectTypee)typeSelected;
 + (void)setCurrentObject:(iPrestaObject *)object;
 + (iPrestaObject *)currentObject;
 + (NSString *)imageType;
-+ (NSString *)imageType:(ObjectType)objectType;
++ (NSString *)imageType:(ObjectTypee)objectType;
 
 - (void)getSearchResults:(NSString *)param page:(NSInteger)page offset:(NSInteger)offset;
 - (void)getData:(NSString *)objectCode;

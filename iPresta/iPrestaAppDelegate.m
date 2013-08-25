@@ -8,6 +8,7 @@
 
 #import "iPrestaObject.h"
 #import "User.h"
+#import "UserIP.h"
 #import "Give.h"
 #import "iPrestaAppDelegate.h"
 #import "AuthenticateEmailViewController.h"
@@ -40,13 +41,13 @@
     [self.window makeKeyAndVisible];
     
     // Si existe un usuario logueado...
-    if ([User currentUser])
+    if ([UserIP loggedUser])
     {
         UINavigationController *navigationController = [[UINavigationController alloc] init];
         UIViewController *viewController;
         
         // Si el usuario autentico su email, se redirige a la aplicacion
-        if ([User currentUserHasEmailVerified])
+        if ([UserIP hasEmailVerified])
         {
             viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
             navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];

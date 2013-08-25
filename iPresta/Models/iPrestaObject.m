@@ -15,7 +15,7 @@
 
 @implementation iPrestaObject
 
-static ObjectType typeSelected;
+static ObjectTypee typeSelected;
 static iPrestaObject *currentObject;
 
 @dynamic owner;
@@ -95,7 +95,7 @@ static iPrestaObject *currentObject;
     _actualGive = actualGive;
 }
 
-+ (void)setTypeSelected:(ObjectType)objectType
++ (void)setTypeSelected:(ObjectTypee)objectType
 {
     typeSelected = objectType;
 }
@@ -127,7 +127,7 @@ static iPrestaObject *currentObject;
     return _actualGive;
 }
 
-+ (ObjectType)typeSelected
++ (ObjectTypee)typeSelected
 {
     return typeSelected;
 }
@@ -164,7 +164,7 @@ static iPrestaObject *currentObject;
     return [[iPrestaObject imageTypes] objectAtIndex:typeSelected];
 }
 
-+ (NSString *)imageType:(ObjectType)objectType
++ (NSString *)imageType:(ObjectTypee)objectType
 {
     return [[iPrestaObject imageTypes] objectAtIndex:objectType];
 }
@@ -177,11 +177,11 @@ static iPrestaObject *currentObject;
     
     NSString *urlString;
     
-    if (typeSelected == BookType)
+    if (typeSelected == BookTypee)
     {
         urlString = [NSString stringWithFormat:@"https://www.googleapis.com/books/v1/volumes?q=isbn:%@", objectCode];
     }
-    else if (typeSelected == AudioType || typeSelected == VideoType)
+    else if (typeSelected == AudioTypee || typeSelected == VideoTypee)
     {
         urlString = [NSString stringWithFormat:@"http://api.discogs.com/search?q=%@&f=json", objectCode];
         self.barcode = objectCode;
@@ -195,16 +195,16 @@ static iPrestaObject *currentObject;
 {
     NSString *urlString;
     
-    if (typeSelected == BookType)
+    if (typeSelected == BookTypee)
     {
         urlString = [NSString stringWithFormat:@"https://www.googleapis.com/books/v1/volumes?q=%@&maxResults=%d&startIndex=%d", param, offset, page*offset];
     }
-    else if (typeSelected == AudioType)
+    else if (typeSelected == AudioTypee)
     {
         urlString = [NSString stringWithFormat:@"http://api.discogs.com/database/search?title=%@&type=release&page=%d&per_page=%d", param, page, offset];
     }
     
-    else if (typeSelected == VideoType)
+    else if (typeSelected == VideoTypee)
     {
         urlString = [NSString stringWithFormat:@"http://mymovieapi.com/?title=%@&type=json&episode=0&limit=%d&offset=%d", param, offset, page*offset];
     }
@@ -223,22 +223,22 @@ static iPrestaObject *currentObject;
         {
             id volumeInfo;
             
-            if (typeSelected == BookType)
+            if (typeSelected == BookTypee)
             {
                 volumeInfo = [[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"volumeInfo"];
             }
-            else if (typeSelected == AudioType || typeSelected == VideoType)
+            else if (typeSelected == AudioTypee || typeSelected == VideoTypee)
             {
                 volumeInfo = [[[[[response objectForKey:@"resp"] objectForKey:@"search"] objectForKey:@"searchresults"] objectForKey:@"results"] objectAtIndex:0];
             }
             
             if (volumeInfo)
             {
-                if (typeSelected == BookType)
+                if (typeSelected == BookTypee)
                 {
                     [self setBookWithInfo:volumeInfo];
                 }
-                else if (typeSelected == AudioType || typeSelected == VideoType)
+                else if (typeSelected == AudioTypee || typeSelected == VideoTypee)
                 {
                     [self setAudioWithInfo:volumeInfo];
                 }
@@ -259,15 +259,15 @@ static iPrestaObject *currentObject;
             NSMutableArray *searchResultArray;
             id volumeInfoArray;
             
-            if (typeSelected == BookType)
+            if (typeSelected == BookTypee)
             {
                 volumeInfoArray = [response objectForKey:@"items"];
             }
-            else if (typeSelected == AudioType)
+            else if (typeSelected == AudioTypee)
             {
                 volumeInfoArray = [response objectForKey:@"results"];
             }
-            else if (typeSelected == VideoType)
+            else if (typeSelected == VideoTypee)
             {
                 volumeInfoArray = [response objectForKey:@"result"];
             }
@@ -280,15 +280,15 @@ static iPrestaObject *currentObject;
                 {
                     iPrestaObject *object = [iPrestaObject object];
                     
-                    if (typeSelected == BookType)
+                    if (typeSelected == BookTypee)
                     {
                         [object setBookWithInfo:[volumeInfo objectForKey:@"volumeInfo"]];
                     }
-                    else if (typeSelected == AudioType)
+                    else if (typeSelected == AudioTypee)
                     {
                         [object setAudioWithInfo:volumeInfo];
                     }
-                    else if (typeSelected == VideoType)
+                    else if (typeSelected == VideoTypee)
                     {
                         [object setVideoWithInfo:volumeInfo];
                     }

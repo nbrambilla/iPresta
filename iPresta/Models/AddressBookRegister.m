@@ -118,7 +118,7 @@
 {
     if (_lastName) return _lastName;
     if (_middleName) return _middleName;
-    return _lastName;
+    return _firstName;
 }
 
 @end

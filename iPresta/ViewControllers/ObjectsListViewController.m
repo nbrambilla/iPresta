@@ -15,7 +15,7 @@
 #import "FormOtherViewController.h"
 #import "ObjectDetailViewController.h"
 #import "iPrestaObject.h"
-#import "User.h"
+#import "UserIP.h"
 #import "Give.h"
 
 #define HEADER_HEIGHT 44
@@ -59,7 +59,8 @@
 {
     [super viewWillAppear:animated];
     
-    float offsetY = ([User objectsUserIsSet]) ? HEADER_HEIGHT : HEADER_HEIGHT * 2;
+    [ObjectIP setDelegate:self];
+    float offsetY = ([UserIP objectsUserIsSet]) ? HEADER_HEIGHT : HEADER_HEIGHT * 2;
     
     [self.tableView setContentOffset:CGPointMake(0, offsetY) animated:NO];
 }
@@ -68,11 +69,8 @@
 {
     [super viewWillDisappear:animated];
     
-    if (self.isMovingFromParentViewController)
-    {
-        [iPrestaObject setTypeSelected:NoneType];
-        [[User objectsUser] setObjectsArray:nil];
-    }
+    [ObjectIP setDelegate:nil];
+    if (self.isMovingFromParentViewController) [ObjectIP setSelectedType:NoneType];
 }
 
 - (void)addObservers
@@ -89,35 +87,30 @@
 {
     filteredObjectsArray = [NSMutableArray new];
     
-    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+    objectsArray = [ObjectIP getAllByType];
     
-    PFQuery *getObjectsQuery = [iPrestaObject query];
-    [getObjectsQuery whereKey:@"owner" equalTo:[User objectsUser]];
-    [getObjectsQuery whereKey:@"type" equalTo:[NSNumber numberWithInteger:[iPrestaObject typeSelected]]];
-    
-    if ([User objectsUserIsSet])
+    if (![UserIP objectsUserIsSet])
     {
-        [getObjectsQuery whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
+        [self reloadTables];
+        [self setTableViewHeader];
     }
-    
-    getObjectsQuery.limit = 1000;
-    
-    [getObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-    {
-         [ProgressHUD hideHUDForView:self.view animated:YES];
-         
-         if (error) [error manageErrorTo:self];          // Si hay error al obtener los objetos
-         else                                            // Si se obtienen los objetos, se listan
-         {
-             [[User objectsUser] setObjectsArray:[NSMutableArray arrayWithArray:[self partitionObjects:objects collationStringSelector:@selector(firstLetter)]]];
-             [self.tableView reloadData];
-             [self.searchDisplayController.searchResultsTableView reloadData];
-         }
-    }];
-    
-    if (![User objectsUserIsSet]) [self setTableViewHeader];
+    else [ProgressHUD showHUDAddedTo:self.view animated:YES];
+}
 
-    getObjectsQuery = nil;
+- (void)getAllByTypeSuccess:(NSArray *)array
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    
+    objectsArray = array;
+    
+    [self reloadTables];
+}
+
+- (void)getAllByTypeError:(NSError *)error
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    
+    [error manageErrorTo:self]; 
 }
 
 - (void)setTableViewHeader
@@ -153,7 +146,7 @@
 {
     self.title = [[iPrestaObject objectTypes] objectAtIndex:[iPrestaObject typeSelected]];
     
-    if (![User objectsUserIsSet])
+    if (![UserIP objectsUserIsSet])
     {
         UIBarButtonItem *addObjectlButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(goToAddObject)];
         self.navigationItem.rightBarButtonItem = addObjectlButton;
@@ -194,7 +187,7 @@
     }
 	else
 	{
-        object = [[[[User objectsUser] objectsArray] objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        object = [[objectsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     }
     
     [object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
@@ -229,8 +222,8 @@
              }
         
              NSInteger sectionIndex = [[UILocalizedIndexedCollation currentCollation] sectionForObject:object collationStringSelector:@selector(firstLetter)];
-             NSInteger objectIndex = [[[[User objectsUser] objectsArray] objectAtIndex:sectionIndex] indexOfObject:object];
-             [[[[User objectsUser] objectsArray] objectAtIndex:sectionIndex] removeObjectIdenticalTo:object];
+             NSInteger objectIndex = [[objectsArray objectAtIndex:sectionIndex] indexOfObject:object];
+             [[ objectsArray objectAtIndex:sectionIndex] removeObjectIdenticalTo:object];
              
              NSIndexPath *tableViewIndexPath = [NSIndexPath indexPathForRow:objectIndex inSection:sectionIndex];
              [self.tableView deleteRowsAtIndexPaths:@[tableViewIndexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -401,7 +394,7 @@
     }
     
     cell.tag = indexPath.row;
-    iPrestaObject *object = nil;
+    ObjectIP *object = nil;
     
     if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
@@ -415,34 +408,34 @@
     cell.textLabel.text = object.name;
     cell.detailTextLabel.text = (![object.author isEqual:@""]) ? object.author : @"Desconocido";
     
-    if (!object.imageData)
-    {
-        cell.imageView.image = [UIImage imageNamed:[iPrestaObject imageType]];
-        
-        [object.image getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
-        {
-            if (!error)
-            {
-                object.imageData = [[NSData alloc] initWithData:data];
-                UIImage* image = [UIImage imageWithData:data];
-                if (image)
-                {
-                    dispatch_async(dispatch_get_main_queue(),
-                    ^{
-                        if (cell.tag == indexPath.row)
-                        {
-                            cell.imageView.image = image;
-                            [cell setNeedsLayout];
-                        }
-                    });
-                }
-            }
-        }];
-    }
-    else
-    {
-        cell.imageView.image = [UIImage imageWithData:object.imageData];
-    }
+//    if (!object.image)
+//    {
+//        cell.imageView.image = [UIImage imageNamed:[iPrestaObject imageType]];
+//        
+//        [object.image getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+//        {
+//            if (!error)
+//            {
+//                object.image = [[NSData alloc] initWithData:data];
+//                UIImage* image = [UIImage imageWithData:data];
+//                if (image)
+//                {
+//                    dispatch_async(dispatch_get_main_queue(),
+//                    ^{
+//                        if (cell.tag == indexPath.row)
+//                        {
+//                            cell.imageView.image = image;
+//                            [cell setNeedsLayout];
+//                        }
+//                    });
+//                }
+//            }
+//        }];
+//    }
+//    else
+//    {
+        cell.imageView.image = [UIImage imageWithData:object.image];
+//    }
     
     return cell;
 }
@@ -544,25 +537,25 @@
 
 - (NSMutableArray *)getObjectsInState:(ObjectState)state inArray:(NSArray *)array
 {
-    NSMutableArray *filteredArray = [[NSMutableArray alloc] init];
-    for (iPrestaObject *object in array)
+    NSMutableArray *filteredArray = [NSMutableArray new];
+    for (ObjectIP *object in array)
     {
-        if (object.state == state) [filteredArray addObject:object];
+        if ([object.state integerValue] == state) [filteredArray addObject:object];
     }
     return filteredArray;
 }
 
 - (NSMutableArray *)getObjectsAndSectionsInState:(ObjectState)state inArray:(NSArray *)array
 {
-    NSMutableArray *filteredArray = [[NSMutableArray alloc] init];
+    NSMutableArray *filteredArray = [NSMutableArray new];
     
     for (NSArray *section in array)
     {
-        NSMutableArray *filteredSection = [[NSMutableArray alloc] init];
+        NSMutableArray *filteredSection = [NSMutableArray new];
         
-        for (iPrestaObject *object in section)
+        for (ObjectIP *object in section)
         {
-            if (object.state == state) [filteredSection addObject:object];
+            if ([object.state integerValue] == state) [filteredSection addObject:object];
         }
         
         [filteredArray addObject:filteredSection];
@@ -572,7 +565,7 @@
 
 - (NSMutableArray *)getObjectsAndSectionsArray
 {
-    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:[[User objectsUser] objectsArray]];
+    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:objectsArray];
     
     switch (segmentedControl.selectedSegmentIndex)
     {
@@ -589,7 +582,7 @@
 
 - (NSMutableArray *)getObjectsArrayInSection:(NSInteger)section
 {
-    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:[[[User objectsUser] objectsArray] objectAtIndex:section]];
+    NSMutableArray *array = [[NSMutableArray alloc] initWithArray:[objectsArray objectAtIndex:section]];
     
     switch (segmentedControl.selectedSegmentIndex)
     {
@@ -602,6 +595,12 @@
     }
     
     return array;
+}
+
+- (void)reloadTables
+{
+    [self.tableView reloadData];
+    [self.searchDisplayController.searchResultsTableView reloadData];
 }
 
 @end

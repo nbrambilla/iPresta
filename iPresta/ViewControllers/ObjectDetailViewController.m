@@ -12,7 +12,7 @@
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
 #import "Give.h"
-#import "User.h"
+#import "UserIP.h"
 #import "MLTableAlert.h"
 #import "ObjectHistoricGiveViewController.h"
 #import "iPrestaNSString.h"
@@ -49,7 +49,7 @@
     if (self.isMovingFromParentViewController)
     {
         [iPrestaObject setCurrentObject:nil];
-        [User setSearchUser:nil];
+        [UserIP setSearchUser:nil];
     }
     
     [super viewWillDisappear:animated];
@@ -86,14 +86,14 @@
     imageView.image = [UIImage imageWithData:[[iPrestaObject currentObject] imageData]];
     loanUpLabel.hidden = YES;
     
-    if (![User objectsUserIsSet] && [User searchUser] == nil)
+    if (![UserIP objectsUserIsSet] && [UserIP searchUser] == nil)
     {
         currentUserButtonsView.hidden = NO;
         otherUserButtonsView.hidden = YES;
         
         [visibleSwitch setOn:[[iPrestaObject currentObject] visible]];
         
-        if ([[iPrestaObject currentObject] state] == Given)
+        if ([[iPrestaObject currentObject] state] == Givene)
         {
             giveButton.enabled = NO;
             giveBackButton.enabled = YES;
@@ -172,7 +172,7 @@
 - (IBAction)giveBackObject:(id)sender
 {
     iPrestaObject *currentObject = [iPrestaObject currentObject];
-    currentObject.state = Property;
+    currentObject.state = Propertye;
     
     [ProgressHUD  showHUDAddedTo:self.view animated:YES];
     

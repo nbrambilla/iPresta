@@ -194,7 +194,7 @@
          if (error) [error manageErrorTo:self];      // Si error hay al realizar el prestamo
          else                                        // Si el prestamo se realiza correctamente
          {
-             give.object.state = Given;
+             give.object.state = Givene;
              
              [give.object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
              {

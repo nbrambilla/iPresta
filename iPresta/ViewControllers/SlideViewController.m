@@ -7,7 +7,7 @@
 //
 
 #import "SlideViewController.h"
-#import "User.h"
+#import "UserIP.h"
 
 
 @interface SlideViewController ()
@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     
-    if (![User objectsUserIsSet]) self.navigationItem.leftBarButtonItem = [self leftMenuBarButtonItem];
+    if (![UserIP objectsUserIsSet]) self.navigationItem.leftBarButtonItem = [self leftMenuBarButtonItem];
 }
 
 - (MFSideMenuContainerViewController *)menuContainerViewController
@@ -63,7 +63,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (![User objectsUserIsSet]) self.menuContainerViewController.panMode = MFSideMenuPanModeDefault;
+    if (![UserIP objectsUserIsSet]) self.menuContainerViewController.panMode = MFSideMenuPanModeDefault;
 }
 
 - (void)viewWillDisappear:(BOOL)animated

@@ -10,7 +10,6 @@
 #import "iPrestaNSString.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
-#import "User.h"
 
 @interface ChangeEmailViewController ()
 
@@ -31,9 +30,19 @@
 {
     [super viewDidLoad];
     
-    changeMailTextLabel.text = [NSString stringWithFormat:@"Su email actual es %@. Si desea cambiarlo, ingrese el nuevo y presione \"Cambiar email\"", [[User currentUser] email]];
+    changeMailTextLabel.text = [NSString stringWithFormat:@"Su email actual es %@. Si desea cambiarlo, ingrese el nuevo y presione \"Cambiar email\"", [UserIP email]];
     
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [UserIP setDelegate:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [UserIP setDelegate:nil];
 }
 
 - (IBAction)changeEmail:(id)sender
@@ -42,17 +51,17 @@
     {
         [ProgressHUD showHUDAddedTo:self.view animated:YES];
         
-        [[User currentUser] setEmail:emailTextField.text];
-        [[User currentUser] setUsername:emailTextField.text];
-        
-        [[User currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-        {
-            [ProgressHUD hideHUDForView:self.view animated:YES];
-            
-            if (error) [error manageErrorTo:self];  // Si hay error en el cambio de email
-            else [self changeEmailSuccess];         // Si el cambio de email se realiza correctamente
-        }];
+        [UserIP setEmail:emailTextField.text];
+        [UserIP save];
     }
+}
+
+- (void)saveResult:(NSError *)error
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    
+    if (error) [error manageErrorTo:self];  // Si hay error en el cambio de email
+    else [self changeEmailSuccess];
 }
 
 - (void)changeEmailSuccess

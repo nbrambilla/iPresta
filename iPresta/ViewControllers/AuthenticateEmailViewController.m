@@ -13,7 +13,6 @@
 #import "ProgressHUD.h"
 #import "SideMenuViewController.h"
 #import "iPrestaNSError.h"
-#import "User.h"
 
 @interface AuthenticateEmailViewController ()
 
@@ -43,17 +42,27 @@
     changeEmailButton = nil;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [UserIP setDelegate:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [UserIP setDelegate:nil];
+}
+
 - (IBAction)resendAuthenticateEmailMassage:(id)sender
 {
-    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+    [UserIP save];
+}
+
+- (void)saveResult:(NSError *)error
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    [[User currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-    {
-        [ProgressHUD hideHUDForView:self.view animated:YES];
-        
-        if (error) [error manageErrorTo:self];          // Si hay error en el cambio de email
-        else [self resendAuthenticateMessageSuccess];   // Si el cambio de email se realiza correctamente
-    }];
+    if (error) [error manageErrorTo:self];          // Si hay error en el cambio de email
+    else [self resendAuthenticateMessageSuccess];   // Si el cambio de email se realiza correctamente
 }
 
 - (void)resendAuthenticateMessageSuccess
@@ -68,18 +77,21 @@
 {
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    [[User currentUser] refreshInBackgroundWithBlock:^(PFObject *object, NSError *error)
-    {
-        [ProgressHUD hideHUDForView:self.view animated:YES];
-        
-        if (error) [error manageErrorTo:self];          // Si hay error en el cambio de email
-        else [self checkEmailAuthenticationSuccess];    // Si el cambio de email se realiza correctamente
-    }];
+    [UserIP refresh];
 }
+
+- (void)refreshResult:(NSError *)error
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    
+    if (error) [error manageErrorTo:self];          // Si hay error en el chequeo
+    else [self checkEmailAuthenticationSuccess];    // Si el chequeo se realiza correctamente
+}
+
 
 - (void)checkEmailAuthenticationSuccess
 {
-    if ([User currentUserHasEmailVerified])
+    if ([UserIP hasEmailVerified])
     {
         UIViewController *viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];

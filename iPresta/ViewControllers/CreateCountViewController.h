@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserIP.h"
 
-@interface CreateCountViewController : UIViewController
+@interface CreateCountViewController : UIViewController <UserIPDelegate>
 {
     @private
     IBOutlet UITextField *emailTextField;

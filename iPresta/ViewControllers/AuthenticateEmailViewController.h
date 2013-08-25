@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserIP.h"
 
-@interface AuthenticateEmailViewController : UIViewController
+@interface AuthenticateEmailViewController : UIViewController <UserIPDelegate>
 
 @end

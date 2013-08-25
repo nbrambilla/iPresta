@@ -249,7 +249,7 @@
 {
     newObject.owner = [User currentUser];
     newObject.type = [iPrestaObject typeSelected];
-    newObject.state = Property;
+    newObject.state = Propertye;
     newObject.name = nameTextField.text;
     newObject.visible = visibleSwitch.isOn;
     

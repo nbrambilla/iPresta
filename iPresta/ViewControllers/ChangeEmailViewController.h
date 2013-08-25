@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserIP.h"
 
-
-@interface ChangeEmailViewController : UIViewController
+@interface ChangeEmailViewController : UIViewController <UserIPDelegate>
 {
     @private
     IBOutlet UILabel *changeMailTextLabel;

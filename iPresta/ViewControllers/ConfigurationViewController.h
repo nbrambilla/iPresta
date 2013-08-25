@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "SlideViewController.h"
+#import "UserIP.h"
 
-@interface ConfigurationViewController : SlideViewController
+@interface ConfigurationViewController : SlideViewController <UserIPDelegate>
 {
     @private
     IBOutlet UISwitch *visibleSwitch;

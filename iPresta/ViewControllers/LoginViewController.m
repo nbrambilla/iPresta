@@ -16,6 +16,7 @@
 #import "SideMenuViewController.h"
 #import "ProgressHUD.h"
 #import "User.h"
+#import "ObjectIP.h"
 
 @interface LoginViewController ()
 
@@ -40,6 +41,16 @@
     // Do any additional setup after loading the view from its nib.
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Volver", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(backToBegin)];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [UserIP setDelegate:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [UserIP setDelegate:nil];
 }
 
 - (void)backToBegin
@@ -73,20 +84,20 @@
 {
     if ([NSString areSetUsername:emailTextField.text andPassword:passwordTextField.text]) // Si los campos estan completados
     {
-        if ([emailTextField.text isValidEmail]) // Si el email tiene el formato valido
+        if ([[emailTextField.text lowercaseString] isValidEmail]) // Si el email tiene el formato valido
         {
             [ProgressHUD showHUDAddedTo:self.view animated:YES];
-            
-            [User logInWithUsernameInBackground:emailTextField.text password:passwordTextField.text block:^(PFUser *user, NSError *error)
-            {
-                [ProgressHUD hideHUDForView:self.view animated:YES];
-                
-                if (error) [error manageErrorTo:self];      // Si hay error en el login
-                else [self logInSuccess];                   // Si el login se realiza correctamente
-            }];
-            
+            [UserIP logInWithUsername:emailTextField.text password:passwordTextField.text];
         }
     }
+}
+
+- (void)logInResult:(NSError *)error
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    
+    if (error) [error manageErrorTo:self];      // Si hay error en el login
+    else [self logInSuccess];
 }
 
 - (IBAction)goToRequestPasswordReset:(id)sender
@@ -107,6 +118,8 @@
     
     if ([User currentUserHasEmailVerified])
     {
+        [ObjectIP saveAllFromDB];
+        
         UIViewController *viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
         SideMenuViewController *leftMenuViewController = [[SideMenuViewController alloc] init];

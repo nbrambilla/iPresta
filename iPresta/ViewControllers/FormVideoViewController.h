@@ -29,7 +29,7 @@
     IBOutlet UISwitch *visibleSwitch;
     iPrestaObject *newObject;
     NSArray *videoTypesArray;
-    VideoObjectType videoTypeSelectedIndex;
+    VideoObjectTypee videoTypeSelectedIndex;
     IMOAutocompletionViewController *autoComplete;
 }
 

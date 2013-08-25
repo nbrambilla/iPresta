@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ObjectIP.h"
 
-@interface ObjectsListViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UINavigationControllerDelegate>
+@interface ObjectsListViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UINavigationControllerDelegate, ObjectIPDelegate>
 {
     @private
     NSMutableArray *filteredObjectsArray;
     IBOutlet UISearchBar *searchBar;
     UISegmentedControl *segmentedControl;
+    NSArray *objectsArray;
 }
 
 @end

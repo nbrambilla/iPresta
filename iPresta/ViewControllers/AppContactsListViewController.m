@@ -10,6 +10,7 @@
 #import "iPrestaNSString.h"
 #import "AddressBookRegister.h"
 #import "User.h"
+#import "UserIP.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
 #import "ObjectsMenuViewController.h"
@@ -330,7 +331,7 @@
         reg = [[appContactsList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     }
     
-    [User setObjectsUser:reg.user];
+    [UserIP setObjectsUser:reg.user];
     
     ObjectsMenuViewController *viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
     [self.navigationController pushViewController:viewController animated:YES];

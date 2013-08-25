@@ -33,6 +33,11 @@
 		154985C117BD6DC000AE1135 /* SlideTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154985C017BD6DC000AE1135 /* SlideTableViewController.m */; };
 		154985CA17BD7C8E00AE1135 /* SearchObjectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154985C817BD7C8C00AE1135 /* SearchObjectsViewController.m */; };
 		154985CB17BD7C8E00AE1135 /* SearchObjectsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154985C917BD7C8D00AE1135 /* SearchObjectsViewController.xib */; };
+		1549958517C8FD9E00857BB2 /* FriendIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 1549958417C8FD9E00857BB2 /* FriendIP.m */; };
+		1549958817C8FD9E00857BB2 /* GiveIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 1549958717C8FD9E00857BB2 /* GiveIP.m */; };
+		1549958B17C8FD9E00857BB2 /* UserIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 1549958A17C8FD9E00857BB2 /* UserIP.m */; };
+		1549958E17C8FD9E00857BB2 /* ObjectIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 1549958D17C8FD9E00857BB2 /* ObjectIP.m */; };
+		1549959317C90BCB00857BB2 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1549959217C90BCB00857BB2 /* CoreDataManager.m */; };
 		154C92DC172997680030915B /* AuthenticateEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C92DA172997680030915B /* AuthenticateEmailViewController.m */; };
 		154C92DD172997680030915B /* AuthenticateEmailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154C92DB172997680030915B /* AuthenticateEmailViewController.xib */; };
 		154F205717205E7D00E65121 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154F205517205E7D00E65121 /* LoginViewController.m */; };
@@ -179,6 +184,16 @@
 		154985C717BD7C8C00AE1135 /* SearchObjectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchObjectsViewController.h; path = ViewControllers/SearchObjectsViewController.h; sourceTree = "<group>"; };
 		154985C817BD7C8C00AE1135 /* SearchObjectsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchObjectsViewController.m; path = ViewControllers/SearchObjectsViewController.m; sourceTree = "<group>"; };
 		154985C917BD7C8D00AE1135 /* SearchObjectsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchObjectsViewController.xib; path = ViewControllers/SearchObjectsViewController.xib; sourceTree = "<group>"; };
+		1549958317C8FD9D00857BB2 /* FriendIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendIP.h; path = iPresta/Models/FriendIP.h; sourceTree = "<group>"; };
+		1549958417C8FD9E00857BB2 /* FriendIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendIP.m; path = iPresta/Models/FriendIP.m; sourceTree = "<group>"; };
+		1549958617C8FD9E00857BB2 /* GiveIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiveIP.h; path = iPresta/Models/GiveIP.h; sourceTree = "<group>"; };
+		1549958717C8FD9E00857BB2 /* GiveIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GiveIP.m; path = iPresta/Models/GiveIP.m; sourceTree = "<group>"; };
+		1549958917C8FD9E00857BB2 /* UserIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserIP.h; path = iPresta/Models/UserIP.h; sourceTree = "<group>"; };
+		1549958A17C8FD9E00857BB2 /* UserIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserIP.m; path = iPresta/Models/UserIP.m; sourceTree = "<group>"; };
+		1549958C17C8FD9E00857BB2 /* ObjectIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectIP.h; path = iPresta/Models/ObjectIP.h; sourceTree = "<group>"; };
+		1549958D17C8FD9E00857BB2 /* ObjectIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectIP.m; path = iPresta/Models/ObjectIP.m; sourceTree = "<group>"; };
+		1549959117C90BCB00857BB2 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataManager.h; path = iPresta/Models/CoreDataManager.h; sourceTree = "<group>"; };
+		1549959217C90BCB00857BB2 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataManager.m; path = iPresta/Models/CoreDataManager.m; sourceTree = "<group>"; };
 		154C92D9172997680030915B /* AuthenticateEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthenticateEmailViewController.h; path = ViewControllers/AuthenticateEmailViewController.h; sourceTree = "<group>"; };
 		154C92DA172997680030915B /* AuthenticateEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthenticateEmailViewController.m; path = ViewControllers/AuthenticateEmailViewController.m; sourceTree = "<group>"; };
 		154C92DB172997680030915B /* AuthenticateEmailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AuthenticateEmailViewController.xib; path = ViewControllers/AuthenticateEmailViewController.xib; sourceTree = "<group>"; };
@@ -695,6 +710,14 @@
 		156FDE5216F3A04B00F4BEEA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1549958C17C8FD9E00857BB2 /* ObjectIP.h */,
+				1549958D17C8FD9E00857BB2 /* ObjectIP.m */,
+				1549958917C8FD9E00857BB2 /* UserIP.h */,
+				1549958A17C8FD9E00857BB2 /* UserIP.m */,
+				1549958617C8FD9E00857BB2 /* GiveIP.h */,
+				1549958717C8FD9E00857BB2 /* GiveIP.m */,
+				1549958317C8FD9D00857BB2 /* FriendIP.h */,
+				1549958417C8FD9E00857BB2 /* FriendIP.m */,
 				156FDE4F16F3A04500F4BEEA /* User.h */,
 				156FDE5016F3A04500F4BEEA /* User.m */,
 				15B85BD916F49CFE00FB5674 /* iPrestaObject.h */,
@@ -703,6 +726,8 @@
 				15124E5A16FDDFBD00520FE2 /* Give.m */,
 				19BA25CD179E6E83004F24DE /* AddressBookRegister.h */,
 				19BA25CE179E6E83004F24DE /* AddressBookRegister.m */,
+				1549959117C90BCB00857BB2 /* CoreDataManager.h */,
+				1549959217C90BCB00857BB2 /* CoreDataManager.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -956,6 +981,11 @@
 				153513EA17BC02B300E4193D /* MFSideMenuContainerViewController.m in Sources */,
 				154985C117BD6DC000AE1135 /* SlideTableViewController.m in Sources */,
 				154985CA17BD7C8E00AE1135 /* SearchObjectsViewController.m in Sources */,
+				1549958517C8FD9E00857BB2 /* FriendIP.m in Sources */,
+				1549958817C8FD9E00857BB2 /* GiveIP.m in Sources */,
+				1549958B17C8FD9E00857BB2 /* UserIP.m in Sources */,
+				1549958E17C8FD9E00857BB2 /* ObjectIP.m in Sources */,
+				1549959317C90BCB00857BB2 /* CoreDataManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

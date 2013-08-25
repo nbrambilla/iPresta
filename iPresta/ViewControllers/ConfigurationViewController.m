@@ -8,7 +8,6 @@
 
 #import "ConfigurationViewController.h"
 #import "iPrestaViewController.h"
-#import "User.h"
 #import "iPrestaNSError.h"
 #import "ProgressHUD.h"
 
@@ -29,7 +28,8 @@
 
 - (IBAction)logOut:(id)sender
 {
-    [User logOut];
+    [UserIP logOut];
+    
     if ([self.presentingViewController isKindOfClass:[iPrestaViewController class]])
     {
         [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
@@ -41,23 +41,34 @@
 }
 - (IBAction)changeVisibility:(UISwitch *)sender
 {
-    [[User currentUser] setVisible:sender.isOn];
-    
     [ProgressHUD  showHUDAddedTo:self.view animated:YES];
     
-    [[User currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-     {
-         [ProgressHUD hideHUDForView:self.view animated:YES];
-         
-         if (error) [error manageErrorTo:self];      // Si hay error al actualizar el usuario
-     }];
+    [UserIP setVisibility:sender.isOn];
+    [UserIP save];
+}
+
+- (void)saveResult:(NSError *)error
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    
+    if (error) [error manageErrorTo:self];      // Si hay error al actualizar el usuario
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [UserIP setDelegate:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [UserIP setDelegate:nil];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [visibleSwitch setOn:[[User currentUser] visible]];
+    [visibleSwitch setOn:[UserIP visible]];
 }
 
 - (void)didReceiveMemoryWarning

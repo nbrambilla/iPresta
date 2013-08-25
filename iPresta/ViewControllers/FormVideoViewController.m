@@ -44,7 +44,7 @@
     newObject = [iPrestaObject object];
     
     videoTypesArray = [iPrestaObject videoObjectTypes];
-    [self stComboText:videoTypeComboText didSelectRow:CDAudioObjectType];
+    [self stComboText:videoTypeComboText didSelectRow:CDAudioObjectTypee];
 
 }
 
@@ -316,7 +316,7 @@
 {
     newObject.owner = [User currentUser];
     newObject.type = [iPrestaObject typeSelected];
-    newObject.state = Property;
+    newObject.state = Propertye;
     newObject.name = nameTextField.text;
     newObject.visible = visibleSwitch.isOn;
     
@@ -333,7 +333,7 @@
     }
     if (authorTextField.text) newObject.author = [authorTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (descriptionTextView.text) newObject.descriptionObject = [descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (videoTypeSelectedIndex != NoneAudioObjectType) newObject.audioType = videoTypeSelectedIndex;
+    if (videoTypeSelectedIndex != NoneAudioObjectTypee) newObject.audioType = videoTypeSelectedIndex;
 }
 
 #pragma mark - Search Methods

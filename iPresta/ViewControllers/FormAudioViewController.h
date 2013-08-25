@@ -29,7 +29,7 @@
     IBOutlet UISwitch *visibleSwitch;
     iPrestaObject *newObject;
     NSArray *audioTypesArray;
-    AudioObjectType audioTypeSelectedIndex;
+    AudioObjectTypee audioTypeSelectedIndex;
     IMOAutocompletionViewController *autoComplete;
 }
 

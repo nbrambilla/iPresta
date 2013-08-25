@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserIP.h"
 
-@interface RequestPasswordResetViewController : UIViewController
+@interface RequestPasswordResetViewController : UIViewController <UserIPDelegate>
 {
     @private
     IBOutlet UITextField *emailTextField;

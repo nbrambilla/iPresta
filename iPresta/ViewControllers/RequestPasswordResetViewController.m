@@ -10,7 +10,6 @@
 #import "RequestPasswordResetViewController.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
-#import "User.h"
 
 @interface RequestPasswordResetViewController ()
 
@@ -32,6 +31,16 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [UserIP setDelegate:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [UserIP setDelegate:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,14 +65,16 @@
     {
         [ProgressHUD showHUDAddedTo:self.view animated:YES];
         
-        [User requestPasswordResetForEmailInBackground:emailTextField.text block:^(BOOL succeeded, NSError *error)
-        {
-            [ProgressHUD hideHUDForView:self.view animated:YES];
-            
-            if (error) [error manageErrorTo:self];      // Si hay error en la recuperación del password
-            else [self requestPasswordResetSuccess];    // Si la recuperación del password se realiza correctamente
-        }];
+        [UserIP requestPasswordResetForEmail:emailTextField.text];
     }
+}
+
+- (void)requestPasswordResetForEmailResult:(NSError *)error
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    
+    if (error) [error manageErrorTo:self];      // Si hay error en la recuperación del password
+    else [self requestPasswordResetSuccess];    // Si la recuperación del password se realiza correctamente
 }
 
 - (void)requestPasswordResetSuccess

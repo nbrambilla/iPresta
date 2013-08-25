@@ -1,4 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12E55" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="11G63" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="FriendIP" representedClassName="FriendIP" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="visible" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="give" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GiveIP" inverseName="friend" inverseEntity="GiveIP" syncable="YES"/>
+    </entity>
+    <entity name="GiveIP" representedClassName="GiveIP" syncable="YES">
+        <attribute name="dateBegin" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dateEnd" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="giveId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="friend" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="FriendIP" inverseName="give" inverseEntity="FriendIP" syncable="YES"/>
+        <relationship name="objectIP" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ObjectIP" inverseName="gives" inverseEntity="ObjectIP" syncable="YES"/>
+    </entity>
+    <entity name="ObjectIP" representedClassName="ObjectIP" syncable="YES">
+        <attribute name="audioType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="barcode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="descriptionObject" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="editorial" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="videoType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="visible" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="gives" optional="YES" toMany="YES" minCount="1" deletionRule="Nullify" destinationEntity="GiveIP" inverseName="objectIP" inverseEntity="GiveIP" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="FriendIP" positionX="160" positionY="192" width="128" height="135"/>
+        <element name="ObjectIP" positionX="349" positionY="-144" width="128" height="240"/>
+        <element name="GiveIP" positionX="-272" positionY="-9" width="128" height="135"/>
+    </elements>
 </model>

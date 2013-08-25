@@ -44,7 +44,7 @@
     newObject = [iPrestaObject object];
     
     audioTypesArray = [iPrestaObject audioObjectTypes];
-    [self stComboText:audioTypeComboText didSelectRow:CDAudioObjectType];
+    [self stComboText:audioTypeComboText didSelectRow:CDAudioObjectTypee];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -315,7 +315,7 @@
 {
     newObject.owner = [User currentUser];
     newObject.type = [iPrestaObject typeSelected];
-    newObject.state = Property;
+    newObject.state = Propertye;
     newObject.name = nameTextField.text;
     newObject.visible = visibleSwitch.isOn;
     
@@ -332,7 +332,7 @@
     }
     if (authorTextField.text) newObject.author = [authorTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (descriptionTextView.text) newObject.descriptionObject = [descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (audioTypeSelectedIndex != NoneAudioObjectType) newObject.audioType = audioTypeSelectedIndex;
+    if (audioTypeSelectedIndex != NoneAudioObjectTypee) newObject.audioType = audioTypeSelectedIndex;
 }
 
 #pragma mark - Button Methods
