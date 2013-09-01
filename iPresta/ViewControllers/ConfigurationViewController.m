@@ -12,6 +12,7 @@
 #import "ProgressHUD.h"
 #import "ObjectIP.h"
 #import "GiveIP.h"
+#import "CoreDataManager.h"
 
 @interface ConfigurationViewController ()
 
@@ -32,6 +33,7 @@
 {
     [ObjectIP deleteAll];
     [GiveIP deleteAll];
+    [CoreDataManager removePersistentStore];
     
     [UserIP logOut];
     

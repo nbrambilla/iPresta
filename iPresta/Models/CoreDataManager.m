@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Nacho. All rights reserved.
 //
 
-#import "CoreDataManager.h"
+#import "CoreDataManager_CoreDataManagerExtension.h"
 #import "ObjectIP.h"
 
 @implementation CoreDataManager
@@ -110,12 +110,20 @@
 
 + (void)removePersistentStore
 {
-    NSPersistentStore *store = [self persistentStore];
     NSError *error;
-    NSURL *storeURL = store.URL;
-    NSPersistentStoreCoordinator *storeCoordinator = [self persistentStoreCoordinator];
-    [storeCoordinator removePersistentStore:store error:&error];
-    [[NSFileManager defaultManager] removeItemAtPath:storeURL.path error:&error];
+    [[self managedObjectContext] lock];
+    [[self managedObjectContext] reset] ;
+    if ([[[self managedObjectContext] persistentStoreCoordinator] removePersistentStore:[[[[self managedObjectContext] persistentStoreCoordinator] persistentStores] lastObject] error:&error])
+    {
+        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentPath = [searchPaths objectAtIndex:0];
+        NSURL *storeURL = [NSURL fileURLWithPath: [documentPath stringByAppendingPathComponent: @"iPresta.sqlite"]];
+        // remove the file containing the data
+        [[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error];
+        //recreate the store like in the  appDelegate method
+        [[[self managedObjectContext] persistentStoreCoordinator] addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error];//recreates the persistent store
+    }
+    [[self managedObjectContext] unlock];
 }
 
 @end

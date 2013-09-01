@@ -9,6 +9,7 @@
         <relationship name="give" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GiveIP" inverseName="friend" inverseEntity="GiveIP" syncable="YES"/>
     </entity>
     <entity name="GiveIP" representedClassName="GiveIP" syncable="YES">
+        <attribute name="actual" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="dateBegin" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="dateEnd" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="giveId" optional="YES" attributeType="String" syncable="YES"/>
@@ -33,7 +34,7 @@
     </entity>
     <elements>
         <element name="FriendIP" positionX="160" positionY="192" width="128" height="135"/>
+        <element name="GiveIP" positionX="-272" positionY="-9" width="128" height="150"/>
         <element name="ObjectIP" positionX="349" positionY="-144" width="128" height="240"/>
-        <element name="GiveIP" positionX="-272" positionY="-9" width="128" height="135"/>
     </elements>
 </model>

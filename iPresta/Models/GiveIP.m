@@ -19,6 +19,7 @@
 @dynamic dateEnd;
 @dynamic objectIP;
 @dynamic friend;
+@dynamic actual;
 
 
 + (void)saveAllGivesFromDBObject:(PFObject *)object withBlock:(void (^)(NSError *))block
@@ -38,6 +39,7 @@
         block(error);
     }];
 }
+
 - (void)setGiveFrom:(PFObject *)give
 {
     self.giveId = give.objectId;
@@ -46,6 +48,7 @@
     self.dateEnd = [give objectForKey:@"dateEnd"];
     self.objectIP = [ObjectIP getByObjectId:[[give objectForKey:@"object"] objectId]];
     self.friend = nil;
+    self.actual = [give objectForKey:@"actual"];
 }
 
 @end

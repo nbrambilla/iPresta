@@ -271,6 +271,7 @@
 		15A877B5172C875300E8BDA2 /* RequestPasswordResetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RequestPasswordResetViewController.xib; path = ViewControllers/RequestPasswordResetViewController.xib; sourceTree = "<group>"; };
 		15B85BD916F49CFE00FB5674 /* iPrestaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaObject.h; path = iPresta/Models/iPrestaObject.h; sourceTree = "<group>"; };
 		15B85BDA16F49CFE00FB5674 /* iPrestaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaObject.m; path = iPresta/Models/iPrestaObject.m; sourceTree = "<group>"; };
+		15C29CA117D3930300B0ED5D /* CoreDataManager_CoreDataManagerExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CoreDataManager_CoreDataManagerExtension.h; path = iPresta/Models/CoreDataManager_CoreDataManagerExtension.h; sourceTree = "<group>"; };
 		15C44D6916FE026B0071E7EC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		15C99476172C0515000672B4 /* ChangeEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangeEmailViewController.h; path = ViewControllers/ChangeEmailViewController.h; sourceTree = "<group>"; };
 		15C99477172C0515000672B4 /* ChangeEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangeEmailViewController.m; path = ViewControllers/ChangeEmailViewController.m; sourceTree = "<group>"; };
@@ -728,6 +729,7 @@
 				19BA25CE179E6E83004F24DE /* AddressBookRegister.m */,
 				1549959117C90BCB00857BB2 /* CoreDataManager.h */,
 				1549959217C90BCB00857BB2 /* CoreDataManager.m */,
+				15C29CA117D3930300B0ED5D /* CoreDataManager_CoreDataManagerExtension.h */,
 			);
 			name = Models;
 			sourceTree = "<group>";

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
-#import "CoreDataManager.h"
+#import "CoreDataManager_CoreDataManagerExtension.h"
 
 @class FriendIP;
 @class ObjectIP;
@@ -21,6 +21,7 @@
 @property (nonatomic, retain) NSDate * dateEnd;
 @property (nonatomic, retain) ObjectIP *objectIP;
 @property (nonatomic, retain) FriendIP *friend;
+@property (nonatomic, retain) NSNumber *actual;
 
 + (void)saveAllGivesFromDBObject:(PFObject *)object withBlock:(void (^)(NSError *))block;
 

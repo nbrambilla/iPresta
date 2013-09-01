@@ -16,7 +16,6 @@
 static id <ObjectIPDelegate> delegate;
 static id <ObjectIPLoginDelegate> loginDelegate;
 static ObjectType selectedType;
-static NSInteger count = 0;
 
 @dynamic objectId;
 @dynamic name;
@@ -44,6 +43,7 @@ static NSInteger count = 0;
         if (!error)
         {
             __block int objectsCount = [objects count];
+            __block int count = 0;
             
             for (PFObject *object in objects)
             {

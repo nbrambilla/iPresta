@@ -160,6 +160,25 @@
     return persistentStoreCoordinator;
 }
 
+- (void)removeCoreDataContext
+{
+    managedObjectContext = nil;
+    managedObjectModel = nil;
+    persistentStoreCoordinator = nil;
+    
+    // Delete the sqlite file
+    NSError *error = nil;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"iPresta.sqlite"])
+    {
+        NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"iPresta.sqlite"]];
+        if ([[NSFileManager defaultManager] removeItemAtURL:storeUrl error:&error])
+        {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+}
+
 - (NSString *)applicationDocumentsDirectory
 {
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];

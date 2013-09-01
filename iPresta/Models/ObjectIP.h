@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CoreDataManager.h"
+#import "CoreDataManager_CoreDataManagerExtension.h"
 
 @class GiveIP;
 @class UserIP;

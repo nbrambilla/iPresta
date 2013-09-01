@@ -11,19 +11,6 @@
 
 @interface CoreDataManager : NSManagedObject
 
-- (void)delete;
-
-+ (NSManagedObjectContext *)managedObjectContext;
-+ (NSEntityDescription *)entityDescription;
-+ (NSFetchRequest *)fetchRequest;
-+ (id)executeRequest:(NSFetchRequest *)request;
-+ (NSInteger)countRequest:(NSFetchRequest *)request;
-
-+ (CoreDataManager *)getByObjectId:(NSString *)objectId;
-+ (void)addObject:(NSManagedObject *)object;
-+ (NSArray *)getAll;
-+ (void)deleteAll;
-+ (void)save;
-
++ (void)removePersistentStore;
 
 @end
