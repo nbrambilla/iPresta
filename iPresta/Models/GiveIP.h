@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+#import <Parse/Parse.h>
+#import "CoreDataManager.h"
 
-@class FriendIP, ObjectIP;
+@class FriendIP;
+@class ObjectIP;
 
-@interface GiveIP : NSManagedObject
+@interface GiveIP : CoreDataManager
 
 @property (nonatomic, retain) NSString * giveId;
 @property (nonatomic, retain) NSString * name;
@@ -19,5 +21,7 @@
 @property (nonatomic, retain) NSDate * dateEnd;
 @property (nonatomic, retain) ObjectIP *objectIP;
 @property (nonatomic, retain) FriendIP *friend;
+
++ (void)saveAllGivesFromDBObject:(PFObject *)object withBlock:(void (^)(NSError *))block;
 
 @end

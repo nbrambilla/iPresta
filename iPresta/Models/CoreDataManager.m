@@ -29,6 +29,35 @@
     return [delegate managedObjectContext];
 }
 
++ (NSPersistentStore *)persistentStore
+{
+    id delegate = [[UIApplication sharedApplication] delegate];
+    return [delegate persistentStore];
+}
+
++ (NSPersistentStoreCoordinator *)persistentStoreCoordinator
+{
+    id delegate = [[UIApplication sharedApplication] delegate];
+    return [delegate persistentStoreCoordinator];
+}
+
+- (void)delete
+{
+    [[[self class] managedObjectContext] deleteObject:self];
+}
+
++ (CoreDataManager *)getByObjectId:(NSString *)objectId
+{
+    NSFetchRequest *request = [self fetchRequest];
+    [request setEntity:[self entityDescription]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"objectId = %@", objectId]];
+    
+    id result = [[self class] executeRequest:request];
+    
+    if ([result count] > 0) return [result objectAtIndex:0];
+    return nil;
+}
+
 + (void)save
 {
     NSError *error;
@@ -37,6 +66,15 @@
         NSLog(@"Error de Core Data %@, %@", error, [error userInfo]);
         exit(-1);
     }
+}
+
++ (void)deleteAll
+{
+    NSArray *allObjects = [[self class] getAll];
+    
+    for (CoreDataManager *object in allObjects) [object delete];
+    
+    [[self class] save];
 }
 
 + (NSArray *)getAll
@@ -56,6 +94,28 @@
 + (NSFetchRequest *)fetchRequest
 {
     return [[NSFetchRequest alloc] initWithEntityName:NSStringFromClass([self class])];
+}
+
++ (id)executeRequest:(NSFetchRequest *)request
+{
+    NSError *error;
+    return [[[self class] managedObjectContext] executeFetchRequest:request error:&error];
+}
+
++ (NSInteger)countRequest:(NSFetchRequest *)request
+{
+    NSError *error;
+    return [[[self class] managedObjectContext] countForFetchRequest:request error:&error];
+}
+
++ (void)removePersistentStore
+{
+    NSPersistentStore *store = [self persistentStore];
+    NSError *error;
+    NSURL *storeURL = store.URL;
+    NSPersistentStoreCoordinator *storeCoordinator = [self persistentStoreCoordinator];
+    [storeCoordinator removePersistentStore:store error:&error];
+    [[NSFileManager defaultManager] removeItemAtPath:storeURL.path error:&error];
 }
 
 @end

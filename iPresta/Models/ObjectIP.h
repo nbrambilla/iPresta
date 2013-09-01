@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 #import "CoreDataManager.h"
 
-@class GiveIP, UserIP;
+@class GiveIP;
+@class UserIP;
 
 typedef NS_ENUM(NSUInteger, ObjectState) {
     Property = 0,
@@ -50,6 +50,14 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 - (void)countAllByTypeError:(NSError *)error;;
 - (void)countAllByTypeSuccess:(NSArray *)error;
 
+- (void)saveAllFromDBresult:(NSError *)error;
+
+@end
+
+@protocol ObjectIPLoginDelegate <NSObject>
+
+- (void)saveAllObjectsFromDBresult:(NSError *)error;
+
 @end
 
 
@@ -73,13 +81,16 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 
 @interface ObjectIP (CoreDataGeneratedAccessors)
 
-+ (void)saveAllFromDB;
++ (ObjectIP *)getByObjectId:(NSString *)objectId;
++ (void)saveAllObjectsFromDB;
 + (void)setSelectedType:(ObjectType)objectType;
 + (void)setDelegate:(id <ObjectIPDelegate>)_delegate;
 + (id <ObjectIPDelegate>)delegate;
 + (ObjectType)selectedType;
 + (NSArray *)getAllByType;
 + (NSArray *)countAllByType;
++ (void)setLoginDelegate:(id <ObjectIPLoginDelegate>)_loginDelegate;
++ (id <ObjectIPLoginDelegate>)loginDelegate;
 
 - (void)addGivesObject:(GiveIP *)value;
 - (void)removeGivesObject:(GiveIP *)value;

@@ -15,8 +15,6 @@
 #import "iPrestaNSError.h"
 #import "SideMenuViewController.h"
 #import "ProgressHUD.h"
-#import "User.h"
-#import "ObjectIP.h"
 
 @interface LoginViewController ()
 
@@ -46,11 +44,13 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [UserIP setDelegate:self];
+    [ObjectIP setLoginDelegate:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [UserIP setDelegate:nil];
+    [ObjectIP setLoginDelegate:nil];
 }
 
 - (void)backToBegin
@@ -94,8 +94,6 @@
 
 - (void)logInResult:(NSError *)error
 {
-    [ProgressHUD hideHUDForView:self.view animated:YES];
-    
     if (error) [error manageErrorTo:self];      // Si hay error en el login
     else [self logInSuccess];
 }
@@ -114,23 +112,10 @@
 {
     UINavigationController *navigationController;
     
-    // Si es un usuario ya autenticado, accede a la aplicacion
+    // Si es un usuario ya autenticado, se guardan los objetos del usuario
     
-    if ([User currentUserHasEmailVerified])
-    {
-        [ObjectIP saveAllFromDB];
-        
-        UIViewController *viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-        SideMenuViewController *leftMenuViewController = [[SideMenuViewController alloc] init];
-        MFSideMenuContainerViewController *container = [MFSideMenuContainerViewController containerWithCenterViewController:navigationController leftMenuViewController:leftMenuViewController rightMenuViewController:nil];
-        [self presentModalViewController:container animated:YES];
+    if ([UserIP hasEmailVerified]) [ObjectIP saveAllObjectsFromDB];
 
-        viewController = nil;
-        navigationController = nil;
-        leftMenuViewController = nil;
-        container = nil;
-    }
     // Si el usuario no esta autenticado, debe hacerlo confirmando su email. Accede a la pantalla de autenticacion
     else
     {
@@ -143,6 +128,28 @@
     }
     
     navigationController = nil;
+}
+
+- (void)saveAllObjectsFromDBresult:(NSError *)error
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    
+    if (error) [error manageErrorTo:self];      // Si hay error guardar los objetos
+    else [self goToApp];
+}
+
+- (void)goToApp
+{
+    UIViewController *viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    SideMenuViewController *leftMenuViewController = [[SideMenuViewController alloc] init];
+    MFSideMenuContainerViewController *container = [MFSideMenuContainerViewController containerWithCenterViewController:navigationController leftMenuViewController:leftMenuViewController rightMenuViewController:nil];
+    [self presentModalViewController:container animated:YES];
+    
+    viewController = nil;
+    navigationController = nil;
+    leftMenuViewController = nil;
+    container = nil;
 }
 
 @end

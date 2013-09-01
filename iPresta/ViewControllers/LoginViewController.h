@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "UserIP.h"
+#import "ObjectIP.h"
 
-@interface LoginViewController : UIViewController <UserIPDelegate>
+@interface LoginViewController : UIViewController <UserIPDelegate, ObjectIPLoginDelegate>
 {
     @private
     IBOutlet UITextField *emailTextField;

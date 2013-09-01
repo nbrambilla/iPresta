@@ -14,7 +14,9 @@
 @implementation ObjectIP
 
 static id <ObjectIPDelegate> delegate;
+static id <ObjectIPLoginDelegate> loginDelegate;
 static ObjectType selectedType;
+static NSInteger count = 0;
 
 @dynamic objectId;
 @dynamic name;
@@ -30,45 +32,90 @@ static ObjectType selectedType;
 @dynamic visible;
 @dynamic gives;
 
-+ (void)saveAllFromDB
+
++ (void)saveAllObjectsFromDB
 {
     PFQuery *objectsQuery = [PFQuery queryWithClassName:@"iPrestaObject"];
     [objectsQuery whereKey:@"owner" equalTo:[UserIP loggedUser]];
     [objectsQuery orderByAscending:@"image"];
     objectsQuery.limit = 1000;
-    [objectsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        __block int count = 0;
-        __block int objectsCount = [objects count];
-        
-        for (id object in objects)
+    [objectsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+        if (!error)
         {
-            ObjectIP *newObject = [ObjectIP new];
+            __block int objectsCount = [objects count];
             
-            if ([object objectForKey:@"image"])
+            for (PFObject *object in objects)
             {
-                [[object objectForKey:@"image"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
-                {
-                     if (!error)
-                     {
-                         [newObject setObjetctFrom:object andImage:data];
-                         [ObjectIP addObject:newObject];
-                         
-                         count++;
-                         if (count == objectsCount) [ObjectIP save];
-                     }
-                }];
-            }
-            else
-            {
-                [newObject setObjetctFrom:object andImage:nil];
-                [ObjectIP addObject:newObject];
+                ObjectIP *newObject = [ObjectIP new];
                 
-                count++;
-                if (count == objectsCount) [ObjectIP save];
+                if ([object objectForKey:@"image"])
+                {
+                    [[object objectForKey:@"image"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+                    {
+                         if (!error)
+                         {
+                             [newObject setObjetctFrom:object andImage:data];
+                             [ObjectIP addObject:newObject];
+                             
+                             [GiveIP saveAllGivesFromDBObject:object withBlock:^(NSError *error)
+                             {
+                                 if (error)
+                                 {
+                                     [loginDelegate saveAllObjectsFromDBresult:error];
+                                     return;
+                                 }
+                                 else
+                                 {
+                                     count++;
+                                     if (count == objectsCount)
+                                     {
+                                         [CoreDataManager save];
+                                         [loginDelegate saveAllObjectsFromDBresult:nil];
+                                     }
+                                 }
+                             }];
+                         }
+                         else
+                         {
+                             [loginDelegate saveAllObjectsFromDBresult:error];
+                             return;
+                         }
+                    }];
+                }
+                else
+                {
+                    [newObject setObjetctFrom:object andImage:nil];
+                    [ObjectIP addObject:newObject];
+                    
+                    [GiveIP saveAllGivesFromDBObject:object withBlock:^(NSError *error)
+                    {
+                         if (error)
+                         {
+                             [loginDelegate saveAllObjectsFromDBresult:error];
+                             return;
+                         }
+                         else
+                         {
+                             count++;
+                             if (count == objectsCount)
+                             {
+                                 [CoreDataManager save];
+                                 [loginDelegate saveAllObjectsFromDBresult:nil];
+                             }
+                         }
+                     }];
+                }
             }
+        }
+        else
+        {
+            [loginDelegate saveAllObjectsFromDBresult:error];
         }
     }];
 }
+
+
 
 + (ObjectType)selectedType
 {
@@ -90,6 +137,16 @@ static ObjectType selectedType;
     return delegate;
 }
 
++ (void)setLoginDelegate:(id <ObjectIPLoginDelegate>)_loginDelegate
+{
+    loginDelegate = _loginDelegate;
+}
+
++ (id <ObjectIPLoginDelegate>)loginDelegate
+{
+    return loginDelegate;
+}
+
 + (NSArray *)getAllByType
 {
     if (![UserIP objectsUserIsSet])
@@ -98,8 +155,7 @@ static ObjectType selectedType;
         [request setEntity:[self entityDescription]];
         [request setPredicate:[NSPredicate predicateWithFormat:@"type = %d", [ObjectIP selectedType]]];
         
-        NSError *error;
-        NSMutableArray *objectsArray = [[[ObjectIP managedObjectContext] executeFetchRequest:request error:&error] mutableCopy];
+        NSMutableArray *objectsArray = [[ObjectIP executeRequest:request] mutableCopy];
         
         return [NSMutableArray arrayWithArray:[self partitionObjects:objectsArray collationStringSelector:@selector(firstLetter)]];
     }
@@ -182,8 +238,7 @@ static ObjectType selectedType;
             [request setEntity:[self entityDescription]];
             [request setPredicate:[NSPredicate predicateWithFormat:@"type = %d", type]];
             
-            NSError *error;
-            int objectsCount = [[ObjectIP managedObjectContext] countForFetchRequest:request error:&error];
+            NSInteger objectsCount = [ObjectIP countRequest:request];
             
             [objectsTypeArray addObject:[NSNumber numberWithInt:objectsCount]];
         }
@@ -297,9 +352,9 @@ static ObjectType selectedType;
     return self.name;
 }
 
-- (void)setObjetctFrom:(id)object andImage:(NSData* )data
+- (void)setObjetctFrom:(PFObject *)object andImage:(NSData* )data
 {
-    self.objectId = [object objectForKey:@"objectId"];
+    self.objectId = object.objectId;
     self.name = [object objectForKey:@"name"];
     self.author = [object objectForKey:@"author"];
     self.barcode = [object objectForKey:@"barcode"];

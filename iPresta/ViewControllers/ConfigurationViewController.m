@@ -10,6 +10,8 @@
 #import "iPrestaViewController.h"
 #import "iPrestaNSError.h"
 #import "ProgressHUD.h"
+#import "ObjectIP.h"
+#import "GiveIP.h"
 
 @interface ConfigurationViewController ()
 
@@ -28,6 +30,9 @@
 
 - (IBAction)logOut:(id)sender
 {
+    [ObjectIP deleteAll];
+    [GiveIP deleteAll];
+    
     [UserIP logOut];
     
     if ([self.presentingViewController isKindOfClass:[iPrestaViewController class]])

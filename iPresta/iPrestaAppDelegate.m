@@ -65,23 +65,6 @@
         }
     }
     
-    
-//    NSManagedObjectContext * context = self.managedObjectContext;
-//    Test *test = [NSEntityDescription insertNewObjectForEntityForName:@"Test" inManagedObjectContext:context];
-//    
-//    test.name = @"Nacho";
-//    test.number = 33;
-//    
-//    NSError *error;
-//    
-//    if (![context save:&error])
-//    {
-//        NSLog(@"%@", error.localizedDescription);
-//    }
-//    
-    
-    
-    
     return YES;
 }
 
