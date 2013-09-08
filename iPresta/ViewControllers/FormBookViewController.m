@@ -44,19 +44,24 @@
     editorialTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     
     descriptionTextView.placeholder = @"Descripción";
-    
-    newObject = [iPrestaObject object];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     
-    newObject.delegate = self;
+    newObject = [[ObjectIP alloc] initListObject];
+    [ObjectIP setDelegate:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidUnload
 {
+    newObject = nil;
     descriptionTextView = nil;
     nameTextField = nil;
     authorTextField = nil;
@@ -113,7 +118,6 @@
         
         [picker dismissViewControllerAnimated:YES completion:nil];
         
-        newObject.imageData = nil;
         if ([symbol.data isValidBarcode]) [self getObjectDataWithCode:symbol.data];
     }
     else
@@ -137,7 +141,7 @@
     [newObject getData:code];
 }
 
-#pragma mark - iPrestaObjectDelegate Methods
+#pragma mark - ObjectIPDelegate Methods
 
 - (void)getSearchResultsResponse:(NSArray *)searchResults withError:(NSError *)error
 {
@@ -152,61 +156,6 @@
     else [self setFields];
 }
 
-#pragma mark - Save Objects Methods
-
-- (IBAction)addObject:(id)sender
-{
-    nameTextField.text = [nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
-    if ([nameTextField.text length] > 0)
-    {
-        [self setNewObject];
-        
-        if (![[User currentUser] hasObject:newObject] )
-        {
-            [self saveNewObject];
-        }
-        else
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Este objeto ya ha sido registrado" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
-            
-            alert = nil;
-        }
-    }
-    else
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"El objeto debe tener al menos el nombre" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        
-        alert = nil;
-    }
-}
-
-- (void)saveNewObject
-{
-    [ProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    [newObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-     {
-         [ProgressHUD hideHUDForView:self.view animated:YES];
-         
-         if (error) [error manageErrorTo:self];      // Si hay al guardar el objeto
-         else                                        // Si el objeto se guarda correctamente
-         {
-             [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
-             
-             NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:newObject.type], @"type", nil];
-             [[NSNotificationCenter defaultCenter] postNotificationName:@"IncrementObjectTypeObserver" object:options];
-             options = nil;
-             
-             [[NSNotificationCenter defaultCenter] postNotificationName:@"SetCountLabelsObserver" object:nil];
-             
-             [self.navigationController popViewControllerAnimated:YES];
-         }
-     }];
-}
-
 #pragma mark - Set Methods
 
 - (void)setFields
@@ -217,7 +166,7 @@
     
     [imageView deleteImage];
     
-    if (newObject.imageURL && newObject.imageData == nil)
+    if (newObject.imageURL && newObject.image == nil)
     {
         UIActivityIndicatorView *indicatorImage = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         indicatorImage.frame = imageView.bounds;
@@ -229,9 +178,9 @@
         
         dispatch_async(queue, ^(void)
                        {
-                           newObject.imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:newObject.imageURL]];
+                           newObject.image = [NSData dataWithContentsOfURL:[NSURL URLWithString:newObject.imageURL]];
                            [indicatorImage stopAnimating];
-                           UIImage* image = [UIImage imageWithData:newObject.imageData];
+                           UIImage* image = [UIImage imageWithData:newObject.image];
                            if (image)
                            {
                                [imageView setImage:image];
@@ -239,34 +188,48 @@
                        });
     }
     
-    else if (newObject.imageData)
+    else if (newObject.image) [imageView setImage:[UIImage imageWithData:newObject.image]];
+}
+
+- (IBAction)addObject:(id)sender
+{
+    newObject.name = [nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    if ([newObject.name length] > 0)
     {
-        [imageView setImage:[UIImage imageWithData:newObject.imageData]];
+        [ProgressHUD showHUDAddedTo:self.view animated:YES];
+        
+        newObject.type = [NSNumber numberWithInteger:[ObjectIP selectedType]];
+        newObject.state = [NSNumber numberWithInteger:Property];
+        newObject.visible = [NSNumber numberWithBool:visibleSwitch.isOn];
+        if (imageView.isSetted) newObject.image = UIImagePNGRepresentation([imageView getImage]);
+        if (editorialTextField.text) newObject.editorial = [editorialTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (descriptionTextView.text) newObject.descriptionObject = [descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (authorTextField.text) newObject.author = [authorTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        [newObject addObject];
     }
 }
 
-- (void)setNewObject
+- (void)addObjectSuccess
 {
-    newObject.owner = [User currentUser];
-    newObject.type = [iPrestaObject typeSelected];
-    newObject.state = Propertye;
-    newObject.name = nameTextField.text;
-    newObject.visible = visibleSwitch.isOn;
+    [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    if (imageView.isSetted)
-    {
-        NSData *imageData = UIImageJPEGRepresentation([imageView getImage], 0.1f);
-        newObject.image = [PFFile fileWithName:[NSString stringWithFormat:@"%@.png", [[iPrestaObject objectTypes] objectAtIndex:[iPrestaObject typeSelected]]] data:imageData];
-        
-        [newObject.image saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (error) [error manageErrorTo:self];
-        }];
-        
-        imageData = nil;
-    }
-    if (authorTextField.text) newObject.author = [authorTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (editorialTextField.text) newObject.editorial = [editorialTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (descriptionTextView.text) newObject.descriptionObject = [descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
+
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:newObject.type, @"type", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"IncrementObjectTypeObserver" object:options];
+    options = nil;
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SetCountLabelsObserver" object:nil];
+
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)objectError:(NSError *)error
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    [error manageErrorTo:self];      // Si hay error al actualizar el objeto
 }
 
 #pragma mark - IMOAutoCompletionViewDataSource Methods;
@@ -282,9 +245,8 @@
 {
     if (object)
     {
-        newObject = (iPrestaObject *)object;
+        newObject = object;
         [self setFields];
-        [self setNewObject];
     }
 }
 

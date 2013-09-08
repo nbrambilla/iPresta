@@ -10,7 +10,7 @@
 #import "IMOCompletionCell.h"
 #import "IMOCompletionController.h"
 #import "ProgressHUD.h"
-#import "iPrestaObject.h"
+#import "ObjectIP.h"
 #import "iPrestaNSString.h"
 #import "iPrestaNSError.h"
 
@@ -170,54 +170,25 @@
     }
     
     cell.tag = indexPath.row;
-    iPrestaObject *object = [_results objectAtIndex:indexPath.row];
+    ObjectIP *object = [_results objectAtIndex:indexPath.row];
     
     cell.textLabel.text = [object.name capitalizedString];
     
-    if (object.author)
-    {
-        cell.detailTextLabel.text = [[object objectForKey:@"author"] capitalizedString];
-    }
+    cell.detailTextLabel.text = (object.author) ? object.author : @"Desconocido";
     
-    cell.imageView.image = [UIImage imageNamed:[iPrestaObject imageType:object.type]];
+    cell.imageView.image = [UIImage imageNamed:[ObjectIP imageType:[object.type integerValue]]];
     
-    if (!object.imageData)
-    {
-        [object.image getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
-         {
-             if (!error)
-             {
-                 object.imageData = [[NSData alloc] initWithData:data];
-                 UIImage* image = [UIImage imageWithData:data];
-                 if (image)
-                 {
-                     dispatch_async(dispatch_get_main_queue(),
-                        ^{
-                            if (cell.tag == indexPath.row)
-                            {
-                                cell.imageView.image = image;
-                                [cell setNeedsLayout];
-                            }
-                        });
-                 }
-             }
-         }];
-    }
+    if (object.image) cell.imageView.image = [UIImage imageWithData:object.image];
     
-    if (object.imageData)
-    {
-        cell.imageView.image = [UIImage imageWithData:object.imageData];
-    }
-    
-    else if (object.imageURL && object.imageData == nil)
+    else if (object.imageURL && object.image == nil)
     {
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
         
         dispatch_async(queue, ^(void)
         {
-            object.imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:object.imageURL]];
+            object.image = [NSData dataWithContentsOfURL:[NSURL URLWithString:object.imageURL]];
                                  
-            UIImage* image = [UIImage imageWithData:object.imageData];
+            UIImage* image = [UIImage imageWithData:object.image];
             if (image)
             {
                 dispatch_async(dispatch_get_main_queue(),

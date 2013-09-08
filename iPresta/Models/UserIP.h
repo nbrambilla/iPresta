@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
+#import "ObjectIP.h"
 
 @protocol UserIPDelegate <NSObject>
 
@@ -45,5 +46,6 @@
 + (void)save;
 + (void)signUpWithEmail:(NSString *)email andPassword:(NSString *)password;
 + (void)requestPasswordResetForEmail:(NSString *)email;
++ (BOOL)hasObject:(ObjectIP *)object;
 
 @end

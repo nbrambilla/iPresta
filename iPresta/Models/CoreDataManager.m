@@ -19,6 +19,13 @@
     return self;
 }
 
+- (id)initListObject
+{
+    self = [[[self class] alloc] initWithEntity:[[self class] entityDescription] insertIntoManagedObjectContext:nil];
+    
+    return self;
+}
+
 + (void)addObject:(NSManagedObject *)object
 {
     [[[self class] managedObjectContext] insertObject:object];

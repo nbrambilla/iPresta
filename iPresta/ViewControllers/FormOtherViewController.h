@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "iPrestaObject.h"
-#import "User.h"
+#import "ObjectIP.h"
 #import "STControls.h"
 #import "ZBarSDK.h"
 #import "iPrestaImageView.h"
@@ -17,7 +16,7 @@
 @class PHTextView;
 @class TPKeyboardAvoidingScrollView;
 
-@interface FormOtherViewController : UIViewController <iPrestaObjectDelegate,  UIImagePickerControllerDelegate, UINavigationControllerDelegate, iPrestaImageViewDelegate>
+@interface FormOtherViewController : UIViewController <ObjectIPDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, iPrestaImageViewDelegate>
 {
     @private
     IBOutlet TPKeyboardAvoidingScrollView *scrollView;
@@ -25,7 +24,7 @@
     IBOutlet PHTextView *descriptionTextView;
     IBOutlet iPrestaImageView *imageView;
     IBOutlet UISwitch *visibleSwitch;
-    iPrestaObject *newObject;
+    ObjectIP *newObject;
 }
 
 @end

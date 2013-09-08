@@ -145,4 +145,19 @@ static PFUser *searchUser;
         if ([delegate respondsToSelector:@selector(requestPasswordResetForEmailResult:)]) [delegate requestPasswordResetForEmailResult:error];
     }];
 }
+
+# pragma mark - Public Methods
+
++ (BOOL)hasObject:(ObjectIP *)object
+{
+    NSArray *allObjects = [ObjectIP getAll];
+    
+    for (ObjectIP *selectedObject in allObjects)
+    {
+        if ([object isEqualToObject:selectedObject]) return YES;
+    }
+    
+    return NO;
+}
+
 @end

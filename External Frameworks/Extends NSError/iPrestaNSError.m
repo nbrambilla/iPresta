@@ -39,9 +39,9 @@
         case EMPTYOBJECTDATA_ERROR: // Error al modificar un usuario que no es el logueado
             message = @"No se ha encontrado este objeto. Ingrese los datos de forma manual";
             break;
-//        case EMPTYSEARCH_ERROR: // no se ha devuelto ningun objeto de la busqueda
-//            message = @"No se ha encontrado ningún objeto";
-//            break;
+        case REPEATOBJECT_ERROR: // no se ha devuelto ningun objeto de la busqueda
+            message = @"Este objeto ya ha sido registrado";
+            break;
         default:
             break;
     }

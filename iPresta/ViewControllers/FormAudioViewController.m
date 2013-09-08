@@ -41,17 +41,16 @@
     
     descriptionTextView.placeholder = @"Descripción";
     
-    newObject = [iPrestaObject object];
-    
-    audioTypesArray = [iPrestaObject audioObjectTypes];
-    [self stComboText:audioTypeComboText didSelectRow:CDAudioObjectTypee];
+    audioTypesArray = [ObjectIP audioObjectTypes];
+    [self stComboText:audioTypeComboText didSelectRow:CDAudioObjectType];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    newObject.delegate = self;
+    newObject = [[ObjectIP alloc] initListObject];
+    [ObjectIP setDelegate:self];
 }
 
 - (void)viewDidUnload
@@ -114,7 +113,6 @@
         
         [picker dismissViewControllerAnimated:YES completion:nil];
         
-        newObject.imageData = nil;
         if ([symbol.data isValidBarcode]) [self getObjectDataWithCode:symbol.data];
     }
     else
@@ -198,9 +196,8 @@
 {
     if (object)
     {
-        newObject = (iPrestaObject *)object;
+        newObject = object;
         [self setFields];
-        [self setNewObject];
     }
 }
 
@@ -208,92 +205,43 @@
 
 - (IBAction)addObject:(id)sender
 {
-    nameTextField.text = [nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    newObject.name = [nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    if ([nameTextField.text length] > 0)
+    if ([newObject.name length] > 0)
     {
-        [self setNewObject];
+        [ProgressHUD showHUDAddedTo:self.view animated:YES];
         
-        if (![[User currentUser] hasObject:newObject] )
-        {
-            [self saveNewObject];
-        }
-        else
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Este objeto ya ha sido registrado" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
-            
-            alert = nil;
-        }
-    }
-    else
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"El objeto debe tener al menos el nombre" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        if (audioTypeSelectedIndex != NoneAudioObjectType) newObject.audioType = [NSNumber numberWithInteger:audioTypeSelectedIndex];
+        newObject.type = [NSNumber numberWithInteger:[ObjectIP selectedType]];
+        newObject.state = [NSNumber numberWithInteger:Property];
+        newObject.visible = [NSNumber numberWithBool:visibleSwitch.isOn];
+        if (imageView.isSetted) newObject.image = UIImagePNGRepresentation([imageView getImage]);
+        if (descriptionTextView.text) newObject.descriptionObject = [descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (authorTextField.text) newObject.author = [authorTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
-        alert = nil;
+        [newObject addObject];
     }
 }
 
-- (void)saveNewObject
+- (void)addObjectSuccess
 {
-    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+    [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    [newObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-     {
-         [ProgressHUD hideHUDForView:self.view animated:YES];
-         
-         if (error) [error manageErrorTo:self];      // Si hay al guardar el objeto
-         else                                        // Si el objeto se guarda correctamente
-         {
-             [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
-             
-             NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:newObject.type], @"type", nil];
-             [[NSNotificationCenter defaultCenter] postNotificationName:@"IncrementObjectTypeObserver" object:options];
-             options = nil;
-             
-             [[NSNotificationCenter defaultCenter] postNotificationName:@"SetCountLabelsObserver" object:nil];
-             
-             [self.navigationController popViewControllerAnimated:YES];
-         }
-     }];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
+    
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:newObject.type, @"type", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"IncrementObjectTypeObserver" object:options];
+    options = nil;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SetCountLabelsObserver" object:nil];
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark - Set Methods
-
-- (void)setFields
+- (void)objectError:(NSError *)error
 {
-    nameTextField.text = [newObject.name capitalizedString];
-    authorTextField.text = [newObject.author capitalizedString];
-    
-    [imageView deleteImage];
-    
-    if (newObject.imageURL && newObject.imageData == nil)
-    {
-        UIActivityIndicatorView *indicatorImage = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        indicatorImage.frame = imageView.bounds;
-        [indicatorImage setHidesWhenStopped:YES];
-        [indicatorImage startAnimating];
-        [imageView addSubview:indicatorImage];
-        
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-        
-        dispatch_async(queue, ^(void)
-        {
-           newObject.imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:newObject.imageURL]];
-           [indicatorImage stopAnimating];
-           UIImage* image = [UIImage imageWithData:newObject.imageData];
-           if (image)
-           {
-               [imageView setImage:image];
-           }
-        });
-    }
-    
-    else if (newObject.imageData)
-    {
-        [imageView setImage:[UIImage imageWithData:newObject.imageData]];
-    }
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    [error manageErrorTo:self];      // Si hay error al actualizar el objeto
 }
 
 #pragma mark - iPrestaObjectDelegate Methods
@@ -311,28 +259,36 @@
     else [self setFields];
 }
 
-- (void)setNewObject
+- (void)setFields
 {
-    newObject.owner = [User currentUser];
-    newObject.type = [iPrestaObject typeSelected];
-    newObject.state = Propertye;
-    newObject.name = nameTextField.text;
-    newObject.visible = visibleSwitch.isOn;
+    nameTextField.text = [newObject.name capitalizedString];
+    authorTextField.text = [newObject.author capitalizedString];
     
-    if (imageView.isSetted)
+    [imageView deleteImage];
+    
+    if (newObject.imageURL && newObject.image == nil)
     {
-        NSData *imageData = UIImageJPEGRepresentation([imageView getImage], 0.1f);
-        newObject.image = [PFFile fileWithName:[NSString stringWithFormat:@"%@.png", [[iPrestaObject objectTypes] objectAtIndex:[iPrestaObject typeSelected]]] data:imageData];
+        UIActivityIndicatorView *indicatorImage = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        indicatorImage.frame = imageView.bounds;
+        [indicatorImage setHidesWhenStopped:YES];
+        [indicatorImage startAnimating];
+        [imageView addSubview:indicatorImage];
         
-        [newObject.image saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (error) [error manageErrorTo:self];
-        }];
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
         
-        imageData = nil;
+        dispatch_async(queue, ^(void)
+                       {
+                           newObject.image = [NSData dataWithContentsOfURL:[NSURL URLWithString:newObject.imageURL]];
+                           [indicatorImage stopAnimating];
+                           UIImage* image = [UIImage imageWithData:newObject.image];
+                           if (image)
+                           {
+                               [imageView setImage:image];
+                           }
+                       });
     }
-    if (authorTextField.text) newObject.author = [authorTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (descriptionTextView.text) newObject.descriptionObject = [descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (audioTypeSelectedIndex != NoneAudioObjectTypee) newObject.audioType = audioTypeSelectedIndex;
+    
+    else if (newObject.image) [imageView setImage:[UIImage imageWithData:newObject.image]];
 }
 
 #pragma mark - Button Methods

@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "iPrestaObject.h"
-#import "User.h"
+#import "ObjectIP.h"
 #import "STControls.h"
 #import "ZBarSDK.h"
 #import "iPrestaImageView.h"
@@ -17,7 +16,7 @@
 @class PHTextView;
 @class TPKeyboardAvoidingScrollView;
 
-@interface FormAudioViewController : UIViewController <iPrestaObjectDelegate,  UITextFieldDelegate, ZBarReaderDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, IMOAutocompletionViewDataSource, IMOAutocompletionViewDelegate, iPrestaImageViewDelegate>
+@interface FormAudioViewController : UIViewController <ObjectIPDelegate,  UITextFieldDelegate, ZBarReaderDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, IMOAutocompletionViewDataSource, IMOAutocompletionViewDelegate, iPrestaImageViewDelegate>
 {
     @private
     IBOutlet TPKeyboardAvoidingScrollView *scrollView;
@@ -27,9 +26,9 @@
     IBOutlet PHTextView *descriptionTextView;
     IBOutlet iPrestaImageView *imageView;
     IBOutlet UISwitch *visibleSwitch;
-    iPrestaObject *newObject;
+    ObjectIP *newObject;
     NSArray *audioTypesArray;
-    AudioObjectTypee audioTypeSelectedIndex;
+    AudioObjectType audioTypeSelectedIndex;
     IMOAutocompletionViewController *autoComplete;
 }
 

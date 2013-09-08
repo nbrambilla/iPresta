@@ -14,9 +14,7 @@
 #import "FormVideoViewController.h"
 #import "FormOtherViewController.h"
 #import "ObjectDetailViewController.h"
-#import "iPrestaObject.h"
 #import "UserIP.h"
-#import "Give.h"
 
 #define HEADER_HEIGHT 44
 
@@ -117,8 +115,7 @@
 {
     UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, HEADER_HEIGHT, 320, HEADER_HEIGHT)];
     
-    NSArray *itemArray = [NSArray arrayWithObjects: @"Todos", @"No Prestados", @"Prestados", nil];
-    segmentedControl = [[UISegmentedControl alloc] initWithItems:itemArray];
+    segmentedControl = [[UISegmentedControl alloc] initWithItems:[ObjectIP stateTypes]];
     segmentedControl.frame = CGRectMake(35, 200, 230, 30);
     segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     segmentedControl.selectedSegmentIndex = 0;
@@ -137,14 +134,13 @@
     [headerView addSubview:navigationBar];
     
     navigationBar = nil;
-    itemArray = nil;
     navigationItem = nil;
     headerView = nil;
 }
 
 - (void)setNavigationBar
 {
-    self.title = [[iPrestaObject objectTypes] objectAtIndex:[iPrestaObject typeSelected]];
+    self.title = [[ObjectIP objectTypes] objectAtIndex:[ObjectIP selectedType]];
     
     if (![UserIP objectsUserIsSet])
     {
@@ -175,69 +171,69 @@
 
 #pragma mark - Add / Delete Object Methods
 
-- (void)deleteObjectWithIndexPath:(NSIndexPath *)indexPath fromArray:(NSMutableArray *)array
-{
-    [ProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    iPrestaObject *object = nil;
-    
-    if (array == filteredObjectsArray)
-	{
-        object = [filteredObjectsArray objectAtIndex:indexPath.row];
-    }
-	else
-	{
-        object = [[objectsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    }
-    
-    [object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-    {
-         [ProgressHUD hideHUDForView:self.view animated:YES];
-         
-         if (error) [error manageErrorTo:self];     // Si hay error al eliminar el objeto
-         else                                       // Si se elimina el objeto, se actualiza la lista
-         {
-             PFQuery *getObjectsQuery = [Give query];
-             [getObjectsQuery whereKey:@"object" equalTo:object];
-             getObjectsQuery.limit = 1000;
-             
-             [getObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *gives, NSError *error)
-             {
-                 if (error) [error manageErrorTo:self];     // Si hay error al buscar los prestamos del objeto
-                 else                                       // Si se encuentran los pretamos del objeto, se eliminan
-                 {
-                     for (Give *give in gives)
-                     {
-                         [give deleteInBackground];
-                     }
-                 }
-             }];
-             
-             getObjectsQuery = nil;
-             
-             if (array == filteredObjectsArray)
-             {
-                 [filteredObjectsArray removeObjectAtIndex:indexPath.row];
-                 [self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-             }
-        
-             NSInteger sectionIndex = [[UILocalizedIndexedCollation currentCollation] sectionForObject:object collationStringSelector:@selector(firstLetter)];
-             NSInteger objectIndex = [[objectsArray objectAtIndex:sectionIndex] indexOfObject:object];
-             [[ objectsArray objectAtIndex:sectionIndex] removeObjectIdenticalTo:object];
-             
-             NSIndexPath *tableViewIndexPath = [NSIndexPath indexPathForRow:objectIndex inSection:sectionIndex];
-             [self.tableView deleteRowsAtIndexPaths:@[tableViewIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-             
-             NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:object.type], @"type", nil];
-             [[NSNotificationCenter defaultCenter] postNotificationName:@"DecrementObjectTypeObserver" object:options];
-             options = nil;
-             
-             [[NSNotificationCenter defaultCenter] postNotificationName:@"SetCountLabelsObserver" object:options];
-             
-             tableViewIndexPath = nil;
-         }
-    }];
-}
+//- (void)deleteObjectWithIndexPath:(NSIndexPath *)indexPath fromArray:(NSMutableArray *)array
+//{
+//    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+//    
+//    iPrestaObject *object = nil;
+//    
+//    if (array == filteredObjectsArray)
+//	{
+//        object = [filteredObjectsArray objectAtIndex:indexPath.row];
+//    }
+//	else
+//	{
+//        object = [[objectsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+//    }
+//    
+//    [object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+//    {
+//         [ProgressHUD hideHUDForView:self.view animated:YES];
+//         
+//         if (error) [error manageErrorTo:self];     // Si hay error al eliminar el objeto
+//         else                                       // Si se elimina el objeto, se actualiza la lista
+//         {
+//             PFQuery *getObjectsQuery = [Give query];
+//             [getObjectsQuery whereKey:@"object" equalTo:object];
+//             getObjectsQuery.limit = 1000;
+//             
+//             [getObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *gives, NSError *error)
+//             {
+//                 if (error) [error manageErrorTo:self];     // Si hay error al buscar los prestamos del objeto
+//                 else                                       // Si se encuentran los pretamos del objeto, se eliminan
+//                 {
+//                     for (Give *give in gives)
+//                     {
+//                         [give deleteInBackground];
+//                     }
+//                 }
+//             }];
+//             
+//             getObjectsQuery = nil;
+//             
+//             if (array == filteredObjectsArray)
+//             {
+//                 [filteredObjectsArray removeObjectAtIndex:indexPath.row];
+//                 [self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//             }
+//        
+//             NSInteger sectionIndex = [[UILocalizedIndexedCollation currentCollation] sectionForObject:object collationStringSelector:@selector(firstLetter)];
+//             NSInteger objectIndex = [[objectsArray objectAtIndex:sectionIndex] indexOfObject:object];
+//             [[ objectsArray objectAtIndex:sectionIndex] removeObjectIdenticalTo:object];
+//             
+//             NSIndexPath *tableViewIndexPath = [NSIndexPath indexPathForRow:objectIndex inSection:sectionIndex];
+//             [self.tableView deleteRowsAtIndexPaths:@[tableViewIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+//             
+//             NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:object.type], @"type", nil];
+//             [[NSNotificationCenter defaultCenter] postNotificationName:@"DecrementObjectTypeObserver" object:options];
+//             options = nil;
+//             
+//             [[NSNotificationCenter defaultCenter] postNotificationName:@"SetCountLabelsObserver" object:options];
+//             
+//             tableViewIndexPath = nil;
+//         }
+//    }];
+//}
 
 #pragma mark Content Filtering
 
@@ -249,7 +245,7 @@
     
     for (NSArray *section in array)
     {
-        for (iPrestaObject *object in section)
+        for (ObjectIP *object in section)
         {
             NSComparisonResult result = [object.name compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:[object.name rangeOfString:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch)]];
             if (result == NSOrderedSame)
@@ -286,7 +282,7 @@
 {
     id viewController;
     
-    switch ([iPrestaObject typeSelected])
+    switch ([ObjectIP selectedType])
     {
         case BookType:
             viewController = [[FormBookViewController alloc] initWithNibName:@"FormBookViewController" bundle:nil];
@@ -434,7 +430,7 @@
 //    }
 //    else
 //    {
-        cell.imageView.image = [UIImage imageWithData:object.image];
+    cell.imageView.image = (object.image) ? [UIImage imageWithData:object.image] : [UIImage imageNamed:[ObjectIP imageType]];
 //    }
     
     return cell;
@@ -448,20 +444,20 @@
 }
 
 // Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-    {
-        if (tableView == self.searchDisplayController.searchResultsTableView)
-        {
-            [self deleteObjectWithIndexPath:indexPath fromArray:filteredObjectsArray];
-        }
-        else
-        {
-            [self deleteObjectWithIndexPath:indexPath fromArray:[self getObjectsAndSectionsArray]];
-        }
-    }  
-}
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if (editingStyle == UITableViewCellEditingStyleDelete)
+//    {
+//        if (tableView == self.searchDisplayController.searchResultsTableView)
+//        {
+//            [self deleteObjectWithIndexPath:indexPath fromArray:filteredObjectsArray];
+//        }
+//        else
+//        {
+//            [self deleteObjectWithIndexPath:indexPath fromArray:[self getObjectsAndSectionsArray]];
+//        }
+//    }  
+//}
 
 /*
 // Override to support rearranging the table view.
@@ -517,7 +513,7 @@
     }
     
     //put each object into a section
-    for (iPrestaObject *object in array)
+    for (ObjectIP *object in array)
     {
         NSInteger index = [collation sectionForObject:object collationStringSelector:selector];
         

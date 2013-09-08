@@ -52,6 +52,8 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 - (void)setVisibilitySuccess;
 - (void)giveBackSuccess;
 - (void)giveObjectSuccess:(GiveIP *)give;
+- (void)addObjectSuccess;
+- (void)getSearchResultsResponse:(NSArray *)searchResults withError:(NSError *)error;
 
 - (void)saveAllFromDBresult:(NSError *)error;
 
@@ -79,6 +81,7 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 @property (nonatomic, retain) NSNumber * state;
 @property (nonatomic, retain) NSNumber * visible;
 @property (nonatomic, retain) NSSet *gives;
+@property (nonatomic, retain) NSString *imageURL;
 
 @end
 
@@ -98,19 +101,26 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 + (ObjectIP *)currentObject;
 + (NSString *)imageType;
 + (NSString *)imageType:(ObjectType)objectType;
++ (NSArray *)objectTypes;
++ (NSArray *)stateTypes;
++ (NSArray *)audioObjectTypes;
++ (NSArray *)videoObjectTypes;
 
 - (NSString *)textState;
 - (NSString *)textType;
 - (NSString *)textAudioType;
 - (NSString *)textVideoType;
 
+- (void)addObject;
 - (GiveIP *)currentGive;
 - (NSArray *)getGives;
 - (void)setVisibility:(BOOL)visible;
 - (void)giveObjectTo:(NSString *)name from:(NSDate *)dateBegin to:(NSDate *)dateEnd;
 - (void)giveBack;
 - (NSArray *)getAllGives;
-
+- (void)getData:(NSString *)objectCode;
+- (BOOL)isEqualToObject:(ObjectIP *)object;
+- (void)getSearchResults:(NSString *)param page:(NSInteger)page offset:(NSInteger)offset;
 - (void)addGivesObject:(GiveIP *)value;
 - (void)removeGivesObject:(GiveIP *)value;
 - (void)addGives:(NSSet *)values;

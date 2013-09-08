@@ -18,6 +18,7 @@
 + (id)executeRequest:(NSFetchRequest *)request;
 + (NSInteger)countRequest:(NSFetchRequest *)request;
 
+- (id)initListObject;
 + (CoreDataManager *)getByObjectId:(NSString *)objectId;
 + (void)addObject:(NSManagedObject *)object;
 + (NSArray *)getAll;
