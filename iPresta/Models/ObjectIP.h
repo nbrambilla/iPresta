@@ -109,6 +109,7 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 - (void)setVisibility:(BOOL)visible;
 - (void)giveObjectTo:(NSString *)name from:(NSDate *)dateBegin to:(NSDate *)dateEnd;
 - (void)giveBack;
+- (NSArray *)getAllGives;
 
 - (void)addGivesObject:(GiveIP *)value;
 - (void)removeGivesObject:(GiveIP *)value;

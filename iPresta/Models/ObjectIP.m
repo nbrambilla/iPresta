@@ -477,6 +477,19 @@ static ObjectIP *currentObject;
     return nil;
 }
 
+- (NSArray *)getAllGives
+{
+    NSArray *givesArray = [[[ObjectIP currentObject] gives] allObjects];
+    
+    givesArray = [givesArray sortedArrayUsingComparator:^NSComparisonResult(GiveIP *a, GiveIP *b) {
+        NSDate *first = a.dateBegin;
+        NSDate *second = b.dateBegin;
+        return [second compare:first];
+    }];
+    
+    return givesArray;
+}
+
 #pragma mark - Private Methods
 
 + (NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector

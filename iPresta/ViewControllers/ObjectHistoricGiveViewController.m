@@ -7,8 +7,8 @@
 //
 
 #import "ObjectHistoricGiveViewController.h"
-#import "iPrestaObject.h"
-#import "Give.h"
+#import "ObjectIP.h"
+#import "GiveIP.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
 
@@ -41,31 +41,9 @@
 
 - (void)setTableView
 {
-    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+    givesArray = [[ObjectIP currentObject] getAllGives];
     
-    PFQuery *getObjectsGivesQuery = [Give query];
-    [getObjectsGivesQuery whereKey:@"object" equalTo:[iPrestaObject currentObject]];
-    getObjectsGivesQuery.limit = 1000;
-    
-    [getObjectsGivesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-     {
-         [ProgressHUD hideHUDForView:self.view animated:YES];
-         
-         if (error) [error manageErrorTo:self];          // Si hay error al obtener los objetos
-         else                                            // Si se obtienen los objetos, se listan
-         {
-             givesArray = [objects mutableCopy];
-          
-             givesArray = [givesArray sortedArrayUsingComparator:^NSComparisonResult(Give *a, Give *b) {
-                 NSDate *first = a.dateBegin;
-                 NSDate *second = b.dateBegin;
-                 return [second compare:first];
-             }];
-             
-             [self.tableView reloadData];
-             
-         }
-     }];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -88,7 +66,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    Give *give = [givesArray objectAtIndex:indexPath.row];
+    GiveIP *give = [givesArray objectAtIndex:indexPath.row];
     cell.textLabel.text = give.name;
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
