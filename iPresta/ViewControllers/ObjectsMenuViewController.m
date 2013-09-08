@@ -127,7 +127,7 @@
     [self setCountLabels];
 }
 
-- (void)countAllByTypeError:(NSError *)error
+- (void)objectError:(NSError *)error
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
     

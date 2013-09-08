@@ -16,6 +16,7 @@
 static id <ObjectIPDelegate> delegate;
 static id <ObjectIPLoginDelegate> loginDelegate;
 static ObjectType selectedType;
+static ObjectIP *currentObject;
 
 @dynamic objectId;
 @dynamic name;
@@ -60,19 +61,19 @@ static ObjectType selectedType;
                              
                              [GiveIP saveAllGivesFromDBObject:object withBlock:^(NSError *error)
                              {
-                                 if (error)
-                                 {
-                                     [loginDelegate saveAllObjectsFromDBresult:error];
-                                     return;
-                                 }
-                                 else
+                                 if (!error)
                                  {
                                      count++;
                                      if (count == objectsCount)
                                      {
                                          [CoreDataManager save];
                                          [loginDelegate saveAllObjectsFromDBresult:nil];
-                                     }
+                                     }                                     
+                                 }
+                                 else
+                                 {
+                                     [loginDelegate saveAllObjectsFromDBresult:error];
+                                     return;
                                  }
                              }];
                          }
@@ -115,8 +116,6 @@ static ObjectType selectedType;
     }];
 }
 
-
-
 + (ObjectType)selectedType
 {
     return selectedType;
@@ -145,6 +144,49 @@ static ObjectType selectedType;
 + (id <ObjectIPLoginDelegate>)loginDelegate
 {
     return loginDelegate;
+}
+
++ (void)setCurrentObject:(ObjectIP *)_currentObject
+{
+    currentObject = _currentObject;
+}
+
++ (ObjectIP *)currentObject
+{
+    return currentObject;
+}
+
+
+#pragma mark -  Array Types Methods
+
+- (NSString *)textState
+{
+    return [[ObjectIP stateTypes] objectAtIndex:[self.state integerValue]];
+}
+
+- (NSString *)textType
+{
+    return [[ObjectIP objectTypes] objectAtIndex:[self.type integerValue]];
+}
+
+- (NSString *)textAudioType
+{
+    return [[ObjectIP audioObjectTypes] objectAtIndex:[self.audioType integerValue]];
+}
+
+- (NSString *)textVideoType
+{
+    return [[ObjectIP videoObjectTypes] objectAtIndex:[self.videoType integerValue]];
+}
+
++ (NSString *)imageType
+{
+    return [[ObjectIP imageTypes] objectAtIndex:selectedType];
+}
+
++ (NSString *)imageType:(ObjectType)objectType
+{
+    return [[ObjectIP imageTypes] objectAtIndex:objectType];
 }
 
 + (NSArray *)getAllByType
@@ -216,12 +258,144 @@ static ObjectType selectedType;
             }
             else
             {
-                if ([delegate respondsToSelector:@selector(getAllByTypeError:)]) [delegate getAllByTypeError:error];
+                if ([delegate respondsToSelector:@selector(error:)]) [delegate objectError:error];
             }
         }];
     }
     
     return nil;
+}
+
+- (void)setVisibility:(BOOL)visible
+{
+    PFQuery *objectsUserQuery = [PFQuery queryWithClassName:@"iPrestaObject"];
+    [objectsUserQuery whereKey:@"objectId" equalTo:self.objectId];
+    
+    [objectsUserQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+         if (!error)
+         {
+             PFObject *object = [objects objectAtIndex:0];
+             [object setObject:[NSNumber numberWithBool:visible] forKey:@"visible"];
+             
+             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+              {
+                  if (!error)
+                  {
+                      self.visible = [NSNumber numberWithInteger:visible];
+                      [ObjectIP save];
+                      if ([delegate respondsToSelector:@selector(setVisibilitySuccess)]) [delegate setVisibilitySuccess];
+                  }
+                  else
+                  {
+                      if ([delegate respondsToSelector:@selector(error:)]) [delegate objectError:error];
+                  }
+              }];
+         }
+         else
+         {
+             if ([delegate respondsToSelector:@selector(error:)]) [delegate objectError:error];
+         }
+    }];
+}
+
+- (void)giveObjectTo:(NSString *)name from:(NSDate *)dateBegin to:(NSDate *)dateEnd
+{
+    PFQuery *objectsUserQuery = [PFQuery queryWithClassName:@"iPrestaObject"];
+    [objectsUserQuery whereKey:@"objectId" equalTo:self.objectId];
+    
+    [objectsUserQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+     {
+         if (!error)
+         {
+             PFObject *object = [objects objectAtIndex:0];
+             [object setObject:[NSNumber numberWithInteger:Given] forKey:@"state"];
+             
+             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+             {
+                  if (!error)
+                  {
+                      self.state = [NSNumber numberWithInteger:Given];
+                      [ObjectIP save];
+                      
+                      GiveIP *newGive = [GiveIP new];
+                      newGive.name = name;
+                      newGive.dateBegin = dateBegin;
+                      newGive.dateEnd = dateEnd;
+                      newGive.objectIP = self;
+                      newGive.actual = [NSNumber numberWithBool:YES];
+                      
+                      [newGive saveToObject:object WithBlock:^(NSError *error)
+                      {
+                          if (!error)
+                          {
+                              if ([delegate respondsToSelector:@selector(giveObjectSuccess:)]) [delegate giveObjectSuccess:newGive];
+                          }
+                          else
+                          {
+                              if ([delegate respondsToSelector:@selector(error:)]) [delegate objectError:error];
+                          }
+                      }];
+                      
+                  }
+                  else
+                  {
+                      if ([delegate respondsToSelector:@selector(error:)]) [delegate objectError:error];
+                  }
+              }];
+         }
+         else
+         {
+             if ([delegate respondsToSelector:@selector(error:)]) [delegate objectError:error];
+         }
+     }];
+}
+
+- (void)giveBack
+{
+    PFQuery *objectsUserQuery = [PFQuery queryWithClassName:@"iPrestaObject"];
+    [objectsUserQuery whereKey:@"objectId" equalTo:self.objectId];
+    
+    [objectsUserQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+         if (!error)
+         {
+             PFObject *object = [objects objectAtIndex:0];
+             [object setObject:[NSNumber numberWithInteger:Property] forKey:@"state"];
+             
+             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+             {
+                  if (!error)
+                  {
+                      self.state = Property;
+                      [ObjectIP save];
+                      
+                      GiveIP *objectCurrentGive = [self currentGive];
+                      
+                      [objectCurrentGive cancelWithBlock:^(NSError *error)
+                      {
+                          if (!error)
+                          {
+                              if ([delegate respondsToSelector:@selector(giveBackSuccess)]) [delegate giveBackSuccess];
+                          }
+                          else
+                          {
+                              if ([delegate respondsToSelector:@selector(error:)]) [delegate objectError:error];
+                          }
+
+                      }];
+                  }
+                  else
+                  {
+                      if ([delegate respondsToSelector:@selector(error:)]) [delegate objectError:error];
+                  }
+              }];
+         }
+         else
+         {
+             if ([delegate respondsToSelector:@selector(error:)]) [delegate objectError:error];
+         }
+     }];
 }
 
 + (NSArray *)countAllByType
@@ -283,11 +457,23 @@ static ObjectType selectedType;
              }
              else            // Si hay error al obtener los objetos
              {
-                    if ([delegate respondsToSelector:@selector(countAllByTypeError:)]) [delegate countAllByTypeError:error];
+                    if ([delegate respondsToSelector:@selector(error:)]) [delegate objectError:error];
              }
          }];
     }
     
+    return nil;
+}
+
+- (GiveIP *)currentGive
+{
+    NSFetchRequest *request = [GiveIP fetchRequest];
+    [request setEntity:[GiveIP entityDescription]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"objectIP = %@ AND actual = 1", self]];
+    
+    NSArray *giveObject = [GiveIP executeRequest:request];
+    
+    if ([giveObject count] > 0) return [giveObject objectAtIndex:0];
     return nil;
 }
 
@@ -366,6 +552,33 @@ static ObjectType selectedType;
     self.videoType = [object objectForKey:@"videoType"];
     self.state = [object objectForKey:@"state"];
     self.visible = [NSNumber numberWithBool:[object objectForKey:@"visible"]];
+}
+
+#pragma mark - Constants Methods
+
++ (NSArray *)stateTypes
+{
+    return [NSArray arrayWithObjects:@"No prestado", @"Prestado", @"A devolver", nil];
+}
+
++ (NSArray *)objectTypes
+{
+    return [NSArray arrayWithObjects:@"Libro", @"Audio", @"Video", @"Otro", nil];
+}
+
++ (NSArray *)audioObjectTypes
+{
+    return [NSArray arrayWithObjects:@"CD", @"SACD", @"Vinilo", nil];
+}
+
++ (NSArray *)videoObjectTypes
+{
+    return [NSArray arrayWithObjects:@"DVD", @"Bluray", @"VHS", nil];
+}
+
++ (NSArray *)imageTypes
+{
+    return [NSArray arrayWithObjects:@"book_icon.png", @"audio_icon.png", @"video_icon.png", @"other_icon.png", nil];
 }
 
 @end

@@ -106,7 +106,7 @@
     [self reloadTables];
 }
 
-- (void)getAllByTypeError:(NSError *)error
+- (void)objectError:(NSError *)error
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
     
@@ -308,11 +308,11 @@
     viewController = nil;
 }
 
-- (void)goToObjectDetail:(iPrestaObject *)object
+- (void)goToObjectDetail:(ObjectIP *)object
 {
     ObjectDetailViewController *viewController = [[ObjectDetailViewController alloc] initWithNibName:@"ObjectDetailViewController" bundle:nil];
     
-    [iPrestaObject setCurrentObject:object];
+    [ObjectIP setCurrentObject:object];
     
     [self.navigationController pushViewController:viewController animated:YES];
     

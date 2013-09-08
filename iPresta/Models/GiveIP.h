@@ -13,6 +13,15 @@
 @class FriendIP;
 @class ObjectIP;
 
+@protocol GiveIPDelegate <NSObject>
+
+@optional
+
+- (void)giveError:(NSError *)error;
+- (void)extendGiveSuccess;
+
+@end
+
 @interface GiveIP : CoreDataManager
 
 @property (nonatomic, retain) NSString * giveId;
@@ -24,5 +33,12 @@
 @property (nonatomic, retain) NSNumber *actual;
 
 + (void)saveAllGivesFromDBObject:(PFObject *)object withBlock:(void (^)(NSError *))block;
++ (void)setDelegate:(id <GiveIPDelegate>)_delegate;
++ (id <GiveIPDelegate>)delegate;
++ (NSArray *)giveTimesArray;
+
+- (void)extendGive:(NSInteger)date;
+- (void)saveToObject:(PFObject *)object WithBlock:(void(^) (NSError *))block;
+- (void)cancelWithBlock:(void(^) (NSError *))block;
 
 @end

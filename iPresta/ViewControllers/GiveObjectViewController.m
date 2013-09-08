@@ -8,8 +8,8 @@
 
 
 #import "GiveObjectViewController.h"
-#import "iPrestaObject.h"
-#import "Give.h"
+#import "ObjectIP.h"
+#import "GiveIP.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
 #import "iPrestaNSString.h"
@@ -39,7 +39,7 @@
     UIBarButtonItem *contactsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(goToContacts)];
     self.navigationItem.rightBarButtonItem = contactsButton;
     
-    timeTextField.text = [[Give giveTimesArray] objectAtIndex:0];
+    timeTextField.text = [[GiveIP giveTimesArray] objectAtIndex:0];
     
     contactsButton = nil;
 }
@@ -55,6 +55,20 @@
     giveToTextField = nil;
     timeTextField = nil;
     [super viewDidUnload];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [ObjectIP setDelegate:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+
+    [ObjectIP setDelegate:nil];
 }
 
 #pragma mark - People Picker Methods
@@ -120,7 +134,7 @@
     {
         MLTableAlert *extendGiveTableAlert = [MLTableAlert tableAlertWithTitle:@"Prestar"                                                             cancelButtonTitle:@"Cancelar" numberOfRows:^NSInteger (NSInteger section)
             {
-                return [[Give giveTimesArray] count];
+                return [[GiveIP giveTimesArray] count];
             }
                 andCells:^UITableViewCell* (MLTableAlert *anAlert, NSIndexPath *indexPath)
             {
@@ -131,7 +145,7 @@
                     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
                 }
               
-                cell.textLabel.text = [[Give giveTimesArray] objectAtIndex:indexPath.row];
+                cell.textLabel.text = [[GiveIP giveTimesArray] objectAtIndex:indexPath.row];
               
                 return cell;
             }];
@@ -140,7 +154,7 @@
         
         [extendGiveTableAlert configureSelectionBlock:^(NSIndexPath *selectedIndex)
         {
-             timeTextField.text = [[Give giveTimesArray] objectAtIndex:selectedIndex.row];
+             timeTextField.text = [[GiveIP giveTimesArray] objectAtIndex:selectedIndex.row];
          } andCompletionBlock:nil];
         
         [extendGiveTableAlert show];
@@ -158,62 +172,45 @@
     
     if ([giveToTextField.text length] > 0)
     {
-        Give *give = [Give object];
+        [ProgressHUD showHUDAddedTo:self.view animated:YES];
         
-        [self setNewGive:give];
-        [self saveNewGive:give];
+        NSString *name = [giveToTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        NSDate *dateBegin = [NSDate date];
+        
+        NSInteger time = [timeTextField.text getIntegerTime];
+        NSDate *dateEnd = [dateBegin dateByAddingTimeInterval:time ];
+        
+        [[ObjectIP currentObject] giveObjectTo:name from:dateBegin to:dateEnd];
+        
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"El prestamo de realizarse a otra persona" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"El prestamo debe realizarse a otra persona" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         
         alert = nil;
     }
 }
 
-- (void)setNewGive:(Give *)give
+- (void)giveObjectSuccess:(GiveIP *)give
 {
-    give.object = [iPrestaObject currentObject];
+    [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    give.name = [giveToTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    ObjectIP *currentObject = [ObjectIP currentObject];
     
-    give.dateBegin = [NSDate date];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectViewObserver" object:nil];
     
-    NSInteger time = [timeTextField.text getIntegerTime];
-    give.dateEnd = [give.dateBegin dateByAddingTimeInterval:time ];
-    give.actual = YES;
+    [self addNotificatioToDate:give.dateEnd object:currentObject.name to:give.name registerId:give.giveId];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)saveNewGive:(Give *)give
+- (void)objectError:(NSError *)error
 {
-    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+    [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    [give saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-    {
-         if (error) [error manageErrorTo:self];      // Si error hay al realizar el prestamo
-         else                                        // Si el prestamo se realiza correctamente
-         {
-             give.object.state = Givene;
-             
-             [give.object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-             {
-                [ProgressHUD hideHUDForView:self.view animated:YES];
-                 
-                    if (error) [error manageErrorTo:self];      // Si hay error al actualizar el objeto
-                    else                                        // Si el objeto se actualiza correctamente
-                    {
-                        [iPrestaObject setCurrentObject:give.object];
-
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectViewObserver" object:nil];
-
-                        [self addNotificatioToDate:give.dateEnd object:give.object.name to:give.name registerId:give.objectId];
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }
-              }];
-            }
-     }];
+    [error manageErrorTo:self];
 }
 
 - (void)addNotificatioToDate:(NSDate *)date object:(NSString *)object to:(NSString *)name registerId:(NSString *)registerId

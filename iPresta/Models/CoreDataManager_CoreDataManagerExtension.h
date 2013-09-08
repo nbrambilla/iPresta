@@ -24,5 +24,4 @@
 + (void)deleteAll;
 + (void)save;
 
-
 @end

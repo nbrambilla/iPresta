@@ -13,6 +13,8 @@
 
 @implementation GiveIP
 
+static id<GiveIPDelegate> delegate;
+
 @dynamic giveId;
 @dynamic name;
 @dynamic dateBegin;
@@ -38,6 +40,108 @@
 
         block(error);
     }];
+}
+
+- (void)cancelWithBlock:(void(^) (NSError *))block
+{
+    PFQuery *giveObjectUserQuery = [PFQuery queryWithClassName:@"Give"];
+    [giveObjectUserQuery whereKey:@"objectId" equalTo:self.giveId];
+    
+    [giveObjectUserQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+         if (!error)
+         {
+             PFObject *give = [objects objectAtIndex:0];
+             [give setObject:[NSNumber numberWithBool:NO] forKey:@"actual"];
+             [give setObject:[NSDate date] forKey:@"dataEnd"];
+             
+             [give saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+             {
+                  if (!error)
+                  {
+                      self.actual = [NSNumber numberWithBool:NO];
+                      self.dateEnd = [give  objectForKey:@"dataEnd"];
+                      [GiveIP save];
+                      
+                      block(nil);
+                  }
+                  else block(error);
+              }];
+         }
+         else block(error);
+     }];
+}
+
+- (void)saveToObject:(PFObject *)object WithBlock:(void(^) (NSError *))block
+{
+    PFObject *give = [PFObject objectWithClassName:@"Give"];
+    [give setObject:object forKey:@"object"];
+    [give setObject:self.name forKey:@"name"];
+    [give setObject:self.dateBegin forKey:@"dateBegin"];
+    [give setObject:self.dateEnd forKey:@"dateEnd"];
+    [give setObject:[NSNumber numberWithBool:YES] forKey:@"actual"];
+    
+    [give saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+    {
+        if (!error)
+        {
+            self.giveId = give.objectId;
+            [GiveIP save];
+            block(nil);
+        }
+        else block(error);
+    }];
+}
+
++ (void)setDelegate:(id <GiveIPDelegate>)_delegate
+{
+    delegate = _delegate;
+}
+
++ (id <GiveIPDelegate>)delegate
+{
+    return delegate;
+}
+
+- (void)extendGive:(NSInteger)date
+{
+    PFQuery *giveObjectUserQuery = [PFQuery queryWithClassName:@"Give"];
+    [giveObjectUserQuery whereKey:@"objectId" equalTo:self.giveId];
+    
+    [giveObjectUserQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+         if (!error)
+         {
+             PFObject *give = [objects objectAtIndex:0];
+             
+             NSDate *dateEnd = [[NSDate date] dateByAddingTimeInterval:date];
+             [give setObject:dateEnd forKey:@"dataEnd"];
+             
+             [give saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+             {
+                  if (!error)
+                  {
+                      self.dateEnd = dateEnd;
+                      [GiveIP save];
+                      
+                      if ([delegate respondsToSelector:@selector(extendGiveSuccess)]) [delegate extendGiveSuccess];
+                  }
+                  else
+                  {
+                      if ([delegate respondsToSelector:@selector(giveError:)]) [delegate giveError:error];
+                  }
+              }];
+         }
+         else
+         {
+              if ([delegate respondsToSelector:@selector(giveError:)]) [delegate giveError:error];
+         }
+     }];
+}
+
++ (NSArray *)giveTimesArray
+{
+    return [NSArray arrayWithObjects:@"1 Semana", @"2 Semanas", @"3 Semanas", @"1 Mes", @"2 Meses", @"3 Meses", nil];
 }
 
 - (void)setGiveFrom:(PFObject *)give

@@ -8,10 +8,10 @@
 
 #import "ObjectDetailViewController.h"
 #import "GiveObjectViewController.h"
-#import "iPrestaObject.h"
+#import "ObjectIP.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
-#import "Give.h"
+#import "GiveIP.h"
 #import "UserIP.h"
 #import "MLTableAlert.h"
 #import "ObjectHistoricGiveViewController.h"
@@ -41,18 +41,29 @@
 
 - (void)addObservers
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setView) name:@"setObjectViewObserver" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setGiveView) name:@"setObjectViewObserver" object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [ObjectIP setDelegate:self];
+    [GiveIP setDelegate:self];
+    
+    [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    
     if (self.isMovingFromParentViewController)
     {
-        [iPrestaObject setCurrentObject:nil];
+        [ObjectIP setDelegate:nil];
+        [GiveIP setDelegate:nil];
+        
+        [ObjectIP setCurrentObject:nil];
         [UserIP setSearchUser:nil];
     }
-    
-    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidUnload
@@ -78,12 +89,14 @@
 
 - (void)setView
 {
-    typeLabel.text = [[iPrestaObject currentObject] textType];
-    nameLabel.text = [[iPrestaObject currentObject] name];
-    authorLabel.text = [[iPrestaObject currentObject] author];
-    editorialLabel.text = [[iPrestaObject currentObject] editorial];
-    descriptionLabel.text = [[iPrestaObject currentObject] descriptionObject];
-    imageView.image = [UIImage imageWithData:[[iPrestaObject currentObject] imageData]];
+    ObjectIP *currentObject = [ObjectIP currentObject];
+    
+    typeLabel.text = currentObject.textType;
+    nameLabel.text = currentObject.name;
+    authorLabel.text = currentObject.author;
+    editorialLabel.text = currentObject.editorial;
+    descriptionLabel.text = currentObject.descriptionObject;
+    imageView.image = [UIImage imageWithData:currentObject.image];
     loanUpLabel.hidden = YES;
     
     if (![UserIP objectsUserIsSet] && [UserIP searchUser] == nil)
@@ -91,46 +104,9 @@
         currentUserButtonsView.hidden = NO;
         otherUserButtonsView.hidden = YES;
         
-        [visibleSwitch setOn:[[iPrestaObject currentObject] visible]];
+        [visibleSwitch setOn:[currentObject.visible boolValue]];
         
-        if ([[iPrestaObject currentObject] state] == Givene)
-        {
-            giveButton.enabled = NO;
-            giveBackButton.enabled = YES;
-            
-            PFQuery *getActualGiveQuery = [Give query];
-            [getActualGiveQuery whereKey:@"object" equalTo:[iPrestaObject currentObject]];
-            [getActualGiveQuery whereKey:@"actual" equalTo:[NSNumber numberWithBool:YES]];
-            
-            [ProgressHUD  showHUDAddedTo:self.view animated:YES];
-            
-            [getActualGiveQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error)
-            {
-                [ProgressHUD hideHUDForView:self.view animated:YES];
-                
-                [[iPrestaObject currentObject] setActualGive:(Give *)object];
-                stateLabel.text = [NSString stringWithFormat:@"%@ a %@", [[iPrestaObject currentObject] textState], [[[iPrestaObject currentObject] actualGive] name]];
-                
-                if ([[[[iPrestaObject currentObject] actualGive] dateEnd] compare:[NSDate date]] == NSOrderedAscending)
-                {
-                    loanUpLabel.hidden = NO;
-                    loanUpButton.enabled = YES;
-                }
-                else
-                {
-                    loanUpLabel.hidden = YES;
-                    loanUpButton.enabled = NO;
-                }
-            }];
-        }
-        else
-        {
-            stateLabel.text = [[iPrestaObject currentObject] textState];
-            
-            loanUpButton.enabled = NO;
-            giveButton.enabled = YES;
-            giveBackButton.enabled = NO;
-        }
+        [self setGiveView];
     }
     else
     {
@@ -139,19 +115,60 @@
     }
 }
 
+- (void)setGiveView
+{
+    ObjectIP  *currentObject = [ObjectIP  currentObject];
+    
+    if ([currentObject.state integerValue] == Given)
+    {
+        giveButton.enabled = NO;
+        giveBackButton.enabled = YES;
+        
+        GiveIP *objectCurrentGive =  [currentObject currentGive];
+        stateLabel.text = [NSString stringWithFormat:@"%@ a %@", [currentObject textState], [objectCurrentGive name]];
+        
+        if ([[objectCurrentGive dateEnd] compare:[NSDate date]] == NSOrderedAscending)
+        {
+            loanUpLabel.hidden = NO;
+            loanUpButton.enabled = YES;
+        }
+        else
+        {
+            loanUpLabel.hidden = YES;
+            loanUpButton.enabled = NO;
+        }
+    }
+    else
+    {
+        stateLabel.text = [currentObject textState];
+        
+        loanUpButton.enabled = NO;
+        giveButton.enabled = YES;
+        giveBackButton.enabled = NO;
+    }
+}
+
 - (IBAction)changeVisibility:(UISwitch *)sender
 {
-    iPrestaObject *currentObject = [iPrestaObject currentObject];
-    currentObject.visible = sender.isOn;
-    
-    [ProgressHUD  showHUDAddedTo:self.view animated:YES];
-    
-    [currentObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-    {
-        [ProgressHUD hideHUDForView:self.view animated:YES];
-        
-        if (error) [error manageErrorTo:self];      // Si hay error al actualizar el objeto
-    }];
+    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[ObjectIP currentObject] setVisibility:sender.isOn];
+}
+
+- (void)setVisibilitySuccess
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+}
+
+- (void)objectError:(NSError *)error
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    [error manageErrorTo:self];      // Si hay error al actualizar el objeto
+}
+
+- (void)giveError:(NSError *)error
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    [error manageErrorTo:self];      // Si hay error al actualizar el prestamo
 }
 
 - (IBAction)goToGiveObject:(id)sender
@@ -171,40 +188,27 @@
 
 - (IBAction)giveBackObject:(id)sender
 {
-    iPrestaObject *currentObject = [iPrestaObject currentObject];
-    currentObject.state = Propertye;
-    
     [ProgressHUD  showHUDAddedTo:self.view animated:YES];
     
-    [currentObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-    {
-         if (error) [error manageErrorTo:self];      // Si hay error al actualizar el objeto
-         else                                        // Si el objeto se actualiza correctamente
-         {
-             currentObject.actualGive.actual = NO;
-             currentObject.actualGive.dateEnd = [NSDate date];
-             
-             [currentObject.actualGive saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-             {
-                 [ProgressHUD hideHUDForView:self.view animated:YES];
-                 
-                 [iPrestaObject setCurrentObject:currentObject];
-                 [self removeNotificatioWithRegisterId:[[[iPrestaObject currentObject] actualGive] objectId]];
-                 
-                 currentObject.actualGive = nil;
-                 [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
-                 
-                 [self setView];
-             }];
-         }
-     }];
+    ObjectIP  *currentObject = [ObjectIP  currentObject];
+    [currentObject giveBack];
+}
+
+- (void)giveBackSuccess
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+                  
+    [self removeNotificatioWithRegisterId:[[[ObjectIP  currentObject] currentGive] giveId]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
+                  
+    [self setGiveView];
 }
 
 - (IBAction)goToExtendGive:(id)sender
 {
 	MLTableAlert *extendGiveTableAlert = [MLTableAlert tableAlertWithTitle:@"Extender préstamo" cancelButtonTitle:@"Cancelar" numberOfRows:^NSInteger (NSInteger section)
         {
-            return [[Give giveTimesArray] count];
+            return [[GiveIP giveTimesArray] count];
         }
             andCells:^UITableViewCell* (MLTableAlert *anAlert, NSIndexPath *indexPath)
         {
@@ -213,7 +217,7 @@
           if (cell == nil)
               cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
           
-          cell.textLabel.text = [[Give giveTimesArray] objectAtIndex:indexPath.row];
+          cell.textLabel.text = [[GiveIP giveTimesArray] objectAtIndex:indexPath.row];
           
           return cell;
         }];
@@ -222,7 +226,7 @@
 	
 	[extendGiveTableAlert configureSelectionBlock:^(NSIndexPath *selectedIndex)
     {
-         [self extendGive:[[[Give giveTimesArray] objectAtIndex:selectedIndex.row] getIntegerTime]];
+         [self extendGive:[[[GiveIP giveTimesArray] objectAtIndex:selectedIndex.row] getIntegerTime]];
 	} andCompletionBlock:nil];
 	
 	[extendGiveTableAlert show];
@@ -230,31 +234,25 @@
 
 - (void)extendGive:(NSInteger)time
 {
-    Give *give = [[iPrestaObject currentObject] actualGive];
-    give.object = [iPrestaObject currentObject];
+    [ProgressHUD  showHUDAddedTo:self.view animated:YES];
     
-    give.dateEnd = [[NSDate date] dateByAddingTimeInterval:time];
+    GiveIP *give = [[ObjectIP currentObject] currentGive];
+    [give extendGive:time];
     
-    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+}
+
+- (void)extendGiveSuccess
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    [self setGiveView];
     
-    [give saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-    {
-         [ProgressHUD hideHUDForView:self.view animated:YES];
-         
-         if (error) [error manageErrorTo:self];      // Si error hay al realizar el prestamo
-         else                                        // Si el prestamo se realiza correctamente
-         {
-             give.object.actualGive = give;
-             
-             [self setView];
-             [self addNotificatioToDate:give.dateEnd object:give.object.name to:give.name registerId:give.objectId];
-         }
-     }];
+    GiveIP *currentGive = [[ObjectIP currentObject] currentGive];
+    [self addNotificatioToDate:currentGive.dateEnd object:currentGive.name to:currentGive.name registerId:currentGive.giveId];
 }
 
 - (void)addNotificatioToDate:(NSDate *)date object:(NSString *)object to:(NSString *)name registerId:(NSString *)registerId
 {
-    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+    UILocalNotification *localNotification = [UILocalNotification new];
     localNotification.fireDate = date;
     
     localNotification.alertAction = @"Prestamo Vencido";

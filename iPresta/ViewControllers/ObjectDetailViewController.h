@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ObjectIP.h"
+#import "GiveIP.h"
 
-@interface ObjectDetailViewController : UIViewController
+@interface ObjectDetailViewController : UIViewController <ObjectIPDelegate, GiveIPDelegate>
 {
     @private
     IBOutlet UIImageView *imageView;

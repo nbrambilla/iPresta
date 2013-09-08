@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <AddressBookUI/AddressBookUI.h>
+#import "ObjectIP.h"
 
-@interface GiveObjectViewController : UIViewController <UITextFieldDelegate, ABPeoplePickerNavigationControllerDelegate>
+@interface GiveObjectViewController : UIViewController <UITextFieldDelegate, ABPeoplePickerNavigationControllerDelegate, ObjectIPDelegate>
 {
     @private
     IBOutlet UITextField *giveToTextField;

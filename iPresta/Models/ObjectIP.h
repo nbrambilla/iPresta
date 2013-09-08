@@ -44,11 +44,14 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 @protocol ObjectIPDelegate <NSObject>
 
 @optional
-- (void)getAllByTypeError:(NSError *)error;
-- (void)getAllByTypeSuccess:(NSArray *)array;
 
-- (void)countAllByTypeError:(NSError *)error;;
+- (void)objectError:(NSError *)error;
+
+- (void)getAllByTypeSuccess:(NSArray *)array;
 - (void)countAllByTypeSuccess:(NSArray *)error;
+- (void)setVisibilitySuccess;
+- (void)giveBackSuccess;
+- (void)giveObjectSuccess:(GiveIP *)give;
 
 - (void)saveAllFromDBresult:(NSError *)error;
 
@@ -91,6 +94,21 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 + (NSArray *)countAllByType;
 + (void)setLoginDelegate:(id <ObjectIPLoginDelegate>)_loginDelegate;
 + (id <ObjectIPLoginDelegate>)loginDelegate;
++ (void)setCurrentObject:(ObjectIP *)_currentObject;
++ (ObjectIP *)currentObject;
++ (NSString *)imageType;
++ (NSString *)imageType:(ObjectType)objectType;
+
+- (NSString *)textState;
+- (NSString *)textType;
+- (NSString *)textAudioType;
+- (NSString *)textVideoType;
+
+- (GiveIP *)currentGive;
+- (NSArray *)getGives;
+- (void)setVisibility:(BOOL)visible;
+- (void)giveObjectTo:(NSString *)name from:(NSDate *)dateBegin to:(NSDate *)dateEnd;
+- (void)giveBack;
 
 - (void)addGivesObject:(GiveIP *)value;
 - (void)removeGivesObject:(GiveIP *)value;
