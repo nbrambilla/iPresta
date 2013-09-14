@@ -33,6 +33,7 @@
 @property (nonatomic, retain) NSNumber *actual;
 
 + (void)saveAllGivesFromDBObject:(PFObject *)object withBlock:(void (^)(NSError *))block;
++ (void)deleteAllGivesFromDBObject:(PFObject *)dbObject andObject:(ObjectIP *)object withBlock:(void (^)(NSError *))block;
 + (void)setDelegate:(id <GiveIPDelegate>)_delegate;
 + (id <GiveIPDelegate>)delegate;
 + (NSArray *)giveTimesArray;

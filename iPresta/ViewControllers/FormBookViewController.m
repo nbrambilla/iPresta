@@ -34,6 +34,9 @@
 {
     [super viewDidLoad];
     
+    newObject = [[ObjectIP alloc] initListObject];
+    [ObjectIP setDelegate:self];
+    
     [self setView];
 }
 

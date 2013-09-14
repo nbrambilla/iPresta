@@ -171,69 +171,52 @@
 
 #pragma mark - Add / Delete Object Methods
 
-//- (void)deleteObjectWithIndexPath:(NSIndexPath *)indexPath fromArray:(NSMutableArray *)array
-//{
-//    [ProgressHUD showHUDAddedTo:self.view animated:YES];
-//    
-//    iPrestaObject *object = nil;
-//    
-//    if (array == filteredObjectsArray)
-//	{
-//        object = [filteredObjectsArray objectAtIndex:indexPath.row];
-//    }
-//	else
-//	{
-//        object = [[objectsArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-//    }
-//    
-//    [object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-//    {
-//         [ProgressHUD hideHUDForView:self.view animated:YES];
-//         
-//         if (error) [error manageErrorTo:self];     // Si hay error al eliminar el objeto
-//         else                                       // Si se elimina el objeto, se actualiza la lista
-//         {
-//             PFQuery *getObjectsQuery = [Give query];
-//             [getObjectsQuery whereKey:@"object" equalTo:object];
-//             getObjectsQuery.limit = 1000;
-//             
-//             [getObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *gives, NSError *error)
-//             {
-//                 if (error) [error manageErrorTo:self];     // Si hay error al buscar los prestamos del objeto
-//                 else                                       // Si se encuentran los pretamos del objeto, se eliminan
-//                 {
-//                     for (Give *give in gives)
-//                     {
-//                         [give deleteInBackground];
-//                     }
-//                 }
-//             }];
-//             
-//             getObjectsQuery = nil;
-//             
-//             if (array == filteredObjectsArray)
-//             {
-//                 [filteredObjectsArray removeObjectAtIndex:indexPath.row];
-//                 [self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//             }
-//        
-//             NSInteger sectionIndex = [[UILocalizedIndexedCollation currentCollation] sectionForObject:object collationStringSelector:@selector(firstLetter)];
-//             NSInteger objectIndex = [[objectsArray objectAtIndex:sectionIndex] indexOfObject:object];
-//             [[ objectsArray objectAtIndex:sectionIndex] removeObjectIdenticalTo:object];
-//             
-//             NSIndexPath *tableViewIndexPath = [NSIndexPath indexPathForRow:objectIndex inSection:sectionIndex];
-//             [self.tableView deleteRowsAtIndexPaths:@[tableViewIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-//             
-//             NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:object.type], @"type", nil];
-//             [[NSNotificationCenter defaultCenter] postNotificationName:@"DecrementObjectTypeObserver" object:options];
-//             options = nil;
-//             
-//             [[NSNotificationCenter defaultCenter] postNotificationName:@"SetCountLabelsObserver" object:options];
-//             
-//             tableViewIndexPath = nil;
-//         }
-//    }];
-//}
+- (void)deleteObject
+{
+    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    ObjectIP *object = nil;
+    
+    if (selectedArray == filteredObjectsArray)
+	{
+        object = [filteredObjectsArray objectAtIndex:selectedIndexPath.row];
+    }
+	else
+	{
+        object = [[objectsArray objectAtIndex:selectedIndexPath.section] objectAtIndex:selectedIndexPath.row];
+    }
+    
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    [object deleteObject];
+}
+
+- (void)deleteObjectSuccess:(ObjectIP *)object
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    
+    if (selectedArray == filteredObjectsArray)
+    {
+        [filteredObjectsArray removeObjectAtIndex:selectedIndexPath.row];
+        [self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:@[selectedIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+    
+    NSInteger sectionIndex = [[UILocalizedIndexedCollation currentCollation] sectionForObject:object collationStringSelector:@selector(firstLetter)];
+    NSInteger objectIndex = [[objectsArray objectAtIndex:sectionIndex] indexOfObject:object];
+    [[objectsArray objectAtIndex:sectionIndex] removeObjectIdenticalTo:object];
+    
+    NSIndexPath *tableViewIndexPath = [NSIndexPath indexPathForRow:objectIndex inSection:sectionIndex];
+    [self.tableView deleteRowsAtIndexPaths:@[tableViewIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+    
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:object.type, @"type", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DecrementObjectTypeObserver" object:options];
+    options = nil;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SetCountLabelsObserver" object:options];
+    
+    selectedIndexPath = nil;
+    selectedArray = nil;
+    tableViewIndexPath = nil;
+}
 
 #pragma mark Content Filtering
 
@@ -403,35 +386,7 @@
     
     cell.textLabel.text = object.name;
     cell.detailTextLabel.text = (![object.author isEqual:@""]) ? object.author : @"Desconocido";
-    
-//    if (!object.image)
-//    {
-//        cell.imageView.image = [UIImage imageNamed:[iPrestaObject imageType]];
-//        
-//        [object.image getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
-//        {
-//            if (!error)
-//            {
-//                object.image = [[NSData alloc] initWithData:data];
-//                UIImage* image = [UIImage imageWithData:data];
-//                if (image)
-//                {
-//                    dispatch_async(dispatch_get_main_queue(),
-//                    ^{
-//                        if (cell.tag == indexPath.row)
-//                        {
-//                            cell.imageView.image = image;
-//                            [cell setNeedsLayout];
-//                        }
-//                    });
-//                }
-//            }
-//        }];
-//    }
-//    else
-//    {
     cell.imageView.image = (object.image) ? [UIImage imageWithData:object.image] : [UIImage imageNamed:[ObjectIP imageType]];
-//    }
     
     return cell;
 }
@@ -444,20 +399,24 @@
 }
 
 // Override to support editing the table view.
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if (editingStyle == UITableViewCellEditingStyleDelete)
-//    {
-//        if (tableView == self.searchDisplayController.searchResultsTableView)
-//        {
-//            [self deleteObjectWithIndexPath:indexPath fromArray:filteredObjectsArray];
-//        }
-//        else
-//        {
-//            [self deleteObjectWithIndexPath:indexPath fromArray:[self getObjectsAndSectionsArray]];
-//        }
-//    }  
-//}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        selectedIndexPath = indexPath;
+        
+        if (tableView == self.searchDisplayController.searchResultsTableView)
+        {
+            selectedArray = [self getObjectsAndSectionsArray];
+            [self deleteObject];
+        }
+        else
+        {
+            selectedArray = [self getObjectsAndSectionsArray];
+            [self deleteObject];
+        }
+    }  
+}
 
 /*
 // Override to support rearranging the table view.

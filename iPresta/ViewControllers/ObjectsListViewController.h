@@ -16,6 +16,8 @@
     IBOutlet UISearchBar *searchBar;
     UISegmentedControl *segmentedControl;
     NSArray *objectsArray;
+    NSIndexPath *selectedIndexPath;
+    NSArray *selectedArray;
 }
 
 @end

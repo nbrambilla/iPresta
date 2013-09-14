@@ -53,7 +53,9 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 - (void)giveBackSuccess;
 - (void)giveObjectSuccess:(GiveIP *)give;
 - (void)addObjectSuccess;
+- (void)deleteObjectSuccess:(id)object;
 - (void)getSearchResultsResponse:(NSArray *)searchResults withError:(NSError *)error;
+- (void)getDataResponseWithError:(NSError *)error;
 
 - (void)saveAllFromDBresult:(NSError *)error;
 
@@ -112,6 +114,7 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 - (NSString *)textVideoType;
 
 - (void)addObject;
+- (void)deleteObject;
 - (GiveIP *)currentGive;
 - (NSArray *)getGives;
 - (void)setVisibility:(BOOL)visible;

@@ -34,6 +34,14 @@
     [self setView];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    newObject = [[ObjectIP alloc] initListObject];
+    [ObjectIP setDelegate:self];
+}
+
 - (void)setView
 {
     nameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
@@ -43,14 +51,6 @@
     
     audioTypesArray = [ObjectIP audioObjectTypes];
     [self stComboText:audioTypeComboText didSelectRow:CDAudioObjectType];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    newObject = [[ObjectIP alloc] initListObject];
-    [ObjectIP setDelegate:self];
 }
 
 - (void)viewDidUnload

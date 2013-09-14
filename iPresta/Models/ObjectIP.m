@@ -178,6 +178,49 @@ static ObjectIP *currentObject;
     }
 }
 
+- (void)deleteObject
+{
+    PFQuery *objectsUserQuery = [PFQuery queryWithClassName:@"iPrestaObject"];
+    [objectsUserQuery whereKey:@"objectId" equalTo:self.objectId];
+    
+    [objectsUserQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+         if (!error)
+         {
+            PFObject *object;
+            if ([objects count] > 0) object = [objects objectAtIndex:0];
+            
+            [object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+            {
+                 if (!error)
+                 {
+                     [GiveIP deleteAllGivesFromDBObject:object andObject:self withBlock:^(NSError *error)
+                     {
+                          if (!error)
+                          {
+                              if ([delegate respondsToSelector:@selector(deleteObjectSuccess:)]) [delegate deleteObjectSuccess:self];
+                              [self delete];
+                              [ObjectIP save];
+                          }
+                          else
+                          {
+                              if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
+                          }
+                      }];
+                 }
+                 else                                       // Si se elimina el objeto, se actualiza la lista
+                 {
+                     if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];     // Si hay error al eliminar el objeto
+                 }
+            }];
+         }
+         else
+         {
+             if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error]; 
+         }
+    }];
+}
+
 + (ObjectType)selectedType
 {
     return selectedType;
@@ -693,7 +736,7 @@ static ObjectIP *currentObject;
                 error = [[NSError alloc] initWithDomain:@"error" code:EMPTYOBJECTDATA_ERROR userInfo:nil];
             }
             
-            if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
+            if ([delegate respondsToSelector:@selector(getDataResponseWithError:)]) [delegate getDataResponseWithError:error];
         }
         else if ([connection.identifier isEqual:@"getSearchResults"])
         {
@@ -751,20 +794,7 @@ static ObjectIP *currentObject;
     }
     else
     {
-        if ([connection.identifier isEqual:@"getData"])
-        {
-            if ([delegate respondsToSelector:@selector(objectError:)])
-            {
-                [delegate objectError:error];
-            }
-        }
-        else if ([connection.identifier isEqual:@"getSearchResults"])
-        {
-            if ([delegate respondsToSelector:@selector(objectError:)])
-            {
-                [delegate objectError:error];
-            }
-        }
+        if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
     }
 }
 

@@ -42,6 +42,44 @@ static id<GiveIPDelegate> delegate;
     }];
 }
 
++ (void)deleteAllGivesFromDBObject:(PFObject *)dbObject andObject:(ObjectIP *)object withBlock:(void (^)(NSError *))block
+{
+    NSInteger countAllGives = [[object getAllGives] count];
+    if (countAllGives == 0) block(nil);
+    
+    PFQuery *getObjectsQuery = [PFQuery queryWithClassName:@"Give"];
+    [getObjectsQuery whereKey:@"object" equalTo:dbObject];
+    getObjectsQuery.limit = 1000;
+    
+    [getObjectsQuery findObjectsInBackgroundWithBlock:^(NSArray *gives, NSError *error)
+    {
+        if (!error)                                      // Si se encuentran los pretamos del objeto, se eliminan
+        {
+             __block NSInteger count = 0;
+             for (PFObject *give in gives)
+             {
+                 [give deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+                 {
+                     if (!error)
+                     {
+                         GiveIP *giveIP = [GiveIP getByDBObjectId:give.objectId];
+                         [giveIP delete];
+                         
+                         count++;
+                         if (count == countAllGives)
+                         {
+                             [GiveIP save];
+                             block(nil);
+                         }
+                     }
+                     else block(error);
+                 }];
+             }
+         }
+         else block(error);     // Si hay error al buscar los prestamos del objeto
+     }];
+}
+
 - (void)cancelWithBlock:(void(^) (NSError *))block
 {
     PFQuery *giveObjectUserQuery = [PFQuery queryWithClassName:@"Give"];
@@ -153,6 +191,18 @@ static id<GiveIPDelegate> delegate;
     self.objectIP = [ObjectIP getByObjectId:[[give objectForKey:@"object"] objectId]];
     self.friend = nil;
     self.actual = [give objectForKey:@"actual"];
+}
+
++ (GiveIP *)getByDBObjectId:(NSString *)dbGiveId
+{
+    NSFetchRequest *request = [self fetchRequest];
+    [request setEntity:[self entityDescription]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"giveId = %@", dbGiveId]];
+    
+    id result = [[self class] executeRequest:request];
+    
+    if ([result count] > 0) return [result objectAtIndex:0];
+    return nil;
 }
 
 @end
