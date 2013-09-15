@@ -9,7 +9,6 @@
 #import "ObjectsMenuViewController.h"
 #import "UserIP.h"
 #import "ObjectIP.h"
-#import "iPrestaObject.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
 #import "ObjectsListViewController.h"
@@ -39,9 +38,9 @@
     [self addObservers];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     
     [ObjectIP setDelegate:self];
     [ObjectIP setSelectedType:NoneType];

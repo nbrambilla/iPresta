@@ -6,10 +6,7 @@
 //  Copyright (c) 2013 Nacho. All rights reserved.
 //
 
-#import "iPrestaObject.h"
-#import "User.h"
 #import "UserIP.h"
-#import "Give.h"
 #import "iPrestaAppDelegate.h"
 #import "AuthenticateEmailViewController.h"
 #import "LoginViewController.h"
@@ -28,9 +25,6 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    [User registerSubclass];
-    [iPrestaObject registerSubclass];
-    [Give registerSubclass];
     [Parse setApplicationId:@"ke5qAMdl1hxNkKPbmJyiOkCqfDkUtvwnRX6PKlXA" clientKey:@"xceoaXQrBv8vRium67iyjZrQfFI8lI0AROGhXsfR"];
     
     // Se carga iPrestaViewController, la pantalla raiz

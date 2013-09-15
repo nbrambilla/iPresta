@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "SlideViewController.h"
+#import "ObjectIP.h"
 
-@interface SearchObjectsViewController : SlideViewController <IMOAutocompletionViewDataSource, IMOAutocompletionViewDelegate>
+@interface SearchObjectsViewController : SlideViewController <ObjectIPDelegate, IMOAutocompletionViewDataSource, IMOAutocompletionViewDelegate>
+{
+    @private
+    NSMutableArray *objects;
+    NSMutableArray *owners;
+}
 
 @end

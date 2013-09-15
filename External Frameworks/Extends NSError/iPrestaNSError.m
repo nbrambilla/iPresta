@@ -42,6 +42,9 @@
         case REPEATOBJECT_ERROR: // no se ha devuelto ningun objeto de la busqueda
             message = @"Este objeto ya ha sido registrado";
             break;
+        case NOTAUTHENTICATEDUSER_ERROR:
+            message = @"Debe autenticar su email para poder acceder a la app";
+            break;
         default:
             break;
     }

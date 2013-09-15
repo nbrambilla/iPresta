@@ -18,6 +18,7 @@
 - (void)saveResult:(NSError *)error;
 - (void)signUpResult:(NSError *)error;
 - (void)requestPasswordResetForEmailResult:(NSError *)error;
+- (void)getDBUserWithEmailSuccess:(PFUser *)user withError:(NSError *)error;
 
 @end
 
@@ -47,5 +48,6 @@
 + (void)signUpWithEmail:(NSString *)email andPassword:(NSString *)password;
 + (void)requestPasswordResetForEmail:(NSString *)email;
 + (BOOL)hasObject:(ObjectIP *)object;
++ (void)getDBUserWithEmail:(NSString *)email;
 
 @end

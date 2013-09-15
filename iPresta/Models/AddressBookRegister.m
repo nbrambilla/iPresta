@@ -81,44 +81,4 @@
     return _email;
 }
 
-- (NSString *)firstLetter
-{
-    NSString *compareName = [self getCompareName];
-    NSInteger len = [compareName length];
-    
-    if (len > 1)
-    {
-        NSString *firstLetter = [[compareName substringWithRange:NSMakeRange(0, 1)] lowercaseString];
-        NSString *secondLetter = [[compareName substringWithRange:NSMakeRange(1, 1)] lowercaseString];
-        if ([firstLetter isEqual:@"c"] && [secondLetter isEqual:@"h"])
-        {
-            return @"ch";
-        }
-        if ([firstLetter isEqual:@"l"] && [secondLetter isEqual:@"l"])
-        {
-            return @"ll";
-        }
-        return firstLetter;
-    }
-    
-    return compareName;
-}
-
-- (NSString *)getFullName
-{
-    NSString *name;
-    if (_firstName) name = _firstName;
-    if (_middleName) name = [name stringByAppendingFormat:@" %@", _middleName ];
-    if (_lastName) name = [name stringByAppendingFormat:@" %@", _lastName ];
-    
-    return name;
-}
-
-- (NSString *)getCompareName
-{
-    if (_lastName) return _lastName;
-    if (_middleName) return _middleName;
-    return _firstName;
-}
-
 @end

@@ -7,8 +7,6 @@
 //
 
 #import "SearchObjectsViewController.h"
-#import "iPrestaObject.h"
-#import "User.h"
 #import "UserIP.h"
 #import "ObjectDetailViewController.h"
 #import <AddressBook/AddressBook.h>
@@ -39,15 +37,25 @@
     self.dataSource = self;
     self.delegate = self;
     self.navigationItem.hidesBackButton = YES;
+    objects = [NSMutableArray new];
+    owners = [NSMutableArray new];
     
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [ObjectIP setDelegate:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    if (self.isMovingFromParentViewController) [User setSearchUser:nil];
+    [ObjectIP setDelegate:nil];
+    if (self.isMovingFromParentViewController) [UserIP setSearchUser:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,19 +71,28 @@
     NSArray *registersArray = [self getAddressBookRegisters];
     NSArray *emailsArray = [self getEmailsFromAddressBookRegisters:registersArray];
     
-    [self performObjectsSearchWithEmails:emailsArray param:param page:_page andOffset:offset];
+    [ObjectIP performObjectsSearchWithEmails:emailsArray param:param page:_page andOffset:offset];
+}
+
+- (void)performObjectsSearchSuccess:(NSDictionary *)params error:(NSError *)error
+{
+    [objects addObjectsFromArray:[params objectForKey:@"objects"]];
+    [owners addObjectsFromArray:[params objectForKey:@"owners"]];
+    
+    [self loadSearchTableWithResults:[params objectForKey:@"objects"] error:error];
 }
 
 #pragma mark - IMOAutoCompletionViewDelegate Methods;
 
-- (void)IMOAutocompletionViewControllerReturnedCompletion:(iPrestaObject *)object
+- (void)IMOAutocompletionViewControllerReturnedCompletion:(ObjectIP *)object
 {
     if (object)
     {
         ObjectDetailViewController *viewController = [[ObjectDetailViewController alloc] initWithNibName:@"ObjectDetailViewController" bundle:nil];
         
-        [iPrestaObject setCurrentObject:object];
-        [UserIP setSearchUser:object.owner];
+        [ObjectIP setCurrentObject:object];
+        NSUInteger index = [objects indexOfObject:object];
+        [UserIP setSearchUser:[owners objectAtIndex:index]];
         
         [self.navigationController pushViewController:viewController animated:YES];
         
@@ -125,47 +142,6 @@
     }
     
     return [emailsArray copy];
-}
-
-- (void)performObjectsSearchWithEmails:(NSArray *)emailsArray param:(NSString *)param page:(NSInteger)_page andOffset:(NSInteger)offset
-{
-    // se crea una consulta para poder buscar todos los usuarios de la app de que tenemos en la agenda a partir del array de emails.
-    PFQuery *appUsersQuery = [User query];
-    [appUsersQuery whereKey:@"email" containedIn:emailsArray];
-    [appUsersQuery whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
-    
-    // texto con primeras letras de cada palabra en mayuscula
-    PFQuery *queryCapitalizedString = [iPrestaObject query];
-    [queryCapitalizedString whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
-    [queryCapitalizedString whereKey:@"owner" matchesQuery:appUsersQuery];
-    [queryCapitalizedString whereKey:@"name" containsString:[param capitalizedString]];
-    
-    // texto en minuscula
-    PFQuery *queryLowerCaseString = [iPrestaObject query];
-    [queryLowerCaseString whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
-    [queryLowerCaseString whereKey:@"owner" matchesQuery:appUsersQuery];
-    [queryLowerCaseString whereKey:@"name" containsString:[param lowercaseString]];
-    
-    // texto real
-    PFQuery *querySearchBarString = [iPrestaObject query];
-    [querySearchBarString whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
-    [querySearchBarString whereKey:@"owner" matchesQuery:appUsersQuery];
-    [querySearchBarString whereKey:@"name" containsString:param];
-    
-    // Combinacion de consultas para poder comparar el parametro con los nombres de los objetos. Subconsulta para poder encontrar los contactos con cuenta en la app.
-    PFQuery *finalQuery = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects: queryCapitalizedString,queryLowerCaseString, querySearchBarString,nil]];
-    [finalQuery orderByAscending:@"name"];
-    finalQuery.skip = _page * offset;
-    finalQuery.limit = offset;
-    
-    [finalQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-     {
-         if (error) [error manageErrorTo:self];     // Si hay error al obtener los objetos de los usuarios amigos de la app
-         else                                       // Si se obtienen los objetos, se ordenan los objetos por nombre y se rellena la tabla
-         {
-             [self loadSearchTableWithResults:objects error:error];
-         }
-     }];
 }
 
 @end

@@ -13,6 +13,7 @@
 #import "ProgressHUD.h"
 #import "SideMenuViewController.h"
 #import "iPrestaNSError.h"
+#import "FriendIP.h"
 
 @interface AuthenticateEmailViewController ()
 
@@ -82,9 +83,11 @@
 
 - (void)refreshResult:(NSError *)error
 {
-    [ProgressHUD hideHUDForView:self.view animated:YES];
-    
-    if (error) [error manageErrorTo:self];          // Si hay error en el chequeo
+    if (error) // Si hay error en el chequeo
+    {
+        [ProgressHUD hideHUDForView:self.view animated:YES];
+        [error manageErrorTo:self];
+    }
     else [self checkEmailAuthenticationSuccess];    // Si el chequeo se realiza correctamente
 }
 
@@ -93,20 +96,32 @@
 {
     if ([UserIP hasEmailVerified])
     {
-        UIViewController *viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-        SideMenuViewController *leftMenuViewController = [[SideMenuViewController alloc] init];
-        MFSideMenuContainerViewController *container = [MFSideMenuContainerViewController containerWithCenterViewController:navigationController leftMenuViewController:leftMenuViewController rightMenuViewController:nil];
-        [self presentModalViewController:container animated:YES];
-        
-        viewController = nil;
+        [FriendIP saveAllFriendsFromDBwithBlock:^(NSError *error)
+        {
+            [ProgressHUD hideHUDForView:self.view animated:YES];
+            
+            if (!error)
+            {
+                UIViewController *viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
+                UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+                SideMenuViewController *leftMenuViewController = [[SideMenuViewController alloc] init];
+                MFSideMenuContainerViewController *container = [MFSideMenuContainerViewController containerWithCenterViewController:navigationController leftMenuViewController:leftMenuViewController rightMenuViewController:nil];
+                [self presentModalViewController:container animated:YES];
+                
+                viewController = nil;
+            }
+            else
+            {
+                [error manageErrorTo:self];
+            }
+        }];
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"El email no esta autenticado" message:@"Debe autenticar su email para poder acceder a la app" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        [ProgressHUD hideHUDForView:self.view animated:YES];
         
-        alert = nil;
+        NSError *error = [[NSError alloc] initWithDomain:@"error" code:NOTAUTHENTICATEDUSER_ERROR userInfo:nil];
+        [error manageErrorTo:self];
     }
 }
 

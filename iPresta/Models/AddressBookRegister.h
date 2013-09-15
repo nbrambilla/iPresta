@@ -19,8 +19,5 @@
 @property(nonatomic, strong) NSString *email;
 
 - (id)initWithFirstName:(NSString *)firstName middleName:(NSString *)middleName lastName:(NSString *)lastName andEmail:(NSString *)email;
-- (NSString *)firstLetter;
-- (NSString *)getFullName;
-- (NSString *)getCompareName;
 
 @end

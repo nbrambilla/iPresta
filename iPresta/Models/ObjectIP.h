@@ -58,6 +58,7 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 - (void)getDataResponseWithError:(NSError *)error;
 
 - (void)saveAllFromDBresult:(NSError *)error;
+- (void)performObjectsSearchSuccess:(NSDictionary *)params error:(NSError *)error;
 
 @end
 
@@ -107,6 +108,7 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 + (NSArray *)stateTypes;
 + (NSArray *)audioObjectTypes;
 + (NSArray *)videoObjectTypes;
++ (void)performObjectsSearchWithEmails:(NSArray *)emailsArray param:(NSString *)param page:(NSInteger)_page andOffset:(NSInteger)offset;
 
 - (NSString *)textState;
 - (NSString *)textType;

@@ -146,6 +146,40 @@ static PFUser *searchUser;
     }];
 }
 
++ (void)getDBUserWithEmail:(NSString *)email
+{
+    PFQuery *query = [PFUser query];
+    [query whereKey:@"email" equalTo:email];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error)
+    {
+         if (!error) // Si se obtienen los usuarios, se buscan en los registros
+         {
+             if([users count] > 0)
+             {
+                 if ([delegate respondsToSelector:@selector(getDBUserWithEmailSuccess:withError:)])
+                 {
+                     [delegate getDBUserWithEmailSuccess:[users objectAtIndex:0] withError:nil];
+                 }
+             }
+             else
+             {
+                 if ([delegate respondsToSelector:@selector(getDBUserWithEmailSuccess:withError:)])
+                 {
+                     [delegate getDBUserWithEmailSuccess:nil withError:nil];
+                 }
+             }
+         }
+         else
+         {
+             if ([delegate respondsToSelector:@selector(getDBUserWithEmailSuccess:withError:)])
+             {
+                 [delegate getDBUserWithEmailSuccess:nil withError:error];
+             }
+         }
+    }];
+}
+
 # pragma mark - Public Methods
 
 + (BOOL)hasObject:(ObjectIP *)object

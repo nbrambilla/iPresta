@@ -224,7 +224,7 @@
 {
     finish = NO;
     page = 0;
-    _results = [[NSMutableArray alloc] init];
+    _results = [NSMutableArray new];
     [self searchResults];
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
 }

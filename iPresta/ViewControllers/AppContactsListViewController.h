@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "SlideTableViewController.h"
+#import "UserIP.h"
 
-@interface AppContactsListViewController : SlideTableViewController <UISearchDisplayDelegate>
+@interface AppContactsListViewController : SlideTableViewController <UserIPDelegate, UISearchDisplayDelegate>
 {
     NSMutableArray *appContactsList;
     NSMutableArray *filteredAppContactsList;

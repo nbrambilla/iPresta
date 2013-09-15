@@ -10,6 +10,7 @@
 #import "ObjectIP.h"
 #import "GiveIP.h"
 #import "UserIP.h"
+#import "FriendIP.h"
 #import "iPrestaNSString.h"
 #import "iPrestaNSError.h"
 #import "ConnectionData.h"
@@ -70,9 +71,20 @@ static ObjectIP *currentObject;
                                      count++;
                                      if (count == objectsCount)
                                      {
-                                         [CoreDataManager save];
-                                         [loginDelegate saveAllObjectsFromDBresult:nil];
-                                     }                                     
+                                         [FriendIP saveAllFriendsFromDBwithBlock:^(NSError *error)
+                                         {
+                                             if (!error)
+                                             {
+                                                 [CoreDataManager save];
+                                                 [loginDelegate saveAllObjectsFromDBresult:nil];
+                                             }
+                                             else
+                                             {
+                                                 [loginDelegate saveAllObjectsFromDBresult:error];
+                                                 return;
+                                             }
+                                         }];
+                                      }
                                  }
                                  else
                                  {
@@ -796,6 +808,88 @@ static ObjectIP *currentObject;
     {
         if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
     }
+}
+
++ (void)performObjectsSearchWithEmails:(NSArray *)emailsArray param:(NSString *)param page:(NSInteger)_page andOffset:(NSInteger)offset
+{
+    // se crea una consulta para poder buscar todos los usuarios de la app de que tenemos en la agenda a partir del array de emails.
+    PFQuery *appUsersQuery = [PFUser query];
+    [appUsersQuery whereKey:@"email" containedIn:emailsArray];
+    [appUsersQuery whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
+    
+    // texto con primeras letras de cada palabra en mayuscula
+    PFQuery *queryCapitalizedString = [PFQuery queryWithClassName:@"iPrestaObject"];
+    [queryCapitalizedString whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
+    [queryCapitalizedString whereKey:@"owner" matchesQuery:appUsersQuery];
+    [queryCapitalizedString whereKey:@"name" containsString:[param capitalizedString]];
+    
+    // texto en minuscula
+    PFQuery *queryLowerCaseString = [PFQuery queryWithClassName:@"iPrestaObject"];
+    [queryLowerCaseString whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
+    [queryLowerCaseString whereKey:@"owner" matchesQuery:appUsersQuery];
+    [queryLowerCaseString whereKey:@"name" containsString:[param lowercaseString]];
+    
+    // texto real
+    PFQuery *querySearchBarString = [PFQuery queryWithClassName:@"iPrestaObject"];
+    [querySearchBarString whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
+    [querySearchBarString whereKey:@"owner" matchesQuery:appUsersQuery];
+    [querySearchBarString whereKey:@"name" containsString:param];
+    
+    // Combinacion de consultas para poder comparar el parametro con los nombres de los objetos. Subconsulta para poder encontrar los contactos con cuenta en la app.
+    PFQuery *finalQuery = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects: queryCapitalizedString,queryLowerCaseString, querySearchBarString,nil]];
+    [finalQuery orderByAscending:@"name"];
+    finalQuery.skip = _page * offset;
+    finalQuery.limit = offset;
+    
+    [finalQuery findObjectsInBackgroundWithBlock:^(NSArray *pfObjects, NSError *error)
+    {
+        __block int objectsCount = [pfObjects count];
+        __block int count = 0;
+        
+        if (objectsCount == 0)
+        {
+            [delegate performObjectsSearchSuccess:nil error:nil];
+            return;
+        }
+        
+        NSMutableArray *objects = [[NSMutableArray alloc] initWithCapacity:objectsCount];
+        NSMutableArray *owners = [[NSMutableArray alloc] initWithCapacity:objectsCount];
+        
+        for (PFObject *pfObject in pfObjects)
+        {
+            ObjectIP *object = [[ObjectIP alloc] initListObject];
+            if ([pfObject objectForKey:@"image"])
+            {
+                [[pfObject objectForKey:@"image"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+                {
+                     if (!error)
+                     {
+                         [object setObjetctFrom:pfObject andImage:data];
+                         [objects addObject:object];
+                         [owners addObject:pfObject];
+                         
+                         count++;
+                         if (count == objectsCount)
+                         {
+                             if ([delegate respondsToSelector:@selector(performObjectsSearchSuccess:error:)])
+                             {
+                                 NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:objects, @"objects", [objects copy], @"owners", nil];
+                                 
+                                 [delegate performObjectsSearchSuccess:params error:nil];
+                             }
+                         }
+                     }
+                     else
+                     {
+                         if ([delegate respondsToSelector:@selector(performObjectsSearchSuccess:error:)])
+                         {
+                             [delegate performObjectsSearchSuccess:nil error:error];
+                         }
+                     }
+                }];
+            }
+        }
+    }];
 }
 
 #pragma mark - Set Object Methods

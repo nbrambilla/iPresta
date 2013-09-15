@@ -8,9 +8,7 @@
 
 #import "AppContactsListViewController.h"
 #import "iPrestaNSString.h"
-#import "AddressBookRegister.h"
-#import "User.h"
-#import "UserIP.h"
+#import "FriendIP.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
 #import "ObjectsMenuViewController.h"
@@ -45,6 +43,13 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [UserIP setDelegate:self];
+}
+
 - (void)viewDidUnload
 {
     appContactsList = nil;
@@ -56,83 +61,9 @@
 
 - (void)setTableView
 {
-    filteredAppContactsList = [NSMutableArray new];
-    NSMutableArray *appContactsArray = [NSMutableArray new];
-    NSMutableArray *emailsArray = [NSMutableArray new];
-    
-    // Se crea un objeto agenda con todos los contactos existentes en el telefono. Se crea un arrray con la agenda para poder recorrerlo
-    ABAddressBookRef addressBook = ABAddressBookCreate();
-    CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
-    NSInteger countPeople = ABAddressBookGetPersonCount(addressBook);
-    
-    
-    // se recorre el array de la agenda. Se crean un arrary de AddressBookRegisters y de emails. Con toda la agenda
-    for (NSInteger i = 0; i < countPeople; i++)
-    {
-        ABRecordRef person = CFArrayGetValueAtIndex(allPeople, i);
-        
-        NSString *firstName = (__bridge NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
-        NSString *middleName = (__bridge NSString*)ABRecordCopyValue(person, kABPersonMiddleNameProperty);
-        NSString *lastName = (__bridge NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
-        
-        ABMultiValueRef emails = ABRecordCopyValue(person, kABPersonEmailProperty);
-        NSInteger countEmails = ABMultiValueGetCount(emails);
-        
-        for (NSInteger j = 0; j < countEmails; j++)
-        {
-            NSString *email = (__bridge NSString*)ABMultiValueCopyValueAtIndex(emails, j);
-            
-            AddressBookRegister *reg = [[AddressBookRegister alloc] initWithFirstName:firstName middleName:middleName lastName:lastName andEmail:email];
-            [appContactsArray addObject:reg];
-            [emailsArray addObject:email];
-        }
-    }
-    
-    // se crea una consulata para poder buscar todos los usuarios de la app de que tenemos en la agenda a partir del array de emils. Se ordena alfabeticamente por emails.
-    PFQuery *appUsersQuery = [User query];
-    [appUsersQuery whereKey:@"email" containedIn:emailsArray];
-    [appUsersQuery whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
-    [appUsersQuery orderByAscending:@"email"];
-    appUsersQuery.limit = 1000;
-    
-    [ProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    [appUsersQuery findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error)
-    {
-        [ProgressHUD hideHUDForView:self.view animated:YES];
-        
-        appContactsList = [NSMutableArray new];
-        
-        // Se ordenan los registros alfabeticamente a partir del email
-        NSArray *sortedAppContactArray = [appContactsArray sortedArrayUsingComparator:^NSComparisonResult(AddressBookRegister *a, AddressBookRegister *b)
-        {
-            NSString *first = a.email;
-            NSString *second = b.email;
-            return [first compare:second];
-        }];
-        
-        if (error) [error manageErrorTo:self];     // Si hay error al obtener los usuarios de la app
-        else                                       // Si se obtienen los usuarios, se buscan en los registros
-        {
-            int i = 0;
-            
-            // se buscan las coincidencias en el array de AddressBookRegister para buscar los registros de los usuarios de la app. Si existe el registro del usuario logueado, no se debe mostrar. Al estar ambas listas ordenadas, se mejora el rendimiento de la busqueda
-            for (User *user in users)
-            {
-                while (![[[sortedAppContactArray objectAtIndex:i] email] isEqual:user.email]) i++;
-                
-                if (![user isEqual:[User currentUser]])
-                {
-                    [[sortedAppContactArray objectAtIndex:i] setUser:user];
-                    [appContactsList addObject:[sortedAppContactArray objectAtIndex:i]];
-                }
-            }
-
-            // Se ordenan los usuarios de la app por indice y orden alfabetico y se recarga la tabla para poder visualizarlos
-            appContactsList = [[self partitionObjects:appContactsList collationStringSelector:@selector(firstLetter)] mutableCopy];
-            [self.tableView reloadData];
-        }
-     }];
+    appContactsList = [[FriendIP getAll] copy];
+    appContactsList = [[self partitionObjects:appContactsList collationStringSelector:@selector(firstLetter)] mutableCopy];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -149,12 +80,12 @@
     
     for (NSArray *section in appContactsList)
     {
-        for (AddressBookRegister *reg in section)
+        for (FriendIP *friend in section)
         {
-            NSComparisonResult result = [[reg getFullName] compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:[[reg getFullName] rangeOfString:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch)]];
+            NSComparisonResult result = [[friend getFullName] compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:[[friend getFullName] rangeOfString:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch)]];
             if (result == NSOrderedSame)
             {
-                [filteredAppContactsList addObject:reg];
+                [filteredAppContactsList addObject:friend];
             }
         }
     }    
@@ -250,19 +181,19 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    AddressBookRegister *reg;
+    FriendIP *friend;
     
     if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
-        reg = [filteredAppContactsList objectAtIndex:indexPath.row];
+        friend = [filteredAppContactsList objectAtIndex:indexPath.row];
     }
 	else
 	{
-        reg = [[appContactsList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        friend = [[appContactsList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     }
     
-    cell.textLabel.text = [reg getFullName];
-    cell.detailTextLabel.text = reg.email;
+    cell.textLabel.text = [friend getFullName];
+    cell.detailTextLabel.text = friend.email;
     
     return cell;
 }
@@ -310,34 +241,37 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    [ProgressHUD showHUDAddedTo:self.view animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    AddressBookRegister *reg;
+    FriendIP *friend;
     
     if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
-        reg = [filteredAppContactsList objectAtIndex:indexPath.row];
+        friend = [filteredAppContactsList objectAtIndex:indexPath.row];
     }
 	else
 	{
-        reg = [[appContactsList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        friend = [[appContactsList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     }
     
-    [UserIP setObjectsUser:reg.user];
+    [UserIP getDBUserWithEmail:friend.email];
+}
+
+- (void)getDBUserWithEmailSuccess:(PFUser *)user withError:(NSError *)error
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    ObjectsMenuViewController *viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
-    [self.navigationController pushViewController:viewController animated:YES];
-    
-    reg = nil;
-    viewController = nil;
+    if (error) [error manageErrorTo:self];
+    else
+    {
+        [UserIP setObjectsUser:user];
+        ObjectsMenuViewController *viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
+        [self.navigationController pushViewController:viewController animated:YES];
+        
+        viewController = nil;
+    }
 }
 
 # pragma mark - Private Methods
@@ -356,11 +290,11 @@
     }
     
     //put each object into a section
-    for (AddressBookRegister *reg in array)
+    for (FriendIP *friend in array)
     {
-        NSInteger index = [collation sectionForObject:reg collationStringSelector:selector];
+        NSInteger index = [collation sectionForObject:friend collationStringSelector:selector];
         
-        [[unsortedSections objectAtIndex:index] addObject:reg];
+        [[unsortedSections objectAtIndex:index] addObject:friend];
     }
     
     NSMutableArray *sections = [NSMutableArray arrayWithCapacity:sectionCount];

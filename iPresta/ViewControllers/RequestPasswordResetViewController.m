@@ -49,7 +49,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
     emailTextField = nil;
     [super viewDidUnload];
 }
@@ -79,7 +80,7 @@
 
 - (void)requestPasswordResetSuccess
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Petición Raalizada" message:@"Verifique su cuenta de email e ingrese la nueva contraseña" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Petición Realizada" message:@"Verifique su cuenta de email e ingrese la nueva contraseña" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     
     alert = nil;

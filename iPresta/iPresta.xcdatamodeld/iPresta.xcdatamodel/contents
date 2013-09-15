@@ -2,10 +2,10 @@
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="11G63" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="FriendIP" representedClassName="FriendIP" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="middleName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="visible" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="give" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GiveIP" inverseName="friend" inverseEntity="GiveIP" syncable="YES"/>
     </entity>
     <entity name="GiveIP" representedClassName="GiveIP" syncable="YES">

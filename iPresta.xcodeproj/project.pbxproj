@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		15124E5B16FDDFBD00520FE2 /* Give.m in Sources */ = {isa = PBXBuildFile; fileRef = 15124E5A16FDDFBD00520FE2 /* Give.m */; };
 		15175A5D1753DA49005947B7 /* GiveObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15175A5B1753DA49005947B7 /* GiveObjectViewController.m */; };
 		15175A5E1753DA49005947B7 /* GiveObjectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15175A5C1753DA49005947B7 /* GiveObjectViewController.xib */; };
 		1518EA0B174A1DDE000EB0FE /* ObjectsMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1518EA09174A1DDE000EB0FE /* ObjectsMenuViewController.m */; };
@@ -78,10 +77,8 @@
 		156FDE4116F39CCF00F4BEEA /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE4016F39CCF00F4BEEA /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		156FDE4316F39CF900F4BEEA /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE4216F39CF900F4BEEA /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		156FDE4516F39D4200F4BEEA /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE4416F39D4200F4BEEA /* libsqlite3.dylib */; };
-		156FDE5116F3A04500F4BEEA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 156FDE5016F3A04500F4BEEA /* User.m */; };
 		15A877B6172C875300E8BDA2 /* RequestPasswordResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A877B4172C875200E8BDA2 /* RequestPasswordResetViewController.m */; };
 		15A877B7172C875300E8BDA2 /* RequestPasswordResetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15A877B5172C875300E8BDA2 /* RequestPasswordResetViewController.xib */; };
-		15B85BDB16F49CFE00FB5674 /* iPrestaObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B85BDA16F49CFE00FB5674 /* iPrestaObject.m */; };
 		15C44D6A16FE026B0071E7EC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C44D6916FE026B0071E7EC /* FacebookSDK.framework */; };
 		15C99479172C0515000672B4 /* ChangeEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C99477172C0515000672B4 /* ChangeEmailViewController.m */; };
 		15C9947A172C0515000672B4 /* ChangeEmailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15C99478172C0515000672B4 /* ChangeEmailViewController.xib */; };
@@ -146,8 +143,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		15124E5916FDDFBD00520FE2 /* Give.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Give.h; path = iPresta/Models/Give.h; sourceTree = "<group>"; };
-		15124E5A16FDDFBD00520FE2 /* Give.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Give.m; path = iPresta/Models/Give.m; sourceTree = "<group>"; };
 		15175A5A1753DA49005947B7 /* GiveObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiveObjectViewController.h; path = ViewControllers/GiveObjectViewController.h; sourceTree = "<group>"; };
 		15175A5B1753DA49005947B7 /* GiveObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GiveObjectViewController.m; path = ViewControllers/GiveObjectViewController.m; sourceTree = "<group>"; };
 		15175A5C1753DA49005947B7 /* GiveObjectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GiveObjectViewController.xib; path = ViewControllers/GiveObjectViewController.xib; sourceTree = "<group>"; };
@@ -264,13 +259,9 @@
 		156FDE4016F39CCF00F4BEEA /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		156FDE4216F39CF900F4BEEA /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		156FDE4416F39D4200F4BEEA /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		156FDE4F16F3A04500F4BEEA /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = iPresta/Models/User.h; sourceTree = "<group>"; };
-		156FDE5016F3A04500F4BEEA /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = iPresta/Models/User.m; sourceTree = "<group>"; };
 		15A877B3172C875200E8BDA2 /* RequestPasswordResetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RequestPasswordResetViewController.h; path = ViewControllers/RequestPasswordResetViewController.h; sourceTree = "<group>"; };
 		15A877B4172C875200E8BDA2 /* RequestPasswordResetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestPasswordResetViewController.m; path = ViewControllers/RequestPasswordResetViewController.m; sourceTree = "<group>"; };
 		15A877B5172C875300E8BDA2 /* RequestPasswordResetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RequestPasswordResetViewController.xib; path = ViewControllers/RequestPasswordResetViewController.xib; sourceTree = "<group>"; };
-		15B85BD916F49CFE00FB5674 /* iPrestaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaObject.h; path = iPresta/Models/iPrestaObject.h; sourceTree = "<group>"; };
-		15B85BDA16F49CFE00FB5674 /* iPrestaObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaObject.m; path = iPresta/Models/iPrestaObject.m; sourceTree = "<group>"; };
 		15C29CA117D3930300B0ED5D /* CoreDataManager_CoreDataManagerExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CoreDataManager_CoreDataManagerExtension.h; path = iPresta/Models/CoreDataManager_CoreDataManagerExtension.h; sourceTree = "<group>"; };
 		15C44D6916FE026B0071E7EC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		15C99476172C0515000672B4 /* ChangeEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangeEmailViewController.h; path = ViewControllers/ChangeEmailViewController.h; sourceTree = "<group>"; };
@@ -719,12 +710,6 @@
 				1549958717C8FD9E00857BB2 /* GiveIP.m */,
 				1549958317C8FD9D00857BB2 /* FriendIP.h */,
 				1549958417C8FD9E00857BB2 /* FriendIP.m */,
-				156FDE4F16F3A04500F4BEEA /* User.h */,
-				156FDE5016F3A04500F4BEEA /* User.m */,
-				15B85BD916F49CFE00FB5674 /* iPrestaObject.h */,
-				15B85BDA16F49CFE00FB5674 /* iPrestaObject.m */,
-				15124E5916FDDFBD00520FE2 /* Give.h */,
-				15124E5A16FDDFBD00520FE2 /* Give.m */,
 				19BA25CD179E6E83004F24DE /* AddressBookRegister.h */,
 				19BA25CE179E6E83004F24DE /* AddressBookRegister.m */,
 				1549959117C90BCB00857BB2 /* CoreDataManager.h */,
@@ -942,9 +927,6 @@
 			files = (
 				156FDE1616F399E900F4BEEA /* main.m in Sources */,
 				156FDE1A16F399E900F4BEEA /* iPrestaAppDelegate.m in Sources */,
-				156FDE5116F3A04500F4BEEA /* User.m in Sources */,
-				15B85BDB16F49CFE00FB5674 /* iPrestaObject.m in Sources */,
-				15124E5B16FDDFBD00520FE2 /* Give.m in Sources */,
 				154F205717205E7D00E65121 /* LoginViewController.m in Sources */,
 				154F205C172065A800E65121 /* CreateCountViewController.m in Sources */,
 				154C92DC172997680030915B /* AuthenticateEmailViewController.m in Sources */,
