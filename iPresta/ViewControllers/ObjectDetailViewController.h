@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "ObjectIP.h"
 #import "GiveIP.h"
+#import "UserIP.h"
 
-@interface ObjectDetailViewController : UIViewController <ObjectIPDelegate, GiveIPDelegate>
+@interface ObjectDetailViewController : UIViewController <ObjectIPDelegate, GiveIPDelegate, UserIPDelegate>
 {
     @private
     IBOutlet UIImageView *imageView;

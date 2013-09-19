@@ -8,11 +8,8 @@
 
 #import "ObjectDetailViewController.h"
 #import "GiveObjectViewController.h"
-#import "ObjectIP.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
-#import "GiveIP.h"
-#import "UserIP.h"
 #import "MLTableAlert.h"
 #import "ObjectHistoricGiveViewController.h"
 #import "iPrestaNSString.h"
@@ -48,6 +45,7 @@
 {
     [ObjectIP setDelegate:self];
     [GiveIP setDelegate:self];
+    [UserIP setDelegate:self];
     
     [super viewWillAppear:animated];
 }
@@ -60,6 +58,7 @@
     {
         [ObjectIP setDelegate:nil];
         [GiveIP setDelegate:nil];
+        [UserIP setDelegate:nil];
         
         [ObjectIP setCurrentObject:nil];
         [UserIP setSearchUser:nil];
@@ -163,6 +162,20 @@
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
     [error manageErrorTo:self];      // Si hay error al actualizar el objeto
+}
+
+- (IBAction)demand:(id)sender
+{
+    id user = ([UserIP objectsUser]) ? [UserIP objectsUser] : [UserIP searchUser];
+    
+    [UserIP demandObject:[ObjectIP currentObject] to:user];
+}
+
+- (void)demandObjectResult:(NSError *)error
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    
+    if (error) [error manageErrorTo:self];      // Si hay error al actualizar el prestamo
 }
 
 - (void)giveError:(NSError *)error

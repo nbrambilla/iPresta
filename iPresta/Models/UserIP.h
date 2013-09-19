@@ -17,6 +17,8 @@
 - (void)refreshResult:(NSError *)error;
 - (void)saveResult:(NSError *)error;
 - (void)signUpResult:(NSError *)error;
+- (void)setDeciveResult:(NSError *)error;
+- (void)demandObjectResult:(NSError *)error;
 - (void)requestPasswordResetForEmailResult:(NSError *)error;
 - (void)getDBUserWithEmailSuccess:(PFUser *)user withError:(NSError *)error;
 
@@ -49,5 +51,7 @@
 + (void)requestPasswordResetForEmail:(NSString *)email;
 + (BOOL)hasObject:(ObjectIP *)object;
 + (void)getDBUserWithEmail:(NSString *)email;
++ (void)setDevice;
++ (void)demandObject:(ObjectIP *)object to:(PFUser *)user;
 
 @end

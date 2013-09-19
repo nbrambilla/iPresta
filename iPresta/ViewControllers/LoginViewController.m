@@ -114,8 +114,7 @@
     
     // Si es un usuario ya autenticado, se guardan los objetos del usuario
     
-    if ([UserIP hasEmailVerified]) [ObjectIP saveAllObjectsFromDB];
-
+    if ([UserIP hasEmailVerified]) [UserIP setDevice];
     // Si el usuario no esta autenticado, debe hacerlo confirmando su email. Accede a la pantalla de autenticacion
     else
     {
@@ -128,6 +127,16 @@
     }
     
     navigationController = nil;
+}
+
+- (void)setDeciveResult:(NSError *)error
+{
+    if (error)
+    {
+        [ProgressHUD hideHUDForView:self.view animated:YES];
+        [error manageErrorTo:self];
+    }
+    else [ObjectIP saveAllObjectsFromDB];
 }
 
 - (void)saveAllObjectsFromDBresult:(NSError *)error

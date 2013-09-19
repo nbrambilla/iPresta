@@ -27,6 +27,7 @@
     
     [Parse setApplicationId:@"ke5qAMdl1hxNkKPbmJyiOkCqfDkUtvwnRX6PKlXA" clientKey:@"xceoaXQrBv8vRium67iyjZrQfFI8lI0AROGhXsfR"];
     
+    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound];
     // Se carga iPrestaViewController, la pantalla raiz
     
     iPrestaViewController *iprestaViewController = [[iPrestaViewController alloc] initWithNibName:@"iPrestaViewController" bundle:nil];
@@ -62,6 +63,22 @@
     return YES;
 }
 
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [PFPush storeDeviceToken:deviceToken];
+    [PFPush subscribeToChannelInBackground:@""];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    NSLog(@"Fail to register remote notifications: %@", error);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    [PFPush handlePush:userInfo];
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -83,6 +100,15 @@
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectViewObserver" object:nil];
+    
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    
+    if (currentInstallation)
+    {
+        currentInstallation.badge = 0;
+        [currentInstallation saveEventually];
+    }
+
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 

@@ -9,10 +9,9 @@
 #import "iPrestaNSError.h"
 #import "UserIP.h"
 
-static id <UserIPDelegate> delegate;
-
 @implementation UserIP
 
+static id <UserIPDelegate> delegate;
 static PFUser *objectsUser;
 static PFUser *searchUser;
 
@@ -177,6 +176,44 @@ static PFUser *searchUser;
                  [delegate getDBUserWithEmailSuccess:nil withError:error];
              }
          }
+    }];
+}
+
++ (void)setDevice
+{
+    if ([PFInstallation currentInstallation])
+    {
+        [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
+        
+        [[PFInstallation currentInstallation] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+        {
+            if ([delegate respondsToSelector:@selector(setDeciveResult:)]) [delegate setDeciveResult:error];
+        }];
+    }
+    else if ([delegate respondsToSelector:@selector(setDeciveResult:)]) [delegate setDeciveResult:nil];
+}
+
++ (void)demandObject:(ObjectIP *)object to:(PFUser *)user
+{
+    PFQuery *pushQuery = [PFInstallation query];
+    [pushQuery whereKey:@"user" equalTo:user];
+    
+    PFPush *push = [PFPush new];
+        
+    [push setData:[NSDictionary dictionaryWithObjectsAndKeys: @"Increment", @"badge", @"default", @"sound", [NSString stringWithFormat:@"%@", object.name], @"alert" , nil]];
+    
+    [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+    {
+        if ([delegate respondsToSelector:@selector(demandObjectResult:)]) [delegate demandObjectResult:error];
+        
+        if (!error)
+        {
+            
+        }
+        else
+        {
+            
+        }
     }];
 }
 

@@ -121,7 +121,7 @@ static ObjectIP *currentObject;
                                  [loginDelegate saveAllObjectsFromDBresult:nil];
                              }
                          }
-                     }];
+                    }];
                 }
             }
         }
@@ -1024,7 +1024,7 @@ static ObjectIP *currentObject;
     self.descriptionObject = [object objectForKey:@"descriptionObject"];
     self.editorial = [object objectForKey:@"editorial"];
     self.type = [object objectForKey:@"type"];
-    self.image = [[NSData alloc] initWithData:data];
+    if (data) self.image = [[NSData alloc] initWithData:data];
     self.audioType = [object objectForKey:@"audioType"];
     self.videoType = [object objectForKey:@"videoType"];
     self.state = [object objectForKey:@"state"];
