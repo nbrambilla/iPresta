@@ -103,7 +103,7 @@
     
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     
-    if (currentInstallation)
+    if (currentInstallation && currentInstallation.badge != 0)
     {
         currentInstallation.badge = 0;
         [currentInstallation saveEventually];
