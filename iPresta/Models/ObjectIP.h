@@ -86,11 +86,6 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 @property (nonatomic, retain) NSSet *gives;
 @property (nonatomic, retain) NSString *imageURL;
 
-@end
-
-@interface ObjectIP (CoreDataGeneratedAccessors)
-
-+ (ObjectIP *)getByObjectId:(NSString *)objectId;
 + (void)saveAllObjectsFromDB;
 + (void)setSelectedType:(ObjectType)objectType;
 + (void)setDelegate:(id <ObjectIPDelegate>)_delegate;
@@ -118,7 +113,6 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 - (void)addObject;
 - (void)deleteObject;
 - (GiveIP *)currentGive;
-- (NSArray *)getGives;
 - (void)setVisibility:(BOOL)visible;
 - (void)giveObjectTo:(NSString *)name from:(NSDate *)dateBegin to:(NSDate *)dateEnd;
 - (void)giveBack;
@@ -126,6 +120,18 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 - (void)getData:(NSString *)objectCode;
 - (BOOL)isEqualToObject:(ObjectIP *)object;
 - (void)getSearchResults:(NSString *)param page:(NSInteger)page offset:(NSInteger)offset;
+
+@end
+
+@interface ObjectIP (CoreDataManager_CoreDataManagerExtension)
+
++ (ObjectIP *)getByObjectId:(NSString *)objectId;
+
+@end
+
+@interface ObjectIP (CoreDataGeneratedAccessors)
+
+- (NSArray *)getGives;
 - (void)addGivesObject:(GiveIP *)value;
 - (void)removeGivesObject:(GiveIP *)value;
 - (void)addGives:(NSSet *)values;

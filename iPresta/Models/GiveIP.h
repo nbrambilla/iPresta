@@ -24,7 +24,7 @@
 
 @interface GiveIP : CoreDataManager
 
-@property (nonatomic, retain) NSString * giveId;
+@property (nonatomic, retain) NSString * objectId;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSDate * dateBegin;
 @property (nonatomic, retain) NSDate * dateEnd;

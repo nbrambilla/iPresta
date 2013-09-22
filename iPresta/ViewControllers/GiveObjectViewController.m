@@ -202,7 +202,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectViewObserver" object:nil];
     
-    [self addNotificatioToDate:give.dateEnd object:currentObject.name to:give.name registerId:give.giveId];
+    [self addNotificatioToDate:give.dateEnd object:currentObject.name to:give.name registerId:give.objectId];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

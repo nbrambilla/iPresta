@@ -7,6 +7,7 @@
 //
 
 #import "iPrestaNSError.h"
+#import "FriendIP.h"
 #import "UserIP.h"
 
 @implementation UserIP
@@ -96,13 +97,29 @@ static PFUser *searchUser;
 {
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error)
     {
-        if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
-    }];    
+        if (!error)
+        {
+            [[PFInstallation currentInstallation] setObject:[NSNumber numberWithBool:YES] forKey:@"isLogged"];
+            
+            [[PFInstallation currentInstallation] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+            {
+                if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
+            }];
+        }
+        else if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
+    }];
 }
 
 + (void)logOut
 {
-    [PFUser logOut];
+    [[PFInstallation currentInstallation] setObject:[NSNumber numberWithBool:NO] forKey:@"isLogged"];
+    
+    [[PFInstallation currentInstallation] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+    {
+        [PFUser logOut];
+        
+        if ([delegate respondsToSelector:@selector(logOutResult:)]) [delegate logOutResult:error];
+    }];
 }
 
 + (void)refresh
@@ -197,10 +214,13 @@ static PFUser *searchUser;
 {
     PFQuery *pushQuery = [PFInstallation query];
     [pushQuery whereKey:@"user" equalTo:user];
+    [pushQuery whereKey:@"isLogged" equalTo:[NSNumber numberWithBool:YES]];
+    
+    FriendIP *friend = [FriendIP getByObjectId:user.objectId];
     
     PFPush *push = [PFPush new];
-        
-    [push setData:[NSDictionary dictionaryWithObjectsAndKeys: @"Increment", @"badge", @"default", @"sound", [NSString stringWithFormat:@"%@", object.name], @"alert" , nil]];
+    [push setQuery:pushQuery];
+    [push setData:[NSDictionary dictionaryWithObjectsAndKeys: @"Increment", @"badge", @"default", @"sound", [NSString stringWithFormat:@"%@ te ha pedido %@", [friend getFullName] ,object.name], @"alert" , nil]];
     
     [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
     {

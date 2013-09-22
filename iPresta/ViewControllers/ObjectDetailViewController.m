@@ -211,7 +211,7 @@
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
                   
-    [self removeNotificatioWithRegisterId:[[[ObjectIP  currentObject] currentGive] giveId]];
+    [self removeNotificatioWithRegisterId:[[[ObjectIP  currentObject] currentGive] objectId]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
                   
     [self setGiveView];
@@ -260,7 +260,7 @@
     [self setGiveView];
     
     GiveIP *currentGive = [[ObjectIP currentObject] currentGive];
-    [self addNotificatioToDate:currentGive.dateEnd object:currentGive.name to:currentGive.name registerId:currentGive.giveId];
+    [self addNotificatioToDate:currentGive.dateEnd object:currentGive.name to:currentGive.name registerId:currentGive.objectId];
 }
 
 - (void)addNotificatioToDate:(NSDate *)date object:(NSString *)object to:(NSString *)name registerId:(NSString *)registerId

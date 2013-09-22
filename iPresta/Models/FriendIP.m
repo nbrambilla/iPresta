@@ -15,7 +15,7 @@
 
 @implementation FriendIP
 
-@dynamic userId;
+@dynamic objectId;
 @dynamic email;
 @dynamic firstName;
 @dynamic middleName;
@@ -88,6 +88,7 @@
                  if (![user.email isEqual:[[UserIP loggedUser] email]])
                  {
                      FriendIP *friend = [FriendIP new];
+                     friend.objectId = user.objectId;
                      friend.email = [[sortedAppContactArray objectAtIndex:i] email];
                      friend.firstName = [[sortedAppContactArray objectAtIndex:i] firstName];
                      friend.middleName = [[sortedAppContactArray objectAtIndex:i] middleName];

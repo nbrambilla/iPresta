@@ -31,19 +31,30 @@
 
 - (IBAction)logOut:(id)sender
 {
-    [ObjectIP deleteAll];
-    [GiveIP deleteAll];
-    [CoreDataManager removePersistentStore];
+    [ProgressHUD  showHUDAddedTo:self.view animated:YES];
     
     [UserIP logOut];
+}
+
+- (void)logOutResult:(NSError *)error
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    if ([self.presentingViewController isKindOfClass:[iPrestaViewController class]])
-    {
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-    }
+    if (error) [error manageErrorTo:self];
     else
     {
-        [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        [ObjectIP deleteAll];
+        [GiveIP deleteAll];
+        [CoreDataManager removePersistentStore];
+        
+        if ([self.presentingViewController isKindOfClass:[iPrestaViewController class]])
+        {
+            [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        }
+        else
+        {
+            [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        }
     }
 }
 - (IBAction)changeVisibility:(UISwitch *)sender

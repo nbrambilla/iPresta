@@ -94,7 +94,11 @@
 
 - (void)logInResult:(NSError *)error
 {
-    if (error) [error manageErrorTo:self];      // Si hay error en el login
+    if (error)
+    {
+        [ProgressHUD hideHUDForView:self.view animated:YES];
+        [error manageErrorTo:self];      // Si hay error en el login
+    }
     else [self logInSuccess];
 }
 
@@ -111,7 +115,6 @@
 - (void)logInSuccess
 {
     UINavigationController *navigationController;
-    
     // Si es un usuario ya autenticado, se guardan los objetos del usuario
     
     if ([UserIP hasEmailVerified]) [UserIP setDevice];

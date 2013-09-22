@@ -14,6 +14,7 @@
 
 @optional
 - (void)logInResult:(NSError *)error;
+- (void)logOutResult:(NSError *)error;
 - (void)refreshResult:(NSError *)error;
 - (void)saveResult:(NSError *)error;
 - (void)signUpResult:(NSError *)error;

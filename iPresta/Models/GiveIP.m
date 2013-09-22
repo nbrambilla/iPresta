@@ -15,7 +15,7 @@
 
 static id<GiveIPDelegate> delegate;
 
-@dynamic giveId;
+@dynamic objectId;
 @dynamic name;
 @dynamic dateBegin;
 @dynamic dateEnd;
@@ -83,7 +83,7 @@ static id<GiveIPDelegate> delegate;
 - (void)cancelWithBlock:(void(^) (NSError *))block
 {
     PFQuery *giveObjectUserQuery = [PFQuery queryWithClassName:@"Give"];
-    [giveObjectUserQuery whereKey:@"objectId" equalTo:self.giveId];
+    [giveObjectUserQuery whereKey:@"objectId" equalTo:self.objectId];
     
     [giveObjectUserQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
@@ -123,7 +123,7 @@ static id<GiveIPDelegate> delegate;
     {
         if (!error)
         {
-            self.giveId = give.objectId;
+            self.objectId = give.objectId;
             [GiveIP save];
             block(nil);
         }
@@ -144,7 +144,7 @@ static id<GiveIPDelegate> delegate;
 - (void)extendGive:(NSInteger)date
 {
     PFQuery *giveObjectUserQuery = [PFQuery queryWithClassName:@"Give"];
-    [giveObjectUserQuery whereKey:@"objectId" equalTo:self.giveId];
+    [giveObjectUserQuery whereKey:@"objectId" equalTo:self.objectId];
     
     [giveObjectUserQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
@@ -184,7 +184,7 @@ static id<GiveIPDelegate> delegate;
 
 - (void)setGiveFrom:(PFObject *)give
 {
-    self.giveId = give.objectId;
+    self.objectId = give.objectId;
     self.name = [give objectForKey:@"name"];
     self.dateBegin = [give objectForKey:@"dateBegin"];
     self.dateEnd = [give objectForKey:@"dateEnd"];

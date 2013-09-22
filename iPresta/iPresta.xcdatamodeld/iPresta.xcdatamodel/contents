@@ -5,15 +5,15 @@
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="middleName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="give" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="GiveIP" inverseName="friend" inverseEntity="GiveIP" syncable="YES"/>
     </entity>
     <entity name="GiveIP" representedClassName="GiveIP" syncable="YES">
         <attribute name="actual" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="dateBegin" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="dateEnd" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="giveId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="friend" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="FriendIP" inverseName="give" inverseEntity="FriendIP" syncable="YES"/>
         <relationship name="objectIP" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ObjectIP" inverseName="gives" inverseEntity="ObjectIP" syncable="YES"/>
     </entity>
