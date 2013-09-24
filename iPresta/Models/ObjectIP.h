@@ -8,9 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "CoreDataManager_CoreDataManagerExtension.h"
+#import "UserIP.h"
 
 @class GiveIP;
 @class UserIP;
+@class FriendIP;
+@class DemandIP;
 
 typedef NS_ENUM(NSUInteger, ObjectState) {
     Property = 0,
@@ -52,6 +55,7 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 - (void)setVisibilitySuccess;
 - (void)giveBackSuccess;
 - (void)giveObjectSuccess:(GiveIP *)give;
+- (void)demandToSuccess;
 - (void)addObjectSuccess;
 - (void)deleteObjectSuccess:(id)object;
 - (void)getSearchResultsResponse:(NSArray *)searchResults withError:(NSError *)error;
@@ -114,6 +118,7 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 - (void)deleteObject;
 - (GiveIP *)currentGive;
 - (void)setVisibility:(BOOL)visible;
+- (void)demandTo:(PFUser *)friend;
 - (void)giveObjectTo:(NSString *)name from:(NSDate *)dateBegin to:(NSDate *)dateEnd;
 - (void)giveBack;
 - (NSArray *)getAllGives;
@@ -136,5 +141,10 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 - (void)removeGivesObject:(GiveIP *)value;
 - (void)addGives:(NSSet *)values;
 - (void)removeGives:(NSSet *)values;
+
+- (void)addDemandsObject:(DemandIP *)value;
+- (void)removeDemandsObject:(DemandIP *)value;
+- (void)addDemands:(NSSet *)values;
+- (void)removeDemands:(NSSet *)values;
 
 @end

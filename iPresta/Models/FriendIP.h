@@ -10,6 +10,7 @@
 #import "CoreDataManager_CoreDataManagerExtension.h"
 
 @class GiveIP;
+@class DemandIP;
 
 @interface FriendIP : CoreDataManager
 
@@ -24,6 +25,15 @@
 - (NSString *)firstLetter;
 - (NSString *)getFullName;
 - (NSString *)getCompareName;
+
+@end
+
+@interface FriendIP (CoreDataGeneratedAccessors)
+
+- (void)addDemandsObject:(DemandIP *)value;
+- (void)removeDemandsObject:(DemandIP *)value;
+- (void)addDemands:(NSSet *)values;
+- (void)removeDemands:(NSSet *)values;
 
 @end
 

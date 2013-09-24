@@ -9,6 +9,7 @@
 #import "iPrestaNSError.h"
 #import "FriendIP.h"
 #import "UserIP.h"
+#import "ObjectIP.h"
 
 @implementation UserIP
 
@@ -208,33 +209,6 @@ static PFUser *searchUser;
         }];
     }
     else if ([delegate respondsToSelector:@selector(setDeciveResult:)]) [delegate setDeciveResult:nil];
-}
-
-+ (void)demandObject:(ObjectIP *)object to:(PFUser *)user
-{
-    PFQuery *pushQuery = [PFInstallation query];
-    [pushQuery whereKey:@"user" equalTo:user];
-    [pushQuery whereKey:@"isLogged" equalTo:[NSNumber numberWithBool:YES]];
-    
-    FriendIP *friend = [FriendIP getByObjectId:user.objectId];
-    
-    PFPush *push = [PFPush new];
-    [push setQuery:pushQuery];
-    [push setData:[NSDictionary dictionaryWithObjectsAndKeys: @"Increment", @"badge", @"default", @"sound", [NSString stringWithFormat:@"%@ te ha pedido %@", [friend getFullName] ,object.name], @"alert" , nil]];
-    
-    [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-    {
-        if ([delegate respondsToSelector:@selector(demandObjectResult:)]) [delegate demandObjectResult:error];
-        
-        if (!error)
-        {
-            
-        }
-        else
-        {
-            
-        }
-    }];
 }
 
 # pragma mark - Public Methods

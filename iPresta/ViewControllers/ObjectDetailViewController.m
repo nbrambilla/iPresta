@@ -45,7 +45,6 @@
 {
     [ObjectIP setDelegate:self];
     [GiveIP setDelegate:self];
-    [UserIP setDelegate:self];
     
     [super viewWillAppear:animated];
 }
@@ -58,7 +57,6 @@
     {
         [ObjectIP setDelegate:nil];
         [GiveIP setDelegate:nil];
-        [UserIP setDelegate:nil];
         
         [ObjectIP setCurrentObject:nil];
         [UserIP setSearchUser:nil];
@@ -166,16 +164,16 @@
 
 - (IBAction)demand:(id)sender
 {
+    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     id user = ([UserIP objectsUser]) ? [UserIP objectsUser] : [UserIP searchUser];
     
-    [UserIP demandObject:[ObjectIP currentObject] to:user];
+    [[ObjectIP currentObject] demandTo:user];
 }
 
-- (void)demandObjectResult:(NSError *)error
+- (void)demandToSuccess
 {
-    [ProgressHUD hideHUDForView:self.view animated:YES];
-    
-    if (error) [error manageErrorTo:self];      // Si hay error al actualizar el prestamo
+    [ProgressHUD hideHUDForView:self.view animated:YES];    
 }
 
 - (void)giveError:(NSError *)error

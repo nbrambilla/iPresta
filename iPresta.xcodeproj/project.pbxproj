@@ -77,6 +77,7 @@
 		156FDE4116F39CCF00F4BEEA /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE4016F39CCF00F4BEEA /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		156FDE4316F39CF900F4BEEA /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE4216F39CF900F4BEEA /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		156FDE4516F39D4200F4BEEA /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE4416F39D4200F4BEEA /* libsqlite3.dylib */; };
+		15763EF917F2012800D1F514 /* DemandIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 15763EF817F2012800D1F514 /* DemandIP.m */; };
 		15A877B6172C875300E8BDA2 /* RequestPasswordResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A877B4172C875200E8BDA2 /* RequestPasswordResetViewController.m */; };
 		15A877B7172C875300E8BDA2 /* RequestPasswordResetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15A877B5172C875300E8BDA2 /* RequestPasswordResetViewController.xib */; };
 		15C44D6A16FE026B0071E7EC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C44D6916FE026B0071E7EC /* FacebookSDK.framework */; };
@@ -259,6 +260,8 @@
 		156FDE4016F39CCF00F4BEEA /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		156FDE4216F39CF900F4BEEA /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		156FDE4416F39D4200F4BEEA /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		15763EF717F2012800D1F514 /* DemandIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemandIP.h; path = iPresta/Models/DemandIP.h; sourceTree = "<group>"; };
+		15763EF817F2012800D1F514 /* DemandIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DemandIP.m; path = iPresta/Models/DemandIP.m; sourceTree = "<group>"; };
 		15A877B3172C875200E8BDA2 /* RequestPasswordResetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RequestPasswordResetViewController.h; path = ViewControllers/RequestPasswordResetViewController.h; sourceTree = "<group>"; };
 		15A877B4172C875200E8BDA2 /* RequestPasswordResetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestPasswordResetViewController.m; path = ViewControllers/RequestPasswordResetViewController.m; sourceTree = "<group>"; };
 		15A877B5172C875300E8BDA2 /* RequestPasswordResetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RequestPasswordResetViewController.xib; path = ViewControllers/RequestPasswordResetViewController.xib; sourceTree = "<group>"; };
@@ -710,6 +713,8 @@
 				1549958717C8FD9E00857BB2 /* GiveIP.m */,
 				1549958317C8FD9D00857BB2 /* FriendIP.h */,
 				1549958417C8FD9E00857BB2 /* FriendIP.m */,
+				15763EF717F2012800D1F514 /* DemandIP.h */,
+				15763EF817F2012800D1F514 /* DemandIP.m */,
 				19BA25CD179E6E83004F24DE /* AddressBookRegister.h */,
 				19BA25CE179E6E83004F24DE /* AddressBookRegister.m */,
 				1549959117C90BCB00857BB2 /* CoreDataManager.h */,
@@ -970,6 +975,7 @@
 				1549958B17C8FD9E00857BB2 /* UserIP.m in Sources */,
 				1549958E17C8FD9E00857BB2 /* ObjectIP.m in Sources */,
 				1549959317C90BCB00857BB2 /* CoreDataManager.m in Sources */,
+				15763EF917F2012800D1F514 /* DemandIP.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

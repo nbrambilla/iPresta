@@ -11,6 +11,7 @@
 #import "GiveIP.h"
 #import "UserIP.h"
 #import "FriendIP.h"
+#import "DemandIP.h"
 #import "iPrestaNSString.h"
 #import "iPrestaNSError.h"
 #import "ConnectionData.h"
@@ -513,6 +514,58 @@ static ObjectIP *currentObject;
              if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
          }
      }];
+}
+
+
+- (void)demandTo:(PFUser *)user
+{
+    PFQuery *objectQuery = [PFQuery queryWithClassName:@"iPrestaObject"];
+    [objectQuery whereKey:@"objectId" equalTo:[[ObjectIP currentObject] objectId]];
+    
+    [objectQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error)
+    {
+        if (!error)
+        {
+            DemandIP *newDemand = [DemandIP new];
+            newDemand.friend = [FriendIP getByObjectId:user.objectId];
+            newDemand.object = self;
+            newDemand.date = [NSDate date];
+            
+            [newDemand saveWithObject:object withBlock:^(NSError *error)
+            {
+                if (!error)
+                {
+                    PFQuery *pushQuery = [PFInstallation query];
+                    [pushQuery whereKey:@"user" equalTo:user];
+                    [pushQuery whereKey:@"isLogged" equalTo:[NSNumber numberWithBool:YES]];
+                    
+                    PFPush *push = [PFPush new];
+                    [push setQuery:pushQuery];
+                    [push setData:[NSDictionary dictionaryWithObjectsAndKeys: @"Increment", @"badge", @"default", @"sound", [NSString stringWithFormat:@"%@ te ha pedido %@", [[UserIP loggedUser] username] ,self.name], @"alert" , nil]];
+                    
+                    [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+                     {
+                         if (!error)
+                         {
+                             if ([delegate respondsToSelector:@selector(demandToSuccess)]) [delegate demandToSuccess];
+                         }
+                         else
+                         {
+                             if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
+                         }
+                     }];
+                }
+                else
+                {
+                    if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
+                }
+            }];
+        }
+        else
+        {
+            if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
+        }
+    }];
 }
 
 + (NSArray *)countAllByType

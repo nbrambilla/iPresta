@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
-#import "ObjectIP.h"
+
+@class ObjectIP;
 
 @protocol UserIPDelegate <NSObject>
 
@@ -19,7 +20,6 @@
 - (void)saveResult:(NSError *)error;
 - (void)signUpResult:(NSError *)error;
 - (void)setDeciveResult:(NSError *)error;
-- (void)demandObjectResult:(NSError *)error;
 - (void)requestPasswordResetForEmailResult:(NSError *)error;
 - (void)getDBUserWithEmailSuccess:(PFUser *)user withError:(NSError *)error;
 
@@ -53,6 +53,5 @@
 + (BOOL)hasObject:(ObjectIP *)object;
 + (void)getDBUserWithEmail:(NSString *)email;
 + (void)setDevice;
-+ (void)demandObject:(ObjectIP *)object to:(PFUser *)user;
 
 @end
