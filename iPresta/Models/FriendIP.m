@@ -20,8 +20,25 @@
 @dynamic firstName;
 @dynamic middleName;
 @dynamic lastName;
-@dynamic give;
+@dynamic gives;
 
++ (void)getPermissions:(void (^)(BOOL))block
+{
+    ABAddressBookRef addressBook = ABAddressBookCreate();
+        
+    if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined)
+    {
+        ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error)
+        {
+            if (granted) block(granted);
+        });
+    }
+    else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized)
+    {
+        // The user has previously given access, add the contact
+        block(YES);
+    }
+}
 
 + (void)saveAllFriendsFromDBwithBlock:(void (^)(NSError *))block
 {
@@ -32,7 +49,6 @@
     ABAddressBookRef addressBook = ABAddressBookCreate();
     CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
     NSInteger countPeople = ABAddressBookGetPersonCount(addressBook);
-    
     
     // se recorre el array de la agenda. Se crean un array de AddressBookRegisters y de emails con toda la agenda
     for (NSInteger i = 0; i < countPeople; i++)
@@ -78,30 +94,30 @@
                                                   return [first compare:second];
                                               }];
             
-             int i = 0;
-             
-             // se buscan las coincidencias en el array de AddressBookRegister para buscar los registros de los usuarios de la app. Si existe el registro del usuario logueado, no se debe mostrar. Al estar ambas listas ordenadas, se mejora el rendimiento de la busqueda
-             for (PFUser *user in users)
-             {
-                 while (![[[sortedAppContactArray objectAtIndex:i] email] isEqual:user.email]) i++;
-                 
-                 if (![user.email isEqual:[[UserIP loggedUser] email]])
-                 {
-                     FriendIP *friend = [FriendIP new];
-                     friend.objectId = user.objectId;
-                     friend.email = [[sortedAppContactArray objectAtIndex:i] email];
-                     friend.firstName = [[sortedAppContactArray objectAtIndex:i] firstName];
-                     friend.middleName = [[sortedAppContactArray objectAtIndex:i] middleName];
-                     friend.lastName = [[sortedAppContactArray objectAtIndex:i] lastName];
-                 }
-             }
-             block(nil);
+            int i = 0;
+            
+            // se buscan las coincidencias en el array de AddressBookRegister para buscar los registros de los usuarios de la app. Si existe el registro del usuario logueado, no se debe mostrar. Al estar ambas listas ordenadas, se mejora el rendimiento de la busqueda
+            for (PFUser *user in users)
+            {
+                while (![[[sortedAppContactArray objectAtIndex:i] email] isEqual:user.email]) i++;
+                
+                if (![user.email isEqual:[[UserIP loggedUser] email]])
+                {
+                    FriendIP *friend = [FriendIP new];
+                    friend.objectId = user.objectId;
+                    friend.email = [[sortedAppContactArray objectAtIndex:i] email];
+                    friend.firstName = [[sortedAppContactArray objectAtIndex:i] firstName];
+                    friend.middleName = [[sortedAppContactArray objectAtIndex:i] middleName];
+                    friend.lastName = [[sortedAppContactArray objectAtIndex:i] lastName];
+                }
+            }
+            block(nil);
         }
         else
         {
             block(error);
         }
-     }];
+    }];
 }
 
 - (NSString *)firstLetter

@@ -19,8 +19,9 @@
 @property (nonatomic, retain) NSString * firstName;
 @property (nonatomic, retain) NSString * middleName;
 @property (nonatomic, retain) NSString * lastName;
-@property (nonatomic, retain) GiveIP *give;
+@property (nonatomic, retain) GiveIP *gives;
 
++ (void)getPermissions:(void (^)(BOOL))block;
 + (void)saveAllFriendsFromDBwithBlock:(void (^)(NSError *))block;
 - (NSString *)firstLetter;
 - (NSString *)getFullName;
@@ -30,10 +31,21 @@
 
 @interface FriendIP (CoreDataGeneratedAccessors)
 
-- (void)addDemandsObject:(DemandIP *)value;
-- (void)removeDemandsObject:(DemandIP *)value;
-- (void)addDemands:(NSSet *)values;
-- (void)removeDemands:(NSSet *)values;
+- (void)addGivesObject:(DemandIP *)value;
+- (void)removeGivesObject:(DemandIP *)value;
+- (void)addGives:(NSSet *)values;
+- (void)removeGives:(NSSet *)values;
+
+- (void)addDemandsMadeObject:(DemandIP *)value;
+- (void)removeDemandsMadeObject:(DemandIP *)value;
+- (void)addDemandsMade:(NSSet *)values;
+- (void)removeDemandsMade:(NSSet *)values;
+
+- (void)addDemandsReciveObject:(DemandIP *)value;
+- (void)removeDemandsReciveObject:(DemandIP *)value;
+- (void)addDemandsRecive:(NSSet *)values;
+- (void)removeDemandsRecive:(NSSet *)values;
+
 
 @end
 

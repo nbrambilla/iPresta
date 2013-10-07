@@ -12,6 +12,7 @@
 #import "AppContactsListViewController.h"
 #import "ConfigurationViewController.h"
 #import "SearchObjectsViewController.h"
+#import "DemandsListViewController.h"
 #import "IMOAutocompletionViewController.h"
 
 @interface SideMenuViewController ()
@@ -159,7 +160,7 @@
                 viewController = [[AppContactsListViewController alloc] initWithNibName:@"AppContactsListViewController" bundle:nil];
                 break;
             case 3:
-                
+                viewController = [[DemandsListViewController alloc] initWithNibName:@"DemandsListViewController" bundle:nil];
                 break;
             case 4:
                 viewController = [[ConfigurationViewController alloc] initWithNibName:@"ConfigurationViewController" bundle:nil];

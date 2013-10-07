@@ -10,7 +10,6 @@
 #import "FriendIP.h"
 #import "ObjectIP.h"
 
-
 @implementation GiveIP
 
 static id<GiveIPDelegate> delegate;
@@ -22,7 +21,6 @@ static id<GiveIPDelegate> delegate;
 @dynamic objectIP;
 @dynamic friend;
 @dynamic actual;
-
 
 + (void)saveAllGivesFromDBObject:(PFObject *)object withBlock:(void (^)(NSError *))block
 {

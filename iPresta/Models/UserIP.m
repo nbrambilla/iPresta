@@ -63,12 +63,12 @@ static PFUser *searchUser;
 
 + (NSString *)userId
 {
-    return [[PFUser currentUser] objectForKey:@"objectId"];
+    return [[PFUser currentUser] objectId];
 }
 
 + (NSString *)email
 {
-    return [[PFUser currentUser] objectForKey:@"email"];
+    return [[PFUser currentUser] email];
 }
 
 + (void)setEmail:(NSString *)email

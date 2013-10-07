@@ -7,6 +7,8 @@
 //
 
 #import "UserIP.h"
+#import "ObjectIP.h"
+#import "FriendIP.h"
 #import "iPrestaAppDelegate.h"
 #import "AuthenticateEmailViewController.h"
 #import "LoginViewController.h"
@@ -76,7 +78,13 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
+    // No entra si la app no esta activa o en background. Ver para resolver en estos casos
     [PFPush handlePush:userInfo];
+    
+    FriendIP *friend = [FriendIP getByObjectId:[userInfo objectForKey:@"friendId"]];
+    ObjectIP *object = [ObjectIP getByObjectId:[userInfo objectForKey:@"objectId"]];
+    
+    [object demandFrom:friend];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

@@ -37,6 +37,8 @@
 		1549958B17C8FD9E00857BB2 /* UserIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 1549958A17C8FD9E00857BB2 /* UserIP.m */; };
 		1549958E17C8FD9E00857BB2 /* ObjectIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 1549958D17C8FD9E00857BB2 /* ObjectIP.m */; };
 		1549959317C90BCB00857BB2 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1549959217C90BCB00857BB2 /* CoreDataManager.m */; };
+		154C3EBD17FF46DF00F723B7 /* DemandsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C3EBB17FF46DF00F723B7 /* DemandsListViewController.m */; };
+		154C3EBE17FF46DF00F723B7 /* DemandsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154C3EBC17FF46DF00F723B7 /* DemandsListViewController.xib */; };
 		154C92DC172997680030915B /* AuthenticateEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C92DA172997680030915B /* AuthenticateEmailViewController.m */; };
 		154C92DD172997680030915B /* AuthenticateEmailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154C92DB172997680030915B /* AuthenticateEmailViewController.xib */; };
 		154F205717205E7D00E65121 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154F205517205E7D00E65121 /* LoginViewController.m */; };
@@ -190,6 +192,9 @@
 		1549958D17C8FD9E00857BB2 /* ObjectIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectIP.m; path = iPresta/Models/ObjectIP.m; sourceTree = "<group>"; };
 		1549959117C90BCB00857BB2 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataManager.h; path = iPresta/Models/CoreDataManager.h; sourceTree = "<group>"; };
 		1549959217C90BCB00857BB2 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataManager.m; path = iPresta/Models/CoreDataManager.m; sourceTree = "<group>"; };
+		154C3EBA17FF46DF00F723B7 /* DemandsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemandsListViewController.h; path = ViewControllers/DemandsListViewController.h; sourceTree = "<group>"; };
+		154C3EBB17FF46DF00F723B7 /* DemandsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DemandsListViewController.m; path = ViewControllers/DemandsListViewController.m; sourceTree = "<group>"; };
+		154C3EBC17FF46DF00F723B7 /* DemandsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DemandsListViewController.xib; path = ViewControllers/DemandsListViewController.xib; sourceTree = "<group>"; };
 		154C92D9172997680030915B /* AuthenticateEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthenticateEmailViewController.h; path = ViewControllers/AuthenticateEmailViewController.h; sourceTree = "<group>"; };
 		154C92DA172997680030915B /* AuthenticateEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthenticateEmailViewController.m; path = ViewControllers/AuthenticateEmailViewController.m; sourceTree = "<group>"; };
 		154C92DB172997680030915B /* AuthenticateEmailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AuthenticateEmailViewController.xib; path = ViewControllers/AuthenticateEmailViewController.xib; sourceTree = "<group>"; };
@@ -698,6 +703,9 @@
 				154985C717BD7C8C00AE1135 /* SearchObjectsViewController.h */,
 				154985C817BD7C8C00AE1135 /* SearchObjectsViewController.m */,
 				154985C917BD7C8D00AE1135 /* SearchObjectsViewController.xib */,
+				154C3EBA17FF46DF00F723B7 /* DemandsListViewController.h */,
+				154C3EBB17FF46DF00F723B7 /* DemandsListViewController.m */,
+				154C3EBC17FF46DF00F723B7 /* DemandsListViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -920,6 +928,7 @@
 				153513F517BC32B400E4193D /* orders_icon.png in Resources */,
 				153513F617BC32B400E4193D /* orders_icon@2x.png in Resources */,
 				154985CB17BD7C8E00AE1135 /* SearchObjectsViewController.xib in Resources */,
+				154C3EBE17FF46DF00F723B7 /* DemandsListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -976,6 +985,7 @@
 				1549958E17C8FD9E00857BB2 /* ObjectIP.m in Sources */,
 				1549959317C90BCB00857BB2 /* CoreDataManager.m in Sources */,
 				15763EF917F2012800D1F514 /* DemandIP.m in Sources */,
+				154C3EBD17FF46DF00F723B7 /* DemandsListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

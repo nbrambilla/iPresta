@@ -81,6 +81,7 @@
     visibleSwitch = nil;
     currentUserButtonsView = nil;
     otherUserButtonsView = nil;
+    demandButton = nil;
     [super viewDidUnload];
 }
 
@@ -173,7 +174,8 @@
 
 - (void)demandToSuccess
 {
-    [ProgressHUD hideHUDForView:self.view animated:YES];    
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    demandButton.enabled = NO;
 }
 
 - (void)giveError:(NSError *)error

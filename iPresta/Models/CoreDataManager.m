@@ -11,7 +11,6 @@
 
 @implementation CoreDataManager
 
-
 - (id)init
 {    
     self = [[[self class] alloc] initWithEntity:[[self class] entityDescription] insertIntoManagedObjectContext:[[self class] managedObjectContext]];

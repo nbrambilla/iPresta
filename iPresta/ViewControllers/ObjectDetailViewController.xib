@@ -558,6 +558,14 @@
 					<int key="connectionID">53</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">demandButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="665466971"/>
+					</object>
+					<int key="connectionID">56</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">goToGiveObject:</string>
 						<reference key="source" ref="713672588"/>
@@ -772,7 +780,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">55</int>
+			<int key="maxID">56</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -816,6 +824,7 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="authorLabel">UILabel</string>
 						<string key="currentUserButtonsView">UIView</string>
+						<string key="demandButton">UIButton</string>
 						<string key="descriptionLabel">UILabel</string>
 						<string key="editorialLabel">UILabel</string>
 						<string key="giveBackButton">UIButton</string>
@@ -838,6 +847,10 @@
 						<object class="IBToOneOutletInfo" key="currentUserButtonsView">
 							<string key="name">currentUserButtonsView</string>
 							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="demandButton">
+							<string key="name">demandButton</string>
+							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="descriptionLabel">
 							<string key="name">descriptionLabel</string>

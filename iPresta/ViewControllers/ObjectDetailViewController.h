@@ -30,6 +30,8 @@
     IBOutlet UIButton *historycButton;
     IBOutlet UISwitch *visibleSwitch;
     
+    IBOutlet UIButton *demandButton;
+    
     IBOutlet UIView *otherUserButtonsView;
     
 }
