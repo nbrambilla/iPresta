@@ -58,6 +58,7 @@
 
 - (void)setTableView
 {
+    filteredAppContactsList = [NSMutableArray new];
     appContactsList = [[FriendIP getAll] copy];
     appContactsList = [[self partitionObjects:appContactsList collationStringSelector:@selector(firstLetter)] mutableCopy];
     [self.tableView reloadData];
@@ -247,6 +248,7 @@
     if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
         friend = [filteredAppContactsList objectAtIndex:indexPath.row];
+        [searchBar resignFirstResponder];
     }
 	else
 	{
