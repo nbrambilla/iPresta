@@ -11,7 +11,12 @@
 
 @interface DemandsListViewController : SlideTableViewController
 {
-    NSArray *demandsArray;
+    NSArray *selectedArray;
+    NSArray *myDemandsArray;
+    NSArray *friendsDemandsArray;
+    
+    NSMutableArray *objectsImageArray;
+    NSMutableArray *objectsArray;
     UISegmentedControl *segmentedControl;
 }
 

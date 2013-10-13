@@ -30,9 +30,33 @@
 {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setDemandsArray) name:@"setDemandsObserver" object:nil];
+    
     [self setTableViewHeader];
-    demandsArray = [DemandIP getMines];
-    [self.tableView reloadData];
+    [self setDemandsArray];
+}
+
+- (void)setDemandsArray
+{
+    myDemandsArray = [DemandIP getMines];
+    friendsDemandsArray = [DemandIP getFriends];
+    objectsImageArray = [[NSMutableArray alloc] initWithCapacity:[myDemandsArray count]];
+    objectsArray = [[NSMutableArray alloc] initWithCapacity:[myDemandsArray count]];
+    
+    for (int i = 0; i < [myDemandsArray count]; i++)
+    {
+        [objectsImageArray addObject:[NSNumber numberWithBool:NO]];
+        [objectsArray addObject:[NSNumber numberWithBool:NO]];
+    }
+    
+    [self setDemandsType:segmentedControl];
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setTableViewHeader
@@ -58,8 +82,8 @@
 
 - (void)setDemandsType:(UISegmentedControl *)sender
 {
-    if (sender.selectedSegmentIndex == 0) demandsArray = [DemandIP getMines];
-    else if (sender.selectedSegmentIndex == 1) demandsArray = [DemandIP getFriends];
+    if (sender.selectedSegmentIndex == 0) selectedArray = myDemandsArray;
+    else if (sender.selectedSegmentIndex == 1) selectedArray = friendsDemandsArray;
     
     [self.tableView reloadData];
 }
@@ -79,7 +103,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [demandsArray count];
+    return [selectedArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -92,42 +116,64 @@
         cell.tag = indexPath.row;
     }
     
-    DemandIP *demand = [demandsArray objectAtIndex:indexPath.row];
+    DemandIP *demand = [selectedArray objectAtIndex:indexPath.row];
     
     if (segmentedControl.selectedSegmentIndex == 1)
     {
-        cell.textLabel.text = [demand.from getFullName];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", [demand.from getFullName], demand.object.name];
         cell.imageView.image = [UIImage imageWithData:demand.object.image];
+        
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"dd/MM/yy HH:mm"];
+        cell.detailTextLabel.text = [dateFormat stringFromDate:demand.date];
     }
     else if (segmentedControl.selectedSegmentIndex == 0)
     {
-        cell.textLabel.text = [demand.to getFullName];
         UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         indicator.frame = cell.imageView.frame;
         [cell.imageView addSubview:indicator];
         [indicator startAnimating];
-                
-        [ObjectIP getDBObjectWithObjectId:demand.iPrestaObjectId withBlock:^(NSError *error, ObjectIP *object)
+        
+        if (![[objectsArray objectAtIndex:indexPath.row] isKindOfClass:[ObjectIP class]])
         {
-            UIImage* image = [UIImage imageWithData:object.image];
-            if (image)
+            [ObjectIP getDBObjectWithObjectId:demand.iPrestaObjectId withBlock:^(NSError *error, ObjectIP *object)
             {
-                dispatch_async(dispatch_get_main_queue(),^
-                   {
-                       if (cell.tag == indexPath.row)
+                [objectsArray replaceObjectAtIndex:indexPath.row withObject:object];
+                cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", [demand.to getFullName], object.name];
+                
+                NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+                [dateFormat setDateFormat:@"dd/MM/yy HH:mm"];
+                cell.detailTextLabel.text = [dateFormat stringFromDate:demand.date];
+                
+                UIImage* image = [UIImage imageWithData:object.image];
+                if (image)
+                {
+                    dispatch_async(dispatch_get_main_queue(),^
                        {
-                           [indicator removeFromSuperview];
-                           cell.imageView.image = image;
-                           [cell setNeedsLayout];
-                       }
-                   });
-            }
-        }];
-    }
+                           if (cell.tag == indexPath.row)
+                           {
+                               [indicator removeFromSuperview];
+                               
+                               [objectsImageArray replaceObjectAtIndex:indexPath.row withObject:image];
+                               cell.imageView.image = image;
+                               [cell setNeedsLayout];
+                           }
+                       });
+                }
+            }];
+        }
+        else
+        {
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", [demand.to getFullName], [[objectsArray objectAtIndex:indexPath.row] name]];
+            
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            [dateFormat setDateFormat:@"dd/MM/yy HH:mm"];
+            cell.detailTextLabel.text = [dateFormat stringFromDate:demand.date];
+            
+            cell.imageView.image = [objectsImageArray objectAtIndex:indexPath.row];
     
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"dd/MM/yy HH:mm"];
-    cell.detailTextLabel.text = [dateFormat stringFromDate:demand.date];
+        }
+    }
     
     return cell;
 }

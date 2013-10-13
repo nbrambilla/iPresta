@@ -9,6 +9,7 @@
 #import "UserIP.h"
 #import "ObjectIP.h"
 #import "FriendIP.h"
+#import "DemandIP.h"
 #import "iPrestaAppDelegate.h"
 #import "AuthenticateEmailViewController.h"
 #import "LoginViewController.h"
@@ -106,6 +107,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    [DemandIP addtDemandsFromDB];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectViewObserver" object:nil];
     
