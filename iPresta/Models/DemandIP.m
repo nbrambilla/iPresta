@@ -51,19 +51,19 @@
     demandsQuery.limit = 1000;
     
     [demandsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-     {
-         if (!error)
-         {
-             for (PFObject *demand in objects) {
-                 DemandIP *newDemand = [DemandIP new];
-                 [newDemand setDemandFrom:demand];
-                 [DemandIP addObject:newDemand];
-             }
-             
-             [DemandIP save];
-             [[NSNotificationCenter defaultCenter] postNotificationName:@"setDemandsObserver" object:nil];
-         }
-     }];
+    {
+        if (!error)
+        {
+            for (PFObject *demand in objects) {
+                DemandIP *newDemand = [DemandIP new];
+                [newDemand setDemandFrom:demand];
+                [DemandIP addObject:newDemand];
+            }
+            
+            [DemandIP save];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"setDemandsObserver" object:nil];
+        }
+    }];
     
 }
 

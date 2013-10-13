@@ -40,6 +40,103 @@
     }
 }
 
++ (void)addFriendsFromDB
+{
+    [FriendIP getPermissions:^(BOOL granted)
+    {
+        if (granted)
+        {
+            NSMutableArray *emailsAddressBookArray = [[FriendIP getEmailsFromAddressBook] mutableCopy];
+            NSArray *emailsFriends = [FriendIP getFriendsEmails];
+            
+            [emailsAddressBookArray removeObjectsInArray:emailsFriends];
+            
+            PFQuery *friendsQuery = [PFUser query];
+            [friendsQuery whereKey:@"email" containedIn:emailsAddressBookArray];
+            friendsQuery.limit = 1000;
+            
+            [friendsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+            {
+                if (!error)
+                {
+                    for (PFUser *friend in objects) {
+                        FriendIP *newFriend = [FriendIP new];
+                        [newFriend setFriendFrom:friend];
+                        [newFriend setDataFromAddressBook];
+                        [FriendIP addObject:newFriend];
+                    }
+                     
+                    [FriendIP save];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"setFriendsObserver" object:nil];
+                }
+            }];
+        }
+    }];
+}
+
+- (void)setFriendFrom:(PFUser *)friend
+{
+    self.objectId = friend.objectId;
+    self.email = friend.email;
+}
+
+- (void)setDataFromAddressBook
+{    
+    ABAddressBookRef addressBook = ABAddressBookCreate();
+    CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
+    NSInteger countPeople = ABAddressBookGetPersonCount(addressBook);
+    
+    for (NSInteger i = 0; i < countPeople; i++)
+    {
+        ABRecordRef person = CFArrayGetValueAtIndex(allPeople, i);
+        ABMultiValueRef emails = ABRecordCopyValue(person, kABPersonEmailProperty);
+        NSInteger countEmails = ABMultiValueGetCount(emails);
+        
+        for (NSInteger j = 0; j < countEmails; j++)
+        {
+            NSString *emailAddressBook = (__bridge NSString*)ABMultiValueCopyValueAtIndex(emails, j);
+            if ([emailAddressBook isEqual:self.email])
+            {
+                self.firstName = (__bridge NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+                self.middleName = (__bridge NSString*)ABRecordCopyValue(person, kABPersonMiddleNameProperty);
+                self.lastName = (__bridge NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
+            }
+        }
+    }
+}
+
++ (NSArray *)getEmailsFromAddressBook
+{
+    NSMutableArray *emailsArray = [NSMutableArray new];
+    
+    ABAddressBookRef addressBook = ABAddressBookCreate();
+    CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
+    NSInteger countPeople = ABAddressBookGetPersonCount(addressBook);
+    
+    for (NSInteger i = 0; i < countPeople; i++)
+    {
+        ABRecordRef person = CFArrayGetValueAtIndex(allPeople, i);
+        ABMultiValueRef emails = ABRecordCopyValue(person, kABPersonEmailProperty);
+        NSInteger countEmails = ABMultiValueGetCount(emails);
+        
+        for (NSInteger j = 0; j < countEmails; j++)
+        {
+            NSString *email = (__bridge NSString*)ABMultiValueCopyValueAtIndex(emails, j);
+            [emailsArray addObject:email];
+        }
+    }
+    return [emailsArray copy];
+}
+
++ (NSArray *)getFriendsEmails
+{
+    NSArray *allFriends = [FriendIP getAll];
+    NSMutableArray *allFriendsEmails = [[NSMutableArray alloc] initWithCapacity:allFriends.count];
+    for (FriendIP *friend in allFriends) [allFriendsEmails addObject:friend.email];
+    
+    return [allFriendsEmails copy];
+}
+
 + (void)saveAllFriendsFromDBwithBlock:(void (^)(NSError *))block
 {
     NSMutableArray *appContactsArray = [NSMutableArray new];
@@ -70,8 +167,6 @@
             [appContactsArray addObject:reg];
             [emailsArray addObject:email];
         }
-        
-        [FriendIP save];
     }
     
     // se crea una consulta para poder buscar todos los usuarios de la app de que tenemos en la agenda a partir del array de emails. Se ordena alfabeticamente por emails.

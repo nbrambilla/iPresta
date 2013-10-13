@@ -108,6 +108,8 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [DemandIP addtDemandsFromDB];
+    [FriendIP addFriendsFromDB];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectViewObserver" object:nil];
     

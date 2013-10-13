@@ -33,14 +33,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    [self setTableView];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTableView) name:@"setFriendsObserver" object:nil];
+    [self setTableView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -52,6 +47,8 @@
 
 - (void)viewDidUnload
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     appContactsList = nil;
     filteredAppContactsList = nil;
     searchBar = nil;

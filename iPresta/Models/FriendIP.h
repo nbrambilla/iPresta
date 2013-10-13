@@ -21,6 +21,7 @@
 @property (nonatomic, retain) NSString * lastName;
 @property (nonatomic, retain) GiveIP *gives;
 
++ (void)addFriendsFromDB;
 + (void)getPermissions:(void (^)(BOOL))block;
 + (void)saveAllFriendsFromDBwithBlock:(void (^)(NSError *))block;
 - (NSString *)firstLetter;
