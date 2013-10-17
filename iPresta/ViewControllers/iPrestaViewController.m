@@ -9,6 +9,7 @@
 #import "iPrestaViewController.h"
 #import "LoginViewController.h"
 #import "CreateCountViewController.h"
+#import "Language.h"
 
 @interface iPrestaViewController ()
 
@@ -28,7 +29,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+        
+    [haveCountButton setTitle:NSLocalizedString(@"Tengo una cuenta", nil) forState:UIControlStateNormal];
+    [createCountButton setTitle:NSLocalizedString(@"Crear una cuenta", nil) forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning

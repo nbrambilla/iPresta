@@ -7,12 +7,14 @@
 //
 
 #import "ConfigurationViewController.h"
+#import "LanguageViewController.h"
 #import "iPrestaViewController.h"
 #import "iPrestaNSError.h"
 #import "ProgressHUD.h"
 #import "ObjectIP.h"
 #import "GiveIP.h"
 #import "CoreDataManager.h"
+#import "Language.h"
 
 @interface ConfigurationViewController ()
 
@@ -57,6 +59,14 @@
         }
     }
 }
+
+- (IBAction)goToLanguageView
+{
+    LanguageViewController *viewController = [[LanguageViewController alloc] initWithNibName:@"LanguageViewController" bundle:nil];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+
 - (IBAction)changeVisibility:(UISwitch *)sender
 {
     [ProgressHUD  showHUDAddedTo:self.view animated:YES];
@@ -72,9 +82,12 @@
     if (error) [error manageErrorTo:self];      // Si hay error al actualizar el usuario
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [UserIP setDelegate:self];
+    
+    languageLabel.text = [Language get:@"Idioma" alter:nil];
+    [languageButton setTitle:[Language getLanguageName] forState:UIControlStateNormal];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -95,4 +108,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidUnload {
+    languageButton = nil;
+    visibleLabel = nil;
+    [super viewDidUnload];
+}
 @end

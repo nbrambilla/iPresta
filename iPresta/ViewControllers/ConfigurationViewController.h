@@ -13,7 +13,12 @@
 @interface ConfigurationViewController : SlideViewController <UserIPDelegate>
 {
     @private
+    
+    IBOutlet UILabel *visibleLabel;
+    IBOutlet UILabel *languageLabel;
+    
     IBOutlet UISwitch *visibleSwitch;
+    IBOutlet UIButton *languageButton;
 }
 
 @end

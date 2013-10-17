@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		150CE5FC1810778C0091DA44 /* LanguageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 150CE5FA1810778C0091DA44 /* LanguageViewController.m */; };
+		150CE5FD1810778C0091DA44 /* LanguageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 150CE5FB1810778C0091DA44 /* LanguageViewController.xib */; };
 		15175A5D1753DA49005947B7 /* GiveObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15175A5B1753DA49005947B7 /* GiveObjectViewController.m */; };
 		15175A5E1753DA49005947B7 /* GiveObjectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15175A5C1753DA49005947B7 /* GiveObjectViewController.xib */; };
 		1518EA0B174A1DDE000EB0FE /* ObjectsMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1518EA09174A1DDE000EB0FE /* ObjectsMenuViewController.m */; };
@@ -80,6 +82,8 @@
 		156FDE4316F39CF900F4BEEA /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE4216F39CF900F4BEEA /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		156FDE4516F39D4200F4BEEA /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE4416F39D4200F4BEEA /* libsqlite3.dylib */; };
 		15763EF917F2012800D1F514 /* DemandIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 15763EF817F2012800D1F514 /* DemandIP.m */; };
+		157D9649180F3239001A346E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 157D964B180F3239001A346E /* Localizable.strings */; };
+		157D9650180F3C62001A346E /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = 157D964F180F3C62001A346E /* Language.m */; };
 		15A877B6172C875300E8BDA2 /* RequestPasswordResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A877B4172C875200E8BDA2 /* RequestPasswordResetViewController.m */; };
 		15A877B7172C875300E8BDA2 /* RequestPasswordResetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15A877B5172C875300E8BDA2 /* RequestPasswordResetViewController.xib */; };
 		15C44D6A16FE026B0071E7EC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C44D6916FE026B0071E7EC /* FacebookSDK.framework */; };
@@ -146,6 +150,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		150CE5F91810778C0091DA44 /* LanguageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LanguageViewController.h; path = ViewControllers/LanguageViewController.h; sourceTree = "<group>"; };
+		150CE5FA1810778C0091DA44 /* LanguageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LanguageViewController.m; path = ViewControllers/LanguageViewController.m; sourceTree = "<group>"; };
+		150CE5FB1810778C0091DA44 /* LanguageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LanguageViewController.xib; path = ViewControllers/LanguageViewController.xib; sourceTree = "<group>"; };
 		15175A5A1753DA49005947B7 /* GiveObjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GiveObjectViewController.h; path = ViewControllers/GiveObjectViewController.h; sourceTree = "<group>"; };
 		15175A5B1753DA49005947B7 /* GiveObjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GiveObjectViewController.m; path = ViewControllers/GiveObjectViewController.m; sourceTree = "<group>"; };
 		15175A5C1753DA49005947B7 /* GiveObjectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GiveObjectViewController.xib; path = ViewControllers/GiveObjectViewController.xib; sourceTree = "<group>"; };
@@ -267,6 +274,10 @@
 		156FDE4416F39D4200F4BEEA /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		15763EF717F2012800D1F514 /* DemandIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemandIP.h; path = iPresta/Models/DemandIP.h; sourceTree = "<group>"; };
 		15763EF817F2012800D1F514 /* DemandIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DemandIP.m; path = iPresta/Models/DemandIP.m; sourceTree = "<group>"; };
+		157D964A180F3239001A346E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		157D964C180F323B001A346E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		157D964E180F3C62001A346E /* Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Language.h; path = "External Frameworks/Language/Language.h"; sourceTree = "<group>"; };
+		157D964F180F3C62001A346E /* Language.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Language.m; path = "External Frameworks/Language/Language.m"; sourceTree = "<group>"; };
 		15A877B3172C875200E8BDA2 /* RequestPasswordResetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RequestPasswordResetViewController.h; path = ViewControllers/RequestPasswordResetViewController.h; sourceTree = "<group>"; };
 		15A877B4172C875200E8BDA2 /* RequestPasswordResetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestPasswordResetViewController.m; path = ViewControllers/RequestPasswordResetViewController.m; sourceTree = "<group>"; };
 		15A877B5172C875300E8BDA2 /* RequestPasswordResetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RequestPasswordResetViewController.xib; path = ViewControllers/RequestPasswordResetViewController.xib; sourceTree = "<group>"; };
@@ -447,6 +458,7 @@
 		15517A0C1725C976002FFB69 /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				157D964D180F3B58001A346E /* Language */,
 				153513E617BC02B300E4193D /* MFSideMenu */,
 				19272A4617731B4700FC45B0 /* TPKeyboardAvoidingScrollView */,
 				19272A4517730A4700FC45B0 /* PHTextView */,
@@ -632,6 +644,7 @@
 				156FDE1B16F399E900F4BEEA /* Default.png */,
 				156FDE1D16F399E900F4BEEA /* Default@2x.png */,
 				156FDE1F16F399E900F4BEEA /* Default-568h@2x.png */,
+				157D964B180F3239001A346E /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -706,6 +719,9 @@
 				154C3EBA17FF46DF00F723B7 /* DemandsListViewController.h */,
 				154C3EBB17FF46DF00F723B7 /* DemandsListViewController.m */,
 				154C3EBC17FF46DF00F723B7 /* DemandsListViewController.xib */,
+				150CE5F91810778C0091DA44 /* LanguageViewController.h */,
+				150CE5FA1810778C0091DA44 /* LanguageViewController.m */,
+				150CE5FB1810778C0091DA44 /* LanguageViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -730,6 +746,15 @@
 				15C29CA117D3930300B0ED5D /* CoreDataManager_CoreDataManagerExtension.h */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		157D964D180F3B58001A346E /* Language */ = {
+			isa = PBXGroup;
+			children = (
+				157D964E180F3C62001A346E /* Language.h */,
+				157D964F180F3C62001A346E /* Language.m */,
+			);
+			name = Language;
 			sourceTree = "<group>";
 		};
 		15E6B2161729ADE30050763A /* Extends NSString */ = {
@@ -929,6 +954,8 @@
 				153513F617BC32B400E4193D /* orders_icon@2x.png in Resources */,
 				154985CB17BD7C8E00AE1135 /* SearchObjectsViewController.xib in Resources */,
 				154C3EBE17FF46DF00F723B7 /* DemandsListViewController.xib in Resources */,
+				157D9649180F3239001A346E /* Localizable.strings in Resources */,
+				150CE5FD1810778C0091DA44 /* LanguageViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -986,6 +1013,8 @@
 				1549959317C90BCB00857BB2 /* CoreDataManager.m in Sources */,
 				15763EF917F2012800D1F514 /* DemandIP.m in Sources */,
 				154C3EBD17FF46DF00F723B7 /* DemandsListViewController.m in Sources */,
+				157D9650180F3C62001A346E /* Language.m in Sources */,
+				150CE5FC1810778C0091DA44 /* LanguageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -999,6 +1028,15 @@
 				15510EAB1767AA4900276D63 /* es */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		157D964B180F3239001A346E /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				157D964A180F3239001A346E /* en */,
+				157D964C180F323B001A346E /* es */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

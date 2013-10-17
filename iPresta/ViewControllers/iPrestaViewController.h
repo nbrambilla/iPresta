@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface iPrestaViewController : UIViewController
+{
+    IBOutlet UIButton *haveCountButton;
+    IBOutlet UIButton *createCountButton;
+}
 
 @end
