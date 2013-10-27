@@ -16,6 +16,8 @@
 @optional
 - (void)logInResult:(NSError *)error;
 - (void)logOutResult:(NSError *)error;
+- (void)logInWithFacebookResult:(NSError *)error;
+- (void)linkWithFacebookResult:(NSError *)error;
 - (void)refreshResult:(NSError *)error;
 - (void)saveResult:(NSError *)error;
 - (void)signUpResult:(NSError *)error;
@@ -43,8 +45,12 @@
 + (BOOL)visible;
 + (void)setVisibility:(BOOL)visibility;
 + (BOOL)hasEmailVerified;
++ (BOOL)isNew;
++ (BOOL)isLinkedToFacebook;
 
 + (void)logInWithUsername:(NSString *)username password:(NSString *)password;
++ (void)loginWithFacebook;
++ (void)linkWithFacebook:(BOOL)link;
 + (void)logOut;
 + (void)refresh;
 + (void)save;

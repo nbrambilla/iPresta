@@ -92,6 +92,11 @@ static PFUser *searchUser;
     return [[[PFUser currentUser] objectForKey:@"emailVerified"] boolValue];
 }
 
++ (BOOL)isNew
+{
+    return ![[[PFUser currentUser] objectForKey:@"emailVerified"] boolValue] || [[PFUser currentUser] isNew] ;
+}
+
 #pragma mark - Asychronous Methods
 
 + (void)logInWithUsername:(NSString *)username password:(NSString *)password
@@ -109,6 +114,69 @@ static PFUser *searchUser;
         }
         else if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
     }];
+}
+
++ (void)loginWithFacebook
+{
+    [FBSession openActiveSessionWithReadPermissions:nil allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+        [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
+            if (!error) {
+                PFQuery *userQuery = [PFUser query];
+                [userQuery whereKey:@"email" equalTo:[user objectForKey:@"email"]];
+                [userQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                    if (!error)
+                    {
+                        NSArray *permissionsArray = @[ @"user_about_me", @"user_relationships", @"user_birthday", @"user_location"];
+                        
+                        if (object)
+                        {
+                            NSLog(@"%d", [UserIP isLinkedToFacebook:(PFUser *)object]);
+                            if (![UserIP isLinkedToFacebook:(PFUser *)object]) {
+                                error = [[NSError alloc] initWithCode:FBLOGINUSEREXISTS_ERROR userInfo:@{@"email":[user objectForKey:@"email"]}];
+                                if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
+                            }
+                            else
+                            {
+                                [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error)
+                                 {
+                                     if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
+                                 }];
+                            }
+                        }
+                        else
+                        {
+                            [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error)
+                            {
+                                if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
+                            }];
+                        }
+                    }
+                    else if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
+                }];
+            }
+            else if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
+        }];
+    }];
+}
+
++ (void)linkWithFacebook:(BOOL)link
+{
+    NSArray *permissionsArray = @[ @"user_about_me", @"user_relationships", @"user_birthday", @"user_location"];
+    
+    if (link)
+    {
+        [PFFacebookUtils linkUser:[UserIP loggedUser] permissions:permissionsArray block:^(BOOL succeeded, NSError *error)
+        {
+            if ([delegate respondsToSelector:@selector(linkWithFacebookResult:)]) [delegate linkWithFacebookResult:error];
+        }];
+    }
+    else
+    {
+        [PFFacebookUtils unlinkUserInBackground:[UserIP loggedUser] block:^(BOOL succeeded, NSError *error)
+         {
+             if ([delegate respondsToSelector:@selector(linkWithFacebookResult:)]) [delegate linkWithFacebookResult:error];
+         }];
+    }
 }
 
 + (void)logOut
@@ -223,6 +291,17 @@ static PFUser *searchUser;
     }
     
     return NO;
+}
+
++ (BOOL)isLinkedToFacebook:(PFUser *)user
+{
+    return [PFFacebookUtils isLinkedWithUser:user];
+}
+
+
++ (BOOL)isLinkedToFacebook
+{
+    return [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]];
 }
 
 @end

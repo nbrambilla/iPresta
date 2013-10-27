@@ -23,6 +23,7 @@ static NSBundle *bundle;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:idLang forKey:@"IdLang"];
+    [defaults setBool:YES forKey:@"LangIsSet"];
     [defaults synchronize];
 }
 
@@ -43,6 +44,13 @@ static NSBundle *bundle;
 + (NSString *)getLanguageNameAtindex:(IdLang)idLng
 {
     return [languagesArray objectAtIndex:idLng];
+}
+
++ (BOOL)isSet
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    return [defaults boolForKey:@"LangIsSet"];
 }
 
 @end

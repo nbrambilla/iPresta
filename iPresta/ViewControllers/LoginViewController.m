@@ -92,6 +92,12 @@
     }
 }
 
+- (IBAction)loginButtonTouchHandler:(id)sender
+{
+    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+    [UserIP loginWithFacebook];
+}
+
 - (void)logInResult:(NSError *)error
 {
     if (error)
@@ -117,7 +123,7 @@
     UINavigationController *navigationController;
     // Si es un usuario ya autenticado, se guardan los objetos del usuario
     
-    if ([UserIP hasEmailVerified]) [UserIP setDevice];
+    if (![UserIP isNew]) [UserIP setDevice];
     // Si el usuario no esta autenticado, debe hacerlo confirmando su email. Accede a la pantalla de autenticacion
     else
     {

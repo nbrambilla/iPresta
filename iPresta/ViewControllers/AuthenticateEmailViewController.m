@@ -94,7 +94,7 @@
 
 - (void)checkEmailAuthenticationSuccess
 {
-    if ([UserIP hasEmailVerified])
+    if (![UserIP hasEmailVerified])
     {
         [FriendIP saveAllFriendsFromDBwithBlock:^(NSError *error)
         {
@@ -120,7 +120,7 @@
     {
         [ProgressHUD hideHUDForView:self.view animated:YES];
         
-        NSError *error = [[NSError alloc] initWithDomain:@"error" code:NOTAUTHENTICATEDUSER_ERROR userInfo:nil];
+        NSError *error = [[NSError alloc] initWithCode:NOTAUTHENTICATEDUSER_ERROR userInfo:nil];
         [error manageErrorTo:self];
     }
 }

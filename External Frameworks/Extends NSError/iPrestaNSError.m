@@ -10,6 +10,12 @@
 
 @implementation NSError (iPrestaNSError)
 
+- (id)initWithCode:(int)code userInfo:(NSDictionary *)userInfo
+{
+    self = [[NSError alloc] initWithDomain:@"error" code:code userInfo:userInfo];;
+    return self;
+}
+
 - (void)manageErrorTo:(id)delegate
 {
     NSString *message;
@@ -44,6 +50,9 @@
             break;
         case NOTAUTHENTICATEDUSER_ERROR:
             message = @"Debe autenticar su email para poder acceder a la app";
+            break;
+        case FBLOGINUSEREXISTS_ERROR:
+            message = [NSString stringWithFormat:@"Ya existe una cuenta asociada al email %@. Loguese con su email y su password y vincule su cuenta con Facebook en configuración", [self.userInfo objectForKey:@"email"]];
             break;
         default:
             break;

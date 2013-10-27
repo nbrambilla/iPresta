@@ -31,6 +31,7 @@
 		1535FAA5175D1B4600587AB7 /* ObjectHistoricGiveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1535FAA3175D1B4500587AB7 /* ObjectHistoricGiveViewController.xib */; };
 		15393FF51742BA020012BA4F /* ObjectDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15393FF31742BA020012BA4F /* ObjectDetailViewController.m */; };
 		15393FF61742BA020012BA4F /* ObjectDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15393FF41742BA020012BA4F /* ObjectDetailViewController.xib */; };
+		1545ABE9181BCD360006B316 /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1545ABE7181BCD360006B316 /* FacebookSDKResources.bundle */; };
 		154985C117BD6DC000AE1135 /* SlideTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154985C017BD6DC000AE1135 /* SlideTableViewController.m */; };
 		154985CA17BD7C8E00AE1135 /* SearchObjectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154985C817BD7C8C00AE1135 /* SearchObjectsViewController.m */; };
 		154985CB17BD7C8E00AE1135 /* SearchObjectsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154985C917BD7C8D00AE1135 /* SearchObjectsViewController.xib */; };
@@ -184,6 +185,8 @@
 		15393FF21742BA020012BA4F /* ObjectDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectDetailViewController.h; path = ViewControllers/ObjectDetailViewController.h; sourceTree = "<group>"; };
 		15393FF31742BA020012BA4F /* ObjectDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectDetailViewController.m; path = ViewControllers/ObjectDetailViewController.m; sourceTree = "<group>"; };
 		15393FF41742BA020012BA4F /* ObjectDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ObjectDetailViewController.xib; path = ViewControllers/ObjectDetailViewController.xib; sourceTree = "<group>"; };
+		1545ABE6181BCD360006B316 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		1545ABE7181BCD360006B316 /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKResources.bundle; sourceTree = "<group>"; };
 		154985BF17BD6DC000AE1135 /* SlideTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlideTableViewController.h; path = ViewControllers/SlideTableViewController.h; sourceTree = "<group>"; };
 		154985C017BD6DC000AE1135 /* SlideTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlideTableViewController.m; path = ViewControllers/SlideTableViewController.m; sourceTree = "<group>"; };
 		154985C717BD7C8C00AE1135 /* SearchObjectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchObjectsViewController.h; path = ViewControllers/SearchObjectsViewController.h; sourceTree = "<group>"; };
@@ -592,6 +595,8 @@
 		156FDE0816F399E900F4BEEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1545ABE6181BCD360006B316 /* FacebookSDK.framework */,
+				1545ABE7181BCD360006B316 /* FacebookSDKResources.bundle */,
 				19B9A0E217A9141200CB6485 /* CoreData.framework */,
 				151AE7E21753FDA300C41740 /* AddressBookUI.framework */,
 				151AE7E01753FD4800C41740 /* AddressBook.framework */,
@@ -864,7 +869,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = iPresta;
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = Nacho;
 			};
 			buildConfigurationList = 156FDDFF16F399E800F4BEEA /* Build configuration list for PBXProject "iPresta" */;
@@ -956,6 +961,7 @@
 				154C3EBE17FF46DF00F723B7 /* DemandsListViewController.xib in Resources */,
 				157D9649180F3239001A346E /* Localizable.strings in Resources */,
 				150CE5FD1810778C0091DA44 /* LanguageViewController.xib in Resources */,
+				1545ABE9181BCD360006B316 /* FacebookSDKResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

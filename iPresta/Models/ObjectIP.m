@@ -208,7 +208,7 @@ static ObjectIP *currentObject;
     }
     else 
     {
-        NSError *error = [[NSError alloc] initWithDomain:@"error" code:REPEATOBJECT_ERROR userInfo:nil];
+        NSError *error = [[NSError alloc] initWithCode:REPEATOBJECT_ERROR userInfo:nil];
         if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
     }
 }
@@ -856,7 +856,7 @@ static ObjectIP *currentObject;
             else
             {
                 self.name = nil;
-                error = [[NSError alloc] initWithDomain:@"error" code:EMPTYOBJECTDATA_ERROR userInfo:nil];
+                error = [[NSError alloc] initWithCode:EMPTYOBJECTDATA_ERROR userInfo:nil];
             }
             
             if ([delegate respondsToSelector:@selector(getDataResponseWithError:)]) [delegate getDataResponseWithError:error];

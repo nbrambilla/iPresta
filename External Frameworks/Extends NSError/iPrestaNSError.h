@@ -18,7 +18,9 @@
 #define EMPTYOBJECTDATA_ERROR 701
 #define REPEATOBJECT_ERROR 702
 #define NOTAUTHENTICATEDUSER_ERROR 703
+#define FBLOGINUSEREXISTS_ERROR 704
 
+- (id)initWithCode:(int)code userInfo:(NSDictionary *)userInfo;
 - (void)manageErrorTo:(id)delegate;
 
 @end

@@ -24,5 +24,6 @@ typedef enum
 + (IdLang)getLanguage;
 + (NSString *)getLanguageName;
 + (NSString *)getLanguageNameAtindex:(IdLang)idLng;
++ (BOOL)isSet;
 
 @end

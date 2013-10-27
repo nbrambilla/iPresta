@@ -29,9 +29,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        
-    [haveCountButton setTitle:NSLocalizedString(@"Tengo una cuenta", nil) forState:UIControlStateNormal];
-    [createCountButton setTitle:NSLocalizedString(@"Crear una cuenta", nil) forState:UIControlStateNormal];
+    
+    if (![Language isSet]) {
+        languageView.frame = self.view.frame;
+        [self.view addSubview:languageView];
+    }
+    else [self setTexts];
+}
+
+- (void)setTexts
+{
+    [haveCountButton setTitle:[Language get:@"Tengo una cuenta" alter:nil] forState:UIControlStateNormal];
+    [createCountButton setTitle:[Language get:@"Crear una cuenta" alter:nil] forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,4 +67,15 @@
     [self presentModalViewController:navigationController animated:YES];
 }
 
+- (IBAction)setLanguage:(UIButton *)sender
+{
+    [Language setLanguage:sender.tag];
+    [languageView removeFromSuperview];
+    [self setTexts];
+}
+
+- (void)viewDidUnload {
+    languageView = nil;
+    [super viewDidUnload];
+}
 @end
