@@ -13,6 +13,8 @@
 @interface GiveObjectViewController : UIViewController <UITextFieldDelegate, ABPeoplePickerNavigationControllerDelegate, ObjectIPDelegate>
 {
     @private
+    
+    
     IBOutlet UITextField *giveToTextField;
     IBOutlet UITextField *timeTextField;
     

@@ -67,6 +67,9 @@
 		156B2DB5182FBED200700890 /* bt_twitter_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 156B2DAD182FBED200700890 /* bt_twitter_off@2x.png */; };
 		156B2DB6182FBED200700890 /* bt_twitter_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 156B2DAE182FBED200700890 /* bt_twitter_on.png */; };
 		156B2DB7182FBED200700890 /* bt_twitter_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 156B2DAF182FBED200700890 /* bt_twitter_on@2x.png */; };
+		156B2DBA1830056600700890 /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 156B2DB91830056600700890 /* Facebook.m */; };
+		156B2DBD18300AD200700890 /* Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 156B2DBC18300AD100700890 /* Twitter.m */; };
+		156B2DBF183010B100700890 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156B2DBE183010B100700890 /* Twitter.framework */; };
 		156FDE0A16F399E900F4BEEA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE0916F399E900F4BEEA /* UIKit.framework */; };
 		156FDE0C16F399E900F4BEEA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE0B16F399E900F4BEEA /* Foundation.framework */; };
 		156FDE0E16F399E900F4BEEA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE0D16F399E900F4BEEA /* CoreGraphics.framework */; };
@@ -264,6 +267,11 @@
 		156B2DAD182FBED200700890 /* bt_twitter_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bt_twitter_off@2x.png"; path = "Images/bt_twitter_off@2x.png"; sourceTree = "<group>"; };
 		156B2DAE182FBED200700890 /* bt_twitter_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bt_twitter_on.png; path = Images/bt_twitter_on.png; sourceTree = "<group>"; };
 		156B2DAF182FBED200700890 /* bt_twitter_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bt_twitter_on@2x.png"; path = "Images/bt_twitter_on@2x.png"; sourceTree = "<group>"; };
+		156B2DB81830056600700890 /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Facebook.h; path = iPresta/Models/Facebook.h; sourceTree = "<group>"; };
+		156B2DB91830056600700890 /* Facebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Facebook.m; path = iPresta/Models/Facebook.m; sourceTree = "<group>"; };
+		156B2DBB18300AD100700890 /* Twitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Twitter.h; path = iPresta/Models/Twitter.h; sourceTree = "<group>"; };
+		156B2DBC18300AD100700890 /* Twitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Twitter.m; path = iPresta/Models/Twitter.m; sourceTree = "<group>"; };
+		156B2DBE183010B100700890 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		156FDE0516F399E900F4BEEA /* iPresta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPresta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		156FDE0916F399E900F4BEEA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		156FDE0B16F399E900F4BEEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -391,6 +399,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				156B2DBF183010B100700890 /* Twitter.framework in Frameworks */,
 				19B9A0E317A9141200CB6485 /* CoreData.framework in Frameworks */,
 				151AE7E31753FDA300C41740 /* AddressBookUI.framework in Frameworks */,
 				151AE7E11753FD4800C41740 /* AddressBook.framework in Frameworks */,
@@ -619,6 +628,7 @@
 		156FDE0816F399E900F4BEEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				156B2DBE183010B100700890 /* Twitter.framework */,
 				1545ABE6181BCD360006B316 /* FacebookSDK.framework */,
 				1545ABE7181BCD360006B316 /* FacebookSDKResources.bundle */,
 				19B9A0E217A9141200CB6485 /* CoreData.framework */,
@@ -768,6 +778,10 @@
 				1549958417C8FD9E00857BB2 /* FriendIP.m */,
 				15763EF717F2012800D1F514 /* DemandIP.h */,
 				15763EF817F2012800D1F514 /* DemandIP.m */,
+				156B2DB81830056600700890 /* Facebook.h */,
+				156B2DB91830056600700890 /* Facebook.m */,
+				156B2DBB18300AD100700890 /* Twitter.h */,
+				156B2DBC18300AD100700890 /* Twitter.m */,
 				19BA25CD179E6E83004F24DE /* AddressBookRegister.h */,
 				19BA25CE179E6E83004F24DE /* AddressBookRegister.m */,
 				1549959117C90BCB00857BB2 /* CoreDataManager.h */,
@@ -1053,6 +1067,8 @@
 				154C3EBD17FF46DF00F723B7 /* DemandsListViewController.m in Sources */,
 				157D9650180F3C62001A346E /* Language.m in Sources */,
 				150CE5FC1810778C0091DA44 /* LanguageViewController.m in Sources */,
+				156B2DBA1830056600700890 /* Facebook.m in Sources */,
+				156B2DBD18300AD200700890 /* Twitter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

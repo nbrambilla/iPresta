@@ -16,6 +16,8 @@
 #import "iPrestaNSError.h"
 #import "iPrestaNSString.h"
 #import "MLTableAlert.h"
+#import "Facebook.h"
+#import "Twitter.h"
 
 @interface GiveObjectViewController ()
 
@@ -187,7 +189,16 @@
         
         [[ObjectIP currentObject] giveObjectTo:name from:dateBegin to:dateEnd];
         
-        if (facebookButton.selected) [self shareInFacebook];
+        if (facebookButton.selected)
+        {
+            Facebook *facebook = [Facebook new];
+            [facebook shareInFacebook:giveToTextField.text];
+        }
+        if (twitterButton.selected)
+        {
+            Twitter *twitter = [Twitter new];
+            [twitter shareInTwitter:giveToTextField.text];
+        }
         
     }
     else
@@ -222,65 +233,6 @@
 - (IBAction)share:(UIButton *)sender
 {
     sender.selected = !sender.selected;
-}
-
-- (void)shareInFacebook
-{
-    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-    
-    // Get the Facebook account type for the access request
-    ACAccountType *fbAccountType = [accountStore
-                                    accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
-    
-    // Request access to the Facebook account with the access info
-    [accountStore requestAccessToAccountsWithType:fbAccountType
-                                          options:@{ACFacebookAppIdKey: @"436412689778314", ACFacebookPermissionsKey: @[@"user_about_me", @"publish_stream", @"publish_actions",@"email"], ACFacebookAudienceKey: ACFacebookAudienceEveryone}
-                                       completion:^(BOOL granted, NSError *error) {
-                                           if (granted) {
-                                               // If access granted, then get the Facebook account info
-                                               NSArray *accounts = [accountStore accountsWithAccountType:fbAccountType];
-                                               
-                                               // Get the access token, could be used in other scenarios
-                                               ACAccountCredential *fbCredential = [[accounts lastObject] credential];
-                                               NSString *accessToken = [fbCredential oauthToken];
-                                               
-                                               [self postInFacebook:accessToken];
-                                               // Add code here to make an API request using the SLRequest class
-                                               
-                                           } else {
-                                               NSLog(@"Access not granted");
-                                           }
-                                       }];
-
-}
-
-- (void)postInFacebook:(NSString *)at
-{
-    NSString *message = [NSString stringWithFormat:@"Acaba de realizar un prestamo a %@", giveToTextField.text];
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:message, @"message",  [[ObjectIP currentObject] name], @"caption", @"436412689778314", ACFacebookAppIdKey, at, @"access_token", nil];
-    
-    if ([[ObjectIP currentObject] imageURL])
-    {
-        [parameters setObject:[[ObjectIP currentObject] imageURL] forKey:@"picture"];
-    }
-    
-    SLRequest *facebookRequest = [SLRequest requestForServiceType:SLServiceTypeFacebook
-                                                    requestMethod:SLRequestMethodPOST
-                                                              URL:[NSURL URLWithString:@"https://graph.facebook.com/me/feed/"]
-                                                       parameters:parameters];
-    
-    [facebookRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error)
-     {
-         if (error) {
-         }
-         else
-         {
-             NSLog(@"Post successful");
-             NSString *dataString = [[NSString alloc] initWithData:responseData encoding:NSStringEncodingConversionAllowLossy];
-             NSLog(@"Response Data: %@", dataString);
-         }
-     }];
-    
 }
 
 - (void)addNotificatioToDate:(NSDate *)date object:(NSString *)object to:(NSString *)name registerId:(NSString *)registerId
