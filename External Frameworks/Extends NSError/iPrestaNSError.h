@@ -19,6 +19,7 @@
 #define REPEATOBJECT_ERROR 702
 #define NOTAUTHENTICATEDUSER_ERROR 703
 #define FBLOGINUSEREXISTS_ERROR 704
+#define FBLOGIN_ERROR 2500
 
 - (id)initWithCode:(int)code userInfo:(NSDictionary *)userInfo;
 - (void)manageErrorTo:(id)delegate;

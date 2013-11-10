@@ -34,6 +34,7 @@
         <attribute name="descriptionObject" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="editorial" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="state" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -47,6 +48,6 @@
         <element name="DemandIP" positionX="34" positionY="-297" width="128" height="135"/>
         <element name="FriendIP" positionX="-272" positionY="-288" width="128" height="165"/>
         <element name="GiveIP" positionX="-288" positionY="75" width="128" height="150"/>
-        <element name="ObjectIP" positionX="349" positionY="-144" width="128" height="255"/>
+        <element name="ObjectIP" positionX="349" positionY="-144" width="128" height="270"/>
     </elements>
 </model>

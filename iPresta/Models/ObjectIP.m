@@ -36,7 +36,7 @@ static ObjectIP *currentObject;
 @dynamic state;
 @dynamic visible;
 @dynamic gives;
-@synthesize imageURL;
+@dynamic imageURL;
 
 
 + (void)saveAllObjectsFromDB
@@ -1154,7 +1154,11 @@ static ObjectIP *currentObject;
     self.descriptionObject = [object objectForKey:@"descriptionObject"];
     self.editorial = [object objectForKey:@"editorial"];
     self.type = [object objectForKey:@"type"];
-    if (data) self.image = [[NSData alloc] initWithData:data];
+    if (data) {
+        self.image = [[NSData alloc] initWithData:data];
+        PFFile *file = (PFFile *)[object objectForKey:@"image"];
+        self.imageURL = file.url;
+    }
     self.audioType = [object objectForKey:@"audioType"];
     self.videoType = [object objectForKey:@"videoType"];
     self.state = [object objectForKey:@"state"];

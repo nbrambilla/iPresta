@@ -54,6 +54,9 @@
         case FBLOGINUSEREXISTS_ERROR:
             message = [NSString stringWithFormat:@"Ya existe una cuenta asociada al email %@. Loguese con su email y su password y vincule su cuenta con Facebook en configuración", [self.userInfo objectForKey:@"email"]];
             break;
+        case FBLOGIN_ERROR:
+            message = [NSString stringWithFormat:@"No existe ninguna cuenta de Facebook asociada a este dispositivo."];
+            break;
         default:
             break;
     }

@@ -15,6 +15,9 @@
     @private
     IBOutlet UITextField *giveToTextField;
     IBOutlet UITextField *timeTextField;
+    
+    IBOutlet UIButton *facebookButton;
+    IBOutlet UIButton *twitterButton;
 }
 
 @end

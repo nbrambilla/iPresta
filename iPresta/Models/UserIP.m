@@ -118,63 +118,92 @@ static PFUser *searchUser;
 
 + (void)loginWithFacebook
 {
-    [FBSession openActiveSessionWithReadPermissions:nil allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-        [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
+    
+    if (!FBSession.activeSession.isOpen)
+    {
+        NSArray *permissionsArray = @[@"user_about_me", @"user_relationships", @"user_birthday", @"user_location"];
+        [FBSession openActiveSessionWithReadPermissions:permissionsArray allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
             if (!error) {
-                PFQuery *userQuery = [PFUser query];
-                [userQuery whereKey:@"email" equalTo:[user objectForKey:@"email"]];
-                [userQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-                    if (!error)
+                [FBSession setActiveSession:session];
+                [UserIP logFacebookUser];
+            }
+        }];
+    }
+    else [UserIP logFacebookUser];
+}
+
++ (void)logFacebookUser
+{
+    [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
+        if (!error) {
+            PFQuery *userQuery = [PFUser query];
+            [userQuery whereKey:@"email" equalTo:[user objectForKey:@"email"]];
+            [userQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                if (!error)
+                {
+                    PFUser *user= (PFUser *)object;
+                    
+                    if (user)
                     {
-                        NSArray *permissionsArray = @[ @"user_about_me", @"user_relationships", @"user_birthday", @"user_location"];
-                        
-                        if (object)
-                        {
-                            NSLog(@"%d", [UserIP isLinkedToFacebook:(PFUser *)object]);
-                            if (![UserIP isLinkedToFacebook:(PFUser *)object]) {
-                                error = [[NSError alloc] initWithCode:FBLOGINUSEREXISTS_ERROR userInfo:@{@"email":[user objectForKey:@"email"]}];
-                                if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
-                            }
-                            else
-                            {
-                                [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error)
-                                 {
-                                     if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
-                                 }];
-                            }
+                        if (![UserIP isFacebookUser:user]) {
+                            error = [[NSError alloc] initWithCode:FBLOGINUSEREXISTS_ERROR userInfo:@{@"email":[user objectForKey:@"email"]}];
+                            if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
                         }
                         else
                         {
-                            [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error)
+                            [PFFacebookUtils logInWithPermissions:nil block:^(PFUser *user, NSError *error)
                             {
-                                if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
+                                [user setObject:[NSNumber numberWithBool:YES] forKey:@"isFacebookUser"];
+                                
+                                [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                                    if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
+                                }];
                             }];
                         }
                     }
-                    else if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
-                }];
-            }
-            else if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
-        }];
+                    else
+                    {
+                        [PFFacebookUtils logInWithPermissions:nil block:^(PFUser *user, NSError *error)
+                        {
+                            if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
+                        }];
+                    }
+                }
+                else if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
+            }];
+        }
+        
+        else
+        {
+            error = [[NSError alloc] initWithCode:FBLOGIN_ERROR userInfo:nil];
+            if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
+        }
     }];
 }
 
 + (void)linkWithFacebook:(BOOL)link
 {
-    NSArray *permissionsArray = @[ @"user_about_me", @"user_relationships", @"user_birthday", @"user_location"];
     
     if (link)
     {
+        NSArray *permissionsArray = @[@"user_about_me", @"publish_stream", @"publish_actions",@"email"];
+
         [PFFacebookUtils linkUser:[UserIP loggedUser] permissions:permissionsArray block:^(BOOL succeeded, NSError *error)
         {
-            if ([delegate respondsToSelector:@selector(linkWithFacebookResult:)]) [delegate linkWithFacebookResult:error];
+            [[UserIP loggedUser] setObject:[NSNumber numberWithBool:YES] forKey:@"isFacebookUser"];
+            [[UserIP loggedUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if ([delegate respondsToSelector:@selector(linkWithFacebookResult:)]) [delegate linkWithFacebookResult:error];
+            }];
         }];
     }
     else
     {
         [PFFacebookUtils unlinkUserInBackground:[UserIP loggedUser] block:^(BOOL succeeded, NSError *error)
          {
-             if ([delegate respondsToSelector:@selector(linkWithFacebookResult:)]) [delegate linkWithFacebookResult:error];
+             [[UserIP loggedUser] setObject:[NSNumber numberWithBool:NO] forKey:@"isFacebookUser"];
+             [[UserIP loggedUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                 if ([delegate respondsToSelector:@selector(linkWithFacebookResult:)]) [delegate linkWithFacebookResult:error];
+             }];
          }];
     }
 }
@@ -293,15 +322,14 @@ static PFUser *searchUser;
     return NO;
 }
 
-+ (BOOL)isLinkedToFacebook:(PFUser *)user
-{
-    return [PFFacebookUtils isLinkedWithUser:user];
-}
-
-
 + (BOOL)isLinkedToFacebook
 {
     return [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]];
+}
+
++ (BOOL)isFacebookUser:(PFUser *)user
+{
+    return [[user objectForKey:@"isFacebookUser"] boolValue];
 }
 
 @end
