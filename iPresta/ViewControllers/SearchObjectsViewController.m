@@ -104,8 +104,9 @@
 {
     NSMutableArray *registersArray = [NSMutableArray new];
     
+    CFErrorRef *error = nil;
     // Se crea un objeto agenda con todos los contactos existentes en el telefono. Se crea un arrray con la agenda para poder recorrerlo
-    ABAddressBookRef addressBook = ABAddressBookCreate();
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(nil, error);
     CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
     NSInteger countPeople = ABAddressBookGetPersonCount(addressBook);
     

@@ -30,6 +30,10 @@
     IBOutlet UISwitch *visibleSwitch;
     ObjectIP *newObject;
     IMOAutocompletionViewController *autoComplete;
+    
+    IBOutlet UIButton *searchButton;
+    IBOutlet UIButton *detectButton;
+    IBOutlet UIButton *addButton;
 }
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "LanguageViewController.h"
+#import "SideMenuViewController.h"
+#import "MFSideMenuContainerViewController.h"
 #import "Language.h"
 
 @interface LanguageViewController ()
@@ -28,6 +30,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    if (self.isMovingFromParentViewController)
+    {
+        MFSideMenuContainerViewController *containerViewContreller = (MFSideMenuContainerViewController *)self.parentViewController.parentViewController;
+        [(SideMenuViewController *)containerViewContreller.leftMenuViewController reloadData];
+    }
 }
 
 #pragma mark - Table View Data Source

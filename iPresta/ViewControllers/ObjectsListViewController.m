@@ -15,6 +15,7 @@
 #import "FormOtherViewController.h"
 #import "ObjectDetailViewController.h"
 #import "UserIP.h"
+#import "Language.h"
 
 #define HEADER_HEIGHT 44
 
@@ -115,7 +116,7 @@
 {
     UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, HEADER_HEIGHT, 320, HEADER_HEIGHT)];
     
-    segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Todos", @"En Casa", @"Prestados"]];
+    segmentedControl = [[UISegmentedControl alloc] initWithItems:@[[Language get:@"Todos" alter:nil] , [Language get:@"En casa" alter:nil], [Language get:@"Prestados" alter:nil]]];
     segmentedControl.frame = CGRectMake(35, 200, 230, 30);
     segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     segmentedControl.selectedSegmentIndex = 0;

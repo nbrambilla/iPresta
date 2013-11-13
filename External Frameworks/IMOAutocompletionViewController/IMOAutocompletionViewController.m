@@ -124,7 +124,7 @@
     }
     else
     {
-        [self dismissModalViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
@@ -215,7 +215,7 @@
         [self.delegate IMOAutocompletionViewControllerReturnedCompletion:[_results objectAtIndex:indexPath.row]];
     }
     
-    if (isCancelButton) [self dismissModalViewControllerAnimated:YES];
+    if (isCancelButton) [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Textfield delegate

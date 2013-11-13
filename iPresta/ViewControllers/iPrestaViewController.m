@@ -55,7 +55,7 @@
     LoginViewController *loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     [navigationController pushViewController:loginViewController animated:NO];
     
-    [self presentModalViewController:navigationController animated:YES];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (IBAction)goToCreateCount:(id)sender
@@ -64,7 +64,7 @@
     CreateCountViewController *createCountViewController = [[CreateCountViewController alloc] initWithNibName:@"CreateCountViewController" bundle:nil];
     [navigationController pushViewController:createCountViewController animated:NO];
     
-    [self presentModalViewController:navigationController animated:YES];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (IBAction)setLanguage:(UIButton *)sender

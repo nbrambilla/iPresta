@@ -16,9 +16,9 @@
     ACAccountStore *accountStore = [[ACAccountStore alloc] init];
     ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
     
-    if([TWTweetComposeViewController canSendTweet])
+    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
     {
-        [accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
+        [accountStore requestAccessToAccountsWithType:accountType options:nil completion:^(BOOL granted, NSError *error) {
             if(granted) {
                 ACAccount * account = [[accountStore accountsWithAccountType:accountType] lastObject];
                 if([account username]==nil){

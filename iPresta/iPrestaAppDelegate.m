@@ -54,7 +54,7 @@
             navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
             SideMenuViewController *leftMenuViewController = [[SideMenuViewController alloc] init];
             MFSideMenuContainerViewController *container = [MFSideMenuContainerViewController containerWithCenterViewController:navigationController leftMenuViewController:leftMenuViewController rightMenuViewController:nil];
-            [iprestaViewController presentModalViewController:container animated:NO];
+            [iprestaViewController presentViewController:container animated:NO completion:nil];
         }
         // Sino, se redirige a la pantalla de autenticacion
         else
@@ -62,7 +62,7 @@
             navigationController = [[UINavigationController alloc] init];
             viewController = [[AuthenticateEmailViewController alloc] initWithNibName:@"AuthenticateEmailViewController" bundle:nil];
             [navigationController pushViewController:viewController animated:NO];
-            [iprestaViewController presentModalViewController:navigationController animated:NO];
+            [iprestaViewController presentViewController:navigationController animated:NO completion:nil];
         }
     }
     

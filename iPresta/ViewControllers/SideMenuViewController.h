@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MFSideMenuContainerViewController.h"
 
 @interface SideMenuViewController : UITableViewController
 {
     int selectedSection;
     int selectedRow;
 }
+
+- (void)reloadData;
 
 @end

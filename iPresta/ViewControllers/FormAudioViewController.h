@@ -30,6 +30,10 @@
     NSArray *audioTypesArray;
     AudioObjectType audioTypeSelectedIndex;
     IMOAutocompletionViewController *autoComplete;
+    
+    IBOutlet UIButton *searchButton;
+    IBOutlet UIButton *detectButton;
+    IBOutlet UIButton *addButton;
 }
 
 @end

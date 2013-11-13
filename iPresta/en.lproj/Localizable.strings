@@ -1,8 +1,52 @@
-"Tengo una cuenta" = "Have an account";
-"Crear una cuenta" = "Create an account";
+/* Primera Vista */
 
-"Configuracion" = "Configuration";
-"Idioma" = "Language";
-"Visible para tus amigos" = "Visible for your friends";
-"Vincular con Facebook" = "Link with Facebook";
-"Salir" = "Logout";
+"Tengo una cuenta" =        "Have an account";
+"Crear una cuenta" =        "Create an account";
+
+/* Menu */
+
+"Objetos" =         "Objects";
+"Buscar" =          "Search";
+"Contactos" =       "Contacts";
+"Pedidos" =         "Orders";
+"Configuracion" =   "Configuration";
+
+/* Objetos */
+
+"Libros" =              "Books";
+"Libro" =               "Book";
+"Audio" =               "Audio";
+"Video" =               "Video";
+"Otros" =               "Others";
+"Otro" =                "Other";
+"Prestado"  =           "Given";
+"Prestados"  =          "Given";
+"No prestado" =         "Not given";
+"A devolver" =          "To return";
+"Prestado a"  =         "Given to";
+"Todos" =               "All";
+"En casa" =             "At home";
+"Extender" =            "Extend";
+"Prestar" =             "Give";
+"Devolver" =            "Return";
+"Historico" =           "Historic";
+"Pedir" =               "Request";
+"Desde" =               "From";
+"Hasta" =               "to";
+"Mis pedidos" =         "My orders";
+"Pedidos de amigos" =   "Friends's orders";
+"Nombre" =              "Name";
+"Editorial" =           "Editorial";
+"Autor" =               "Author";
+"Descripcion" =         "Description";
+"Detectar" =            "Detect";
+"Anadir" =              "Add";
+"Cancelar" =            "Cancel";
+
+/* Configuración */
+
+"Configuracion" =               "Configuration";
+"Idioma" =                      "Language";
+"Visible para tus amigos" =     "Visible for your friends";
+"Vincular con Facebook" =       "Link with Facebook";
+"Salir" =                       "Logout";

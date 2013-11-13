@@ -162,7 +162,7 @@
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     SideMenuViewController *leftMenuViewController = [[SideMenuViewController alloc] init];
     MFSideMenuContainerViewController *container = [MFSideMenuContainerViewController containerWithCenterViewController:navigationController leftMenuViewController:leftMenuViewController rightMenuViewController:nil];
-    [self presentModalViewController:container animated:YES];
+    [self presentViewController:container animated:YES completion:nil];
     
     viewController = nil;
     navigationController = nil;

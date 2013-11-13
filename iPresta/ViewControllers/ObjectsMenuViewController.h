@@ -18,6 +18,11 @@
     IBOutlet UIButton *videoListButton;
     IBOutlet UIButton *othersListButton;
     
+    IBOutlet UILabel *booksTitle;
+    IBOutlet UILabel *audioTitle;
+    IBOutlet UILabel *videoTitle;
+    IBOutlet UILabel *othersTitle;
+    
     IBOutlet UILabel *booksLabel;
     IBOutlet UILabel *audioLabel;
     IBOutlet UILabel *videoLabel;

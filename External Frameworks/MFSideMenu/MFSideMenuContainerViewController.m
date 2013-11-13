@@ -724,21 +724,22 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 
 - (CGFloat)animationDurationFromStartPosition:(CGFloat)startPosition toEndPosition:(CGFloat)endPosition {
-    CGFloat animationPositionDelta = ABS(endPosition - startPosition);
+//    CGFloat animationPositionDelta = ABS(endPosition - startPosition);
     
-    CGFloat duration;
-    if(ABS(self.panGestureVelocity) > 1.0) {
-        // try to continue the animation at the speed the user was swiping
-        duration = animationPositionDelta / ABS(self.panGestureVelocity);
-    } else {
-        // no swipe was used, user tapped the bar button item
-        // TODO: full animation duration hard to calculate with two menu widths
-        CGFloat menuWidth = MAX(_leftMenuWidth, _rightMenuWidth);
-        CGFloat animationPerecent = (animationPositionDelta == 0) ? 0 : menuWidth / animationPositionDelta;
-        duration = self.menuAnimationDefaultDuration * animationPerecent;
-    }
+//    CGFloat duration;
+//    if(ABS(self.panGestureVelocity) > 1.0) {
+//        // try to continue the animation at the speed the user was swiping
+//        duration = animationPositionDelta / ABS(self.panGestureVelocity);
+//    } else {
+//        // no swipe was used, user tapped the bar button item
+//        // TODO: full animation duration hard to calculate with two menu widths
+//        CGFloat menuWidth = MAX(_leftMenuWidth, _rightMenuWidth);
+//        CGFloat animationPerecent = (animationPositionDelta == 0) ? 0 : menuWidth / animationPositionDelta;
+//        duration = self.menuAnimationDefaultDuration * animationPerecent;
+//    }
     
-    return MIN(duration, self.menuAnimationMaxDuration);
+//    return MIN(duration, self.menuAnimationMaxDuration);
+    return self.menuAnimationMaxDuration;
 }
 
 @end

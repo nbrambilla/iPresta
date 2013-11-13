@@ -7,13 +7,13 @@
 //
 
 #import "SideMenuViewController.h"
-#import "MFSideMenuContainerViewController.h"
 #import "ObjectsMenuViewController.h"
 #import "AppContactsListViewController.h"
 #import "ConfigurationViewController.h"
 #import "SearchObjectsViewController.h"
 #import "DemandsListViewController.h"
 #import "IMOAutocompletionViewController.h"
+#import "Language.h"
 
 @interface SideMenuViewController ()
 
@@ -35,7 +35,7 @@
     [super viewDidLoad];
 
     selectedSection = 0;
-    selectedRow = 0;
+    selectedRow = 0;    
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,70 +77,36 @@
     switch (indexPath.row)
     {
         case 0:
-            cell.textLabel.text = @"Objetos";
+            cell.textLabel.text = [Language get:@"Objetos" alter:nil];;
             cell.imageView.image = [UIImage imageNamed:@"objects_icon.png"];
             break;
         case 1:
+            cell.textLabel.text = [Language get:@"Buscar" alter:nil];
             cell.imageView.image = [UIImage imageNamed:@"search_icon.png"];
-            cell.textLabel.text = @"Buscar";
             break;
         case 2:
+            cell.textLabel.text = [Language get:@"Contactos" alter:nil];
             cell.imageView.image = [UIImage imageNamed:@"contacts_icon.png"];
-            cell.textLabel.text = @"Contactos";
             break;
         case 3:
+            cell.textLabel.text = [Language get:@"Pedidos" alter:nil];
             cell.imageView.image = [UIImage imageNamed:@"orders_icon.png"];
-            cell.textLabel.text = @"Pedidos";
             break;
         case 4:
+            cell.textLabel.text = [Language get:@"Configuracion" alter:nil];
             cell.imageView.image = [UIImage imageNamed:@"config_icon.png"];
-            cell.textLabel.text = @"Configuración";
             break;
     }
     
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 #pragma mark - Table view delegate
+
+- (void)reloadData
+{
+    [self.tableView reloadData];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

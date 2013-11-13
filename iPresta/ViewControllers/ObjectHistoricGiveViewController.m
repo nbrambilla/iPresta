@@ -11,6 +11,7 @@
 #import "GiveIP.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
+#import "Language.h"
 
 @interface ObjectHistoricGiveViewController ()
 
@@ -74,7 +75,7 @@
     NSString *dateBegin = [dateFormat stringFromDate:give.dateBegin];
     NSString *dateEnd = [dateFormat stringFromDate:give.dateEnd];
     
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Desde %@ hasta %@", dateBegin, dateEnd];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@ %@ %@", [Language get:@"Desde" alter:nil], dateBegin, [Language get:@"Hasta" alter:nil], dateEnd];
     
     give = nil;
     dateFormat = nil;

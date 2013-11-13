@@ -24,7 +24,8 @@
 
 + (void)getPermissions:(void (^)(BOOL))block
 {
-    ABAddressBookRef addressBook = ABAddressBookCreate();
+    CFErrorRef *error = nil;
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(nil, error);
         
     if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined)
     {
@@ -82,7 +83,8 @@
 
 - (void)setDataFromAddressBook
 {    
-    ABAddressBookRef addressBook = ABAddressBookCreate();
+    CFErrorRef *error = nil;
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(nil, error);
     CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
     NSInteger countPeople = ABAddressBookGetPersonCount(addressBook);
     
@@ -109,7 +111,8 @@
 {
     NSMutableArray *emailsArray = [NSMutableArray new];
     
-    ABAddressBookRef addressBook = ABAddressBookCreate();
+    CFErrorRef *error = nil;
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(nil, error);
     CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
     NSInteger countPeople = ABAddressBookGetPersonCount(addressBook);
     
@@ -143,7 +146,8 @@
     NSMutableArray *emailsArray = [NSMutableArray new];
     
     // Se crea un objeto agenda con todos los contactos existentes en el telefono. Se crea un array con la agenda para poder recorrerlo
-    ABAddressBookRef addressBook = ABAddressBookCreate();
+    CFErrorRef *error = nil;
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(nil, error);
     CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
     NSInteger countPeople = ABAddressBookGetPersonCount(addressBook);
     

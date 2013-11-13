@@ -18,6 +18,7 @@
 #import "MLTableAlert.h"
 #import "Facebook.h"
 #import "Twitter.h"
+#import "Language.h"
 
 @interface GiveObjectViewController ()
 
@@ -81,7 +82,7 @@
 
 - (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController*)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
@@ -100,7 +101,7 @@
     middleName = nil;
     lastName = nil;
     
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
     return NO;
 }
 
@@ -114,7 +115,7 @@
     if ([timeTextField isFirstResponder]) [timeTextField resignFirstResponder];
     ABPeoplePickerNavigationController* picker = [[ABPeoplePickerNavigationController alloc] init];
     picker.peoplePickerDelegate = self;
-    [self presentModalViewController:picker animated:YES];
+    [self presentViewController:picker animated:YES completion:nil];
 }
 
 #pragma mark - Keyboard Methods
@@ -138,7 +139,7 @@
 {
     if (textField == timeTextField)
     {
-        MLTableAlert *extendGiveTableAlert = [MLTableAlert tableAlertWithTitle:@"Prestar"                                                             cancelButtonTitle:@"Cancelar" numberOfRows:^NSInteger (NSInteger section)
+        MLTableAlert *extendGiveTableAlert = [MLTableAlert tableAlertWithTitle:[Language get:@"Prestar" alter:nil]                                                             cancelButtonTitle:[Language get:@"Cancelar" alter:nil] numberOfRows:^NSInteger (NSInteger section)
             {
                 return [[GiveIP giveTimesArray] count];
             }

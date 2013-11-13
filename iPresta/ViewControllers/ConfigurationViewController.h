@@ -18,7 +18,6 @@
     IBOutlet UILabel *languageLabel;
     IBOutlet UILabel *facebookLabel;
     
-    
     IBOutlet UISwitch *visibleSwitch;
     IBOutlet UISwitch *facebookSwitch;
     IBOutlet UIButton *languageButton;

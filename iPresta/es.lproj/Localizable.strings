@@ -1,8 +1,52 @@
-"Tengo una cuenta" = "Tengo una cuenta";
-"Crear una cuenta" = "Crear una cuenta";
+/* Primera Vista */
 
-"Configuracion" = "Configuración";
-"Idioma" = "Idioma";
-"Visible para tus amigos" = "Visible para tus amigos";
-"Vincular con Facebook" = "Vincular con Facebook";
-"Salir" = "Salir";
+"Tengo una cuenta" =        "Tengo una cuenta";
+"Crear una cuenta" =        "Crear una cuenta";
+
+/* Menu */
+
+"Objetos" =             "Objetos";
+"Buscar" =              "Buscar";
+"Contactos" =           "Contactos";
+"Pedidos" =             "Pedidos";
+"Configuracion" =       "Configuración";
+
+/* Objetos */
+
+"Libros" =              "Libros";
+"Libro" =               "Libro";
+"Audio" =               "Audio";
+"Video" =               "Video";
+"Otros" =               "Otros";
+"Otro" =                "Otro";
+"Prestado"  =           "Prestado";
+"Prestados"  =          "Prestados";
+"No prestado" =         "No prestado";
+"A devolver" =          "A devolver";
+"Prestado a"  =         "Prestado a";
+"Todos" =               "Todos";
+"En casa" =             "En casa";
+"Extender" =            "Extender";
+"Prestar" =             "Prestar";
+"Devolver" =            "Devolver";
+"Historico" =           "Historico";
+"Pedir" =               "Pedir";
+"Desde" =               "Desde";
+"Hasta" =               "hasta";
+"Mis pedidos" =         "Mis pedidos";
+"Pedidos de amigos" =   "Pedidos de amigos";
+"Nombre" =              "Nombre";
+"Editorial" =           "Editorial";
+"Autor" =               "Autor";
+"Descripcion" =         "Descripción";
+"Detectar" =            "Detectar";
+"Anadir" =              "Añadir";
+"Cancelar" =            "Cancelar";
+
+/* Configuración */
+
+"Configuracion" =               "Configuración";
+"Idioma" =                      "Idioma";
+"Visible para tus amigos" =     "Visible para tus amigos";
+"Vincular con Facebook" =       "Vincular con Facebook";
+"Salir" =                       "Salir";

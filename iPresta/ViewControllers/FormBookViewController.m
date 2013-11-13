@@ -11,6 +11,7 @@
 #import "iPrestaNSString.h"
 #import "ProgressHUD.h"
 #import "PHTextView.h"
+#import "Language.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface FormBookViewController ()
@@ -46,7 +47,15 @@
     authorTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     editorialTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     
-    descriptionTextView.placeholder = @"Descripción";
+    nameTextField.placeholder = [Language get:@"Nombre" alter:nil];
+    authorTextField.placeholder = [Language get:@"Autor" alter:nil];
+    nameTextField.placeholder = [Language get:@"Editorial" alter:nil];
+    
+    [searchButton setTitle:[Language get:@"Buscar" alter:nil] forState:UIControlStateNormal];
+    [detectButton setTitle:[Language get:@"Detectar" alter:nil] forState:UIControlStateNormal];
+    [addButton setTitle:[Language get:@"Anadir" alter:nil] forState:UIControlStateNormal];
+    
+    descriptionTextView.placeholder = [Language get:@"Descripcion" alter:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -107,7 +116,7 @@
         
         imagePicker.delegate = self;
         
-        [self presentModalViewController:imagePicker animated:YES];
+        [self presentViewController:imagePicker animated:YES completion:nil];
     }
 }
 
@@ -264,7 +273,7 @@
     [autoComplete setTitle:@"Buscar"];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:autoComplete];
-    [self.navigationController presentModalViewController:navController animated:YES];
+    [self.navigationController presentViewController:navController animated:YES completion:nil];
 }
 
 @end

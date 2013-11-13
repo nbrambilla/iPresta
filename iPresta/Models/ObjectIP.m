@@ -15,6 +15,7 @@
 #import "iPrestaNSString.h"
 #import "iPrestaNSError.h"
 #import "ConnectionData.h"
+#import "Language.h"
 
 @implementation ObjectIP
 
@@ -1206,12 +1207,12 @@ static ObjectIP *currentObject;
 
 + (NSArray *)stateTypes
 {
-    return [NSArray arrayWithObjects:@"No prestado", @"Prestado", @"A devolver", nil];
+    return [NSArray arrayWithObjects:[Language get:@"No prestado" alter:nil], [Language get:@"Prestado" alter:nil], [Language get:@"A devolver" alter:nil], nil];
 }
 
 + (NSArray *)objectTypes
 {
-    return [NSArray arrayWithObjects:@"Libro", @"Audio", @"Video", @"Otro", nil];
+    return [NSArray arrayWithObjects:[Language get:@"Libro" alter:nil], [Language get:@"Audio" alter:nil], [Language get:@"Video" alter:nil], [Language get:@"Otro" alter:nil], nil];
 }
 
 + (NSArray *)audioObjectTypes

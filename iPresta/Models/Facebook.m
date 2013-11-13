@@ -16,7 +16,7 @@
 
 - (void)shareInFacebook:(NSString *)caption
 {
-    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+    ACAccountStore *accountStore = [ACAccountStore new];
     
     // Get the Facebook account type for the access request
     ACAccountType *fbAccountType = [accountStore

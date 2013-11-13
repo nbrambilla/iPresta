@@ -13,6 +13,7 @@
 #import "MLTableAlert.h"
 #import "ObjectHistoricGiveViewController.h"
 #import "iPrestaNSString.h"
+#import "Language.h"
 
 @interface ObjectDetailViewController ()
 
@@ -97,6 +98,12 @@
     imageView.image = [UIImage imageWithData:currentObject.image];
     loanUpLabel.hidden = YES;
     
+    [loanUpButton setTitle:[Language get:@"Extender" alter:nil] forState:UIControlStateNormal];
+    [giveBackButton setTitle:[Language get:@"Devolver" alter:nil] forState:UIControlStateNormal];
+    [giveButton setTitle:[Language get:@"Prestar" alter:nil] forState:UIControlStateNormal];
+    [historycButton setTitle:[Language get:@"Historico" alter:nil] forState:UIControlStateNormal];
+    [demandButton setTitle:[Language get:@"Pedir" alter:nil] forState:UIControlStateNormal];
+    
     if (![UserIP objectsUserIsSet] && [UserIP searchUser] == nil)
     {
         currentUserButtonsView.hidden = NO;
@@ -122,8 +129,8 @@
         giveButton.enabled = NO;
         giveBackButton.enabled = YES;
         
-        GiveIP *objectCurrentGive =  [currentObject currentGive];
-        stateLabel.text = [NSString stringWithFormat:@"%@ a %@", [currentObject textState], [objectCurrentGive name]];
+        GiveIP *objectCurrentGive = [currentObject currentGive];
+        stateLabel.text = [NSString stringWithFormat:@"%@ %@", [Language get:@"Prestado a" alter:nil], [objectCurrentGive name]];
         
         if ([[objectCurrentGive dateEnd] compare:[NSDate date]] == NSOrderedAscending)
         {

@@ -10,6 +10,7 @@
 #import "DemandIP.h"
 #import "FriendIP.h"
 #import "ObjectIP.h"
+#import "Language.h"
 
 @interface DemandsListViewController ()
 
@@ -63,7 +64,7 @@
 {
     UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     
-    segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Mis Pedidos", @"Pedidos de Amigos"]];
+    segmentedControl = [[UISegmentedControl alloc] initWithItems:@[[Language get:@"Mis pedidos" alter:nil], [Language get:@"Pedidos de amigos" alter:nil]]];
     segmentedControl.frame = CGRectMake(35, 200, 230, 30);
     segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     segmentedControl.selectedSegmentIndex = 0;

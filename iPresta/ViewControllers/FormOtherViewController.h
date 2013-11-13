@@ -25,6 +25,8 @@
     IBOutlet iPrestaImageView *imageView;
     IBOutlet UISwitch *visibleSwitch;
     ObjectIP *newObject;
+    
+    IBOutlet UIButton *addButton;
 }
 
 @end

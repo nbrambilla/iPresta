@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">12E55</string>
+		<string key="IBDocument.SystemVersion">11G63</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.39</string>
-		<string key="IBDocument.HIToolboxVersion">626.00</string>
+		<string key="IBDocument.AppKitVersion">1138.51</string>
+		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">2083</string>
@@ -165,7 +165,7 @@
 								<string key="NSFrame">{{20, 200}, {140, 140}}</string>
 								<reference key="NSSuperview" ref="852860388"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="258690586"/>
+								<reference key="NSNextKeyView" ref="790121201"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
@@ -208,6 +208,7 @@
 								<string key="NSFrame">{{225, 273}, {75, 31}}</string>
 								<reference key="NSSuperview" ref="852860388"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="114733836"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -230,6 +231,7 @@
 								<string key="NSFrame">{{120, 367}, {81, 30}}</string>
 								<reference key="NSSuperview" ref="852860388"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -259,6 +261,7 @@
 								<string key="NSFrame">{{210, 200}, {94, 27}}</string>
 								<reference key="NSSuperview" ref="852860388"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="258690586"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -375,6 +378,30 @@
 						<reference key="destination" ref="790121201"/>
 					</object>
 					<int key="connectionID">35</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">searchButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="258690586"/>
+					</object>
+					<int key="connectionID">36</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">detectButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="674638122"/>
+					</object>
+					<int key="connectionID">37</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">addButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="114733836"/>
+					</object>
+					<int key="connectionID">38</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -543,7 +570,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">35</int>
+			<int key="maxID">38</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -570,15 +597,22 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="addButton">UIButton</string>
 						<string key="audioTypeComboText">STComboText</string>
 						<string key="authorTextField">UITextField</string>
 						<string key="descriptionTextView">PHTextView</string>
+						<string key="detectButton">UIButton</string>
 						<string key="imageView">iPrestaImageView</string>
 						<string key="nameTextField">UITextField</string>
 						<string key="scrollView">TPKeyboardAvoidingScrollView</string>
+						<string key="searchButton">UIButton</string>
 						<string key="visibleSwitch">UISwitch</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="addButton">
+							<string key="name">addButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="audioTypeComboText">
 							<string key="name">audioTypeComboText</string>
 							<string key="candidateClassName">STComboText</string>
@@ -591,6 +625,10 @@
 							<string key="name">descriptionTextView</string>
 							<string key="candidateClassName">PHTextView</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="detectButton">
+							<string key="name">detectButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="imageView">
 							<string key="name">imageView</string>
 							<string key="candidateClassName">iPrestaImageView</string>
@@ -602,6 +640,10 @@
 						<object class="IBToOneOutletInfo" key="scrollView">
 							<string key="name">scrollView</string>
 							<string key="candidateClassName">TPKeyboardAvoidingScrollView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="searchButton">
+							<string key="name">searchButton</string>
+							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="visibleSwitch">
 							<string key="name">visibleSwitch</string>
@@ -651,20 +693,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">iPrestaImageView</string>
 					<string key="superclassName">UIView</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="deleteImage:">id</string>
-						<string key="tapImegeView:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="deleteImage:">
-							<string key="name">deleteImage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="tapImegeView:">
-							<string key="name">tapImegeView:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="delegate">id</string>
 						<string key="deleteButton">UIButton</string>

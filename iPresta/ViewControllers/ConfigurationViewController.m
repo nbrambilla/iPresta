@@ -65,7 +65,6 @@
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-
 - (IBAction)changeVisibility:(UISwitch *)sender
 {
     [ProgressHUD  showHUDAddedTo:self.view animated:YES];
