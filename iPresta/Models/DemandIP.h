@@ -23,9 +23,9 @@
 @property (nonatomic, retain) NSString *iPrestaObjectId;
 
 + (void)saveAllDemandsFromDBWithBlock:(void (^)(NSError *))block;
-+ (void)addtDemandsFromDB;
++ (void)addDemandsFromDB;
 + (NSArray *)getMines;
 + (NSArray *)getFriends;
-- (void)saveDemandToWithObject:(PFObject *)object withBlock:(void(^) (NSError *))block;
+- (void)saveDemandToWithObject:(PFObject *)object withBlock:(void(^) (NSError *, NSString *))block;
 
 @end

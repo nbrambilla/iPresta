@@ -55,7 +55,7 @@
     [super viewWillDisappear:animated];
     
     [ObjectIP setDelegate:nil];
-    if (self.isMovingFromParentViewController) [UserIP setSearchUser:nil];
+//    if (self.isMovingFromParentViewController) [UserIP setSearchUser:nil];
 }
 
 - (void)didReceiveMemoryWarning

@@ -18,5 +18,6 @@
 
 - (NSString *)applicationDocumentsDirectory;
 - (void)removeCoreDataContext;
+- (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI;
 
 @end

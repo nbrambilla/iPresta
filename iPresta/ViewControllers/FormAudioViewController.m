@@ -289,6 +289,7 @@
                        {
                            newObject.image = [NSData dataWithContentsOfURL:[NSURL URLWithString:newObject.imageURL]];
                            [indicatorImage stopAnimating];
+                           NSLog(@"%@ %@", newObject.image, newObject.imageURL);
                            UIImage* image = [UIImage imageWithData:newObject.image];
                            if (image)
                            {

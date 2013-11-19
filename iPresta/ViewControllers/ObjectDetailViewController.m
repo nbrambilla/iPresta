@@ -46,7 +46,6 @@
 {
     [ObjectIP setDelegate:self];
     [GiveIP setDelegate:self];
-    
     [super viewWillAppear:animated];
 }
 
@@ -173,8 +172,7 @@
 - (IBAction)demand:(id)sender
 {
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    id user = ([UserIP objectsUser]) ? [UserIP objectsUser] : [UserIP searchUser];
+    id user = ([UserIP searchUser]) ? [UserIP searchUser] : [UserIP objectsUser];
     
     [[ObjectIP currentObject] demandTo:user];
 }
@@ -210,7 +208,7 @@
 {
     [ProgressHUD  showHUDAddedTo:self.view animated:YES];
     
-    ObjectIP  *currentObject = [ObjectIP  currentObject];
+    ObjectIP  *currentObject = [ObjectIP currentObject];
     [currentObject giveBack];
 }
 
@@ -226,7 +224,7 @@
 
 - (IBAction)goToExtendGive:(id)sender
 {
-	MLTableAlert *extendGiveTableAlert = [MLTableAlert tableAlertWithTitle:@"Extender préstamo" cancelButtonTitle:@"Cancelar" numberOfRows:^NSInteger (NSInteger section)
+	MLTableAlert *extendGiveTableAlert = [MLTableAlert tableAlertWithTitle:@"Extender préstamo" cancelButtonTitle:[Language get:@"Cancelar" alter:nil] numberOfRows:^NSInteger (NSInteger section)
         {
             return [[GiveIP giveTimesArray] count];
         }

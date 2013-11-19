@@ -70,7 +70,7 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    return [PFFacebookUtils handleOpenURL:url];
+    return [PFFacebookUtils handleOpenURL:url] && [FBSession.activeSession handleOpenURL:url];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
@@ -91,8 +91,9 @@
     
     FriendIP *friend = [FriendIP getByObjectId:[userInfo objectForKey:@"friendId"]];
     ObjectIP *object = [ObjectIP getByObjectId:[userInfo objectForKey:@"objectId"]];
+    NSString *demandId = [userInfo objectForKey:@"demandId"];
     
-    [object demandFrom:friend];
+    [object demandFrom:friend withId:demandId];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -115,8 +116,8 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [FBSession.activeSession handleDidBecomeActive];
-    
-    [DemandIP addtDemandsFromDB];
+
+    [DemandIP addDemandsFromDB];
     [FriendIP addFriendsFromDB];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
@@ -225,6 +226,22 @@
 - (NSString *)applicationDocumentsDirectory
 {
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+}
+
+- (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI
+{
+    NSArray *permissions =  @[@"user_about_me", @"publish_stream", @"publish_actions",@"email"];
+    
+    return [FBSession openActiveSessionWithPublishPermissions:permissions
+                                              defaultAudience:FBSessionDefaultAudienceEveryone
+                                              allowLoginUI:allowLoginUI
+                                         completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+                                             if (error) {
+                                                 NSLog (@"Handle error %@", error.localizedDescription);
+                                             } else {
+                                                 NSLog(@"%@", session);
+                                             }
+                                         }];
 }
 
 @end

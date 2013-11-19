@@ -10,6 +10,7 @@
 #import "iPrestaNSString.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
+#import "Language.h"
 
 @interface ChangeEmailViewController ()
 
@@ -21,7 +22,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"Cambiar email";
+        self.title = [Language get:@"Cambiar email" alter:nil];
     }
     return self;
 }
@@ -68,7 +69,7 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Email cambiado" message:@"Ahora auntentique el nuevo email y presione Entrar" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[Language get:@"Email cambiado" alter:nil] message:[Language get:@"Mensaje autenticar" alter:nil] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     
     alert = nil;

@@ -29,7 +29,6 @@
 
 @interface UserIP : NSObject
 
-
 + (void)setDelegate:(id <UserIPDelegate>)_delegate;
 + (id <UserIPDelegate>)delegate;
 + (PFUser *)loggedUser;
@@ -47,6 +46,8 @@
 + (BOOL)hasEmailVerified;
 + (BOOL)isNew;
 + (BOOL)isLinkedToFacebook;
++ (BOOL)isFacebookUser:(PFUser *)user;
++ (void)shareInFacebook:(NSString *)text inContainer:(UIViewController *)container;
 
 + (void)logInWithUsername:(NSString *)username password:(NSString *)password;
 + (void)loginWithFacebook;

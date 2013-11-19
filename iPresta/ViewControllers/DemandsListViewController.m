@@ -18,20 +18,12 @@
 
 @implementation DemandsListViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setDemandsArray) name:@"setDemandsObserver" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDemandsFriendsTable) name:@"ReloadFriendsDemandsTableObserver" object:nil];
     
     [self setTableViewHeader];
     [self setDemandsArray];
@@ -53,6 +45,12 @@
     [self setDemandsType:segmentedControl];
 }
 
+- (void)reloadDemandsFriendsTable
+{
+    friendsDemandsArray = [DemandIP getFriends];
+    [friendsDemadsTable reloadData];
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -62,31 +60,24 @@
 
 - (void)setTableViewHeader
 {
-    UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    
-    segmentedControl = [[UISegmentedControl alloc] initWithItems:@[[Language get:@"Mis pedidos" alter:nil], [Language get:@"Pedidos de amigos" alter:nil]]];
-    segmentedControl.frame = CGRectMake(35, 200, 230, 30);
-    segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    [segmentedControl setTitle:[Language get:@"Mis pedidos" alter:nil] forSegmentAtIndex:0];
+    [segmentedControl setTitle:[Language get:@"Pedidos de amigos" alter:nil] forSegmentAtIndex:1];
     segmentedControl.selectedSegmentIndex = 0;
     [segmentedControl addTarget:self action:@selector(setDemandsType:) forControlEvents:UIControlEventValueChanged];
-    
-    UINavigationItem *navigationItem = [[UINavigationItem alloc] init];
-    navigationItem.titleView = segmentedControl;
-    
-    [navigationBar pushNavigationItem:navigationItem animated:NO];
-    
-    self.tableView.tableHeaderView = navigationBar;
-    
-    navigationBar = nil;
-    navigationItem = nil;
 }
 
 - (void)setDemandsType:(UISegmentedControl *)sender
 {
-    if (sender.selectedSegmentIndex == 0) selectedArray = myDemandsArray;
-    else if (sender.selectedSegmentIndex == 1) selectedArray = friendsDemandsArray;
-    
-    [self.tableView reloadData];
+    if (sender.selectedSegmentIndex == 0)
+    {
+        myDemadsTable.hidden = NO;
+        friendsDemadsTable.hidden = YES;
+    }
+    else if (sender.selectedSegmentIndex == 1)
+    {
+        myDemadsTable.hidden = YES;
+        friendsDemadsTable.hidden = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -104,7 +95,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [selectedArray count];
+    if (tableView == myDemadsTable) return myDemandsArray.count;
+    return friendsDemandsArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -117,10 +109,11 @@
         cell.tag = indexPath.row;
     }
     
-    DemandIP *demand = [selectedArray objectAtIndex:indexPath.row];
     
-    if (segmentedControl.selectedSegmentIndex == 1)
+    if (tableView == friendsDemadsTable)
     {
+        DemandIP *demand = [friendsDemandsArray objectAtIndex:indexPath.row];
+        
         cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", [demand.from getFullName], demand.object.name];
         cell.imageView.image = [UIImage imageWithData:demand.object.image];
         
@@ -128,8 +121,10 @@
         [dateFormat setDateFormat:@"dd/MM/yy HH:mm"];
         cell.detailTextLabel.text = [dateFormat stringFromDate:demand.date];
     }
-    else if (segmentedControl.selectedSegmentIndex == 0)
+    else if (tableView == myDemadsTable)
     {
+        DemandIP *demand = [myDemandsArray objectAtIndex:indexPath.row];
+        
         UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         indicator.frame = cell.imageView.frame;
         [cell.imageView addSubview:indicator];

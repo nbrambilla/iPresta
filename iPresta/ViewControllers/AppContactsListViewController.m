@@ -266,6 +266,7 @@
     else
     {
         [UserIP setObjectsUser:user];
+        
         ObjectsMenuViewController *viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
         [self.navigationController pushViewController:viewController animated:YES];
         

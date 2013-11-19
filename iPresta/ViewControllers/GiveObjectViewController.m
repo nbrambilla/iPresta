@@ -46,6 +46,8 @@
     
     timeTextField.text = [[GiveIP giveTimesArray] objectAtIndex:0];
     
+    if (![UserIP isLinkedToFacebook]) facebookButton.hidden = YES;
+    
     contactsButton = nil;
 }
 
@@ -60,7 +62,6 @@
     giveToTextField = nil;
     timeTextField = nil;
     facebookButton = nil;
-    twitterButton = nil;
     [super viewDidUnload];
 }
 
@@ -192,15 +193,8 @@
         
         if (facebookButton.selected)
         {
-            Facebook *facebook = [Facebook new];
-            [facebook shareInFacebook:giveToTextField.text];
+            [UserIP shareInFacebook:giveToTextField.text inContainer:self];
         }
-        if (twitterButton.selected)
-        {
-            Twitter *twitter = [Twitter new];
-            [twitter shareInTwitter:giveToTextField.text];
-        }
-        
     }
     else
     {
@@ -221,7 +215,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectViewObserver" object:nil];
     
     [self addNotificatioToDate:give.dateEnd object:currentObject.name to:give.name registerId:give.objectId];
-    [self.navigationController popViewControllerAnimated:YES];
+    if (!facebookButton.selected) [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)objectError:(NSError *)error
@@ -231,7 +225,7 @@
     [error manageErrorTo:self];
 }
 
-- (IBAction)share:(UIButton *)sender
+- (IBAction)sharePressed:(UIButton *)sender
 {
     sender.selected = !sender.selected;
 }

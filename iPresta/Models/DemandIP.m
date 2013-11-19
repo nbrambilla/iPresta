@@ -38,12 +38,15 @@
     }];
 }
 
-+ (void)addtDemandsFromDB
++ (void)addDemandsFromDB
 {
     NSArray *allDemands = [DemandIP getAll];
     NSMutableArray *objectsIdArray = [[NSMutableArray alloc] initWithCapacity:allDemands.count];
     
-    for (DemandIP *demand in allDemands) [objectsIdArray addObject:demand.objectId];
+    for (DemandIP *demand in allDemands) {
+        
+    [objectsIdArray addObject:demand.objectId];
+    }
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"from = %@ OR to = %@", [UserIP loggedUser], [UserIP loggedUser]];
     PFQuery *demandsQuery = [PFQuery queryWithClassName:@"Demand" predicate:predicate];
@@ -67,7 +70,7 @@
     
 }
 
-- (void)saveDemandToWithObject:(PFObject *)object withBlock:(void(^) (NSError *))block
+- (void)saveDemandToWithObject:(PFObject *)object withBlock:(void(^) (NSError *, NSString *))block
 {
     PFObject *demand = [PFObject objectWithClassName:@"Demand"];
     [demand setObject:object forKey:@"object"];
@@ -81,9 +84,9 @@
          {
              self.objectId = demand.objectId;
              [DemandIP save];
-             block(nil);
+             block(nil, demand.objectId);
          }
-         else block(error);
+         else block(error, nil);
      }];
 }
 

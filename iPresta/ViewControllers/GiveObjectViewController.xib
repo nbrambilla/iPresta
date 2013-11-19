@@ -139,10 +139,9 @@
 					<object class="IBUIButton" id="57245293">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{198, 112}, {48, 48}}</string>
+						<string key="NSFrame">{{252, 112}, {48, 48}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="946592843"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -162,36 +161,6 @@
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">bt_facebook_off.png</string>
-						</object>
-						<reference key="IBUIFontDescription" ref="35997432"/>
-						<reference key="IBUIFont" ref="632381584"/>
-					</object>
-					<object class="IBUIButton" id="946592843">
-						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{253, 112}, {47, 47}}</string>
-						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="347775071"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBUIContentHorizontalAlignment">0</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
-						<reference key="IBUIHighlightedTitleColor" ref="20487547"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
-						</object>
-						<reference key="IBUINormalTitleShadowColor" ref="417731311"/>
-						<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage" id="532537231">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">bt_twitter_on.png</string>
-						</object>
-						<reference key="IBUISelectedBackgroundImage" ref="532537231"/>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">bt_twitter_off.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="35997432"/>
 						<reference key="IBUIFont" ref="632381584"/>
@@ -265,14 +234,6 @@
 					<int key="connectionID">44</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">twitterButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="946592843"/>
-					</object>
-					<int key="connectionID">45</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">hideKeyboard:</string>
 						<reference key="source" ref="191373211"/>
@@ -300,21 +261,12 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">share:</string>
+						<string key="label">sharePressed:</string>
 						<reference key="source" ref="57245293"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">46</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">share:</string>
-						<reference key="source" ref="946592843"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">47</int>
+					<int key="connectionID">49</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -332,7 +284,6 @@
 							<reference ref="704845685"/>
 							<reference ref="780980733"/>
 							<reference ref="347775071"/>
-							<reference ref="946592843"/>
 							<reference ref="57245293"/>
 						</array>
 						<reference key="parent" ref="0"/>
@@ -369,11 +320,6 @@
 						<reference key="object" ref="57245293"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">43</int>
-						<reference key="object" ref="946592843"/>
-						<reference key="parent" ref="191373211"/>
-					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -388,14 +334,12 @@
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="42.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="2" key="42.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
-				<string key="43.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<real value="2" key="43.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">47</int>
+			<int key="maxID">49</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -405,7 +349,7 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="giveObject:">id</string>
 						<string key="hideKeyboard:">id</string>
-						<string key="share:">UIButton</string>
+						<string key="sharePressed:">UIButton</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="giveObject:">
@@ -416,8 +360,8 @@
 							<string key="name">hideKeyboard:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="share:">
-							<string key="name">share:</string>
+						<object class="IBActionInfo" key="sharePressed:">
+							<string key="name">sharePressed:</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
 					</dictionary>
@@ -425,7 +369,6 @@
 						<string key="facebookButton">UIButton</string>
 						<string key="giveToTextField">UITextField</string>
 						<string key="timeTextField">UITextField</string>
-						<string key="twitterButton">UIButton</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="facebookButton">
@@ -439,10 +382,6 @@
 						<object class="IBToOneOutletInfo" key="timeTextField">
 							<string key="name">timeTextField</string>
 							<string key="candidateClassName">UITextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="twitterButton">
-							<string key="name">twitterButton</string>
-							<string key="candidateClassName">UIButton</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -459,8 +398,6 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="bt_facebook_off.png">{47, 47}</string>
 			<string key="bt_facebook_on.png">{47, 47}</string>
-			<string key="bt_twitter_off.png">{47, 47}</string>
-			<string key="bt_twitter_on.png">{47, 47}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>

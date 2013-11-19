@@ -259,4 +259,18 @@
     return self.firstName;
 }
 
++ (FriendIP *)getWithObjectId:(NSString *)objectId
+{
+    NSFetchRequest *request = [self fetchRequest];
+    [request setEntity:[self entityDescription]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"objectId = %@", objectId]];
+
+    NSError *error;
+    
+    NSArray *result = [[[self class] managedObjectContext] executeFetchRequest:request error:&error];
+    
+    if (result.count > 0) return [result objectAtIndex:0];
+    return nil;
+}
+
 @end

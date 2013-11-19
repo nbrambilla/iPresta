@@ -553,11 +553,11 @@ static ObjectIP *currentObject;
         if (!error)
         {
             DemandIP *newDemand = [DemandIP new];
-            newDemand.to = [FriendIP getByObjectId:user.objectId];
+            newDemand.to = [FriendIP getWithObjectId:user.objectId];
             newDemand.iPrestaObjectId = self.objectId;
             newDemand.date = [NSDate date];
             
-            [newDemand saveDemandToWithObject:object withBlock:^(NSError *error)
+            [newDemand saveDemandToWithObject:object withBlock:^(NSError *error, NSString *demandID)
             {
                 if (!error)
                 {
@@ -567,7 +567,7 @@ static ObjectIP *currentObject;
                     
                     PFPush *push = [PFPush new];
                     [push setQuery:pushQuery];
-                    [push setData:[NSDictionary dictionaryWithObjectsAndKeys: @"Increment", @"badge", @"default", @"sound", [NSString stringWithFormat:@"%@ te ha pedido %@", [[UserIP loggedUser] username] ,self.name], @"alert", self.objectId, @"objectId", [[UserIP loggedUser] objectId], @"friendId", nil]];
+                    [push setData:[NSDictionary dictionaryWithObjectsAndKeys: @"Increment", @"badge", @"default", @"sound", [NSString stringWithFormat:@"%@ te ha pedido %@", [[UserIP loggedUser] username] ,self.name], @"alert", self.objectId, @"objectId", [[UserIP loggedUser] objectId], @"friendId", demandID, @"demandId", nil]];
                     
                     [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
                     {
@@ -594,14 +594,17 @@ static ObjectIP *currentObject;
     }];
 }
 
-- (void)demandFrom:(FriendIP *)friend
+- (void)demandFrom:(FriendIP *)friend withId:(NSString *)demandId
 {
     DemandIP *newDemand = [DemandIP new];
+    newDemand.objectId = demandId;
     newDemand.from = friend;
     newDemand.object = self;
     newDemand.date = [NSDate date];
     
     [CoreDataManager save];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFriendsDemandsTableObserver" object:nil];
 }
 
 + (NSArray *)countAllByType
@@ -794,7 +797,7 @@ static ObjectIP *currentObject;
     }
     else if (selectedType == AudioType || selectedType == VideoType)
     {
-        urlString = [NSString stringWithFormat:@"http://api.discogs.com/search?q=%@&f=json", objectCode];
+        urlString = [NSString stringWithFormat:@"http://api.discogs.com/search?q=%@", objectCode];
         self.barcode = objectCode;
     }
     
@@ -950,6 +953,8 @@ static ObjectIP *currentObject;
     // Combinacion de consultas para poder comparar el parametro con los nombres de los objetos. Subconsulta para poder encontrar los contactos con cuenta en la app.
     PFQuery *finalQuery = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects: queryCapitalizedString,queryLowerCaseString, querySearchBarString,nil]];
     [finalQuery orderByAscending:@"name"];
+    [finalQuery includeKey:@"owner"];
+    [finalQuery orderByAscending:@"image"];
     finalQuery.skip = _page * offset;
     finalQuery.limit = offset;
     
@@ -978,14 +983,14 @@ static ObjectIP *currentObject;
                      {
                          [object setObjetctFrom:pfObject andImage:data];
                          [objects addObject:object];
-                         [owners addObject:pfObject];
+                         [owners addObject:[pfObject objectForKey:@"owner"]];
                          
                          count++;
                          if (count == objectsCount)
                          {
                              if ([delegate respondsToSelector:@selector(performObjectsSearchSuccess:error:)])
                              {
-                                 NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:objects, @"objects", [objects copy], @"owners", nil];
+                                 NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:objects, @"objects", owners, @"owners", nil];
                                  
                                  [delegate performObjectsSearchSuccess:params error:nil];
                              }
@@ -999,6 +1004,24 @@ static ObjectIP *currentObject;
                          }
                      }
                 }];
+            }
+            else
+            {
+                [object setObjetctFrom:pfObject andImage:nil];
+                [objects addObject:object];
+                [owners addObject:[pfObject objectForKey:@"owner"]];
+                
+                count++;
+                if (count == objectsCount)
+                {
+                    if ([delegate respondsToSelector:@selector(performObjectsSearchSuccess:error:)])
+                    {
+                        NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:objects, @"objects", owners, @"owners", nil];
+                        
+                        [delegate performObjectsSearchSuccess:params error:nil];
+                    }
+                }
+
             }
         }
     }];

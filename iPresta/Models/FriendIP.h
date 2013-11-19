@@ -27,6 +27,7 @@
 - (NSString *)firstLetter;
 - (NSString *)getFullName;
 - (NSString *)getCompareName;
++ (FriendIP *)getWithObjectId:(NSString *)objectId;
 
 @end
 
@@ -46,7 +47,6 @@
 - (void)removeDemandsReciveObject:(DemandIP *)value;
 - (void)addDemandsRecive:(NSSet *)values;
 - (void)removeDemandsRecive:(NSSet *)values;
-
 
 @end
 

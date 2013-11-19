@@ -7,17 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SlideTableViewController.h"
+#import "SlideViewController.h"
 
-@interface DemandsListViewController : SlideTableViewController
+@interface DemandsListViewController : SlideViewController
 {
-    NSArray *selectedArray;
     NSArray *myDemandsArray;
     NSArray *friendsDemandsArray;
     
     NSMutableArray *objectsImageArray;
     NSMutableArray *objectsArray;
-    UISegmentedControl *segmentedControl;
+    
+    IBOutlet UITableView *myDemadsTable;
+    IBOutlet UITableView *friendsDemadsTable;
+    IBOutlet UISegmentedControl *segmentedControl;
 }
 
 @end

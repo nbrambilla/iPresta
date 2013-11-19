@@ -14,6 +14,7 @@
 #import "SideMenuViewController.h"
 #import "iPrestaNSError.h"
 #import "FriendIP.h"
+#import "Language.h"
 
 @interface AuthenticateEmailViewController ()
 
@@ -25,7 +26,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"Autenticar email";
+        self.title = [Language get:@"Autenticar email" alter:nil];
     }
     return self;
 }
@@ -37,7 +38,7 @@
     
     [self.navigationItem setHidesBackButton:YES animated:NO];
     
-    UIBarButtonItem *changeEmailButton = [[UIBarButtonItem alloc] initWithTitle:@"Cambiar email" style:UIBarButtonItemStylePlain target:self action:@selector(goToChangeEmail)];
+    UIBarButtonItem *changeEmailButton = [[UIBarButtonItem alloc] initWithTitle:[Language get:@"Cambiar email" alter:nil] style:UIBarButtonItemStylePlain target:self action:@selector(goToChangeEmail)];
     self.navigationItem.rightBarButtonItem = changeEmailButton;
     
     changeEmailButton = nil;
@@ -68,7 +69,7 @@
 
 - (void)resendAuthenticateMessageSuccess
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Mensaje enviado" message:@"Chequee se email y auentique su cuenta" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[Language get:@"Email enviado" alter:nil] message:@"Chequee se email y auentique su cuenta" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     
     alert = nil;

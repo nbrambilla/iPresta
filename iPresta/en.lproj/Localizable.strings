@@ -3,6 +3,14 @@
 "Tengo una cuenta" =        "Have an account";
 "Crear una cuenta" =        "Create an account";
 
+/* Login */
+
+"Cambiar email" =       "Change email";
+"Email cambiado" =      "Email changed";
+"Email enviado" =       "Email sent";
+"Autenticar email" =    "Authenticate email";
+"Mensaje autenticar" =  "Now auntentique the new email and press Enter";
+
 /* Menu */
 
 "Objetos" =         "Objects";
@@ -50,3 +58,15 @@
 "Visible para tus amigos" =     "Visible for your friends";
 "Vincular con Facebook" =       "Link with Facebook";
 "Salir" =                       "Logout";
+
+/* Mensajes */
+
+"Problemas conexion" =              "Connection Problems. Try it again.";
+"Email password error" =            "Email and/or password incorrect/s";
+"Usuario existente" =               "There is already a registered user with this email";
+"Usuario no existente" =            "There is no user with this email";
+"Usuario no logueado" =             "You can not modify the data of a user who is not logged";
+"Objeto no encontrado"=             "Not found this object. Enter data manually";
+"Objeto existente" =                "This object has already been registered";
+"Email no autenticado" =            "You must authenticate your email in order to access the app";
+"Cuenta FB no existente" =          "There is no Facebook account associated with this device.";

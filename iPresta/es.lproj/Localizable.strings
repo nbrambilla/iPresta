@@ -3,6 +3,14 @@
 "Tengo una cuenta" =        "Tengo una cuenta";
 "Crear una cuenta" =        "Crear una cuenta";
 
+/* Login */
+
+"Cambiar email" =       "Cambiar email";
+"Email cambiado" =      "Email cambiado";
+"Email enviado" =       "Email enviado";
+"Autenticar email" =    "Autenticar email";
+"Mensaje autenticar" =  "Ahora auntentique el nuevo email y presione Entrar";
+
 /* Menu */
 
 "Objetos" =             "Objetos";
@@ -50,3 +58,15 @@
 "Visible para tus amigos" =     "Visible para tus amigos";
 "Vincular con Facebook" =       "Vincular con Facebook";
 "Salir" =                       "Salir";
+
+/* Mensajes */
+
+"Problemas conexion" =                  "Problemas con la conexión. Intentelo otra vez.";
+"Email password error" =                "Email y/o password incorrecto/s";
+"Usuario existente" =                   "Ya existe un usuario registrado con este email";
+"Usuario no existente" =                "No existe un usuario registrado con este email";
+"Usuario no logueado" =                 "No se puede modificar los datos de un usuario que no esta logueado";
+"Objeto no encontrado" =                "No se ha encontrado este objeto. Ingrese los datos de forma manual";
+"Objeto existente" =                    "Este objeto ya ha sido registrado";
+"Email no autenticado" =                "Debe autenticar su email para poder acceder a la app";
+"Cuenta FB no existente" =              "No existe ninguna cuenta de Facebook asociada a este dispositivo.";
