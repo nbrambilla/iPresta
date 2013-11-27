@@ -40,10 +40,14 @@
 		1549958B17C8FD9E00857BB2 /* UserIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 1549958A17C8FD9E00857BB2 /* UserIP.m */; };
 		1549958E17C8FD9E00857BB2 /* ObjectIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 1549958D17C8FD9E00857BB2 /* ObjectIP.m */; };
 		1549959317C90BCB00857BB2 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1549959217C90BCB00857BB2 /* CoreDataManager.m */; };
+		1549FC591846AB2C0015C07D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1549FC581846AB2B0015C07D /* Icon.png */; };
+		1549FC5B1846AB3B0015C07D /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1549FC5A1846AB3B0015C07D /* Icon@2x.png */; };
 		154C3EBD17FF46DF00F723B7 /* DemandsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C3EBB17FF46DF00F723B7 /* DemandsListViewController.m */; };
 		154C3EBE17FF46DF00F723B7 /* DemandsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154C3EBC17FF46DF00F723B7 /* DemandsListViewController.xib */; };
 		154C92DC172997680030915B /* AuthenticateEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154C92DA172997680030915B /* AuthenticateEmailViewController.m */; };
 		154C92DD172997680030915B /* AuthenticateEmailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154C92DB172997680030915B /* AuthenticateEmailViewController.xib */; };
+		154D8A45184261BE00A1B666 /* FriendsDemandsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 154D8A44184261BE00A1B666 /* FriendsDemandsCell.m */; };
+		154D8A47184261E900A1B666 /* FriendsDemandsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154D8A46184261E900A1B666 /* FriendsDemandsCell.xib */; };
 		154F205717205E7D00E65121 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154F205517205E7D00E65121 /* LoginViewController.m */; };
 		154F205817205E7D00E65121 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154F205617205E7D00E65121 /* LoginViewController.xib */; };
 		154F205C172065A800E65121 /* CreateCountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154F205A172065A800E65121 /* CreateCountViewController.m */; };
@@ -96,8 +100,11 @@
 		15763EF917F2012800D1F514 /* DemandIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 15763EF817F2012800D1F514 /* DemandIP.m */; };
 		157D9649180F3239001A346E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 157D964B180F3239001A346E /* Localizable.strings */; };
 		157D9650180F3C62001A346E /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = 157D964F180F3C62001A346E /* Language.m */; };
+		159678E21843DD7B0096B49C /* MyDemandsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 159678E11843DD7B0096B49C /* MyDemandsCell.m */; };
+		159678E41843DE000096B49C /* MyDemandsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 159678E31843DE000096B49C /* MyDemandsCell.xib */; };
 		15A877B6172C875300E8BDA2 /* RequestPasswordResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A877B4172C875200E8BDA2 /* RequestPasswordResetViewController.m */; };
 		15A877B7172C875300E8BDA2 /* RequestPasswordResetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15A877B5172C875300E8BDA2 /* RequestPasswordResetViewController.xib */; };
+		15B8994A1840F2E50040B848 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B899491840F2E50040B848 /* MenuCell.m */; };
 		15C44D6A16FE026B0071E7EC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C44D6916FE026B0071E7EC /* FacebookSDK.framework */; };
 		15C99479172C0515000672B4 /* ChangeEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C99477172C0515000672B4 /* ChangeEmailViewController.m */; };
 		15C9947A172C0515000672B4 /* ChangeEmailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15C99478172C0515000672B4 /* ChangeEmailViewController.xib */; };
@@ -213,12 +220,17 @@
 		1549958D17C8FD9E00857BB2 /* ObjectIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectIP.m; path = iPresta/Models/ObjectIP.m; sourceTree = "<group>"; };
 		1549959117C90BCB00857BB2 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataManager.h; path = iPresta/Models/CoreDataManager.h; sourceTree = "<group>"; };
 		1549959217C90BCB00857BB2 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataManager.m; path = iPresta/Models/CoreDataManager.m; sourceTree = "<group>"; };
+		1549FC581846AB2B0015C07D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		1549FC5A1846AB3B0015C07D /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		154C3EBA17FF46DF00F723B7 /* DemandsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemandsListViewController.h; path = ViewControllers/DemandsListViewController.h; sourceTree = "<group>"; };
 		154C3EBB17FF46DF00F723B7 /* DemandsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DemandsListViewController.m; path = ViewControllers/DemandsListViewController.m; sourceTree = "<group>"; };
 		154C3EBC17FF46DF00F723B7 /* DemandsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DemandsListViewController.xib; path = ViewControllers/DemandsListViewController.xib; sourceTree = "<group>"; };
 		154C92D9172997680030915B /* AuthenticateEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthenticateEmailViewController.h; path = ViewControllers/AuthenticateEmailViewController.h; sourceTree = "<group>"; };
 		154C92DA172997680030915B /* AuthenticateEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthenticateEmailViewController.m; path = ViewControllers/AuthenticateEmailViewController.m; sourceTree = "<group>"; };
 		154C92DB172997680030915B /* AuthenticateEmailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AuthenticateEmailViewController.xib; path = ViewControllers/AuthenticateEmailViewController.xib; sourceTree = "<group>"; };
+		154D8A43184261BE00A1B666 /* FriendsDemandsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsDemandsCell.h; path = ViewControllers/FriendsDemandsCell.h; sourceTree = "<group>"; };
+		154D8A44184261BE00A1B666 /* FriendsDemandsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsDemandsCell.m; path = ViewControllers/FriendsDemandsCell.m; sourceTree = "<group>"; };
+		154D8A46184261E900A1B666 /* FriendsDemandsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriendsDemandsCell.xib; sourceTree = "<group>"; };
 		154F205417205E7D00E65121 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = ViewControllers/LoginViewController.h; sourceTree = "<group>"; };
 		154F205517205E7D00E65121 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ViewControllers/LoginViewController.m; sourceTree = "<group>"; };
 		154F205617205E7D00E65121 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = ViewControllers/LoginViewController.xib; sourceTree = "<group>"; };
@@ -305,9 +317,14 @@
 		157D964C180F323B001A346E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		157D964E180F3C62001A346E /* Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Language.h; path = "External Frameworks/Language/Language.h"; sourceTree = "<group>"; };
 		157D964F180F3C62001A346E /* Language.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Language.m; path = "External Frameworks/Language/Language.m"; sourceTree = "<group>"; };
+		159678E01843DD7B0096B49C /* MyDemandsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyDemandsCell.h; path = ViewControllers/MyDemandsCell.h; sourceTree = "<group>"; };
+		159678E11843DD7B0096B49C /* MyDemandsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyDemandsCell.m; path = ViewControllers/MyDemandsCell.m; sourceTree = "<group>"; };
+		159678E31843DE000096B49C /* MyDemandsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MyDemandsCell.xib; path = ViewControllers/MyDemandsCell.xib; sourceTree = "<group>"; };
 		15A877B3172C875200E8BDA2 /* RequestPasswordResetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RequestPasswordResetViewController.h; path = ViewControllers/RequestPasswordResetViewController.h; sourceTree = "<group>"; };
 		15A877B4172C875200E8BDA2 /* RequestPasswordResetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestPasswordResetViewController.m; path = ViewControllers/RequestPasswordResetViewController.m; sourceTree = "<group>"; };
 		15A877B5172C875300E8BDA2 /* RequestPasswordResetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RequestPasswordResetViewController.xib; path = ViewControllers/RequestPasswordResetViewController.xib; sourceTree = "<group>"; };
+		15B899481840F2E50040B848 /* MenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuCell.h; path = ViewControllers/MenuCell.h; sourceTree = "<group>"; };
+		15B899491840F2E50040B848 /* MenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuCell.m; path = ViewControllers/MenuCell.m; sourceTree = "<group>"; };
 		15C29CA117D3930300B0ED5D /* CoreDataManager_CoreDataManagerExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CoreDataManager_CoreDataManagerExtension.h; path = iPresta/Models/CoreDataManager_CoreDataManagerExtension.h; sourceTree = "<group>"; };
 		15C44D6916FE026B0071E7EC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		15C99476172C0515000672B4 /* ChangeEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangeEmailViewController.h; path = ViewControllers/ChangeEmailViewController.h; sourceTree = "<group>"; };
@@ -609,6 +626,8 @@
 		156FDDFA16F399E800F4BEEA = {
 			isa = PBXGroup;
 			children = (
+				1549FC5A1846AB3B0015C07D /* Icon@2x.png */,
+				1549FC581846AB2B0015C07D /* Icon.png */,
 				156FDE5216F3A04B00F4BEEA /* Models */,
 				156FDE0F16F399E900F4BEEA /* iPresta */,
 				15517A0C1725C976002FFB69 /* External Frameworks */,
@@ -691,6 +710,8 @@
 		156FDE4616F39DCC00F4BEEA /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				15B899481840F2E50040B848 /* MenuCell.h */,
+				15B899491840F2E50040B848 /* MenuCell.m */,
 				153513DE17BC029D00E4193D /* SideMenuViewController.h */,
 				153513DF17BC029D00E4193D /* SideMenuViewController.m */,
 				153513E017BC029D00E4193D /* SideMenuViewController.xib */,
@@ -755,6 +776,12 @@
 				154985C717BD7C8C00AE1135 /* SearchObjectsViewController.h */,
 				154985C817BD7C8C00AE1135 /* SearchObjectsViewController.m */,
 				154985C917BD7C8D00AE1135 /* SearchObjectsViewController.xib */,
+				159678E01843DD7B0096B49C /* MyDemandsCell.h */,
+				159678E11843DD7B0096B49C /* MyDemandsCell.m */,
+				159678E31843DE000096B49C /* MyDemandsCell.xib */,
+				154D8A43184261BE00A1B666 /* FriendsDemandsCell.h */,
+				154D8A44184261BE00A1B666 /* FriendsDemandsCell.m */,
+				154D8A46184261E900A1B666 /* FriendsDemandsCell.xib */,
 				154C3EBA17FF46DF00F723B7 /* DemandsListViewController.h */,
 				154C3EBB17FF46DF00F723B7 /* DemandsListViewController.m */,
 				154C3EBC17FF46DF00F723B7 /* DemandsListViewController.xib */,
@@ -1008,6 +1035,10 @@
 				156B2DB5182FBED200700890 /* bt_twitter_off@2x.png in Resources */,
 				156B2DB6182FBED200700890 /* bt_twitter_on.png in Resources */,
 				156B2DB7182FBED200700890 /* bt_twitter_on@2x.png in Resources */,
+				154D8A47184261E900A1B666 /* FriendsDemandsCell.xib in Resources */,
+				159678E41843DE000096B49C /* MyDemandsCell.xib in Resources */,
+				1549FC591846AB2C0015C07D /* Icon.png in Resources */,
+				1549FC5B1846AB3B0015C07D /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1069,6 +1100,9 @@
 				150CE5FC1810778C0091DA44 /* LanguageViewController.m in Sources */,
 				156B2DBA1830056600700890 /* Facebook.m in Sources */,
 				156B2DBD18300AD200700890 /* Twitter.m in Sources */,
+				15B8994A1840F2E50040B848 /* MenuCell.m in Sources */,
+				154D8A45184261BE00A1B666 /* FriendsDemandsCell.m in Sources */,
+				159678E21843DD7B0096B49C /* MyDemandsCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1120,8 +1154,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PROVISIONING_PROFILE = "EA45967B-91C7-432F-90AB-B2A4039ACBDF";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EA45967B-91C7-432F-90AB-B2A4039ACBDF";
+				PROVISIONING_PROFILE = "FDC2F3E2-705E-4B7B-973B-2EEA5C9AC8D4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FDC2F3E2-705E-4B7B-973B-2EEA5C9AC8D4";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1144,8 +1178,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "EA45967B-91C7-432F-90AB-B2A4039ACBDF";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EA45967B-91C7-432F-90AB-B2A4039ACBDF";
+				PROVISIONING_PROFILE = "FDC2F3E2-705E-4B7B-973B-2EEA5C9AC8D4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FDC2F3E2-705E-4B7B-973B-2EEA5C9AC8D4";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1170,8 +1204,8 @@
 				);
 				OTHER_LDFLAGS = "-fobjc-arc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "EA45967B-91C7-432F-90AB-B2A4039ACBDF";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EA45967B-91C7-432F-90AB-B2A4039ACBDF";
+				PROVISIONING_PROFILE = "FDC2F3E2-705E-4B7B-973B-2EEA5C9AC8D4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FDC2F3E2-705E-4B7B-973B-2EEA5C9AC8D4";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1196,8 +1230,8 @@
 				);
 				OTHER_LDFLAGS = "-fobjc-arc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "EA45967B-91C7-432F-90AB-B2A4039ACBDF";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EA45967B-91C7-432F-90AB-B2A4039ACBDF";
+				PROVISIONING_PROFILE = "FDC2F3E2-705E-4B7B-973B-2EEA5C9AC8D4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FDC2F3E2-705E-4B7B-973B-2EEA5C9AC8D4";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};

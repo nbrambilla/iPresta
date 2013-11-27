@@ -34,6 +34,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    
     if (self.isMovingFromParentViewController)
     {
         MFSideMenuContainerViewController *containerViewContreller = (MFSideMenuContainerViewController *)self.parentViewController.parentViewController;

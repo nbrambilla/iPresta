@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Nostro Studio. All rights reserved.
 //
 
+#import "DemandIP.h"
+#import "FriendIP.h"
 #import "SideMenuViewController.h"
 #import "ObjectsMenuViewController.h"
 #import "AppContactsListViewController.h"
@@ -13,6 +15,7 @@
 #import "SearchObjectsViewController.h"
 #import "DemandsListViewController.h"
 #import "IMOAutocompletionViewController.h"
+#import "MenuCell.h"
 #import "Language.h"
 
 @interface SideMenuViewController ()
@@ -25,7 +28,8 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewDemands) name:@"RefreshNewDemandsObserver" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewFriends) name:@"RefreshNewFriendsObserver" object:nil];
     }
     return self;
 }
@@ -65,13 +69,28 @@
 {
     return @"iPresta";
 }
+- (void)refreshNewFriends
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:2 inSection:0];
+    [self.tableView beginUpdates];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView endUpdates];
+}
+
+- (void)refreshNewDemands
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:3 inSection:0];
+    [self.tableView beginUpdates];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView endUpdates];
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    MenuCell *cell = (MenuCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[MenuCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     switch (indexPath.row)
@@ -87,10 +106,12 @@
         case 2:
             cell.textLabel.text = [Language get:@"Contactos" alter:nil];
             cell.imageView.image = [UIImage imageNamed:@"contacts_icon.png"];
+            if ([FriendIP newFriends] > 0) cell.badgeCell.text = [NSString stringWithFormat:@"%d", [FriendIP newFriends]];
             break;
         case 3:
             cell.textLabel.text = [Language get:@"Pedidos" alter:nil];
             cell.imageView.image = [UIImage imageNamed:@"orders_icon.png"];
+            if ([[DemandIP getWithoutState] count] > 0) cell.badgeCell.text = [NSString stringWithFormat:@"%d", [[DemandIP getWithoutState] count]];
             break;
         case 4:
             cell.textLabel.text = [Language get:@"Configuracion" alter:nil];

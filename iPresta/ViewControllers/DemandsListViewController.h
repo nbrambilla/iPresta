@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "SlideViewController.h"
+#import "FriendsDemandsCell.h"
 
-@interface DemandsListViewController : SlideViewController
+@class DemandIP;
+
+@interface DemandsListViewController : SlideViewController <FriendsDemandsCellDelegate, UIAlertViewDelegate>
 {
     NSArray *myDemandsArray;
     NSArray *friendsDemandsArray;
@@ -20,6 +23,8 @@
     IBOutlet UITableView *myDemadsTable;
     IBOutlet UITableView *friendsDemadsTable;
     IBOutlet UISegmentedControl *segmentedControl;
+    
+    DemandIP *demandToReject;
 }
 
 @end

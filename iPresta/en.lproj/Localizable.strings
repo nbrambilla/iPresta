@@ -69,4 +69,8 @@
 "Objeto no encontrado"=             "Not found this object. Enter data manually";
 "Objeto existente" =                "This object has already been registered";
 "Email no autenticado" =            "You must authenticate your email in order to access the app";
-"Cuenta FB no existente" =          "There is no Facebook account associated with this device.";
+
+/* Pedidos */
+
+"aceptar" =                 "Accept";
+"rechazar" =                "Reject";

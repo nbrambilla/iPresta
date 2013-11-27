@@ -11,6 +11,10 @@
 #import "FriendIP.h"
 #import "ObjectIP.h"
 #import "Language.h"
+#import "GiveObjectViewController.h"
+#import "MyDemandsCell.h"
+#import "iPrestaNSError.h"
+#import "ProgressHUD.h"
 
 @interface DemandsListViewController ()
 
@@ -24,6 +28,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setDemandsArray) name:@"setDemandsObserver" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDemandsFriendsTable) name:@"ReloadFriendsDemandsTableObserver" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadMyDemandsTable) name:@"ReloadMyDemandsTableObserver" object:nil];
     
     [self setTableViewHeader];
     [self setDemandsArray];
@@ -51,11 +56,23 @@
     [friendsDemadsTable reloadData];
 }
 
+- (void)reloadMyDemandsTable
+{
+    myDemandsArray = [DemandIP getMines];
+    [myDemadsTable reloadData];
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [friendsDemadsTable reloadData];
 }
 
 - (void)setTableViewHeader
@@ -101,79 +118,132 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.tag = indexPath.row;
-    }
-    
-    
     if (tableView == friendsDemadsTable)
     {
-        DemandIP *demand = [friendsDemandsArray objectAtIndex:indexPath.row];
+        static NSString *CellIdentifier = @"Cell";
+        FriendsDemandsCell *cell = (FriendsDemandsCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"FriendsDemandsCell" owner:self options:nil] objectAtIndex:0];
+            cell.delegate = self;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.tag = indexPath.row;
+        }
         
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", [demand.from getFullName], demand.object.name];
-        cell.imageView.image = [UIImage imageWithData:demand.object.image];
+        [cell setDemand:[friendsDemandsArray objectAtIndex:indexPath.row]];
         
-        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"dd/MM/yy HH:mm"];
-        cell.detailTextLabel.text = [dateFormat stringFromDate:demand.date];
+        return cell;
     }
     else if (tableView == myDemadsTable)
     {
-        DemandIP *demand = [myDemandsArray objectAtIndex:indexPath.row];
+        static NSString *CellIdentifier = @"Cell";
+        MyDemandsCell *cell = (MyDemandsCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"MyDemandsCell" owner:self options:nil] objectAtIndex:0];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.tag = indexPath.row;
+        }
         
-        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        indicator.frame = cell.imageView.frame;
-        [cell.imageView addSubview:indicator];
-        [indicator startAnimating];
+        DemandIP *demand = [myDemandsArray objectAtIndex:indexPath.row];
         
         if (![[objectsArray objectAtIndex:indexPath.row] isKindOfClass:[ObjectIP class]])
         {
             [ObjectIP getDBObjectWithObjectId:demand.iPrestaObjectId withBlock:^(NSError *error, ObjectIP *object)
             {
                 [objectsArray replaceObjectAtIndex:indexPath.row withObject:object];
-                cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", [demand.to getFullName], object.name];
+                [cell setDemand:demand withObjectName:object.name];
                 
-                NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-                [dateFormat setDateFormat:@"dd/MM/yy HH:mm"];
-                cell.detailTextLabel.text = [dateFormat stringFromDate:demand.date];
-                
-                UIImage* image = [UIImage imageWithData:object.image];
-                if (image)
+                if (object.image == nil) {
+                    [cell.imageIndicatorView removeFromSuperview];
+                    cell.objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[object.type integerValue]]];
+                }
+                else
                 {
-                    dispatch_async(dispatch_get_main_queue(),^
-                       {
-                           if (cell.tag == indexPath.row)
+                    [cell.imageIndicatorView startAnimating];
+                    UIImage* image = [UIImage imageWithData:object.image];
+                    if (image)
+                    {
+                        dispatch_async(dispatch_get_main_queue(),^
                            {
-                               [indicator removeFromSuperview];
-                               
-                               [objectsImageArray replaceObjectAtIndex:indexPath.row withObject:image];
-                               cell.imageView.image = image;
-                               [cell setNeedsLayout];
-                           }
-                       });
+                               if (cell.tag == indexPath.row)
+                               {
+                                   [cell.imageIndicatorView removeFromSuperview];
+                                   
+                                   [objectsImageArray replaceObjectAtIndex:indexPath.row withObject:image];
+                                   cell.objectImageView.image = image;
+                                   [cell setNeedsLayout];
+                               }
+                           });
+                    }
                 }
             }];
         }
         else
         {
-            cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", [demand.to getFullName], [[objectsArray objectAtIndex:indexPath.row] name]];
-            
-            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-            [dateFormat setDateFormat:@"dd/MM/yy HH:mm"];
-            cell.detailTextLabel.text = [dateFormat stringFromDate:demand.date];
-            
-            cell.imageView.image = [objectsImageArray objectAtIndex:indexPath.row];
-    
+            ObjectIP *object = [objectsArray objectAtIndex:indexPath.row];
+            [cell setDemand:demand withObjectName:object.name];
+            if (object.image == nil) cell.objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[object.type integerValue]]];
+            else
+            {
+                [cell.imageIndicatorView startAnimating];
+                UIImage* image = [UIImage imageWithData:object.image];
+                if (image)
+                {
+                    dispatch_async(dispatch_get_main_queue(),^
+                                   {
+                                       if (cell.tag == indexPath.row)
+                                       {
+                                           [cell.imageIndicatorView removeFromSuperview];
+                                           
+                                           [objectsImageArray replaceObjectAtIndex:indexPath.row withObject:image];
+                                           cell.objectImageView.image = image;
+                                           [cell setNeedsLayout];
+                                       }
+                                   });
+                }
+            }
         }
+        
+        return cell;
     }
     
-    return cell;
+    return nil;
 }
 
+- (void)acceptDemand:(DemandIP *)demand
+{
+    [ObjectIP setCurrentObject:demand.object];
+    GiveObjectViewController *viewController = [[GiveObjectViewController alloc] initWithNibName:@"GiveObjectViewController" bundle:nil];
+    viewController.demand = demand;
+    [self.navigationController pushViewController:viewController animated:YES];
+    
+    viewController = nil;
+}
+
+- (void)rejectDemand:(DemandIP *)demand
+{
+    demandToReject = demand;
+    NSString *message = [NSString stringWithFormat:@"Está seguro que desea rechazar el prestamo de \"%@\" a %@", demand.object.name, [demand.from getFullName]];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:[Language get:@"cancelar" alter:nil] otherButtonTitles:[Language get:@"rechazar" alter:nil], nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        [ProgressHUD showHUDAddedTo:self.view animated:YES];
+        
+        [demandToReject rejectWithBlock:^(NSError *error)
+        {
+            [ProgressHUD hideHUDForView:self.view animated:YES];
+            
+            if (!error) [friendsDemadsTable reloadData];
+            else [error manageErrorTo:self];
+        }];
+        
+        demandToReject = nil;
+    }
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

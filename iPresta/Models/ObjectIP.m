@@ -444,16 +444,15 @@ static ObjectIP *currentObject;
     }];
 }
 
-- (void)giveObjectTo:(NSString *)name from:(NSDate *)dateBegin to:(NSDate *)dateEnd
+- (void)giveObjectTo:(NSString *)name from:(NSDate *)dateBegin to:(NSDate *)dateEnd fromDemand:(DemandIP *)demand;
 {
     PFQuery *objectsUserQuery = [PFQuery queryWithClassName:@"iPrestaObject"];
     [objectsUserQuery whereKey:@"objectId" equalTo:self.objectId];
     
-    [objectsUserQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-     {
-         if (!error)
+    [objectsUserQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error)
+    {
+         if (!error && object)
          {
-             PFObject *object = [objects objectAtIndex:0];
              [object setObject:[NSNumber numberWithInteger:Given] forKey:@"state"];
              
              [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
@@ -474,7 +473,14 @@ static ObjectIP *currentObject;
                       {
                           if (!error)
                           {
-                              if ([delegate respondsToSelector:@selector(giveObjectSuccess:)]) [delegate giveObjectSuccess:newGive];
+                              [demand acceptWithBlock:^(NSError *error)
+                              {
+                                  if (!error)
+                                  {
+                                      if ([delegate respondsToSelector:@selector(giveObjectSuccess:)]) [delegate giveObjectSuccess:newGive];
+                                  }
+                                  else if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
+                              }];
                           }
                           else
                           {
@@ -567,7 +573,7 @@ static ObjectIP *currentObject;
                     
                     PFPush *push = [PFPush new];
                     [push setQuery:pushQuery];
-                    [push setData:[NSDictionary dictionaryWithObjectsAndKeys: @"Increment", @"badge", @"default", @"sound", [NSString stringWithFormat:@"%@ te ha pedido %@", [[UserIP loggedUser] username] ,self.name], @"alert", self.objectId, @"objectId", [[UserIP loggedUser] objectId], @"friendId", demandID, @"demandId", nil]];
+                    [push setData:[NSDictionary dictionaryWithObjectsAndKeys: @"Increment", @"badge", @"default", @"sound", [NSString stringWithFormat:@"%@ te ha pedido %@", [[UserIP loggedUser] username], self.name], @"alert", self.objectId, @"objectId", [[UserIP loggedUser] objectId], @"friendId", demandID, @"demandId", @"demand", @"pushID", nil]];
                     
                     [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
                     {
@@ -604,6 +610,7 @@ static ObjectIP *currentObject;
     
     [CoreDataManager save];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNewDemandsObserver" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFriendsDemandsTableObserver" object:nil];
 }
 

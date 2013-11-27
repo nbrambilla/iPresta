@@ -10,6 +10,9 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import "ObjectIP.h"
 
+@class FriendIP;
+@class DemandIP;
+
 @interface GiveObjectViewController : UIViewController <UITextFieldDelegate, ABPeoplePickerNavigationControllerDelegate, ObjectIPDelegate>
 {
     @private
@@ -19,5 +22,8 @@
     
     IBOutlet UIButton *facebookButton;
 }
+
+@property(nonatomic, retain) FriendIP *friend;
+@property(nonatomic, retain) DemandIP *demand;
 
 @end

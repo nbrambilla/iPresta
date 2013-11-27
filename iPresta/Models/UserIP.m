@@ -120,8 +120,19 @@ static PFUser *searchUser;
 + (void)loginWithFacebook
 {
     Facebook *facebook = [Facebook new];
+    
     [facebook login:^(NSError *error) {
-        if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
+        if (!error)
+        {
+            [[PFInstallation currentInstallation] setObject:[NSNumber numberWithBool:YES] forKey:@"isLogged"];
+            
+            [[PFInstallation currentInstallation] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+            {
+                if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
+            }];
+        }
+        
+        else  if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
     }];
 }
 

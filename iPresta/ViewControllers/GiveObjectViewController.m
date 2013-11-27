@@ -10,8 +10,10 @@
 #import <Social/Social.h>
 #import <Twitter/Twitter.h>
 #import "GiveObjectViewController.h"
+#import "FriendIP.h"
 #import "ObjectIP.h"
 #import "GiveIP.h"
+#import "DemandIP.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
 #import "iPrestaNSString.h"
@@ -25,6 +27,9 @@
 @end
 
 @implementation GiveObjectViewController
+
+@synthesize friend = _friend;
+@synthesize demand = _demand;
 
 #pragma mark - Lifecycle Methods
 
@@ -41,14 +46,20 @@
 {
     [super viewDidLoad];
 
-    UIBarButtonItem *contactsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(goToContacts)];
-    self.navigationItem.rightBarButtonItem = contactsButton;
-    
+    if (!_demand)
+    {
+        UIBarButtonItem *contactsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(goToContacts)];
+        self.navigationItem.rightBarButtonItem = contactsButton;
+        contactsButton = nil;
+    }
+    else
+    {
+        giveToTextField.text = [_demand.from getFullName];
+        giveToTextField.enabled = NO;
+    }
     timeTextField.text = [[GiveIP giveTimesArray] objectAtIndex:0];
     
     if (![UserIP isLinkedToFacebook]) facebookButton.hidden = YES;
-    
-    contactsButton = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,6 +73,7 @@
     giveToTextField = nil;
     timeTextField = nil;
     facebookButton = nil;
+    
     [super viewDidUnload];
 }
 
@@ -77,6 +89,11 @@
     [super viewWillDisappear:animated];
 
     [ObjectIP setDelegate:nil];
+}
+
+- (void)setFriendName:(NSString *)name
+{
+    giveToTextField.text = name;
 }
 
 #pragma mark - People Picker Methods
@@ -187,9 +204,9 @@
         NSDate *dateBegin = [NSDate date];
         
         NSInteger time = [timeTextField.text getIntegerTime];
-        NSDate *dateEnd = [dateBegin dateByAddingTimeInterval:time ];
+        NSDate *dateEnd = [dateBegin dateByAddingTimeInterval:time];
         
-        [[ObjectIP currentObject] giveObjectTo:name from:dateBegin to:dateEnd];
+        [[ObjectIP currentObject] giveObjectTo:name from:dateBegin to:dateEnd fromDemand:_demand];
         
         if (facebookButton.selected)
         {

@@ -88,12 +88,21 @@
 {
     // No entra si la app no esta activa o en background. Ver para resolver en estos casos
     [PFPush handlePush:userInfo];
-    
-    FriendIP *friend = [FriendIP getByObjectId:[userInfo objectForKey:@"friendId"]];
-    ObjectIP *object = [ObjectIP getByObjectId:[userInfo objectForKey:@"objectId"]];
-    NSString *demandId = [userInfo objectForKey:@"demandId"];
-    
-    [object demandFrom:friend withId:demandId];
+    if ([[userInfo objectForKey:@"pushID"] isEqual:@"demand"])
+    {
+        [DemandIP incrementNewDemands];
+        FriendIP *friend = [FriendIP getByObjectId:[userInfo objectForKey:@"friendId"]];
+        ObjectIP *object = [ObjectIP getByObjectId:[userInfo objectForKey:@"objectId"]];
+        NSString *demandId = [userInfo objectForKey:@"demandId"];
+        
+        [object demandFrom:friend withId:demandId];
+    }
+    else if ([[userInfo objectForKey:@"pushID"] isEqual:@"response"])
+    {
+        NSString *demandId = [userInfo objectForKey:@"demandId"];
+        NSNumber *accepted = [userInfo objectForKey:@"accepted"];
+        [DemandIP setState:accepted toDemandWithId:demandId];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -117,18 +126,22 @@
 {
     [FBSession.activeSession handleDidBecomeActive];
 
-    [DemandIP addDemandsFromDB];
-    [FriendIP addFriendsFromDB];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectViewObserver" object:nil];
-    
-    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    
-    if (currentInstallation && currentInstallation.badge != 0)
+    if ([UserIP loggedUser])
     {
-        currentInstallation.badge = 0;
-        [currentInstallation saveEventually];
+        [DemandIP refreshStates];
+        [DemandIP addDemandsFromDB];
+        [FriendIP addFriendsFromDB];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectViewObserver" object:nil];
+        
+        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+        
+        if (currentInstallation && currentInstallation.badge != 0)
+        {
+            currentInstallation.badge = 0;
+            [currentInstallation saveEventually];
+        }
     }
 
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.

@@ -70,3 +70,8 @@
 "Objeto existente" =                    "Este objeto ya ha sido registrado";
 "Email no autenticado" =                "Debe autenticar su email para poder acceder a la app";
 "Cuenta FB no existente" =              "No existe ninguna cuenta de Facebook asociada a este dispositivo.";
+
+/* Pedidos */
+
+"aceptar" =                 "Aceptar";
+"rechazar" =                "Rechazar";

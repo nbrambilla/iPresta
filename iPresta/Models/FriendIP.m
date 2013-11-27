@@ -15,12 +15,19 @@
 
 @implementation FriendIP
 
+static NSInteger newFriends;
+
 @dynamic objectId;
 @dynamic email;
 @dynamic firstName;
 @dynamic middleName;
 @dynamic lastName;
 @dynamic gives;
+
++ (NSInteger)newFriends
+{
+    return newFriends;
+}
 
 + (void)getPermissions:(void (^)(BOOL))block
 {
@@ -58,9 +65,12 @@
             
             [friendsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
             {
-                if (!error)
+                if (!error && objects.count > 0)
                 {
-                    for (PFUser *friend in objects) {
+                    newFriends += objects.count;
+                    
+                    for (PFUser *friend in objects)
+                    {
                         FriendIP *newFriend = [FriendIP new];
                         [newFriend setFriendFrom:friend];
                         [newFriend setDataFromAddressBook];
@@ -68,6 +78,8 @@
                     }
                      
                     [FriendIP save];
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNewFriendsObserver" object:nil];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"setFriendsObserver" object:nil];
                 }
             }];
