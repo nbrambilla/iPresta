@@ -20,7 +20,7 @@
 #import "MLTableAlert.h"
 #import "Facebook.h"
 #import "Twitter.h"
-#import "Language.h"
+
 
 @interface GiveObjectViewController ()
 
@@ -157,7 +157,7 @@
 {
     if (textField == timeTextField)
     {
-        MLTableAlert *extendGiveTableAlert = [MLTableAlert tableAlertWithTitle:[Language get:@"Prestar" alter:nil]                                                             cancelButtonTitle:[Language get:@"Cancelar" alter:nil] numberOfRows:^NSInteger (NSInteger section)
+        MLTableAlert *extendGiveTableAlert = [MLTableAlert tableAlertWithTitle:NSLocalizedString(@"Prestar", nil)                                                             cancelButtonTitle:NSLocalizedString(@"Cancelar", nil) numberOfRows:^NSInteger (NSInteger section)
             {
                 return [[GiveIP giveTimesArray] count];
             }
@@ -215,7 +215,7 @@
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"El prestamo debe realizarse a otra persona" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Prestamo otra persona", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         
         alert = nil;
@@ -252,8 +252,8 @@
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
     localNotification.fireDate = date;
     
-    localNotification.alertAction = @"Prestamo Vencido";
-    localNotification.alertBody = [NSString stringWithFormat:@"Ha vencido el prestamo de \"%@\" a %@", object, name];
+    localNotification.alertAction = NSLocalizedString(@"Prestamo vencido", nil);
+    localNotification.alertBody = [NSString stringWithFormat:NSLocalizedString(@"Prestamo vencido push", nil), object, name];
     localNotification.hasAction = YES;
 //    localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber];
     localNotification.soundName = UILocalNotificationDefaultSoundName;

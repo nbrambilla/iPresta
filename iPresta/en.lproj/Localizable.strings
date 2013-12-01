@@ -5,11 +5,23 @@
 
 /* Login */
 
-"Cambiar email" =       "Change email";
-"Email cambiado" =      "Email changed";
-"Email enviado" =       "Email sent";
-"Autenticar email" =    "Authenticate email";
-"Mensaje autenticar" =  "Now auntentique the new email and press Enter";
+"Email" =                       "Email";
+"Contraseña" =                  "Password";
+"Cambiar email" =               "Change email";
+"Email cambiado" =              "Email changed";
+"Email enviado" =               "Email sent";
+"Chequee mensaje" =             "Check your email and authenticate your account";
+"Autenticar email" =            "Authenticate email";
+"Mensaje autenticar" =          "Now auntentique the new email and press Enter";
+"Volver" =                      "Back";
+"Crear cuenta" =                "Create count";
+"¿Olvido su contraseña?" =      "Forgot your password?";
+"Entrar" =                      "Login";
+"Recuperar contraseña" =        "Recover password";
+"Repetir contraseña" =          "Repeat password";
+"Petición Realizada" =          "Request made";
+"Reenviar email" =               "Resend email";
+"Ir" =                          "Go";
 
 /* Menu */
 
@@ -50,6 +62,12 @@
 "Detectar" =            "Detect";
 "Anadir" =              "Add";
 "Cancelar" =            "Cancel";
+"Exteder prestamo" =    "Extend loan";
+"Prestamo vencido" =    "Loan expired";
+"Desconocido" =         "Unknown";
+"Vinculado" =           "linked";
+"Desvinculado" =        "unlinked";
+"Vinilo" =              "Vinyl";
 
 /* Configuración */
 
@@ -69,8 +87,30 @@
 "Objeto no encontrado"=             "Not found this object. Enter data manually";
 "Objeto existente" =                "This object has already been registered";
 "Email no autenticado" =            "You must authenticate your email in order to access the app";
+"Cuenta asociada facebook" =        "There is already associated %@ email account. Log in with your email and password and link your account with Facebook Settings";
+"Campos vacios" =                   "Must complete the email and password";
+"Contraseñas diferentes" =          "Passwords are differents";
+"Formato email" =                   "The email has an invalid format";
+"Formato codigo de barras" =        "Not a barcode";
+"Cambiar email texto" =             "His current email is %@. If you want to change, enter the new and press \"Change email \"";
+"Nueva contraseña mensaje" =        "Check your email account and enter the new password";
+"Vinculo facebook" =                "Has been %@ to your Facebook account correctly";
+"Push pedido" =                     "%@ has asked you \"%@\"";
+"Respuesta pedido push" =           "The order of \"%@\" made ​​to %@ has been %@";
+"Respuesta pedido facebook" =       "Just lend \"%@\" to %@ for iPresta app";
+"Autenticar email" =                "You will receive an email authentication. Authenticate your account and click \"Go\". If you do not receive the mail, you can resend it.";
+"Prestamo vencido push" =           "It expired the loan of \"%@\" to %@";
+"Prestamo otra persona" =           "The loan must be made to another person"
 
 /* Pedidos */
 
 "aceptar" =                 "Accept";
 "rechazar" =                "Reject";
+"aceptado" =                "Accepted";
+"rechazado" =               "Rejected";
+"1 semana" =                "1 week";
+"2 semanas" =               "2 weeks";
+"3 semanas" =               "3 weeks";
+"1 mes" =                   "1 month";
+"2 meses" =                 "2 months";
+"3 meses" =                 "3 months";

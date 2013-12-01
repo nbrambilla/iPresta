@@ -15,12 +15,10 @@
     @private
     
     IBOutlet UILabel *visibleLabel;
-    IBOutlet UILabel *languageLabel;
     IBOutlet UILabel *facebookLabel;
     
     IBOutlet UISwitch *visibleSwitch;
     IBOutlet UISwitch *facebookSwitch;
-    IBOutlet UIButton *languageButton;
     
     IBOutlet UIView *facebookView;
     IBOutlet UIImageView *profileImage;

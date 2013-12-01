@@ -15,7 +15,7 @@
 #import "iPrestaNSString.h"
 #import "iPrestaNSError.h"
 #import "ConnectionData.h"
-#import "Language.h"
+
 
 @implementation ObjectIP
 
@@ -370,7 +370,7 @@ static ObjectIP *currentObject;
                 
                 for (id object in objects)
                 {
-                    ObjectIP *newObject = [ObjectIP new];
+                    ObjectIP *newObject = [[ObjectIP alloc] initListObject];
                     if ([object objectForKey:@"image"])
                     {
                         [[object objectForKey:@"image"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
@@ -473,14 +473,18 @@ static ObjectIP *currentObject;
                       {
                           if (!error)
                           {
-                              [demand acceptWithBlock:^(NSError *error)
+                              if (demand)
                               {
-                                  if (!error)
+                                  [demand acceptWithBlock:^(NSError *error)
                                   {
-                                      if ([delegate respondsToSelector:@selector(giveObjectSuccess:)]) [delegate giveObjectSuccess:newGive];
-                                  }
-                                  else if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
-                              }];
+                                      if (!error)
+                                      {
+                                          if ([delegate respondsToSelector:@selector(giveObjectSuccess:)]) [delegate giveObjectSuccess:newGive];
+                                      }
+                                      else if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
+                                  }];
+                              }
+                              else if ([delegate respondsToSelector:@selector(giveObjectSuccess:)]) [delegate giveObjectSuccess:newGive];
                           }
                           else
                           {
@@ -573,7 +577,7 @@ static ObjectIP *currentObject;
                     
                     PFPush *push = [PFPush new];
                     [push setQuery:pushQuery];
-                    [push setData:[NSDictionary dictionaryWithObjectsAndKeys: @"Increment", @"badge", @"default", @"sound", [NSString stringWithFormat:@"%@ te ha pedido %@", [[UserIP loggedUser] username], self.name], @"alert", self.objectId, @"objectId", [[UserIP loggedUser] objectId], @"friendId", demandID, @"demandId", @"demand", @"pushID", nil]];
+                    [push setData:[NSDictionary dictionaryWithObjectsAndKeys: @"Increment", @"badge", @"default", @"sound", [NSString stringWithFormat:NSLocalizedString(@"Push pedido", nil), [[UserIP loggedUser] username], self.name], @"alert", self.objectId, @"objectId", [[UserIP loggedUser] objectId], @"friendId", demandID, @"demandId", @"demand", @"pushID", nil]];
                     
                     [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
                     {
@@ -1237,17 +1241,17 @@ static ObjectIP *currentObject;
 
 + (NSArray *)stateTypes
 {
-    return [NSArray arrayWithObjects:[Language get:@"No prestado" alter:nil], [Language get:@"Prestado" alter:nil], [Language get:@"A devolver" alter:nil], nil];
+    return [NSArray arrayWithObjects:NSLocalizedString(@"No prestado", nil), NSLocalizedString(@"Prestado", nil), NSLocalizedString(@"A devolver", nil), nil];
 }
 
 + (NSArray *)objectTypes
 {
-    return [NSArray arrayWithObjects:[Language get:@"Libro" alter:nil], [Language get:@"Audio" alter:nil], [Language get:@"Video" alter:nil], [Language get:@"Otro" alter:nil], nil];
+    return [NSArray arrayWithObjects:NSLocalizedString(@"Libro", nil), NSLocalizedString(@"Audio", nil), NSLocalizedString(@"Video", nil), NSLocalizedString(@"Otro", nil), nil];
 }
 
 + (NSArray *)audioObjectTypes
 {
-    return [NSArray arrayWithObjects:@"CD", @"SACD", @"Vinilo", nil];
+    return [NSArray arrayWithObjects:@"CD", @"SACD", NSLocalizedString(@"Vinilo", nil), nil];
 }
 
 + (NSArray *)videoObjectTypes

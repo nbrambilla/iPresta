@@ -27,7 +27,6 @@
     IBOutlet UIButton *acceptButton;
     IBOutlet UIButton *rejectButton;
     IBOutlet UILabel *stateLabel;
-    
 }
 
 @property(nonatomic, retain) id <FriendsDemandsCellDelegate> delegate;

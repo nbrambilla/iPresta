@@ -16,6 +16,7 @@
     IBOutlet UITextField *emailTextField;
     IBOutlet UITextField *passwordTextField;
     IBOutlet UIButton *entrarButton;
+    IBOutlet UIButton *fortgotPasswordButton;
 }
 
 @end

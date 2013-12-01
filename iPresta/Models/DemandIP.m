@@ -259,7 +259,7 @@ static NSInteger newDemands;
         
         PFPush *push = [PFPush new];
         [push setQuery:pushQuery];
-        NSString *alert = [NSString stringWithFormat:@"El pedido de \"%@\" realizado a %@ ha sido %@", self.object.name, [[UserIP loggedUser] email], ([accepted boolValue]) ? @"ACEPTADO": @"RECHAZADO" ];
+        NSString *alert = [NSString stringWithFormat:NSLocalizedString(@"Respuesta pedido push", nil), self.object.name, [[UserIP loggedUser] email], ([accepted boolValue]) ? [NSLocalizedString(@"aceptado", nil) uppercaseString]: [NSLocalizedString(@"aceptado", nil) uppercaseString]];
         
         [push setData:[NSDictionary dictionaryWithObjectsAndKeys: @"Increment", @"badge", @"default", @"sound", alert, @"alert", self.objectId, @"demandId", @"response", @"pushID", accepted, @"accepted", nil]];
         

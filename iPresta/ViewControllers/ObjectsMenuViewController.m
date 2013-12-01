@@ -12,7 +12,7 @@
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
 #import "ObjectsListViewController.h"
-#import "Language.h"
+
 
 @interface ObjectsMenuViewController ()
 
@@ -95,12 +95,12 @@
 
 - (void)setView
 {
-    self.title = [Language get:@"Objetos" alter:nil];
+    self.title = NSLocalizedString(@"Objetos", nil);
     
-    booksTitle.text = [Language get:@"Libros" alter:nil];
-    audioTitle.text = [Language get:@"Audio" alter:nil];
-    videoTitle.text = [Language get:@"Video" alter:nil];
-    othersTitle.text = [Language get:@"Otros" alter:nil];
+    booksTitle.text = NSLocalizedString(@"Libros", nil);
+    audioTitle.text = NSLocalizedString(@"Audio", nil);
+    videoTitle.text = NSLocalizedString(@"Video", nil);
+    othersTitle.text = NSLocalizedString(@"Otros", nil);
     
     booksListButton.tag = BookType;
     audioListButton.tag = AudioType;

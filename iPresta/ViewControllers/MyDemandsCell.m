@@ -10,7 +10,7 @@
 #import "DemandIP.h"
 #import "FriendIP.h"
 #import "ObjectIP.h"
-#import "Language.h"
+
 
 @implementation MyDemandsCell
 
@@ -42,10 +42,10 @@
     [dateFormat setDateFormat:@"dd/MM/yy HH:mm"];
     date.text = [dateFormat stringFromDate:demand.date];
     
-    if (demand.accepted == nil) stateLabel.text = [Language get:@"esperando" alter:nil];
+    if (demand.accepted == nil) stateLabel.text = NSLocalizedString(@"esperando", nil);
     else
     {
-        stateLabel.text = ([demand.accepted boolValue]) ? [Language get:@"aceptado" alter:nil] : [Language get:@"rechazado" alter:nil];
+        stateLabel.text = ([demand.accepted boolValue]) ? NSLocalizedString(@"aceptado", nil) : NSLocalizedString(@"rechazado", nil);
     }
 }
 

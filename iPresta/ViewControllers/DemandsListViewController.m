@@ -10,7 +10,7 @@
 #import "DemandIP.h"
 #import "FriendIP.h"
 #import "ObjectIP.h"
-#import "Language.h"
+
 #import "GiveObjectViewController.h"
 #import "MyDemandsCell.h"
 #import "iPrestaNSError.h"
@@ -77,8 +77,8 @@
 
 - (void)setTableViewHeader
 {
-    [segmentedControl setTitle:[Language get:@"Mis pedidos" alter:nil] forSegmentAtIndex:0];
-    [segmentedControl setTitle:[Language get:@"Pedidos de amigos" alter:nil] forSegmentAtIndex:1];
+    [segmentedControl setTitle:NSLocalizedString(@"Mis pedidos", nil) forSegmentAtIndex:0];
+    [segmentedControl setTitle:NSLocalizedString(@"Pedidos de amigos", nil) forSegmentAtIndex:1];
     segmentedControl.selectedSegmentIndex = 0;
     [segmentedControl addTarget:self action:@selector(setDemandsType:) forControlEvents:UIControlEventValueChanged];
 }
@@ -223,7 +223,7 @@
 {
     demandToReject = demand;
     NSString *message = [NSString stringWithFormat:@"Está seguro que desea rechazar el prestamo de \"%@\" a %@", demand.object.name, [demand.from getFullName]];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:[Language get:@"cancelar" alter:nil] otherButtonTitles:[Language get:@"rechazar" alter:nil], nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"cancelar", nil) otherButtonTitles:NSLocalizedString(@"rechazar", nil), nil];
     [alert show];
 }
 

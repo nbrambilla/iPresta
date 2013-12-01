@@ -100,7 +100,7 @@
     
     controller.completionHandler = myBlock;
     
-    NSString *message = [NSString stringWithFormat:@"Acaba de prestar \"%@\" a %@", [[ObjectIP currentObject] name], text];
+    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Respuesta pedido facebook", nil), [[ObjectIP currentObject] name], text];
     
     if ([[ObjectIP currentObject] image])
     {

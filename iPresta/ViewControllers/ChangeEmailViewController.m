@@ -10,7 +10,7 @@
 #import "iPrestaNSString.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
-#import "Language.h"
+
 
 @interface ChangeEmailViewController ()
 
@@ -22,7 +22,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = [Language get:@"Cambiar email" alter:nil];
+        self.title = NSLocalizedString(@"Cambiar email", nil);
     }
     return self;
 }
@@ -31,8 +31,8 @@
 {
     [super viewDidLoad];
     
-    changeMailTextLabel.text = [NSString stringWithFormat:@"Su email actual es %@. Si desea cambiarlo, ingrese el nuevo y presione \"Cambiar email\"", [UserIP email]];
-    
+    changeMailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Cambiar email texto", nil), [UserIP email]];
+    [changeEmailButton setTitle:NSLocalizedString(@"Cambiar email", nil) forState:UIControlStateNormal];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -69,7 +69,7 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[Language get:@"Email cambiado" alter:nil] message:[Language get:@"Mensaje autenticar" alter:nil] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Email cambiado", nil) message:NSLocalizedString(@"Mensaje autenticar", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     
     alert = nil;

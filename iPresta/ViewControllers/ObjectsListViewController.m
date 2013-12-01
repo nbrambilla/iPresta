@@ -15,7 +15,8 @@
 #import "FormOtherViewController.h"
 #import "ObjectDetailViewController.h"
 #import "UserIP.h"
-#import "Language.h"
+#import "ObjectCell.h"
+
 
 #define HEADER_HEIGHT 44
 
@@ -69,7 +70,10 @@
     [super viewWillDisappear:animated];
     
     [ObjectIP setDelegate:nil];
-    if (self.isMovingFromParentViewController) [ObjectIP setSelectedType:NoneType];
+    if (self.isMovingFromParentViewController) {
+        objectsArray = nil;
+        [ObjectIP setSelectedType:NoneType];
+    }
 }
 
 - (void)addObservers
@@ -116,7 +120,7 @@
 {
     UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, HEADER_HEIGHT, 320, HEADER_HEIGHT)];
     
-    segmentedControl = [[UISegmentedControl alloc] initWithItems:@[[Language get:@"Todos" alter:nil] , [Language get:@"En casa" alter:nil], [Language get:@"Prestados" alter:nil]]];
+    segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Todos", nil) , NSLocalizedString(@"En casa", nil), NSLocalizedString(@"Prestados", nil)]];
     segmentedControl.frame = CGRectMake(35, 200, 230, 30);
     segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     segmentedControl.selectedSegmentIndex = 0;
@@ -301,6 +305,21 @@
 
 #pragma mark - Table view data source
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 1.0f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return [UIView new];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80.0f;
+}
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 
 {
@@ -367,10 +386,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Object";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    ObjectCell *cell = (ObjectCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"ObjectCell" owner:self options:nil] objectAtIndex:0];
     }
     
     cell.tag = indexPath.row;
@@ -385,9 +405,7 @@
         object = [[self getObjectsArrayInSection:indexPath.section] objectAtIndex:indexPath.row];
     }
     
-    cell.textLabel.text = object.name;
-    cell.detailTextLabel.text = (![object.author isEqual:@""]) ? object.author : @"Desconocido";
-    cell.imageView.image = (object.image) ? [UIImage imageWithData:object.image] : [UIImage imageNamed:[ObjectIP imageType]];
+    [cell setObject:object];
     
     return cell;
 }

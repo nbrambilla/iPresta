@@ -177,7 +177,7 @@ static id<GiveIPDelegate> delegate;
 
 + (NSArray *)giveTimesArray
 {
-    return [NSArray arrayWithObjects:@"1 Semana", @"2 Semanas", @"3 Semanas", @"1 Mes", @"2 Meses", @"3 Meses", nil];
+    return [NSArray arrayWithObjects:NSLocalizedString(@"1 Semana", nil), NSLocalizedString(@"2 Semanas", nil), NSLocalizedString(@"3 Semanas", nil), NSLocalizedString(@"1 Mes", nil), NSLocalizedString(@"2 Meses", nil), NSLocalizedString(@"3 Meses", nil), nil];
 }
 
 - (void)setGiveFrom:(PFObject *)give

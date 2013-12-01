@@ -18,7 +18,7 @@
     
     if (!bReturn)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Deben completarse el email y la contraseña" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Campos vacios", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         
         alert = nil;
@@ -33,7 +33,7 @@
     
     if (!bReturn)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Las contraseñas son diferentes" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Contraseñas diferentes", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         
         alert = nil;
@@ -56,7 +56,7 @@
     
     if (!bReturn)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"El email no tiene un formato válido" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Formato email", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         
         alert = nil;

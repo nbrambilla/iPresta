@@ -10,7 +10,7 @@
 #import "DemandIP.h"
 #import "FriendIP.h"
 #import "ObjectIP.h"
-#import "Language.h"
+
 
 @implementation FriendsDemandsCell
 
@@ -41,7 +41,7 @@
     if (demand.accepted == nil) stateLabel.hidden = YES;
     else
     {
-        stateLabel.text = ([demand.accepted boolValue]) ? [Language get:@"aceptado" alter:nil] : [Language get:@"rechazado" alter:nil];
+        stateLabel.text = ([demand.accepted boolValue]) ? NSLocalizedString(@"aceptado", nil) : NSLocalizedString(@"rechazado", nil);
     }
 }
 
@@ -51,8 +51,8 @@
 
     if (demand.accepted == nil)
     {
-        [acceptButton setTitle:[[Language get:@"aceptar" alter:nil] uppercaseString] forState:UIControlStateNormal];
-        [rejectButton setTitle:[[Language get:@"rechazar" alter:nil] uppercaseString] forState:UIControlStateNormal];
+        [acceptButton setTitle:[NSLocalizedString(@"aceptar", nil) uppercaseString] forState:UIControlStateNormal];
+        [rejectButton setTitle:[NSLocalizedString(@"rechazar", nil) uppercaseString] forState:UIControlStateNormal];
     }
     else
     {

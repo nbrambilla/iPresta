@@ -15,6 +15,7 @@
     IBOutlet UITextField *emailTextField;
     IBOutlet UITextField *passwordTextField;
     IBOutlet UITextField *repeatPasswordTextField;
+    IBOutlet UIButton *createCountButton;
 }
 
 @end

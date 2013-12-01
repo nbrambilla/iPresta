@@ -11,7 +11,7 @@
 #import "iPrestaNSString.h"
 #import "ProgressHUD.h"
 #import "PHTextView.h"
-#import "Language.h"
+
 
 @interface FormOtherViewController ()
 
@@ -39,11 +39,11 @@
 {
     nameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     
-    nameTextField.placeholder = [Language get:@"Nombre" alter:nil];
+    nameTextField.placeholder = NSLocalizedString(@"Nombre", nil);
     
-    [addButton setTitle:[Language get:@"Anadir" alter:nil] forState:UIControlStateNormal];
+    [addButton setTitle:NSLocalizedString(@"Anadir", nil) forState:UIControlStateNormal];
     
-    descriptionTextView.placeholder = [Language get:@"Descripcion" alter:nil];
+    descriptionTextView.placeholder = NSLocalizedString(@"Descripcion", nil);
 }
 
 - (void)viewDidAppear:(BOOL)animated

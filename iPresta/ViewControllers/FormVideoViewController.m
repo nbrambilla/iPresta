@@ -11,7 +11,7 @@
 #import "iPrestaNSString.h"
 #import "ProgressHUD.h"
 #import "PHTextView.h"
-#import "Language.h"
+
 
 @interface FormVideoViewController ()
 
@@ -40,15 +40,15 @@
     nameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     authorTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     
-    nameTextField.placeholder = [Language get:@"Nombre" alter:nil];
-    authorTextField.placeholder = [Language get:@"Autor" alter:nil];
-    nameTextField.placeholder = [Language get:@"Nombre" alter:nil];
+    nameTextField.placeholder = NSLocalizedString(@"Nombre", nil);
+    authorTextField.placeholder = NSLocalizedString(@"Autor", nil);
+    nameTextField.placeholder = NSLocalizedString(@"Nombre", nil);
     
-    [searchButton setTitle:[Language get:@"Buscar" alter:nil] forState:UIControlStateNormal];
-    [detectButton setTitle:[Language get:@"Detectar" alter:nil] forState:UIControlStateNormal];
-    [addButton setTitle:[Language get:@"Anadir" alter:nil] forState:UIControlStateNormal];
+    [searchButton setTitle:NSLocalizedString(@"Buscar", nil) forState:UIControlStateNormal];
+    [detectButton setTitle:NSLocalizedString(@"Detectar", nil) forState:UIControlStateNormal];
+    [addButton setTitle:NSLocalizedString(@"Anadir", nil) forState:UIControlStateNormal];
     
-    descriptionTextView.placeholder = [Language get:@"Descripcion" alter:nil];
+    descriptionTextView.placeholder = NSLocalizedString(@"Descripcion", nil);
         
     videoTypesArray = [ObjectIP videoObjectTypes];
     [self stComboText:videoTypeComboText didSelectRow:CDAudioObjectType];

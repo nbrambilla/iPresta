@@ -14,6 +14,7 @@
     @private
     IBOutlet UILabel *changeMailTextLabel;
     IBOutlet UITextField *emailTextField;
+    IBOutlet UIButton *changeEmailButton;
 }
 
 @end

@@ -30,6 +30,7 @@
 {
     [super viewDidLoad];
     
+    [recoverPasswordButton setTitle:NSLocalizedString(@"Recuperar contraseña", nil) forState:UIControlStateNormal];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -80,7 +81,7 @@
 
 - (void)requestPasswordResetSuccess
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Petición Realizada" message:@"Verifique su cuenta de email e ingrese la nueva contraseña" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Petición Realizada", nil) message:NSLocalizedString(@"Nueva contraseña mensaje", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     
     alert = nil;

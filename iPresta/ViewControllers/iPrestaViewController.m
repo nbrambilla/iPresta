@@ -9,7 +9,7 @@
 #import "iPrestaViewController.h"
 #import "LoginViewController.h"
 #import "CreateCountViewController.h"
-#import "Language.h"
+
 
 @interface iPrestaViewController ()
 
@@ -29,18 +29,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    if (![Language isSet]) {
-        languageView.frame = self.view.frame;
-        [self.view addSubview:languageView];
-    }
-    else [self setTexts];
+
+    [self setTexts];
 }
 
 - (void)setTexts
 {
-    [haveCountButton setTitle:[Language get:@"Tengo una cuenta" alter:nil] forState:UIControlStateNormal];
-    [createCountButton setTitle:[Language get:@"Crear una cuenta" alter:nil] forState:UIControlStateNormal];
+    [haveCountButton setTitle:NSLocalizedString(@"Tengo una cuenta", nil) forState:UIControlStateNormal];
+    [createCountButton setTitle:NSLocalizedString(@"Crear una cuenta", nil) forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning
@@ -67,15 +63,7 @@
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
-- (IBAction)setLanguage:(UIButton *)sender
-{
-    [Language setLanguage:sender.tag];
-    [languageView removeFromSuperview];
-    [self setTexts];
-}
-
 - (void)viewDidUnload {
-    languageView = nil;
     [super viewDidUnload];
 }
 @end

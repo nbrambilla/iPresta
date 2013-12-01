@@ -7,14 +7,13 @@
 //
 
 #import "ConfigurationViewController.h"
-#import "LanguageViewController.h"
 #import "iPrestaViewController.h"
 #import "iPrestaNSError.h"
 #import "ProgressHUD.h"
 #import "ObjectIP.h"
 #import "GiveIP.h"
 #import "CoreDataManager.h"
-#import "Language.h"
+
 
 @interface ConfigurationViewController ()
 
@@ -59,12 +58,6 @@
     }
 }
 
-- (IBAction)goToLanguageView
-{
-    LanguageViewController *viewController = [[LanguageViewController alloc] initWithNibName:@"LanguageViewController" bundle:nil];
-    [self.navigationController pushViewController:viewController animated:YES];
-}
-
 - (IBAction)changeVisibility:(UISwitch *)sender
 {
     [ProgressHUD  showHUDAddedTo:self.view animated:YES];
@@ -98,15 +91,15 @@
         
         if ([UserIP isLinkedToFacebook])
         {
-            message = @"vinculado";
+            message = NSLocalizedString(@"Vinculado", nil);
             [self getFacebookInfo];
         }
         else
         {
-            message = @"desvinculado";
+            message = NSLocalizedString(@"Desvinculado", nil);
             [self removeFacebookInfo];
         }
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"Se ha %@ su cuenta de Facebook de forma correcta", message] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:NSLocalizedString(@"Vinculo facebook", nil), message] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
 }
@@ -149,13 +142,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [UserIP setDelegate:self];
-    self.title = [Language get:@"Configuracion" alter:nil];
-    visibleLabel.text = [Language get:@"Visible para tus amigos" alter:nil];
-    facebookLabel.text = [Language get:@"Vincular con Facebook" alter:nil];
-    languageLabel.text = [Language get:@"Idioma" alter:nil];
-    [logoutButton setTitle:[Language get:@"Salir" alter:nil] forState:UIControlStateNormal];
-    
-    [languageButton setTitle:[Language getLanguageName] forState:UIControlStateNormal];
+    self.title = NSLocalizedString(@"Configuracion", nil);
+    visibleLabel.text = NSLocalizedString(@"Visible para tus amigos", nil);
+    facebookLabel.text = NSLocalizedString(@"Vincular con Facebook", nil);
+    [logoutButton setTitle:NSLocalizedString(@"Salir", nil) forState:UIControlStateNormal];    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -183,7 +173,6 @@
 }
 
 - (void)viewDidUnload {
-    languageButton = nil;
     visibleLabel = nil;
     logoutButton = nil;
     nameLabel = nil;

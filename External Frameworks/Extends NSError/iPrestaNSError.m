@@ -7,7 +7,7 @@
 //
 
 #import "iPrestaNSError.h"
-#import "Language.h"
+
 
 @implementation NSError (iPrestaNSError)
 
@@ -23,40 +23,40 @@
     
     switch ([self code]) {
         case CONNECTION_ERROR: // Error de conexión
-            message = [Language get:@"Problemas conexion" alter:nil];
+            message = NSLocalizedString(@"Problemas conexion", nil);
             break;
         case URLCONNECTION_ERROR: // Error de conexión
-            message = [Language get:@"Problemas conexion" alter:nil];
+            message = NSLocalizedString(@"Problemas conexion", nil);
             break;
         case REQUESTTIMEOUT_ERROR: // Error de tiempo de conexion
-            message = [Language get:@"Problemas conexion" alter:nil];
+            message = NSLocalizedString(@"Problemas conexion", nil);
             break;
         case LOGIN_ERROR: // Error de Login
-            message = [Language get:@"Email password error" alter:nil];
+            message = NSLocalizedString(@"Email password error", nil);
             break;
         case SIGNIN_ERROR: // Error de registro
-            message = [Language get:@"Usuario existente" alter:nil];
+            message = NSLocalizedString(@"Usuario existente", nil);
             break;
         case REQUESTPASSWORDRESET_ERROR: // Error de recuperación de email
-            message = [Language get:@"Usuario no existente" alter:nil];
+            message = NSLocalizedString(@"Usuario no existente", nil);
             break;
         case NOTCURRENTUSER_ERROR: // Error al modificar un usuario que no es el logueado
-            message = [Language get:@"Usuario no logueado" alter:nil];
+            message = NSLocalizedString(@"Usuario no logueado", nil);
             break;
         case EMPTYOBJECTDATA_ERROR: // Error al no encontrar ningun objeto
-            message = [Language get:@"Objeto no encontrado" alter:nil];
+            message = NSLocalizedString(@"Objeto no encontrado", nil);
             break;
         case REPEATOBJECT_ERROR: // no se ha devuelto ningun objeto de la busqueda
-            message = [Language get:@"Objecto existente" alter:nil];
+            message = NSLocalizedString(@"Objecto existente", nil);
             break;
         case NOTAUTHENTICATEDUSER_ERROR:
-            message = [Language get:@"Email no autenticado" alter:nil];
+            message = NSLocalizedString(@"Email no autenticado", nil);
             break;
         case FBLOGINUSEREXISTS_ERROR:
-            message = [NSString stringWithFormat:@"Ya existe una cuenta asociada al email %@. Loguese con su email y su password y vincule su cuenta con Facebook en configuración", [self.userInfo objectForKey:@"email"]];
+            message = [NSString stringWithFormat:NSLocalizedString(@"Cuenta asociada facebook", nil), [self.userInfo objectForKey:@"email"]];
             break;
         case FBLOGIN_ERROR:
-            message = [Language get:@"Cuenta FB no existente" alter:nil];
+            message = NSLocalizedString(@"Cuenta FB no existente", nil);
             break;
         default:
             break;

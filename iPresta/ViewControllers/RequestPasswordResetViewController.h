@@ -13,6 +13,7 @@
 {
     @private
     IBOutlet UITextField *emailTextField;
+    IBOutlet UIButton *recoverPasswordButton;
 }
 
 @end

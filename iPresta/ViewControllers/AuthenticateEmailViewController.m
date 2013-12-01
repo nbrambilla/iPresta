@@ -14,7 +14,7 @@
 #import "SideMenuViewController.h"
 #import "iPrestaNSError.h"
 #import "FriendIP.h"
-#import "Language.h"
+
 
 @interface AuthenticateEmailViewController ()
 
@@ -26,7 +26,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = [Language get:@"Autenticar email" alter:nil];
+        self.title = NSLocalizedString(@"Autenticar email", nil);
     }
     return self;
 }
@@ -38,8 +38,12 @@
     
     [self.navigationItem setHidesBackButton:YES animated:NO];
     
-    UIBarButtonItem *changeEmailButton = [[UIBarButtonItem alloc] initWithTitle:[Language get:@"Cambiar email" alter:nil] style:UIBarButtonItemStylePlain target:self action:@selector(goToChangeEmail)];
+    UIBarButtonItem *changeEmailButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cambiar email", nil) style:UIBarButtonItemStylePlain target:self action:@selector(goToChangeEmail)];
     self.navigationItem.rightBarButtonItem = changeEmailButton;
+    
+    authenticateMessage.text = NSLocalizedString(@"Autenticar email", nil);
+    [resendEmailButton setTitle:NSLocalizedString(@"Reenviar email", nil) forState:UIControlStateNormal];
+    [goToAppButton setTitle:NSLocalizedString(@"Ir", nil) forState:UIControlStateNormal];
     
     changeEmailButton = nil;
 }
@@ -69,7 +73,7 @@
 
 - (void)resendAuthenticateMessageSuccess
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[Language get:@"Email enviado" alter:nil] message:@"Chequee se email y auentique su cuenta" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Email enviado", nil) message:NSLocalizedString(@"Chequee mensaje", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     
     alert = nil;
@@ -95,7 +99,7 @@
 
 - (void)checkEmailAuthenticationSuccess
 {
-    if (![UserIP hasEmailVerified])
+    if ([UserIP hasEmailVerified])
     {
         [FriendIP saveAllFriendsFromDBwithBlock:^(NSError *error)
         {

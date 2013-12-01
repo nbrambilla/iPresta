@@ -16,7 +16,7 @@
 #import "ObjectsMenuViewController.h"
 #import "iPrestaViewController.h"
 #import "SideMenuViewController.h"
-#import "Language.h"
+
 
 @implementation iPrestaAppDelegate
 
@@ -28,7 +28,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    if ([Language isSet]) [Language setLanguage:[Language getLanguage]];
     
     [FBSession setDefaultAppID:@"436412689778314"];
     [Parse setApplicationId:@"ke5qAMdl1hxNkKPbmJyiOkCqfDkUtvwnRX6PKlXA" clientKey:@"xceoaXQrBv8vRium67iyjZrQfFI8lI0AROGhXsfR"];

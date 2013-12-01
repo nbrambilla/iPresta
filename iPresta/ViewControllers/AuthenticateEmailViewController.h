@@ -10,5 +10,10 @@
 #import "UserIP.h"
 
 @interface AuthenticateEmailViewController : UIViewController <UserIPDelegate>
+{
+    IBOutlet UILabel *authenticateMessage;
+    IBOutlet UIButton *resendEmailButton;
+    IBOutlet UIButton *goToAppButton;
+}
 
 @end

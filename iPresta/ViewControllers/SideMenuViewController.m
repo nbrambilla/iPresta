@@ -16,7 +16,7 @@
 #import "DemandsListViewController.h"
 #import "IMOAutocompletionViewController.h"
 #import "MenuCell.h"
-#import "Language.h"
+
 
 @interface SideMenuViewController ()
 
@@ -96,25 +96,25 @@
     switch (indexPath.row)
     {
         case 0:
-            cell.textLabel.text = [Language get:@"Objetos" alter:nil];;
+            cell.textLabel.text = NSLocalizedString(@"Objetos", nil);
             cell.imageView.image = [UIImage imageNamed:@"objects_icon.png"];
             break;
         case 1:
-            cell.textLabel.text = [Language get:@"Buscar" alter:nil];
+            cell.textLabel.text = NSLocalizedString(@"Buscar", nil);
             cell.imageView.image = [UIImage imageNamed:@"search_icon.png"];
             break;
         case 2:
-            cell.textLabel.text = [Language get:@"Contactos" alter:nil];
+            cell.textLabel.text = NSLocalizedString(@"Contactos", nil);
             cell.imageView.image = [UIImage imageNamed:@"contacts_icon.png"];
             if ([FriendIP newFriends] > 0) cell.badgeCell.text = [NSString stringWithFormat:@"%d", [FriendIP newFriends]];
             break;
         case 3:
-            cell.textLabel.text = [Language get:@"Pedidos" alter:nil];
+            cell.textLabel.text = NSLocalizedString(@"Pedidos", nil);
             cell.imageView.image = [UIImage imageNamed:@"orders_icon.png"];
             if ([[DemandIP getWithoutState] count] > 0) cell.badgeCell.text = [NSString stringWithFormat:@"%d", [[DemandIP getWithoutState] count]];
             break;
         case 4:
-            cell.textLabel.text = [Language get:@"Configuracion" alter:nil];
+            cell.textLabel.text = NSLocalizedString(@"Configuracion", nil);
             cell.imageView.image = [UIImage imageNamed:@"config_icon.png"];
             break;
     }

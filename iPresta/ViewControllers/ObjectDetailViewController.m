@@ -13,7 +13,7 @@
 #import "MLTableAlert.h"
 #import "ObjectHistoricGiveViewController.h"
 #import "iPrestaNSString.h"
-#import "Language.h"
+
 
 @interface ObjectDetailViewController ()
 
@@ -97,11 +97,11 @@
     imageView.image = [UIImage imageWithData:currentObject.image];
     loanUpLabel.hidden = YES;
     
-    [loanUpButton setTitle:[Language get:@"Extender" alter:nil] forState:UIControlStateNormal];
-    [giveBackButton setTitle:[Language get:@"Devolver" alter:nil] forState:UIControlStateNormal];
-    [giveButton setTitle:[Language get:@"Prestar" alter:nil] forState:UIControlStateNormal];
-    [historycButton setTitle:[Language get:@"Historico" alter:nil] forState:UIControlStateNormal];
-    [demandButton setTitle:[Language get:@"Pedir" alter:nil] forState:UIControlStateNormal];
+    [loanUpButton setTitle:NSLocalizedString(@"Extender", nil) forState:UIControlStateNormal];
+    [giveBackButton setTitle:NSLocalizedString(@"Devolver", nil) forState:UIControlStateNormal];
+    [giveButton setTitle:NSLocalizedString(@"Prestar", nil) forState:UIControlStateNormal];
+    [historycButton setTitle:NSLocalizedString(@"Historico", nil) forState:UIControlStateNormal];
+    [demandButton setTitle:NSLocalizedString(@"Pedir", nil) forState:UIControlStateNormal];
     
     if (![UserIP objectsUserIsSet] && [UserIP searchUser] == nil)
     {
@@ -129,7 +129,7 @@
         giveBackButton.enabled = YES;
         
         GiveIP *objectCurrentGive = [currentObject currentGive];
-        stateLabel.text = [NSString stringWithFormat:@"%@ %@", [Language get:@"Prestado a" alter:nil], [objectCurrentGive name]];
+        stateLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Prestado a", nil), [objectCurrentGive name]];
         
         if ([[objectCurrentGive dateEnd] compare:[NSDate date]] == NSOrderedAscending)
         {
@@ -224,7 +224,7 @@
 
 - (IBAction)goToExtendGive:(id)sender
 {
-	MLTableAlert *extendGiveTableAlert = [MLTableAlert tableAlertWithTitle:@"Extender préstamo" cancelButtonTitle:[Language get:@"Cancelar" alter:nil] numberOfRows:^NSInteger (NSInteger section)
+	MLTableAlert *extendGiveTableAlert = [MLTableAlert tableAlertWithTitle:NSLocalizedString(@"Extender prestamo", nil) cancelButtonTitle:NSLocalizedString(@"Cancelar", nil) numberOfRows:^NSInteger (NSInteger section)
         {
             return [[GiveIP giveTimesArray] count];
         }
@@ -273,8 +273,8 @@
     UILocalNotification *localNotification = [UILocalNotification new];
     localNotification.fireDate = date;
     
-    localNotification.alertAction = @"Prestamo Vencido";
-    localNotification.alertBody = [NSString stringWithFormat:@"Ha vencido el prestamo de \"%@\" a %@", object, name];
+    localNotification.alertAction = NSLocalizedString(@"Prestamo vencido", nil);
+    localNotification.alertBody = [NSString stringWithFormat:NSLocalizedString(@"Prestamo vencido push", nil), object, name];
     localNotification.hasAction = YES;
     //    localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber];
     localNotification.soundName = UILocalNotificationDefaultSoundName;

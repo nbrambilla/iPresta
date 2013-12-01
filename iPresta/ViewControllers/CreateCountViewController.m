@@ -36,6 +36,10 @@
 
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Volver", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(backToBegin)];
+    [createCountButton setTitle:NSLocalizedString(@"Crear cuenta", nil) forState:UIControlStateNormal];
+    emailTextField.placeholder = NSLocalizedString(@"Email", nil);
+    passwordTextField.placeholder = NSLocalizedString(@"Contraseña", nil);
+    repeatPasswordTextField.placeholder = NSLocalizedString(@"Repetir contraseña", nil);
 }
 
 - (void)viewDidAppear:(BOOL)animated

@@ -5,11 +5,21 @@
 
 /* Login */
 
-"Cambiar email" =       "Cambiar email";
-"Email cambiado" =      "Email cambiado";
-"Email enviado" =       "Email enviado";
-"Autenticar email" =    "Autenticar email";
-"Mensaje autenticar" =  "Ahora auntentique el nuevo email y presione Entrar";
+"Email" =                   "Email";
+"Contraseña" =              "Contraseña";
+"Cambiar email" =           "Cambiar email";
+"Email cambiado" =          "Email cambiado";
+"Email enviado" =           "Email enviado";
+"Chequee mensaje" =         "Chequee se email y auentique su cuenta";
+"Autenticar email" =        "Autenticar email";
+"Mensaje autenticar" =      "Ahora auntentique el nuevo email y presione Entrar";
+"¿Olvido su contraseña?" =  "¿Olvido su contraseña?";
+"Entrar" =                  "Entrar";
+"Recuperar contraseña" =    "Recuperar contraseña";
+"Repetir contraseña" =      "Repetir contraseña";
+"Petición Realizada" =      "Petición Realizada";
+"Reenviar email" =          "Reenviar mail";
+"Ir" =                      "Ir";
 
 /* Menu */
 
@@ -18,6 +28,8 @@
 "Contactos" =           "Contactos";
 "Pedidos" =             "Pedidos";
 "Configuracion" =       "Configuración";
+"Volver" =              "Volver";
+"Crear cuenta" =        "Crear cuenta";
 
 /* Objetos */
 
@@ -50,6 +62,12 @@
 "Detectar" =            "Detectar";
 "Anadir" =              "Añadir";
 "Cancelar" =            "Cancelar";
+"Exteder prestamo" =    "Extender préstamo";
+"Prestamo vencido" =    "Prestamo vencido";
+"Desconocido" =         "Desconocido";
+"Vinculado" =           "vinculado";
+"Desvinculado" =        "desvinculado";
+"Vinilo" =              "Vinilo";
 
 /* Configuración */
 
@@ -70,8 +88,30 @@
 "Objeto existente" =                    "Este objeto ya ha sido registrado";
 "Email no autenticado" =                "Debe autenticar su email para poder acceder a la app";
 "Cuenta FB no existente" =              "No existe ninguna cuenta de Facebook asociada a este dispositivo.";
+"Cuenta asociada" =                     "Ya existe una cuenta asociada al email %@. Loguese con su email y su password y vincule su cuenta con Facebook en configuración";
+"Campos vacios" =                       "Deben completarse el email y la contraseña";
+"Contraseñas diferentes" =              "Las contraseñas son diferentes";
+"Formato email" =                       "El email no tiene un formato válido";
+"Formato codigo de barras" =            "No es un código de barras";
+"Cambiar email texto" =                 "Su email actual es %@. Si desea cambiarlo, ingrese el nuevo y presione \"Cambiar email\"";
+"Nueva contraseña mensaje" =            "Verifique su cuenta de email e ingrese la nueva contraseña";
+"Vinculo facebook"  =                   "Se ha %@ su cuenta de Facebook de forma correcta";
+"Push pedido" =                         "%@ te ha pedido %@";
+"Respuesta pedido push" =               "El pedido de \"%@\" realizado a %@ ha sido %@";
+"Respuesta pedido facebook" =           "Acaba de prestar \"%@\" a %@ vía iPresta app";
+"Autenticar email" =                    "Recibira un mail de autenticación. Autentique su cuenta y presione \"Ir\". Si no ha recibido el mail, puede reenviarlo.";
+"Prestamo vencido push" =               "Ha vencido el préstamo de \"%@\" a %@";
+"Prestamo otra persona" =               "El préstamo debe realizarse a otra persona"
 
 /* Pedidos */
 
 "aceptar" =                 "Aceptar";
 "rechazar" =                "Rechazar";
+"aceptado" =                "Aceptado";
+"rechazado" =               "Rechazado";
+"1 semana" =                "1 semana";
+"2 semanas" =               "2 semanas";
+"3 semanas" =               "3 semanas";
+"1 mes" =                   "1 mes";
+"2 meses" =                 "2 meses";
+"3 meses" =                 "3 meses";

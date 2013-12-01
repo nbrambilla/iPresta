@@ -10,8 +10,6 @@
 
 @interface iPrestaViewController : UIViewController
 {
-    IBOutlet UIView *languageView;
-    
     IBOutlet UIButton *haveCountButton;
     IBOutlet UIButton *createCountButton;
 }

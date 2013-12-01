@@ -39,6 +39,10 @@
     // Do any additional setup after loading the view from its nib.
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Volver", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(backToBegin)];
+    [fortgotPasswordButton setTitle:NSLocalizedString(@"¿Olvido su contraseña?", nil) forState:UIControlStateNormal];
+    [entrarButton setTitle:NSLocalizedString(@"Entrar", nil) forState:UIControlStateNormal];
+    emailTextField.placeholder = NSLocalizedString(@"Email", nil);
+    passwordTextField.placeholder = NSLocalizedString(@"Contraseña", nil);
 }
 
 - (void)viewDidAppear:(BOOL)animated
