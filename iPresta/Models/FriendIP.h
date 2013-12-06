@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Nacho. All rights reserved.
 //
 
+#import <Parse/Parse.h>
 #import <Foundation/Foundation.h>
 #import "CoreDataManager_CoreDataManagerExtension.h"
 
@@ -23,12 +24,14 @@
 
 + (NSInteger)newFriends;
 + (void)addFriendsFromDB;
-+ (void)getPermissions:(void (^)(BOOL))block;
++ (void)getAllFriends:(void (^)(NSError *))block;
 + (void)saveAllFriendsFromDBwithBlock:(void (^)(NSError *))block;
++ (FriendIP *)getWithObjectId:(NSString *)objectId;
++ (FriendIP *)getWithEmail:(NSString *)email;
++ (void)getFromDB:(NSString *)objectId withBlock:(void (^)(NSError *, PFObject *))block;
 - (NSString *)firstLetter;
 - (NSString *)getFullName;
 - (NSString *)getCompareName;
-+ (FriendIP *)getWithObjectId:(NSString *)objectId;
 
 @end
 

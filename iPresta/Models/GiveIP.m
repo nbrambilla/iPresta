@@ -108,11 +108,14 @@ static id<GiveIPDelegate> delegate;
      }];
 }
 
-- (void)saveToObject:(PFObject *)object WithBlock:(void(^) (NSError *))block
+- (void)saveToObject:(PFObject *)object to:(id)to WithBlock:(void(^) (NSError *))block
 {
     PFObject *give = [PFObject objectWithClassName:@"Give"];
     [give setObject:object forKey:@"object"];
-    [give setObject:self.name forKey:@"name"];
+    
+    if (self.friend) [give setObject:to forKey:@"to"];
+    else [give setObject:self.name forKey:@"name"];
+    
     [give setObject:self.dateBegin forKey:@"dateBegin"];
     [give setObject:self.dateEnd forKey:@"dateEnd"];
     [give setObject:[NSNumber numberWithBool:YES] forKey:@"actual"];
@@ -183,11 +186,13 @@ static id<GiveIPDelegate> delegate;
 - (void)setGiveFrom:(PFObject *)give
 {
     self.objectId = give.objectId;
-    self.name = [give objectForKey:@"name"];
+    
+    if ([give objectForKey:@"to"]) self.friend = [FriendIP getWithObjectId:[[give objectForKey:@"to"] objectId]];
+    else self.name = [give objectForKey:@"name"];
+    
     self.dateBegin = [give objectForKey:@"dateBegin"];
     self.dateEnd = [give objectForKey:@"dateEnd"];
     self.objectIP = [ObjectIP getByObjectId:[[give objectForKey:@"object"] objectId]];
-    self.friend = nil;
     self.actual = [give objectForKey:@"actual"];
 }
 

@@ -121,7 +121,7 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 - (void)setVisibility:(BOOL)visible;
 - (void)demandTo:(PFUser *)friend;
 - (void)demandFrom:(FriendIP *)friend withId:(NSString *)demandId;
-- (void)giveObjectTo:(NSString *)name from:(NSDate *)dateBegin to:(NSDate *)dateEnd fromDemand:(DemandIP *)demand;
+- (void)giveObjectTo:(id)to from:(NSDate *)dateBegin to:(NSDate *)dateEnd fromDemand:(DemandIP *)demand;
 - (void)giveBack;
 - (NSArray *)getAllGives;
 - (void)getData:(NSString *)objectCode;

@@ -101,7 +101,7 @@
 {
     if ([UserIP hasEmailVerified])
     {
-        [FriendIP saveAllFriendsFromDBwithBlock:^(NSError *error)
+        [FriendIP getAllFriends:^(NSError *error)
         {
             [ProgressHUD hideHUDForView:self.view animated:YES];
             

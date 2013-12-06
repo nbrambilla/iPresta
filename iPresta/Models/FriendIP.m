@@ -48,6 +48,16 @@ static NSInteger newFriends;
     }
 }
 
++ (void)getFromDB:(NSString *)objectId withBlock:(void (^)(NSError *, PFObject *))block
+{
+    PFQuery *userQuery = [PFUser query];
+    [userQuery whereKey:@"objectId" equalTo:objectId];
+    
+    [userQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        block(error, object);
+    }];
+}
+
 + (void)addFriendsFromDB
 {
     [FriendIP getPermissions:^(BOOL granted)
@@ -150,6 +160,22 @@ static NSInteger newFriends;
     for (FriendIP *friend in allFriends) [allFriendsEmails addObject:friend.email];
     
     return [allFriendsEmails copy];
+}
+
+
++ (void)getAllFriends:(void (^)(NSError *))block
+{
+    [FriendIP getPermissions:^(BOOL granted)
+     {
+         if (granted)
+         {
+             [FriendIP saveAllFriendsFromDBwithBlock:^(NSError *error)
+              {
+                  block(error);
+                  return;
+              }];
+         }
+     }];
 }
 
 + (void)saveAllFriendsFromDBwithBlock:(void (^)(NSError *))block
@@ -277,6 +303,20 @@ static NSInteger newFriends;
     [request setEntity:[self entityDescription]];
     [request setPredicate:[NSPredicate predicateWithFormat:@"objectId = %@", objectId]];
 
+    NSError *error;
+    
+    NSArray *result = [[[self class] managedObjectContext] executeFetchRequest:request error:&error];
+    
+    if (result.count > 0) return [result objectAtIndex:0];
+    return nil;
+}
+
++ (FriendIP *)getWithEmail:(NSString *)email
+{
+    NSFetchRequest *request = [self fetchRequest];
+    [request setEntity:[self entityDescription]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"email = %@", email]];
+    
     NSError *error;
     
     NSArray *result = [[[self class] managedObjectContext] executeFetchRequest:request error:&error];

@@ -106,10 +106,20 @@
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController*)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
 {
     giveToTextField.text = @"";
+    _friend = nil;
     
     NSString *firstName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonFirstNameProperty);
     NSString *middleName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonMiddleNameProperty);
     NSString *lastName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonLastNameProperty);
+    
+    ABMultiValueRef emails = ABRecordCopyValue(person, kABPersonEmailProperty);
+    
+    for (NSInteger j = 0; j < ABMultiValueGetCount(emails); j++)
+    {
+        NSString *email = (__bridge NSString*)ABMultiValueCopyValueAtIndex(emails, j);
+        _friend = [FriendIP getWithEmail:email];
+        if (_friend) break;
+    }
     
     if (firstName) giveToTextField.text = [giveToTextField.text stringByAppendingString:firstName];
     if (middleName) giveToTextField.text = [giveToTextField.text stringByAppendingFormat:@" %@", middleName];
@@ -206,7 +216,9 @@
         NSInteger time = [timeTextField.text getIntegerTime];
         NSDate *dateEnd = [dateBegin dateByAddingTimeInterval:time];
         
-        [[ObjectIP currentObject] giveObjectTo:name from:dateBegin to:dateEnd fromDemand:_demand];
+        id to = (_friend) ? _friend : name ;
+        
+        [[ObjectIP currentObject] giveObjectTo:to from:dateBegin to:dateEnd fromDemand:_demand];
         
         if (facebookButton.selected)
         {

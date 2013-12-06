@@ -31,6 +31,11 @@
 "Pedidos" =         "Orders";
 "Configuracion" =   "Configuration";
 
+/* Busqueda */
+
+"Intentelo otra vez" =      "Try again";
+"Cargando..." =             "Loading...";
+
 /* Objetos */
 
 "Libros" =              "Books";
@@ -100,7 +105,7 @@
 "Respuesta pedido facebook" =       "Just lend \"%@\" to %@ for iPresta app";
 "Autenticar email" =                "You will receive an email authentication. Authenticate your account and click \"Go\". If you do not receive the mail, you can resend it.";
 "Prestamo vencido push" =           "It expired the loan of \"%@\" to %@";
-"Prestamo otra persona" =           "The loan must be made to another person"
+"Prestamo otra persona" =           "The loan must be made to another person";
 
 /* Pedidos */
 

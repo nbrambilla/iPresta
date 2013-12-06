@@ -31,6 +31,11 @@
 "Volver" =              "Volver";
 "Crear cuenta" =        "Crear cuenta";
 
+/* Busqueda */
+
+"Intentelo otra vez" =      "Inténtelo otra vez";
+"Cargando..." =             "Cargando...";
+
 /* Objetos */
 
 "Libros" =              "Libros";
@@ -101,7 +106,7 @@
 "Respuesta pedido facebook" =           "Acaba de prestar \"%@\" a %@ vía iPresta app";
 "Autenticar email" =                    "Recibira un mail de autenticación. Autentique su cuenta y presione \"Ir\". Si no ha recibido el mail, puede reenviarlo.";
 "Prestamo vencido push" =               "Ha vencido el préstamo de \"%@\" a %@";
-"Prestamo otra persona" =               "El préstamo debe realizarse a otra persona"
+"Prestamo otra persona" =               "El préstamo debe realizarse a otra persona";
 
 /* Pedidos */
 

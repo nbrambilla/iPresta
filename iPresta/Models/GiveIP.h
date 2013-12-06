@@ -39,7 +39,7 @@
 + (NSArray *)giveTimesArray;
 
 - (void)extendGive:(NSInteger)date;
-- (void)saveToObject:(PFObject *)object WithBlock:(void(^) (NSError *))block;
+- (void)saveToObject:(PFObject *)object to:(id)to WithBlock:(void(^) (NSError *))block;
 - (void)cancelWithBlock:(void(^) (NSError *))block;
 
 @end

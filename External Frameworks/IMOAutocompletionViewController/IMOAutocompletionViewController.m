@@ -13,6 +13,7 @@
 #import "ObjectIP.h"
 #import "iPrestaNSString.h"
 #import "iPrestaNSError.h"
+#import "SearchObjectCell.h"
 
 #define OFFSET 10
 
@@ -21,6 +22,7 @@
 @property (retain, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (retain, nonatomic) IBOutlet UITableView *tableView;
 @property (retain, nonatomic) NSMutableArray *results;
+@property (retain, nonatomic) NSMutableArray *owners;
 @property (retain, nonatomic) IBOutlet UIView *activityIndicatorView;
 @property (nonatomic,retain) IBOutlet UIActivityIndicatorView *footerActivityIndicator;
 @property (nonatomic,retain) IBOutlet UILabel *activityIndicatorLabel;
@@ -34,6 +36,7 @@
 
 @synthesize searchBar = _searchBar;
 @synthesize results = _results;
+@synthesize owners = _owners;
 @synthesize tableView = _tableView;
 @synthesize dataSource =  _dataSource;
 @synthesize delegate = _delegate;
@@ -76,6 +79,7 @@
 - (void)viewDidUnload
 {
     [self setResults:nil];
+    [self setOwners:nil];
     [self setTableView:nil];
     [self setSearchBar:nil];
     [self setDataSource:nil];
@@ -136,7 +140,7 @@
     {
         if ((scrollView.contentOffset.y + scrollView.frame.size.height) > (scrollView.contentSize.height) && !loading && !finish)
         {
-            _activityIndicatorLabel.text = @"Cargando...";
+            _activityIndicatorLabel.text = NSLocalizedString(@"Cargando...", nil);
             loading = YES;
             page++;
             [self.footerActivityIndicator startAnimating];
@@ -163,45 +167,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Object";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil)
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    SearchObjectCell *cell = (SearchObjectCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"SearchObjectCell" owner:self options:nil] objectAtIndex:0];
+        cell.tag = indexPath.row;
     }
     
-    cell.tag = indexPath.row;
     ObjectIP *object = [_results objectAtIndex:indexPath.row];
+    PFUser *owner = (_owners.count != 0) ? [_owners objectAtIndex:indexPath.row] : nil;
     
-    cell.textLabel.text = [object.name capitalizedString];
-    
-    cell.detailTextLabel.text = (object.author) ? object.author : @"Desconocido";
-    
-    cell.imageView.image = [UIImage imageNamed:[ObjectIP imageType:[object.type integerValue]]];
-    
-    if (object.image) cell.imageView.image = [UIImage imageWithData:object.image];
-    
-    else if (object.imageURL && object.image == nil)
-    {
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-        
-        dispatch_async(queue, ^(void)
-        {
-            object.image = [NSData dataWithContentsOfURL:[NSURL URLWithString:object.imageURL]];
-                                 
-            UIImage* image = [UIImage imageWithData:object.image];
-            if (image)
-            {
-                dispatch_async(dispatch_get_main_queue(),
-                ^{
-                    if (cell.tag == indexPath.row)
-                    {
-                        cell.imageView.image = image;
-                        [cell setNeedsLayout];
-                    }
-                });
-            }
-        });
-    }
+    [cell setObject:object withOwner:owner];
     
     return cell;
 }
@@ -225,6 +200,7 @@
     finish = NO;
     page = 0;
     _results = [NSMutableArray new];
+    _owners = [NSMutableArray new];
     [self searchResults];
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
 }
@@ -249,7 +225,7 @@
     [_searchBar resignFirstResponder];
 }
 
-- (void)loadSearchTableWithResults:(NSArray *)searchResults error:(NSError *)error
+- (void)loadSearchTableWithResults:(NSDictionary *)searchResults error:(NSError *)error
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
     loading = NO;
@@ -259,7 +235,7 @@
         if (page != 0)
         {
             [_footerActivityIndicator stopAnimating];
-            _activityIndicatorLabel.text = @"Intentelo otra vez";
+            _activityIndicatorLabel.text = NSLocalizedString(@"Intentelo otra vez", nil);
         }
         [error manageErrorTo:self.view];
     }
@@ -274,10 +250,11 @@
             [_tableView setContentOffset:CGPointZero animated:NO];
         }
         
-        [_results addObjectsFromArray:searchResults];
+        [_owners addObjectsFromArray:[searchResults objectForKey:@"owners"]];
+        [_results addObjectsFromArray:[searchResults objectForKey:@"objects"]];
         [_tableView reloadData];
     
-        if ([searchResults count] < OFFSET)
+        if ([[searchResults objectForKey:@"objects"] count] < OFFSET)
         {
             finish = YES;
             [_tableView setTableFooterView:nil];

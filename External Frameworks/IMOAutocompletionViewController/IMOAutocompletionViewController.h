@@ -39,7 +39,7 @@
 @property (assign, nonatomic) id <IMOAutocompletionViewDelegate> delegate;
 
 - (id)initWithCancelButton:(BOOL)setCancelButton andPagination:(BOOL)setPagination;
-- (void)loadSearchTableWithResults:(NSArray *)searchResults error:(NSError *)error;
+- (void)loadSearchTableWithResults:(NSDictionary *)searchResults error:(NSError *)error;
 - (id)initWithCancelButton:(BOOL)setCancelButton andPagination:(BOOL)setPagination nibName:(NSString *)nibNameOrNil;
 
 @end

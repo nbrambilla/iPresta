@@ -61,6 +61,8 @@
 		1563FF83173F9CAF00826DC4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1563FF82173F9CAF00826DC4 /* AVFoundation.framework */; };
 		1563FF87173FA1E700826DC4 /* ConnectionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1563FF86173FA1E700826DC4 /* ConnectionData.m */; };
 		1563FF8E17404B8000826DC4 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1563FF8D17404B8000826DC4 /* ProgressHUD.m */; };
+		156412EA184FBF2A009C4868 /* SearchObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 156412E9184FBF2A009C4868 /* SearchObjectCell.m */; };
+		156412EC184FBF4F009C4868 /* SearchObjectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156412EB184FBF4F009C4868 /* SearchObjectCell.xib */; };
 		156B2DB0182FBED200700890 /* bt_facebook_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 156B2DA8182FBED200700890 /* bt_facebook_off.png */; };
 		156B2DB1182FBED200700890 /* bt_facebook_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 156B2DA9182FBED200700890 /* bt_facebook_off@2x.png */; };
 		156B2DB2182FBED200700890 /* bt_facebook_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 156B2DAA182FBED200700890 /* bt_facebook_on.png */; };
@@ -267,6 +269,9 @@
 		1563FF86173FA1E700826DC4 /* ConnectionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionData.m; sourceTree = "<group>"; };
 		1563FF8C17404B8000826DC4 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
 		1563FF8D17404B8000826DC4 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
+		156412E8184FBF2A009C4868 /* SearchObjectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchObjectCell.h; path = ViewControllers/SearchObjectCell.h; sourceTree = "<group>"; };
+		156412E9184FBF2A009C4868 /* SearchObjectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchObjectCell.m; path = ViewControllers/SearchObjectCell.m; sourceTree = "<group>"; };
+		156412EB184FBF4F009C4868 /* SearchObjectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchObjectCell.xib; path = ViewControllers/SearchObjectCell.xib; sourceTree = "<group>"; };
 		156B2DA8182FBED200700890 /* bt_facebook_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bt_facebook_off.png; path = Images/bt_facebook_off.png; sourceTree = "<group>"; };
 		156B2DA9182FBED200700890 /* bt_facebook_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bt_facebook_off@2x.png"; path = "Images/bt_facebook_off@2x.png"; sourceTree = "<group>"; };
 		156B2DAA182FBED200700890 /* bt_facebook_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bt_facebook_on.png; path = Images/bt_facebook_on.png; sourceTree = "<group>"; };
@@ -769,6 +774,9 @@
 				194CE55C179D75B7008BFDE0 /* AppContactsListViewController.h */,
 				194CE55D179D75B8008BFDE0 /* AppContactsListViewController.m */,
 				194CE55E179D75B8008BFDE0 /* AppContactsListViewController.xib */,
+				156412E8184FBF2A009C4868 /* SearchObjectCell.h */,
+				156412E9184FBF2A009C4868 /* SearchObjectCell.m */,
+				156412EB184FBF4F009C4868 /* SearchObjectCell.xib */,
 				154985C717BD7C8C00AE1135 /* SearchObjectsViewController.h */,
 				154985C817BD7C8C00AE1135 /* SearchObjectsViewController.m */,
 				154985C917BD7C8D00AE1135 /* SearchObjectsViewController.xib */,
@@ -1026,6 +1034,7 @@
 				1549FC591846AB2C0015C07D /* Icon.png in Resources */,
 				1549FC5B1846AB3B0015C07D /* Icon@2x.png in Resources */,
 				15722718184BC53D00F00D60 /* ObjectCell.xib in Resources */,
+				156412EC184FBF4F009C4868 /* SearchObjectCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1089,6 +1098,7 @@
 				154D8A45184261BE00A1B666 /* FriendsDemandsCell.m in Sources */,
 				159678E21843DD7B0096B49C /* MyDemandsCell.m in Sources */,
 				1572271B184BC60A00F00D60 /* ObjectCell.m in Sources */,
+				156412EA184FBF2A009C4868 /* SearchObjectCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

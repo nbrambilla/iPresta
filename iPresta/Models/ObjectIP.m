@@ -42,117 +42,103 @@ static ObjectIP *currentObject;
 
 + (void)saveAllObjectsFromDB
 {
-    PFQuery *objectsQuery = [PFQuery queryWithClassName:@"iPrestaObject"];
-    [objectsQuery whereKey:@"owner" equalTo:[UserIP loggedUser]];
-    [objectsQuery orderByAscending:@"image"];
-    objectsQuery.limit = 1000;
-    [objectsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    [FriendIP getAllFriends:^(NSError *error)
     {
         if (!error)
         {
-            __block int objectsCount = [objects count];
-            __block int count = 0;
-            
-            for (PFObject *object in objects)
+            PFQuery *objectsQuery = [PFQuery queryWithClassName:@"iPrestaObject"];
+            [objectsQuery whereKey:@"owner" equalTo:[UserIP loggedUser]];
+            [objectsQuery orderByAscending:@"image"];
+            objectsQuery.limit = 1000;
+            [objectsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
             {
-                ObjectIP *newObject = [ObjectIP new];
-                
-                if ([object objectForKey:@"image"])
+                if (!error)
                 {
-                    [[object objectForKey:@"image"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+                    __block int objectsCount = [objects count];
+                    __block int count = 0;
+                    
+                    for (PFObject *object in objects)
                     {
-                         if (!error)
-                         {
-                             [newObject setObjetctFrom:object andImage:data];
-                             [ObjectIP addObject:newObject];
-                             
-                             [GiveIP saveAllGivesFromDBObject:object withBlock:^(NSError *error)
-                             {
+                        ObjectIP *newObject = [ObjectIP new];
+                        
+                        if ([object objectForKey:@"image"])
+                        {
+                            [[object objectForKey:@"image"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+                            {
                                  if (!error)
                                  {
-                                     count++;
-                                     if (count == objectsCount)
+                                     [newObject setObjetctFrom:object andImage:data];
+                                     [ObjectIP addObject:newObject];
+                                     
+                                     [GiveIP saveAllGivesFromDBObject:object withBlock:^(NSError *error)
                                      {
-                                         [FriendIP getPermissions:^(BOOL granted)
+                                         if (!error)
                                          {
-                                             if (granted)
+                                             count++;
+                                             if (count == objectsCount)
                                              {
-                                                [FriendIP saveAllFriendsFromDBwithBlock:^(NSError *error)
-                                                {
-                                                    if (!error)
-                                                    {
-                                                        [DemandIP saveAllDemandsFromDBWithBlock:^(NSError * error)
-                                                        {
-                                                            if (!error)
-                                                            {
-                                                                [CoreDataManager save];
-                                                                [loginDelegate saveAllObjectsFromDBresult:nil];
-                                                            }
-                                                            else
-                                                            {
-                                                                [loginDelegate saveAllObjectsFromDBresult:error];
-                                                                return;
-                                                            }
-                                                        }];
-                                                    }
-                                                    else
-                                                    {
-                                                        [loginDelegate saveAllObjectsFromDBresult:error];
-                                                        return;
-                                                    }
-                                                }];
-                                            }
-                                         }];
-                                         
-                                     }
-                                     else
-                                     {
-                                         // El usuario no da permisos a la app para acceder a los contactos
-                                     }
+                                                 [DemandIP saveAllDemandsFromDBWithBlock:^(NSError * error)
+                                                  {
+                                                      if (!error)
+                                                      {
+                                                          [CoreDataManager save];
+                                                          [loginDelegate saveAllObjectsFromDBresult:nil];
+                                                      }
+                                                      else
+                                                      {
+                                                          [loginDelegate saveAllObjectsFromDBresult:error];
+                                                          return;
+                                                      }
+                                                  }];
+                                             }
+                                             else
+                                             {
+                                                 // El usuario no da permisos a la app para acceder a los contactos
+                                             }
+                                         }
+                                         else
+                                         {
+                                             [loginDelegate saveAllObjectsFromDBresult:error];
+                                             return;
+                                         }
+                                     }];
                                  }
                                  else
                                  {
                                      [loginDelegate saveAllObjectsFromDBresult:error];
                                      return;
                                  }
-                             }];
-                         }
-                         else
-                         {
-                             [loginDelegate saveAllObjectsFromDBresult:error];
-                             return;
-                         }
-                    }];
+                            }];
+                        }
+                        else
+                        {
+                            [newObject setObjetctFrom:object andImage:nil];
+                            [ObjectIP addObject:newObject];
+                            
+                            [GiveIP saveAllGivesFromDBObject:object withBlock:^(NSError *error)
+                            {
+                                 if (error)
+                                 {
+                                     [loginDelegate saveAllObjectsFromDBresult:error];
+                                     return;
+                                 }
+                                 else
+                                 {
+                                     count++;
+                                     if (count == objectsCount)
+                                     {
+                                         [CoreDataManager save];
+                                         [loginDelegate saveAllObjectsFromDBresult:nil];
+                                     }
+                                 }
+                            }];
+                        }
+                    }
                 }
-                else
-                {
-                    [newObject setObjetctFrom:object andImage:nil];
-                    [ObjectIP addObject:newObject];
-                    
-                    [GiveIP saveAllGivesFromDBObject:object withBlock:^(NSError *error)
-                    {
-                         if (error)
-                         {
-                             [loginDelegate saveAllObjectsFromDBresult:error];
-                             return;
-                         }
-                         else
-                         {
-                             count++;
-                             if (count == objectsCount)
-                             {
-                                 [CoreDataManager save];
-                                 [loginDelegate saveAllObjectsFromDBresult:nil];
-                             }
-                         }
-                    }];
-                }
-            }
+                else [loginDelegate saveAllObjectsFromDBresult:error];
+            }];
         }
-        else
-        {
-            [loginDelegate saveAllObjectsFromDBresult:error];
-        }
+        else [loginDelegate saveAllObjectsFromDBresult:error];
     }];
 }
 
@@ -175,7 +161,7 @@ static ObjectIP *currentObject;
         {
             self.audioType = nil;
         }
-            
+        
         
         PFFile *image = [PFFile fileWithName:[NSString stringWithFormat:@"%@.png", [[ObjectIP objectTypes] objectAtIndex:[ObjectIP selectedType]]] data:self.image];
         [self setDBObjetct:object withImage:image];
@@ -444,66 +430,81 @@ static ObjectIP *currentObject;
     }];
 }
 
-- (void)giveObjectTo:(NSString *)name from:(NSDate *)dateBegin to:(NSDate *)dateEnd fromDemand:(DemandIP *)demand;
+- (void)giveObjectTo:(id)to from:(NSDate *)dateBegin to:(NSDate *)dateEnd fromDemand:(DemandIP *)demand;
 {
-    PFQuery *objectsUserQuery = [PFQuery queryWithClassName:@"iPrestaObject"];
-    [objectsUserQuery whereKey:@"objectId" equalTo:self.objectId];
-    
-    [objectsUserQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error)
+    if ([to isKindOfClass:[FriendIP class]])
     {
-         if (!error && object)
-         {
-             [object setObject:[NSNumber numberWithInteger:Given] forKey:@"state"];
-             
-             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+        FriendIP *friend = (FriendIP *)to;
+        [FriendIP getFromDB:friend.objectId withBlock:^(NSError *error, PFObject *friend) {
+            
+            if (!error) [self giveObjectTo:friend from:dateBegin to:dateEnd fromDemand:demand];
+            else if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
+        }];
+    }
+    else
+    {
+        PFQuery *objectsUserQuery = [PFQuery queryWithClassName:@"iPrestaObject"];
+        [objectsUserQuery whereKey:@"objectId" equalTo:self.objectId];
+        
+        [objectsUserQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error)
+        {
+             if (!error && object)
              {
-                  if (!error)
-                  {
-                      self.state = [NSNumber numberWithInteger:Given];
-                      [ObjectIP save];
-                      
-                      GiveIP *newGive = [GiveIP new];
-                      newGive.name = name;
-                      newGive.dateBegin = dateBegin;
-                      newGive.dateEnd = dateEnd;
-                      newGive.objectIP = self;
-                      newGive.actual = [NSNumber numberWithBool:YES];
-                      
-                      [newGive saveToObject:object WithBlock:^(NSError *error)
+                 [object setObject:[NSNumber numberWithInteger:Given] forKey:@"state"];
+                 
+                 [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+                 {
+                      if (!error)
                       {
-                          if (!error)
+                          self.state = [NSNumber numberWithInteger:Given];
+                          [ObjectIP save];
+                          
+                          GiveIP *newGive = [GiveIP new];
+                          
+                          if ([to isKindOfClass:[PFUser class]]) newGive.friend = [FriendIP getWithObjectId:[to objectId]];
+                          else newGive.name = to;
+                          
+                          newGive.dateBegin = dateBegin;
+                          newGive.dateEnd = dateEnd;
+                          newGive.objectIP = self;
+                          newGive.actual = [NSNumber numberWithBool:YES];
+                          
+                          [newGive saveToObject:object to:to WithBlock:^(NSError *error)
                           {
-                              if (demand)
+                              if (!error)
                               {
-                                  [demand acceptWithBlock:^(NSError *error)
+                                  if (demand)
                                   {
-                                      if (!error)
+                                      [demand acceptWithBlock:^(NSError *error)
                                       {
-                                          if ([delegate respondsToSelector:@selector(giveObjectSuccess:)]) [delegate giveObjectSuccess:newGive];
-                                      }
-                                      else if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
-                                  }];
+                                          if (!error)
+                                          {
+                                              if ([delegate respondsToSelector:@selector(giveObjectSuccess:)]) [delegate giveObjectSuccess:newGive];
+                                          }
+                                          else if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
+                                      }];
+                                  }
+                                  else if ([delegate respondsToSelector:@selector(giveObjectSuccess:)]) [delegate giveObjectSuccess:newGive];
                               }
-                              else if ([delegate respondsToSelector:@selector(giveObjectSuccess:)]) [delegate giveObjectSuccess:newGive];
-                          }
-                          else
-                          {
-                              if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
-                          }
-                      }];
-                      
-                  }
-                  else
-                  {
-                      if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
-                  }
-              }];
-         }
-         else
-         {
-             if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
-         }
-     }];
+                              else
+                              {
+                                  if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
+                              }
+                          }];
+                          
+                      }
+                      else
+                      {
+                          if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
+                      }
+                  }];
+             }
+             else
+             {
+                 if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
+             }
+         }];
+    }
 }
 
 - (void)giveBack
@@ -1128,7 +1129,7 @@ static ObjectIP *currentObject;
 - (void)setVideoWithInfo:(id)info
 {
     // se setea el titulo
-    if ([info objectForKey:@"title"])
+    if ([info objectForKey:@"title"] != [NSNull null])
     {
         self.name = [info objectForKey:@"title"];
     }
@@ -1151,8 +1152,8 @@ static ObjectIP *currentObject;
     // se setea la imagen
     if ([info objectForKey:@"poster"])
     {
-        if ([[info objectForKey:@"poster"] objectForKey:@"cover"]) self.imageURL = [[info objectForKey:@"poster"] objectForKey:@"cover"];
-        if ([[info objectForKey:@"poster"] objectForKey:@"imdb"]) self.imageURL = [[info objectForKey:@"poster"] objectForKey:@"imdb"];
+        if ([[info objectForKey:@"poster"] objectForKey:@"imdb"] != [NSNull null]) self.imageURL = [[info objectForKey:@"poster"] objectForKey:@"imdb"];
+        else if ([[info objectForKey:@"poster"] objectForKey:@"cover"] != [NSNull null]) self.imageURL = [[info objectForKey:@"poster"] objectForKey:@"cover"];
     }
     // se setea el identificador
     if ([info objectForKey:@"imdb_id"])

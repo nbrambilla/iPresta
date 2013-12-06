@@ -13,6 +13,7 @@
 #import "MLTableAlert.h"
 #import "ObjectHistoricGiveViewController.h"
 #import "iPrestaNSString.h"
+#import "FriendIP.h"
 
 
 @interface ObjectDetailViewController ()
@@ -129,7 +130,7 @@
         giveBackButton.enabled = YES;
         
         GiveIP *objectCurrentGive = [currentObject currentGive];
-        stateLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Prestado a", nil), [objectCurrentGive name]];
+        stateLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Prestado a", nil), (objectCurrentGive.name) ? objectCurrentGive.name : [objectCurrentGive.friend getFullName]];
         
         if ([[objectCurrentGive dateEnd] compare:[NSDate date]] == NSOrderedAscending)
         {

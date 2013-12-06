@@ -292,7 +292,8 @@
 
 - (void)getSearchResultsResponse:(NSArray *)searchResults withError:(NSError *)error
 {
-    [autoComplete loadSearchTableWithResults:searchResults error:error];
+    NSDictionary *params = (searchResults) ? @{@"objects": searchResults} : nil;
+    [autoComplete loadSearchTableWithResults:params error:error];
 }
 
 - (void)getDataResponseWithError:(NSError *)error

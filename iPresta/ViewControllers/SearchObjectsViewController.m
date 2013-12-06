@@ -79,7 +79,7 @@
     [objects addObjectsFromArray:[params objectForKey:@"objects"]];
     [owners addObjectsFromArray:[params objectForKey:@"owners"]];
     
-    [self loadSearchTableWithResults:[params objectForKey:@"objects"] error:error];
+    [self loadSearchTableWithResults:params error:error];
 }
 
 #pragma mark - IMOAutoCompletionViewDelegate Methods;
