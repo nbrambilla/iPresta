@@ -537,7 +537,7 @@ static ObjectIP *currentObject;
              {
                   if (!error)
                   {
-                      self.state = Property;
+                      self.state = [NSNumber numberWithInteger:Property];
                       [ObjectIP save];
                       
                       GiveIP *objectCurrentGive = [self currentGive];
