@@ -23,9 +23,7 @@
 @property (nonatomic, retain) NSString *objectId;
 @property (nonatomic, retain) NSString *iPrestaObjectId;
 
-+ (NSInteger)newDemands;
 + (void)saveAllDemandsFromDBWithBlock:(void (^)(NSError *))block;
-+ (void)incrementNewDemands;
 + (void)refreshStates;
 + (void)addDemandsFromDB;
 + (NSArray *)getWithoutState;

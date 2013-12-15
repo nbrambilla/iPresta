@@ -20,16 +20,19 @@
 "Recuperar contraseña" =        "Recover password";
 "Repetir contraseña" =          "Repeat password";
 "Petición Realizada" =          "Request made";
-"Reenviar email" =               "Resend email";
+"Reenviar email" =              "Resend email";
 "Ir" =                          "Go";
 
 /* Menu */
 
-"Objetos" =         "Objects";
-"Buscar" =          "Search";
-"Contactos" =       "Contacts";
-"Pedidos" =         "Orders";
-"Configuracion" =   "Configuration";
+"Objetos" =                     "Objects";
+"Buscar" =                      "Search";
+"Contactos" =                   "Contacts";
+"Pedidos pendientes" =          "Pending orders";
+"Prestamos expirados" =         "Loans expired";
+"Configuracion" =               "Configuration";
+"Mios:" =                       "Mines:";
+"Amigos:" =                     "Friends:";
 
 /* Busqueda */
 
@@ -60,6 +63,8 @@
 "Hasta" =               "to";
 "Mis pedidos" =         "My orders";
 "Pedidos de amigos" =   "Friends's orders";
+"Mis prestamos" =       "My loans";
+"Prestamos de amigos" = "Friend's loans";
 "Nombre" =              "Name";
 "Editorial" =           "Editorial";
 "Autor" =               "Author";
@@ -73,6 +78,7 @@
 "Vinculado" =           "linked";
 "Desvinculado" =        "unlinked";
 "Vinilo" =              "Vinyl";
+"Formato fecha" =       "MM/dd/yy";
 
 /* Configuración */
 
@@ -103,9 +109,12 @@
 "Push pedido" =                     "%@ has asked you \"%@\"";
 "Respuesta pedido push" =           "The order of \"%@\" made ​​to %@ has been %@";
 "Respuesta pedido facebook" =       "Just lend \"%@\" to %@ for iPresta app";
+"Prestamo push" =                   "%@ just lend to \"%@\"";
 "Autenticar email" =                "You will receive an email authentication. Authenticate your account and click \"Go\". If you do not receive the mail, you can resend it.";
 "Prestamo vencido push" =           "It expired the loan of \"%@\" to %@";
 "Prestamo otra persona" =           "The loan must be made to another person";
+"Pregunta rechazar prestamo" =      "Are sure you want to reject the loan of \"%@\" a %@";
+"Objeto prestado" =                 "\"%@\" is already borrowed";
 
 /* Pedidos */
 

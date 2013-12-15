@@ -69,9 +69,8 @@
     
     GiveIP *give = [givesArray objectAtIndex:indexPath.row];
     cell.textLabel.text = give.name;
-    
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"dd/MM/yy HH:mm"];
+    [dateFormat setDateFormat:NSLocalizedString(@"Formato fecha", nil)];
     NSString *dateBegin = [dateFormat stringFromDate:give.dateBegin];
     NSString *dateEnd = [dateFormat stringFromDate:give.dateEnd];
     

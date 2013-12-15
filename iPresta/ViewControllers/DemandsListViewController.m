@@ -105,6 +105,17 @@
 
 #pragma mark - Table view data source
 
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.0f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return [UIView new];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -141,6 +152,7 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:@"MyDemandsCell" owner:self options:nil] objectAtIndex:0];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.tag = indexPath.row;
+            [cell.imageIndicatorView startAnimating];
         }
         
         DemandIP *demand = [myDemandsArray objectAtIndex:indexPath.row];
@@ -158,7 +170,6 @@
                 }
                 else
                 {
-                    [cell.imageIndicatorView startAnimating];
                     UIImage* image = [UIImage imageWithData:object.image];
                     if (image)
                     {
@@ -211,37 +222,51 @@
 
 - (void)acceptDemand:(DemandIP *)demand
 {
-    [ObjectIP setCurrentObject:demand.object];
-    GiveObjectViewController *viewController = [[GiveObjectViewController alloc] initWithNibName:@"GiveObjectViewController" bundle:nil];
-    viewController.demand = demand;
-    [self.navigationController pushViewController:viewController animated:YES];
-    
-    viewController = nil;
+    if (demand.object.state == [NSNumber numberWithInteger:Given]) {
+        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Objeto prestado", nil), demand.object.name];
+        rejectAlert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [rejectAlert show];
+    }
+    else if (demand.object.state == [NSNumber numberWithInteger:Property])
+    {
+        [ObjectIP setCurrentObject:demand.object];
+        GiveObjectViewController *viewController = [[GiveObjectViewController alloc] initWithNibName:@"GiveObjectViewController" bundle:nil];
+        viewController.demand = demand;
+        [self.navigationController pushViewController:viewController animated:YES];
+        
+        viewController = nil;
+    }
 }
 
 - (void)rejectDemand:(DemandIP *)demand
 {
     demandToReject = demand;
-    NSString *message = [NSString stringWithFormat:@"Está seguro que desea rechazar el prestamo de \"%@\" a %@", demand.object.name, [demand.from getFullName]];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"cancelar", nil) otherButtonTitles:NSLocalizedString(@"rechazar", nil), nil];
-    [alert show];
+    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Pregunta rechazar prestamo", nil), demand.object.name, [demand.from getFullName]];
+    rejectAlert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"cancelar", nil) otherButtonTitles:NSLocalizedString(@"rechazar", nil), nil];
+    [rejectAlert show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1)
+    if (alertView == rejectAlert)
     {
-        [ProgressHUD showHUDAddedTo:self.view animated:YES];
-        
-        [demandToReject rejectWithBlock:^(NSError *error)
+        if (buttonIndex == 1)
         {
-            [ProgressHUD hideHUDForView:self.view animated:YES];
+            [ProgressHUD showHUDAddedTo:self.view animated:YES];
             
-            if (!error) [friendsDemadsTable reloadData];
-            else [error manageErrorTo:self];
-        }];
-        
-        demandToReject = nil;
+            [demandToReject rejectWithBlock:^(NSError *error)
+            {
+                [ProgressHUD hideHUDForView:self.view animated:YES];
+                
+                if (!error){
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNewDemandsObserver" object:nil];
+                    [self reloadDemandsFriendsTable];
+                }
+                else [error manageErrorTo:self];
+            }];
+            
+            demandToReject = nil;
+        }
     }
 }
 /*

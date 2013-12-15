@@ -18,26 +18,58 @@ static id<GiveIPDelegate> delegate;
 @dynamic name;
 @dynamic dateBegin;
 @dynamic dateEnd;
-@dynamic objectIP;
-@dynamic friend;
+@dynamic object;
+@dynamic to;
+@dynamic from;
 @dynamic actual;
+@dynamic iPrestaObjectId;
 
-+ (void)saveAllGivesFromDBObject:(PFObject *)object withBlock:(void (^)(NSError *))block
++ (void)saveAllGivesFromDBWithBlock:(void (^)(NSError *))block
 {
-    PFQuery *givesQuery = [PFQuery queryWithClassName:@"Give"];
-    [givesQuery whereKey:@"object" equalTo:object];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"from = %@ OR to = %@", [UserIP loggedUser], [UserIP loggedUser]];
+    PFQuery *givesQuery = [PFQuery queryWithClassName:@"Give" predicate:predicate];
     givesQuery.limit = 1000;
     
     [givesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
-        for (PFObject *give in objects) {
-            GiveIP *newGive = [GiveIP new];
-            [newGive setGiveFrom:give];
-            [GiveIP addObject:newGive];
-        }
-
-        block(error);
+         for (PFObject *give in objects) {
+             GiveIP *newGive = [GiveIP new];
+             [newGive setGiveFrom:give];
+             [GiveIP addObject:newGive];
+         }
+        [GiveIP save];
+         block(error);
     }];
+}
+
++ (void)addGivesFromDB
+{
+    NSArray *allGives = [GiveIP getAll];
+    
+    NSMutableArray *objectsIdArray = [[NSMutableArray alloc] initWithCapacity:allGives.count];
+    
+    for (GiveIP *give in allGives) [objectsIdArray addObject:give.objectId];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"from = %@ OR to = %@", [UserIP loggedUser], [UserIP loggedUser]];
+    PFQuery *givesQuery = [PFQuery queryWithClassName:@"Give" predicate:predicate];
+    [givesQuery whereKey:@"objectId" notContainedIn:objectsIdArray];
+    givesQuery.limit = 1000;
+    
+    [givesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+     {
+         if (!error)
+         {
+             for (PFObject *give in objects) {
+                 GiveIP *newGive = [GiveIP new];
+                 [newGive setGiveFrom:give];
+                 [GiveIP addObject:newGive];
+             }
+             
+             [GiveIP save];
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"setGivesObserver" object:nil];
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNewGivesObserver" object:nil];
+         }
+     }];
 }
 
 + (void)deleteAllGivesFromDBObject:(PFObject *)dbObject andObject:(ObjectIP *)object withBlock:(void (^)(NSError *))block
@@ -112,8 +144,9 @@ static id<GiveIPDelegate> delegate;
 {
     PFObject *give = [PFObject objectWithClassName:@"Give"];
     [give setObject:object forKey:@"object"];
+    [give setObject:[UserIP loggedUser] forKey:@"from"];
     
-    if (self.friend) [give setObject:to forKey:@"to"];
+    if (self.to) [give setObject:to forKey:@"to"];
     else [give setObject:self.name forKey:@"name"];
     
     [give setObject:self.dateBegin forKey:@"dateBegin"];
@@ -130,6 +163,15 @@ static id<GiveIPDelegate> delegate;
         }
         else block(error);
     }];
+}
+
++ (NSArray *)getAll
+{
+    NSFetchRequest *request = [self fetchRequest];
+    [request setEntity:[self entityDescription]];
+    
+    NSError *error;
+    return [[[self class] managedObjectContext] executeFetchRequest:request error:&error];
 }
 
 + (void)setDelegate:(id <GiveIPDelegate>)_delegate
@@ -187,12 +229,20 @@ static id<GiveIPDelegate> delegate;
 {
     self.objectId = give.objectId;
     
-    if ([give objectForKey:@"to"]) self.friend = [FriendIP getWithObjectId:[[give objectForKey:@"to"] objectId]];
-    else self.name = [give objectForKey:@"name"];
+    if (![[[give objectForKey:@"from"] objectId] isEqual:[UserIP userId]])
+    {
+        self.from = [FriendIP getByObjectId:[[give objectForKey:@"from"] objectId]];
+        self.iPrestaObjectId = [[give objectForKey:@"object"] objectId];
+    }
+    else
+    {
+        self.object = [ObjectIP getByObjectId:[[give objectForKey:@"object"] objectId]];
+        if ([give objectForKey:@"to"]) self.to = [FriendIP getWithObjectId:[[give objectForKey:@"to"] objectId]];
+        else self.name = [give objectForKey:@"name"];
+    }
     
     self.dateBegin = [give objectForKey:@"dateBegin"];
     self.dateEnd = [give objectForKey:@"dateEnd"];
-    self.objectIP = [ObjectIP getByObjectId:[[give objectForKey:@"object"] objectId]];
     self.actual = [give objectForKey:@"actual"];
 }
 
@@ -206,6 +256,123 @@ static id<GiveIPDelegate> delegate;
     
     if ([result count] > 0) return [result objectAtIndex:0];
     return nil;
+}
+
++ (NSArray *)getMines
+{
+    NSFetchRequest *request = [self fetchRequest];
+    [request setEntity:[self entityDescription]];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"dateBegin" ascending:NO]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"from = NULL AND actual = YES"]];
+    
+    return [[self class] executeRequest:request];
+}
+
+- (BOOL)isExpired
+{
+    return ([self.dateEnd compare:[NSDate date]] == NSOrderedAscending);
+}
+
++ (NSArray *)getFriends
+{
+    NSFetchRequest *request = [self fetchRequest];
+    [request setEntity:[self entityDescription]];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"dateBegin" ascending:NO]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"to = NULL AND actual = YES"]];
+    
+    return [[self class] executeRequest:request];
+}
+
++ (NSArray *)getMinesExpired
+{
+    NSArray *mines = [GiveIP getMines];
+    NSMutableArray *minesExpired = [NSMutableArray new];
+    
+    for (GiveIP *give in mines) {
+        if ([give isExpired]) [minesExpired addObject:give];
+    }
+    
+    return [minesExpired copy];
+}
+
++ (NSArray *)getFriendsExpired
+{
+    NSArray *friends = [GiveIP getFriends];
+    NSMutableArray *friendsExpired = [NSMutableArray new];
+    
+    for (GiveIP *give in friends) {
+        if ([give isExpired]) [friendsExpired addObject:give];
+    }
+    
+    return [friendsExpired copy];
+}
+
++ (NSArray *)getFriendsActuals
+{
+    NSArray *friends = [GiveIP getFriends];
+    NSMutableArray *friendsActuals = [NSMutableArray new];
+    
+    for (GiveIP *give in friends) {
+        if ([give.actual boolValue]) [friendsActuals addObject:give];
+    }
+    
+    return [friendsActuals copy];
+}
+
++ (void)refreshActuals
+{
+    NSArray *givesFirendsActuals = [GiveIP getFriendsActuals];
+    int givesFirendsActualsCount = givesFirendsActuals.count;
+    NSMutableArray *objectsIdArray = [[NSMutableArray alloc] initWithCapacity:givesFirendsActualsCount];
+    
+    if (givesFirendsActuals > 0)
+    {
+        for (GiveIP *give in givesFirendsActuals) [objectsIdArray addObject:give.objectId];
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"from = %@ OR to = %@", [UserIP loggedUser], [UserIP loggedUser]];
+        PFQuery *demandsQuery = [PFQuery queryWithClassName:@"Give" predicate:predicate];
+        [demandsQuery whereKey:@"objectId" containedIn:objectsIdArray];
+        [demandsQuery orderByAscending:@"dateBegin"];
+        demandsQuery.limit = 1000;
+        
+        [demandsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+         {
+             if (!error)
+             {
+                 for (int i = 0; i < givesFirendsActualsCount; i++) {
+                     [[givesFirendsActuals objectAtIndex:i] setActual:[[objects objectAtIndex:i] objectForKey:@"actual"]];
+                 }
+                 
+                 [GiveIP save];
+                 
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFriendsGivesTableObserver" object:nil];
+             }
+         }];
+    }
+}
+
+- (void)sendGivePushResponseWithBlock:(void (^)(NSError *))block
+{
+    PFQuery *userQuery = [PFUser query];
+    [userQuery whereKey:@"objectId" equalTo:self.to.objectId];
+    
+    [userQuery getFirstObjectInBackgroundWithBlock:^(PFObject *user, NSError *error)
+     {
+         PFQuery *pushQuery = [PFInstallation query];
+         [pushQuery whereKey:@"user" equalTo:user];
+         [pushQuery whereKey:@"isLogged" equalTo:[NSNumber numberWithBool:YES]];
+         
+         PFPush *push = [PFPush new];
+         [push setQuery:pushQuery];
+         NSString *alert = [NSString stringWithFormat:NSLocalizedString(@"Prestamo push", nil), [[UserIP loggedUser] email], self.object.name];
+         
+         [push setData:[NSDictionary dictionaryWithObjectsAndKeys: @"Increment", @"badge", @"default", @"sound", alert, @"alert", self.objectId, @"demandId", @"give", @"pushID", nil]];
+         
+         [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+         {
+              block(error);
+         }];
+     }];
 }
 
 @end

@@ -162,7 +162,6 @@ static NSInteger newFriends;
     return [allFriendsEmails copy];
 }
 
-
 + (void)getAllFriends:(void (^)(NSError *))block
 {
     [FriendIP getPermissions:^(BOOL granted)

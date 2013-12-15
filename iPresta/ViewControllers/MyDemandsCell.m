@@ -39,7 +39,7 @@
     friendName.text = [demand.to getFullName];
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"dd/MM/yy HH:mm"];
+    [dateFormat setDateFormat:NSLocalizedString(@"Formato fecha", nil)];
     date.text = [dateFormat stringFromDate:demand.date];
     
     if (demand.accepted == nil) stateLabel.text = NSLocalizedString(@"esperando", nil);

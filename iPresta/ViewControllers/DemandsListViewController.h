@@ -20,6 +20,9 @@
     NSMutableArray *objectsImageArray;
     NSMutableArray *objectsArray;
     
+    UIAlertView *rejectAlert;
+    UIAlertView *acceptAlert;
+    
     IBOutlet UITableView *myDemadsTable;
     IBOutlet UITableView *friendsDemadsTable;
     IBOutlet UISegmentedControl *segmentedControl;

@@ -69,19 +69,18 @@ static ObjectIP *currentObject;
                                  {
                                      [newObject setObjetctFrom:object andImage:data];
                                      [ObjectIP addObject:newObject];
-                                     
-                                     [GiveIP saveAllGivesFromDBObject:object withBlock:^(NSError *error)
+                                     count++;
+                                     if (count == objectsCount)
                                      {
-                                         if (!error)
+                                         [ObjectIP save];
+                                         [GiveIP saveAllGivesFromDBWithBlock:^(NSError *error)
                                          {
-                                             count++;
-                                             if (count == objectsCount)
+                                             if (!error)
                                              {
                                                  [DemandIP saveAllDemandsFromDBWithBlock:^(NSError * error)
-                                                  {
+                                                 {
                                                       if (!error)
                                                       {
-                                                          [CoreDataManager save];
                                                           [loginDelegate saveAllObjectsFromDBresult:nil];
                                                       }
                                                       else
@@ -89,49 +88,55 @@ static ObjectIP *currentObject;
                                                           [loginDelegate saveAllObjectsFromDBresult:error];
                                                           return;
                                                       }
-                                                  }];
+                                                 }];
                                              }
                                              else
                                              {
-                                                 // El usuario no da permisos a la app para acceder a los contactos
+                                                 [loginDelegate saveAllObjectsFromDBresult:error];
+                                                 return;
                                              }
-                                         }
-                                         else
-                                         {
-                                             [loginDelegate saveAllObjectsFromDBresult:error];
-                                             return;
-                                         }
-                                     }];
-                                 }
-                                 else
-                                 {
-                                     [loginDelegate saveAllObjectsFromDBresult:error];
-                                     return;
-                                 }
+                                         }];
+                                     }
+                                }
+                                else
+                                {
+                                    [loginDelegate saveAllObjectsFromDBresult:error];
+                                    return;
+                                }
                             }];
                         }
                         else
                         {
                             [newObject setObjetctFrom:object andImage:nil];
                             [ObjectIP addObject:newObject];
-                            
-                            [GiveIP saveAllGivesFromDBObject:object withBlock:^(NSError *error)
+                            count++;
+                            if (count == objectsCount)
                             {
-                                 if (error)
+                                [ObjectIP save];
+                                [GiveIP saveAllGivesFromDBWithBlock:^(NSError *error)
                                  {
-                                     [loginDelegate saveAllObjectsFromDBresult:error];
-                                     return;
-                                 }
-                                 else
-                                 {
-                                     count++;
-                                     if (count == objectsCount)
+                                     if (!error)
                                      {
-                                         [CoreDataManager save];
-                                         [loginDelegate saveAllObjectsFromDBresult:nil];
-                                     }
-                                 }
-                            }];
+                                          [DemandIP saveAllDemandsFromDBWithBlock:^(NSError * error)
+                                          {
+                                              if (!error)
+                                              {
+                                                  [loginDelegate saveAllObjectsFromDBresult:nil];
+                                              }
+                                              else
+                                              {
+                                                  [loginDelegate saveAllObjectsFromDBresult:error];
+                                                  return;
+                                              }
+                                          }];
+                                      }
+                                      else
+                                      {
+                                          [loginDelegate saveAllObjectsFromDBresult:error];
+                                          return;
+                                      }
+                                 }];
+                            }
                         }
                     }
                 }
@@ -461,12 +466,12 @@ static ObjectIP *currentObject;
                           
                           GiveIP *newGive = [GiveIP new];
                           
-                          if ([to isKindOfClass:[PFUser class]]) newGive.friend = [FriendIP getWithObjectId:[to objectId]];
+                          if ([to isKindOfClass:[PFUser class]]) newGive.to = [FriendIP getWithObjectId:[to objectId]];
                           else newGive.name = to;
                           
                           newGive.dateBegin = dateBegin;
                           newGive.dateEnd = dateEnd;
-                          newGive.objectIP = self;
+                          newGive.object = self;
                           newGive.actual = [NSNumber numberWithBool:YES];
                           
                           [newGive saveToObject:object to:to WithBlock:^(NSError *error)
@@ -479,6 +484,15 @@ static ObjectIP *currentObject;
                                       {
                                           if (!error)
                                           {
+                                              if ([delegate respondsToSelector:@selector(giveObjectSuccess:)]) [delegate giveObjectSuccess:newGive];
+                                          }
+                                          else if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
+                                      }];
+                                  }
+                                  else if ([newGive.to isKindOfClass:[FriendIP class]]){
+                                      [newGive sendGivePushResponseWithBlock:^(NSError *error)
+                                      {
+                                          if (!error) {
                                               if ([delegate respondsToSelector:@selector(giveObjectSuccess:)]) [delegate giveObjectSuccess:newGive];
                                           }
                                           else if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
@@ -705,7 +719,11 @@ static ObjectIP *currentObject;
                  }
             }];
         }
-        else {}
+        else
+        {
+            [listObject setObjetctFrom:object andImage:nil];
+            block(error, listObject);
+        }
     }];
 
 }
@@ -713,7 +731,7 @@ static ObjectIP *currentObject;
 {
     NSFetchRequest *request = [GiveIP fetchRequest];
     [request setEntity:[GiveIP entityDescription]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"objectIP = %@ AND actual = 1", self]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"object = %@ AND actual = 1", self]];
     
     NSArray *giveObject = [GiveIP executeRequest:request];
     

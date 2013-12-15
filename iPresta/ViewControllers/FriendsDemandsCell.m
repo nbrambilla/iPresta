@@ -35,7 +35,7 @@
     objectImageView.image = (demand.object.image) ? [UIImage imageWithData:demand.object.image] : [UIImage imageNamed:[ObjectIP imageType:[demand.object.type integerValue]]];
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"dd/MM/yy HH:mm"];
+    [dateFormat setDateFormat:NSLocalizedString(@"Formato fecha", nil)];
     date.text = [dateFormat stringFromDate:demand.date];
 
     if (demand.accepted == nil) stateLabel.hidden = YES;

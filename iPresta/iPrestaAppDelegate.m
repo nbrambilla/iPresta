@@ -10,6 +10,7 @@
 #import "ObjectIP.h"
 #import "FriendIP.h"
 #import "DemandIP.h"
+#import "GiveIP.h"
 #import "iPrestaAppDelegate.h"
 #import "AuthenticateEmailViewController.h"
 #import "LoginViewController.h"
@@ -89,7 +90,6 @@
     [PFPush handlePush:userInfo];
     if ([[userInfo objectForKey:@"pushID"] isEqual:@"demand"])
     {
-        [DemandIP incrementNewDemands];
         FriendIP *friend = [FriendIP getByObjectId:[userInfo objectForKey:@"friendId"]];
         ObjectIP *object = [ObjectIP getByObjectId:[userInfo objectForKey:@"objectId"]];
         NSString *demandId = [userInfo objectForKey:@"demandId"];
@@ -101,6 +101,10 @@
         NSString *demandId = [userInfo objectForKey:@"demandId"];
         NSNumber *accepted = [userInfo objectForKey:@"accepted"];
         [DemandIP setState:accepted toDemandWithId:demandId];
+    }
+    else if ([[userInfo objectForKey:@"pushID"] isEqual:@"give"])
+    {
+        [GiveIP addGivesFromDB];
     }
 }
 
@@ -129,6 +133,8 @@
     {
         [DemandIP refreshStates];
         [DemandIP addDemandsFromDB];
+        [GiveIP refreshActuals];
+        [GiveIP addGivesFromDB];
         [FriendIP addFriendsFromDB];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];

@@ -13,6 +13,8 @@
 "Chequee mensaje" =         "Chequee se email y auentique su cuenta";
 "Autenticar email" =        "Autenticar email";
 "Mensaje autenticar" =      "Ahora auntentique el nuevo email y presione Entrar";
+"Volver" =                  "Volver";
+"Crear cuenta" =            "Crear cuenta";
 "¿Olvido su contraseña?" =  "¿Olvido su contraseña?";
 "Entrar" =                  "Entrar";
 "Recuperar contraseña" =    "Recuperar contraseña";
@@ -23,13 +25,14 @@
 
 /* Menu */
 
-"Objetos" =             "Objetos";
-"Buscar" =              "Buscar";
-"Contactos" =           "Contactos";
-"Pedidos" =             "Pedidos";
-"Configuracion" =       "Configuración";
-"Volver" =              "Volver";
-"Crear cuenta" =        "Crear cuenta";
+"Objetos" =                     "Objetos";
+"Buscar" =                      "Buscar";
+"Contactos" =                   "Contactos";
+"Pedidos pendientes" =          "Pedidos pendientes";
+"Prestamos expirados" =         "Prestamos expirados";
+"Configuracion" =               "Configuración";
+"Mios:" =                       "Mios:";
+"Amigos:" =                     "Amigos:";
 
 /* Busqueda */
 
@@ -60,6 +63,8 @@
 "Hasta" =               "hasta";
 "Mis pedidos" =         "Mis pedidos";
 "Pedidos de amigos" =   "Pedidos de amigos";
+"Mis prestamos" =       "Mis préstamos";
+"Prestamos de amigos" = "Prestamos de amigos";
 "Nombre" =              "Nombre";
 "Editorial" =           "Editorial";
 "Autor" =               "Autor";
@@ -73,6 +78,7 @@
 "Vinculado" =           "vinculado";
 "Desvinculado" =        "desvinculado";
 "Vinilo" =              "Vinilo";
+"Formato fecha" =       "dd/MM/yy";
 
 /* Configuración */
 
@@ -104,9 +110,12 @@
 "Push pedido" =                         "%@ te ha pedido %@";
 "Respuesta pedido push" =               "El pedido de \"%@\" realizado a %@ ha sido %@";
 "Respuesta pedido facebook" =           "Acaba de prestar \"%@\" a %@ vía iPresta app";
+"Prestamo push" =                       "%@ le acaba de prestar \"%@\"";
 "Autenticar email" =                    "Recibira un mail de autenticación. Autentique su cuenta y presione \"Ir\". Si no ha recibido el mail, puede reenviarlo.";
 "Prestamo vencido push" =               "Ha vencido el préstamo de \"%@\" a %@";
 "Prestamo otra persona" =               "El préstamo debe realizarse a otra persona";
+"Pregunta rechazar prestamo" =          "Está seguro que desea rechazar el prestamo de \"%@\" a %@";
+"Objeto prestado" =                     "\"%@\" se encuentra prestado";
 
 /* Pedidos */
 

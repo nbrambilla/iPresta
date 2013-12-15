@@ -130,9 +130,9 @@
         giveBackButton.enabled = YES;
         
         GiveIP *objectCurrentGive = [currentObject currentGive];
-        stateLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Prestado a", nil), (objectCurrentGive.name) ? objectCurrentGive.name : [objectCurrentGive.friend getFullName]];
+        stateLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Prestado a", nil), (objectCurrentGive.name) ? objectCurrentGive.name : [objectCurrentGive.to getFullName]];
         
-        if ([[objectCurrentGive dateEnd] compare:[NSDate date]] == NSOrderedAscending)
+        if ([objectCurrentGive isExpired])
         {
             loanUpLabel.hidden = NO;
             loanUpButton.enabled = YES;
@@ -180,6 +180,7 @@
 
 - (void)demandToSuccess
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNewDemandsObserver" object:nil];
     [ProgressHUD hideHUDForView:self.view animated:YES];
     demandButton.enabled = NO;
 }
@@ -218,6 +219,7 @@
     [ProgressHUD hideHUDForView:self.view animated:YES];
                   
     [self removeNotificatioWithRegisterId:[[[ObjectIP  currentObject] currentGive] objectId]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNewGivesObserver" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
                   
     [self setGiveView];
@@ -266,6 +268,7 @@
     [self setGiveView];
     
     GiveIP *currentGive = [[ObjectIP currentObject] currentGive];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNewGivesObserver" object:nil];
     [self addNotificatioToDate:currentGive.dateEnd object:currentGive.name to:currentGive.name registerId:currentGive.objectId];
 }
 

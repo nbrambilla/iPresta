@@ -19,8 +19,6 @@
 #import "iPrestaNSString.h"
 #import "MLTableAlert.h"
 #import "Facebook.h"
-#import "Twitter.h"
-
 
 @interface GiveObjectViewController ()
 
@@ -216,7 +214,11 @@
         NSInteger time = [timeTextField.text getIntegerTime];
         NSDate *dateEnd = [dateBegin dateByAddingTimeInterval:time];
         
-        id to = (_friend) ? _friend : name ;
+        id to;
+        
+        if (_friend) to = _friend;
+        else if (_demand) to = _demand.from;
+        else to = name ;
         
         [[ObjectIP currentObject] giveObjectTo:to from:dateBegin to:dateEnd fromDemand:_demand];
         
@@ -245,6 +247,10 @@
     
     [self addNotificatioToDate:give.dateEnd object:currentObject.name to:give.name registerId:give.objectId];
     if (!facebookButton.selected) [self.navigationController popViewControllerAnimated:YES];
+    if (_demand) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFriendsDemandsTableObserver" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNewDemandsObserver" object:nil];
+    }
 }
 
 - (void)objectError:(NSError *)error

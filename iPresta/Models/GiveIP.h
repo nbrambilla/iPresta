@@ -28,18 +28,28 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSDate * dateBegin;
 @property (nonatomic, retain) NSDate * dateEnd;
-@property (nonatomic, retain) ObjectIP *objectIP;
-@property (nonatomic, retain) FriendIP *friend;
+@property (nonatomic, retain) ObjectIP *object;
+@property (nonatomic, retain) FriendIP *to;
+@property (nonatomic, retain) FriendIP *from;
 @property (nonatomic, retain) NSNumber *actual;
+@property (nonatomic, retain) NSString *iPrestaObjectId;
 
-+ (void)saveAllGivesFromDBObject:(PFObject *)object withBlock:(void (^)(NSError *))block;
++ (void)saveAllGivesFromDBWithBlock:(void (^)(NSError *))block;
++ (void)addGivesFromDB;
 + (void)deleteAllGivesFromDBObject:(PFObject *)dbObject andObject:(ObjectIP *)object withBlock:(void (^)(NSError *))block;
 + (void)setDelegate:(id <GiveIPDelegate>)_delegate;
 + (id <GiveIPDelegate>)delegate;
 + (NSArray *)giveTimesArray;
++ (NSArray *)getMines;
++ (NSArray *)getFriends;
++ (NSArray *)getMinesExpired;
++ (NSArray *)getFriendsExpired;
++ (void)refreshActuals;
 
+- (BOOL)isExpired;
 - (void)extendGive:(NSInteger)date;
 - (void)saveToObject:(PFObject *)object to:(id)to WithBlock:(void(^) (NSError *))block;
 - (void)cancelWithBlock:(void(^) (NSError *))block;
+- (void)sendGivePushResponseWithBlock:(void (^)(NSError *))block;
 
 @end

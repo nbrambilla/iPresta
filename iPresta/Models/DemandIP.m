@@ -23,12 +23,6 @@ static NSInteger newDemands;
 @dynamic objectId;
 @dynamic iPrestaObjectId;
 
-
-+ (NSInteger)newDemands
-{
-    return newDemands;
-}
-
 + (void)saveAllDemandsFromDBWithBlock:(void (^)(NSError *))block
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"from = %@ OR to = %@", [UserIP loggedUser], [UserIP loggedUser]];
@@ -42,14 +36,9 @@ static NSInteger newDemands;
              [newDemand setDemandFrom:demand];
              [DemandIP addObject:newDemand];
          }
-         
+        [DemandIP save];
          block(error);
     }];
-}
-
-+ (void)incrementNewDemands
-{
-    newDemands +=1;
 }
 
 + (void)refreshStates
@@ -78,6 +67,7 @@ static NSInteger newDemands;
                  
                  [DemandIP save];
                  
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNewDemandsObserver" object:nil];
                  [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadMyDemandsTableObserver" object:nil];
              }
         }];
@@ -108,7 +98,7 @@ static NSInteger newDemands;
             }
             
             [DemandIP save];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"setDemandsObserver" object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFriendsDemandsTableObserver" object:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNewDemandsObserver" object:nil];
         }
     }];
@@ -139,7 +129,7 @@ static NSInteger newDemands;
     NSFetchRequest *request = [self fetchRequest];
     [request setEntity:[self entityDescription]];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"from = NULL"]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"from = NULL AND accepted = NULL"]];
     
     return [[self class] executeRequest:request];
 }
@@ -149,7 +139,7 @@ static NSInteger newDemands;
     NSFetchRequest *request = [self fetchRequest];
     [request setEntity:[self entityDescription]];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"to = NULL"]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"to = NULL AND accepted = NULL"]];
     
     return [[self class] executeRequest:request];
 }
@@ -159,7 +149,7 @@ static NSInteger newDemands;
     NSFetchRequest *request = [self fetchRequest];
     [request setEntity:[self entityDescription]];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"objectId" ascending:YES]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"accepted = NULL"]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"accepted = NULL AND from = NULL"]];
     
     return [[self class] executeRequest:request];
 }
@@ -172,6 +162,7 @@ static NSInteger newDemands;
     [DemandIP save];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadMyDemandsTableObserver" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNewDemandsObserver" object:nil];
 }
 
 - (void)setDemandFrom:(PFObject *)demand
@@ -259,7 +250,7 @@ static NSInteger newDemands;
         
         PFPush *push = [PFPush new];
         [push setQuery:pushQuery];
-        NSString *alert = [NSString stringWithFormat:NSLocalizedString(@"Respuesta pedido push", nil), self.object.name, [[UserIP loggedUser] email], ([accepted boolValue]) ? [NSLocalizedString(@"aceptado", nil) uppercaseString]: [NSLocalizedString(@"aceptado", nil) uppercaseString]];
+        NSString *alert = [NSString stringWithFormat:NSLocalizedString(@"Respuesta pedido push", nil), self.object.name, [[UserIP loggedUser] email], ([accepted boolValue]) ? [NSLocalizedString(@"aceptado", nil) uppercaseString]: [NSLocalizedString(@"rechazado", nil) uppercaseString]];
         
         [push setData:[NSDictionary dictionaryWithObjectsAndKeys: @"Increment", @"badge", @"default", @"sound", alert, @"alert", self.objectId, @"demandId", @"response", @"pushID", accepted, @"accepted", nil]];
         

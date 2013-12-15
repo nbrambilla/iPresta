@@ -14,7 +14,15 @@
 		1518EA16174A6D97000EB0FE /* camera_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1518EA15174A6D97000EB0FE /* camera_icon.png */; };
 		151AE7E11753FD4800C41740 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 151AE7E01753FD4800C41740 /* AddressBook.framework */; };
 		151AE7E31753FDA300C41740 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 151AE7E21753FDA300C41740 /* AddressBookUI.framework */; };
+		151E1F991854BF8D00B71487 /* loan_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 151E1F971854BF8D00B71487 /* loan_icon.png */; };
+		151E1F9A1854BF8D00B71487 /* loan_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 151E1F981854BF8D00B71487 /* loan_icon@2x.png */; };
+		151E1F9E1854C1CD00B71487 /* LoansListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 151E1F9C1854C1CD00B71487 /* LoansListViewController.m */; };
+		151E1F9F1854C1CD00B71487 /* LoansListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 151E1F9D1854C1CD00B71487 /* LoansListViewController.xib */; };
 		15212EEF173C53CF00A7A764 /* iPrestaUIControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 15212EEE173C53CF00A7A764 /* iPrestaUIControl.m */; };
+		15328F5E185652C90036FC06 /* MyGiveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15328F5D185652C90036FC06 /* MyGiveCell.xib */; };
+		15328F61185652F20036FC06 /* MyGiveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15328F60185652F20036FC06 /* MyGiveCell.m */; };
+		15328F64185663840036FC06 /* FriendGiveCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15328F63185663830036FC06 /* FriendGiveCell.m */; };
+		15328F66185663BD0036FC06 /* FriendGiveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15328F65185663BC0036FC06 /* FriendGiveCell.xib */; };
 		153513E317BC029D00E4193D /* SideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 153513DF17BC029D00E4193D /* SideMenuViewController.m */; };
 		153513E417BC029D00E4193D /* SideMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 153513E017BC029D00E4193D /* SideMenuViewController.xib */; };
 		153513E517BC029D00E4193D /* SlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 153513E217BC029D00E4193D /* SlideViewController.m */; };
@@ -72,7 +80,6 @@
 		156B2DB6182FBED200700890 /* bt_twitter_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 156B2DAE182FBED200700890 /* bt_twitter_on.png */; };
 		156B2DB7182FBED200700890 /* bt_twitter_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 156B2DAF182FBED200700890 /* bt_twitter_on@2x.png */; };
 		156B2DBA1830056600700890 /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 156B2DB91830056600700890 /* Facebook.m */; };
-		156B2DBD18300AD200700890 /* Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 156B2DBC18300AD100700890 /* Twitter.m */; };
 		156B2DBF183010B100700890 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156B2DBE183010B100700890 /* Twitter.framework */; };
 		156FDE0A16F399E900F4BEEA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE0916F399E900F4BEEA /* UIKit.framework */; };
 		156FDE0C16F399E900F4BEEA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE0B16F399E900F4BEEA /* Foundation.framework */; };
@@ -101,11 +108,14 @@
 		1572271B184BC60A00F00D60 /* ObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1572271A184BC60700F00D60 /* ObjectCell.m */; };
 		15763EF917F2012800D1F514 /* DemandIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 15763EF817F2012800D1F514 /* DemandIP.m */; };
 		157D9649180F3239001A346E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 157D964B180F3239001A346E /* Localizable.strings */; };
+		159469E0185DE9D000350D47 /* DemandsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 159469DF185DE9D000350D47 /* DemandsCell.m */; };
+		159469E3185DEA3B00350D47 /* GivesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 159469E2185DEA3A00350D47 /* GivesCell.m */; };
+		159469E6185DEDBF00350D47 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 159469E5185DEDBF00350D47 /* MenuCell.m */; };
 		159678E21843DD7B0096B49C /* MyDemandsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 159678E11843DD7B0096B49C /* MyDemandsCell.m */; };
 		159678E41843DE000096B49C /* MyDemandsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 159678E31843DE000096B49C /* MyDemandsCell.xib */; };
 		15A877B6172C875300E8BDA2 /* RequestPasswordResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A877B4172C875200E8BDA2 /* RequestPasswordResetViewController.m */; };
 		15A877B7172C875300E8BDA2 /* RequestPasswordResetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15A877B5172C875300E8BDA2 /* RequestPasswordResetViewController.xib */; };
-		15B8994A1840F2E50040B848 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B899491840F2E50040B848 /* MenuCell.m */; };
+		15B8994A1840F2E50040B848 /* FriendsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B899491840F2E50040B848 /* FriendsCell.m */; };
 		15C44D6A16FE026B0071E7EC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C44D6916FE026B0071E7EC /* FacebookSDK.framework */; };
 		15C99479172C0515000672B4 /* ChangeEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C99477172C0515000672B4 /* ChangeEmailViewController.m */; };
 		15C9947A172C0515000672B4 /* ChangeEmailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15C99478172C0515000672B4 /* ChangeEmailViewController.xib */; };
@@ -179,8 +189,19 @@
 		1518EA15174A6D97000EB0FE /* camera_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera_icon.png; path = Images/camera_icon.png; sourceTree = "<group>"; };
 		151AE7E01753FD4800C41740 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		151AE7E21753FDA300C41740 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		151E1F971854BF8D00B71487 /* loan_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = loan_icon.png; path = Images/loan_icon.png; sourceTree = "<group>"; };
+		151E1F981854BF8D00B71487 /* loan_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loan_icon@2x.png"; path = "Images/loan_icon@2x.png"; sourceTree = "<group>"; };
+		151E1F9B1854C1CD00B71487 /* LoansListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoansListViewController.h; path = ViewControllers/LoansListViewController.h; sourceTree = "<group>"; };
+		151E1F9C1854C1CD00B71487 /* LoansListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoansListViewController.m; path = ViewControllers/LoansListViewController.m; sourceTree = "<group>"; };
+		151E1F9D1854C1CD00B71487 /* LoansListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoansListViewController.xib; path = ViewControllers/LoansListViewController.xib; sourceTree = "<group>"; };
 		15212EED173C53CF00A7A764 /* iPrestaUIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaUIControl.h; path = "External Frameworks/Extends UIControl/iPrestaUIControl.h"; sourceTree = "<group>"; };
 		15212EEE173C53CF00A7A764 /* iPrestaUIControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaUIControl.m; path = "External Frameworks/Extends UIControl/iPrestaUIControl.m"; sourceTree = "<group>"; };
+		15328F5D185652C90036FC06 /* MyGiveCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MyGiveCell.xib; path = ViewControllers/MyGiveCell.xib; sourceTree = "<group>"; };
+		15328F5F185652F10036FC06 /* MyGiveCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyGiveCell.h; path = ViewControllers/MyGiveCell.h; sourceTree = "<group>"; };
+		15328F60185652F20036FC06 /* MyGiveCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyGiveCell.m; path = ViewControllers/MyGiveCell.m; sourceTree = "<group>"; };
+		15328F62185663830036FC06 /* FriendGiveCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendGiveCell.h; path = ViewControllers/FriendGiveCell.h; sourceTree = "<group>"; };
+		15328F63185663830036FC06 /* FriendGiveCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendGiveCell.m; path = ViewControllers/FriendGiveCell.m; sourceTree = "<group>"; };
+		15328F65185663BC0036FC06 /* FriendGiveCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FriendGiveCell.xib; path = ViewControllers/FriendGiveCell.xib; sourceTree = "<group>"; };
 		153513DE17BC029D00E4193D /* SideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideMenuViewController.h; path = ViewControllers/SideMenuViewController.h; sourceTree = "<group>"; };
 		153513DF17BC029D00E4193D /* SideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SideMenuViewController.m; path = ViewControllers/SideMenuViewController.m; sourceTree = "<group>"; };
 		153513E017BC029D00E4193D /* SideMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SideMenuViewController.xib; path = ViewControllers/SideMenuViewController.xib; sourceTree = "<group>"; };
@@ -282,8 +303,6 @@
 		156B2DAF182FBED200700890 /* bt_twitter_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bt_twitter_on@2x.png"; path = "Images/bt_twitter_on@2x.png"; sourceTree = "<group>"; };
 		156B2DB81830056600700890 /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Facebook.h; path = iPresta/Models/Facebook.h; sourceTree = "<group>"; };
 		156B2DB91830056600700890 /* Facebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Facebook.m; path = iPresta/Models/Facebook.m; sourceTree = "<group>"; };
-		156B2DBB18300AD100700890 /* Twitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Twitter.h; path = iPresta/Models/Twitter.h; sourceTree = "<group>"; };
-		156B2DBC18300AD100700890 /* Twitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Twitter.m; path = iPresta/Models/Twitter.m; sourceTree = "<group>"; };
 		156B2DBE183010B100700890 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		156FDE0516F399E900F4BEEA /* iPresta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPresta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		156FDE0916F399E900F4BEEA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -319,14 +338,20 @@
 		15763EF817F2012800D1F514 /* DemandIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DemandIP.m; path = iPresta/Models/DemandIP.m; sourceTree = "<group>"; };
 		157D964A180F3239001A346E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		157D964C180F323B001A346E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		159469DE185DE9D000350D47 /* DemandsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemandsCell.h; path = ViewControllers/DemandsCell.h; sourceTree = "<group>"; };
+		159469DF185DE9D000350D47 /* DemandsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DemandsCell.m; path = ViewControllers/DemandsCell.m; sourceTree = "<group>"; };
+		159469E1185DEA3A00350D47 /* GivesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GivesCell.h; path = ViewControllers/GivesCell.h; sourceTree = "<group>"; };
+		159469E2185DEA3A00350D47 /* GivesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GivesCell.m; path = ViewControllers/GivesCell.m; sourceTree = "<group>"; };
+		159469E4185DEDBF00350D47 /* MenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuCell.h; path = ViewControllers/MenuCell.h; sourceTree = "<group>"; };
+		159469E5185DEDBF00350D47 /* MenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuCell.m; path = ViewControllers/MenuCell.m; sourceTree = "<group>"; };
 		159678E01843DD7B0096B49C /* MyDemandsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyDemandsCell.h; path = ViewControllers/MyDemandsCell.h; sourceTree = "<group>"; };
 		159678E11843DD7B0096B49C /* MyDemandsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyDemandsCell.m; path = ViewControllers/MyDemandsCell.m; sourceTree = "<group>"; };
 		159678E31843DE000096B49C /* MyDemandsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MyDemandsCell.xib; path = ViewControllers/MyDemandsCell.xib; sourceTree = "<group>"; };
 		15A877B3172C875200E8BDA2 /* RequestPasswordResetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RequestPasswordResetViewController.h; path = ViewControllers/RequestPasswordResetViewController.h; sourceTree = "<group>"; };
 		15A877B4172C875200E8BDA2 /* RequestPasswordResetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestPasswordResetViewController.m; path = ViewControllers/RequestPasswordResetViewController.m; sourceTree = "<group>"; };
 		15A877B5172C875300E8BDA2 /* RequestPasswordResetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RequestPasswordResetViewController.xib; path = ViewControllers/RequestPasswordResetViewController.xib; sourceTree = "<group>"; };
-		15B899481840F2E50040B848 /* MenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuCell.h; path = ViewControllers/MenuCell.h; sourceTree = "<group>"; };
-		15B899491840F2E50040B848 /* MenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuCell.m; path = ViewControllers/MenuCell.m; sourceTree = "<group>"; };
+		15B899481840F2E50040B848 /* FriendsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsCell.h; path = ViewControllers/FriendsCell.h; sourceTree = "<group>"; };
+		15B899491840F2E50040B848 /* FriendsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsCell.m; path = ViewControllers/FriendsCell.m; sourceTree = "<group>"; };
 		15C29CA117D3930300B0ED5D /* CoreDataManager_CoreDataManagerExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CoreDataManager_CoreDataManagerExtension.h; path = iPresta/Models/CoreDataManager_CoreDataManagerExtension.h; sourceTree = "<group>"; };
 		15C44D6916FE026B0071E7EC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		15C99476172C0515000672B4 /* ChangeEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangeEmailViewController.h; path = ViewControllers/ChangeEmailViewController.h; sourceTree = "<group>"; };
@@ -454,6 +479,8 @@
 		1518EA14174A6D86000EB0FE /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				151E1F971854BF8D00B71487 /* loan_icon.png */,
+				151E1F981854BF8D00B71487 /* loan_icon@2x.png */,
 				156B2DA8182FBED200700890 /* bt_facebook_off.png */,
 				156B2DA9182FBED200700890 /* bt_facebook_off@2x.png */,
 				156B2DAA182FBED200700890 /* bt_facebook_on.png */,
@@ -711,8 +738,14 @@
 		156FDE4616F39DCC00F4BEEA /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				15B899481840F2E50040B848 /* MenuCell.h */,
-				15B899491840F2E50040B848 /* MenuCell.m */,
+				159469E4185DEDBF00350D47 /* MenuCell.h */,
+				159469E5185DEDBF00350D47 /* MenuCell.m */,
+				15B899481840F2E50040B848 /* FriendsCell.h */,
+				15B899491840F2E50040B848 /* FriendsCell.m */,
+				159469DE185DE9D000350D47 /* DemandsCell.h */,
+				159469DF185DE9D000350D47 /* DemandsCell.m */,
+				159469E1185DEA3A00350D47 /* GivesCell.h */,
+				159469E2185DEA3A00350D47 /* GivesCell.m */,
 				153513DE17BC029D00E4193D /* SideMenuViewController.h */,
 				153513DF17BC029D00E4193D /* SideMenuViewController.m */,
 				153513E017BC029D00E4193D /* SideMenuViewController.xib */,
@@ -789,6 +822,15 @@
 				154C3EBA17FF46DF00F723B7 /* DemandsListViewController.h */,
 				154C3EBB17FF46DF00F723B7 /* DemandsListViewController.m */,
 				154C3EBC17FF46DF00F723B7 /* DemandsListViewController.xib */,
+				151E1F9B1854C1CD00B71487 /* LoansListViewController.h */,
+				151E1F9C1854C1CD00B71487 /* LoansListViewController.m */,
+				151E1F9D1854C1CD00B71487 /* LoansListViewController.xib */,
+				15328F5F185652F10036FC06 /* MyGiveCell.h */,
+				15328F60185652F20036FC06 /* MyGiveCell.m */,
+				15328F5D185652C90036FC06 /* MyGiveCell.xib */,
+				15328F62185663830036FC06 /* FriendGiveCell.h */,
+				15328F63185663830036FC06 /* FriendGiveCell.m */,
+				15328F65185663BC0036FC06 /* FriendGiveCell.xib */,
 				15722719184BC60400F00D60 /* ObjectCell.h */,
 				1572271A184BC60700F00D60 /* ObjectCell.m */,
 				15722717184BC53A00F00D60 /* ObjectCell.xib */,
@@ -811,8 +853,6 @@
 				15763EF817F2012800D1F514 /* DemandIP.m */,
 				156B2DB81830056600700890 /* Facebook.h */,
 				156B2DB91830056600700890 /* Facebook.m */,
-				156B2DBB18300AD100700890 /* Twitter.h */,
-				156B2DBC18300AD100700890 /* Twitter.m */,
 				19BA25CD179E6E83004F24DE /* AddressBookRegister.h */,
 				19BA25CE179E6E83004F24DE /* AddressBookRegister.m */,
 				1549959117C90BCB00857BB2 /* CoreDataManager.h */,
@@ -1035,6 +1075,11 @@
 				1549FC5B1846AB3B0015C07D /* Icon@2x.png in Resources */,
 				15722718184BC53D00F00D60 /* ObjectCell.xib in Resources */,
 				156412EC184FBF4F009C4868 /* SearchObjectCell.xib in Resources */,
+				151E1F991854BF8D00B71487 /* loan_icon.png in Resources */,
+				151E1F9A1854BF8D00B71487 /* loan_icon@2x.png in Resources */,
+				151E1F9F1854C1CD00B71487 /* LoansListViewController.xib in Resources */,
+				15328F5E185652C90036FC06 /* MyGiveCell.xib in Resources */,
+				15328F66185663BD0036FC06 /* FriendGiveCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1093,12 +1138,17 @@
 				15763EF917F2012800D1F514 /* DemandIP.m in Sources */,
 				154C3EBD17FF46DF00F723B7 /* DemandsListViewController.m in Sources */,
 				156B2DBA1830056600700890 /* Facebook.m in Sources */,
-				156B2DBD18300AD200700890 /* Twitter.m in Sources */,
-				15B8994A1840F2E50040B848 /* MenuCell.m in Sources */,
+				15B8994A1840F2E50040B848 /* FriendsCell.m in Sources */,
 				154D8A45184261BE00A1B666 /* FriendsDemandsCell.m in Sources */,
 				159678E21843DD7B0096B49C /* MyDemandsCell.m in Sources */,
 				1572271B184BC60A00F00D60 /* ObjectCell.m in Sources */,
 				156412EA184FBF2A009C4868 /* SearchObjectCell.m in Sources */,
+				151E1F9E1854C1CD00B71487 /* LoansListViewController.m in Sources */,
+				15328F61185652F20036FC06 /* MyGiveCell.m in Sources */,
+				15328F64185663840036FC06 /* FriendGiveCell.m in Sources */,
+				159469E0185DE9D000350D47 /* DemandsCell.m in Sources */,
+				159469E3185DEA3B00350D47 /* GivesCell.m in Sources */,
+				159469E6185DEDBF00350D47 /* MenuCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
