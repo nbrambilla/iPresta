@@ -220,6 +220,7 @@
                   
     [self removeNotificatioWithRegisterId:[[[ObjectIP  currentObject] currentGive] objectId]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNewGivesObserver" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNewExtendsObserver" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
                   
     [self setGiveView];
@@ -269,6 +270,7 @@
     
     GiveIP *currentGive = [[ObjectIP currentObject] currentGive];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNewGivesObserver" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNewExtendsObserver" object:nil];
     [self addNotificatioToDate:currentGive.dateEnd object:currentGive.name to:currentGive.name registerId:currentGive.objectId];
 }
 

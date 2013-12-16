@@ -15,6 +15,7 @@
 #import "ConfigurationViewController.h"
 #import "SearchObjectsViewController.h"
 #import "LoansListViewController.h"
+#import "ExpiredsListViewController.h"
 #import "DemandsListViewController.h"
 #import "IMOAutocompletionViewController.h"
 #import "FriendsCell.h"
@@ -35,6 +36,7 @@
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewDemands) name:@"RefreshNewDemandsObserver" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewGives) name:@"RefreshNewGivesObserver" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewExtends) name:@"RefreshNewExtendsObserver" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewFriends) name:@"RefreshNewFriendsObserver" object:nil];
     }
     return self;
@@ -68,7 +70,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return 7;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -99,6 +101,14 @@
     [self.tableView endUpdates];
 }
 
+- (void)refreshNewExtends
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:5 inSection:0];
+    [self.tableView beginUpdates];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView endUpdates];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
@@ -121,7 +131,7 @@
             cell = [[DemandsCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
         
-        cell.title.text = NSLocalizedString(@"Pedidos pendientes", nil);
+        cell.title.text = NSLocalizedString(@"Pedidos", nil);
         cell.imageView.image = [UIImage imageNamed:@"orders_icon.png"];
         
         [cell setMines:[[DemandIP getMines] count]];
@@ -136,8 +146,23 @@
             cell = [[GivesCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
         
-        cell.title.text = NSLocalizedString(@"Prestamos expirados", nil);
+        cell.title.text = NSLocalizedString(@"Prestamos", nil);
         cell.imageView.image = [UIImage imageNamed:@"loan_icon.png"];
+        
+        [cell setMines:[[GiveIP getMinesInTime] count]];
+        [cell setFriends:[[GiveIP getFriendsInTime] count]];
+        
+        return cell;
+    }
+    else if (indexPath.row == 5)
+    {
+        GivesCell *cell = (GivesCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[GivesCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        
+        cell.title.text = NSLocalizedString(@"Expirados", nil);
+        cell.imageView.image = [UIImage imageNamed:@"expired_icon.png"];
         
         [cell setMines:[[GiveIP getMinesExpired] count]];
         [cell setFriends:[[GiveIP getFriendsExpired] count]];
@@ -161,7 +186,7 @@
                 cell.textLabel.text = NSLocalizedString(@"Buscar", nil);
                 cell.imageView.image = [UIImage imageNamed:@"search_icon.png"];
                 break;
-            case 5:
+            case 6:
                 cell.textLabel.text = NSLocalizedString(@"Configuracion", nil);
                 cell.imageView.image = [UIImage imageNamed:@"config_icon.png"];
                 break;
@@ -204,6 +229,9 @@
                 viewController = [[LoansListViewController alloc] initWithNibName:@"LoansListViewController" bundle:nil];
                 break;
             case 5:
+                viewController = [[ExpiredsListViewController alloc] initWithNibName:@"ExpiredsListViewController" bundle:nil];
+                break;
+            case 6:
                 viewController = [[ConfigurationViewController alloc] initWithNibName:@"ConfigurationViewController" bundle:nil];
                 break;
         }

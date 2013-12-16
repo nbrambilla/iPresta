@@ -106,6 +106,10 @@
 		156FDE4516F39D4200F4BEEA /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 156FDE4416F39D4200F4BEEA /* libsqlite3.dylib */; };
 		15722718184BC53D00F00D60 /* ObjectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15722717184BC53A00F00D60 /* ObjectCell.xib */; };
 		1572271B184BC60A00F00D60 /* ObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1572271A184BC60700F00D60 /* ObjectCell.m */; };
+		15730F68185F911200B84868 /* expired_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 15730F66185F911200B84868 /* expired_icon.png */; };
+		15730F69185F911200B84868 /* expired_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15730F67185F911200B84868 /* expired_icon@2x.png */; };
+		15730F6D185F96F400B84868 /* ExpiredsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15730F6B185F96F400B84868 /* ExpiredsListViewController.m */; };
+		15730F6E185F96F400B84868 /* ExpiredsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15730F6C185F96F400B84868 /* ExpiredsListViewController.xib */; };
 		15763EF917F2012800D1F514 /* DemandIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 15763EF817F2012800D1F514 /* DemandIP.m */; };
 		157D9649180F3239001A346E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 157D964B180F3239001A346E /* Localizable.strings */; };
 		159469E0185DE9D000350D47 /* DemandsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 159469DF185DE9D000350D47 /* DemandsCell.m */; };
@@ -334,6 +338,12 @@
 		15722717184BC53A00F00D60 /* ObjectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ObjectCell.xib; path = ViewControllers/ObjectCell.xib; sourceTree = "<group>"; };
 		15722719184BC60400F00D60 /* ObjectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectCell.h; path = ViewControllers/ObjectCell.h; sourceTree = "<group>"; };
 		1572271A184BC60700F00D60 /* ObjectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectCell.m; path = ViewControllers/ObjectCell.m; sourceTree = "<group>"; };
+		15730F66185F911200B84868 /* expired_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = expired_icon.png; path = Images/expired_icon.png; sourceTree = "<group>"; };
+		15730F67185F911200B84868 /* expired_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "expired_icon@2x.png"; path = "Images/expired_icon@2x.png"; sourceTree = "<group>"; };
+		15730F6A185F96F400B84868 /* ExpiredsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExpiredsListViewController.h; path = ViewControllers/ExpiredsListViewController.h; sourceTree = "<group>"; };
+		15730F6B185F96F400B84868 /* ExpiredsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExpiredsListViewController.m; path = ViewControllers/ExpiredsListViewController.m; sourceTree = "<group>"; };
+		15730F6C185F96F400B84868 /* ExpiredsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExpiredsListViewController.xib; path = ViewControllers/ExpiredsListViewController.xib; sourceTree = "<group>"; };
+		15730F6F185F98D200B84868 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = iPresta/Models/Constants.h; sourceTree = "<group>"; };
 		15763EF717F2012800D1F514 /* DemandIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemandIP.h; path = iPresta/Models/DemandIP.h; sourceTree = "<group>"; };
 		15763EF817F2012800D1F514 /* DemandIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DemandIP.m; path = iPresta/Models/DemandIP.m; sourceTree = "<group>"; };
 		157D964A180F3239001A346E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -479,6 +489,8 @@
 		1518EA14174A6D86000EB0FE /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				15730F66185F911200B84868 /* expired_icon.png */,
+				15730F67185F911200B84868 /* expired_icon@2x.png */,
 				151E1F971854BF8D00B71487 /* loan_icon.png */,
 				151E1F981854BF8D00B71487 /* loan_icon@2x.png */,
 				156B2DA8182FBED200700890 /* bt_facebook_off.png */,
@@ -825,6 +837,9 @@
 				151E1F9B1854C1CD00B71487 /* LoansListViewController.h */,
 				151E1F9C1854C1CD00B71487 /* LoansListViewController.m */,
 				151E1F9D1854C1CD00B71487 /* LoansListViewController.xib */,
+				15730F6A185F96F400B84868 /* ExpiredsListViewController.h */,
+				15730F6B185F96F400B84868 /* ExpiredsListViewController.m */,
+				15730F6C185F96F400B84868 /* ExpiredsListViewController.xib */,
 				15328F5F185652F10036FC06 /* MyGiveCell.h */,
 				15328F60185652F20036FC06 /* MyGiveCell.m */,
 				15328F5D185652C90036FC06 /* MyGiveCell.xib */,
@@ -841,6 +856,7 @@
 		156FDE5216F3A04B00F4BEEA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				15730F6F185F98D200B84868 /* Constants.h */,
 				1549958C17C8FD9E00857BB2 /* ObjectIP.h */,
 				1549958D17C8FD9E00857BB2 /* ObjectIP.m */,
 				1549958917C8FD9E00857BB2 /* UserIP.h */,
@@ -1080,6 +1096,9 @@
 				151E1F9F1854C1CD00B71487 /* LoansListViewController.xib in Resources */,
 				15328F5E185652C90036FC06 /* MyGiveCell.xib in Resources */,
 				15328F66185663BD0036FC06 /* FriendGiveCell.xib in Resources */,
+				15730F68185F911200B84868 /* expired_icon.png in Resources */,
+				15730F69185F911200B84868 /* expired_icon@2x.png in Resources */,
+				15730F6E185F96F400B84868 /* ExpiredsListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1149,6 +1168,7 @@
 				159469E0185DE9D000350D47 /* DemandsCell.m in Sources */,
 				159469E3185DEA3B00350D47 /* GivesCell.m in Sources */,
 				159469E6185DEDBF00350D47 /* MenuCell.m in Sources */,
+				15730F6D185F96F400B84868 /* ExpiredsListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

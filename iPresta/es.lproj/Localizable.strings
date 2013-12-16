@@ -28,8 +28,9 @@
 "Objetos" =                     "Objetos";
 "Buscar" =                      "Buscar";
 "Contactos" =                   "Contactos";
-"Pedidos pendientes" =          "Pedidos pendientes";
-"Prestamos expirados" =         "Prestamos expirados";
+"Pedidos" =                     "Pedidos";
+"Prestamos" =                   "Préstamos";
+"Expirados" =                   "Expirados";
 "Configuracion" =               "Configuración";
 "Mios:" =                       "Mios:";
 "Amigos:" =                     "Amigos:";
@@ -63,6 +64,8 @@
 "Hasta" =               "hasta";
 "Mis pedidos" =         "Mis pedidos";
 "Pedidos de amigos" =   "Pedidos de amigos";
+"Expirados mios" =      "Expirados míos";
+"Expirados de amigos" = "Expirados de amigos";
 "Mis prestamos" =       "Mis préstamos";
 "Prestamos de amigos" = "Prestamos de amigos";
 "Nombre" =              "Nombre";

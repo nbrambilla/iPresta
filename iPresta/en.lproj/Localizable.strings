@@ -28,8 +28,9 @@
 "Objetos" =                     "Objects";
 "Buscar" =                      "Search";
 "Contactos" =                   "Contacts";
-"Pedidos pendientes" =          "Pending orders";
-"Prestamos expirados" =         "Loans expired";
+"Pedidos" =                     "Orders";
+"Prestamos" =                   "Loans";
+"Expirados" =                   "Expired";
 "Configuracion" =               "Configuration";
 "Mios:" =                       "Mines:";
 "Amigos:" =                     "Friends:";
@@ -64,6 +65,9 @@
 "Mis pedidos" =         "My orders";
 "Pedidos de amigos" =   "Friends's orders";
 "Mis prestamos" =       "My loans";
+"Prestamos de amigos" = "Friend's loans";
+"Expirados mios" =      "My expireds";
+"Expirados de amigos" = "Friend's expireds";
 "Prestamos de amigos" = "Friend's loans";
 "Nombre" =              "Name";
 "Editorial" =           "Editorial";

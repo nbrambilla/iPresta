@@ -66,7 +66,7 @@ static id<GiveIPDelegate> delegate;
              }
              
              [GiveIP save];
-             [[NSNotificationCenter defaultCenter] postNotificationName:@"setGivesObserver" object:nil];
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFriendsGivesTableObserver" object:nil];
              [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNewGivesObserver" object:nil];
          }
      }];
@@ -268,19 +268,38 @@ static id<GiveIPDelegate> delegate;
     return [[self class] executeRequest:request];
 }
 
-- (BOOL)isExpired
-{
-    return ([self.dateEnd compare:[NSDate date]] == NSOrderedAscending);
-}
-
 + (NSArray *)getFriends
 {
     NSFetchRequest *request = [self fetchRequest];
     [request setEntity:[self entityDescription]];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"dateBegin" ascending:NO]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"to = NULL AND actual = YES"]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"from != NULL AND actual = YES"]];
     
     return [[self class] executeRequest:request];
+}
+
++ (NSArray *)getMinesInTime
+{
+    NSArray *mines = [GiveIP getMines];
+    NSMutableArray *minesExpired = [NSMutableArray new];
+    
+    for (GiveIP *give in mines) {
+        if (![give isExpired]) [minesExpired addObject:give];
+    }
+    
+    return [minesExpired copy];
+}
+
++ (NSArray *)getFriendsInTime
+{
+    NSArray *friends = [GiveIP getFriends];
+    NSMutableArray *friendsExpired = [NSMutableArray new];
+    
+    for (GiveIP *give in friends) {
+        if (![give isExpired]) [friendsExpired addObject:give];
+    }
+    
+    return [friendsExpired copy];
 }
 
 + (NSArray *)getMinesExpired
@@ -345,10 +364,15 @@ static id<GiveIPDelegate> delegate;
                  
                  [GiveIP save];
                  
-                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFriendsGivesTableObserver" object:nil];
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadExtendsGivesTableObserver" object:nil];
              }
          }];
     }
+}
+
+- (BOOL)isExpired
+{
+    return ([self.dateEnd compare:[NSDate date]] == NSOrderedAscending);
 }
 
 - (void)sendGivePushResponseWithBlock:(void (^)(NSError *))block

@@ -105,6 +105,7 @@
     else if ([[userInfo objectForKey:@"pushID"] isEqual:@"give"])
     {
         [GiveIP addGivesFromDB];
+        
     }
 }
 

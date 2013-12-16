@@ -242,6 +242,7 @@
     
     ObjectIP *currentObject = [ObjectIP currentObject];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNewGivesObserver" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectViewObserver" object:nil];
     

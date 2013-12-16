@@ -44,6 +44,8 @@
 + (NSArray *)getFriends;
 + (NSArray *)getMinesExpired;
 + (NSArray *)getFriendsExpired;
++ (NSArray *)getMinesInTime;
++ (NSArray *)getFriendsInTime;
 + (void)refreshActuals;
 
 - (BOOL)isExpired;

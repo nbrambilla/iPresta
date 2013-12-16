@@ -6,17 +6,17 @@
 //  Copyright (c) 2013 Nacho. All rights reserved.
 //
 
-#import "LoansListViewController.h"
+#import "ExpiredsListViewController.h"
 #import "GiveIP.h"
 #import "MyGiveCell.h"
 #import "FriendGiveCell.h"
 #import "ObjectIP.h"
 
-@interface LoansListViewController ()
+@interface ExpiredsListViewController ()
 
 @end
 
-@implementation LoansListViewController
+@implementation ExpiredsListViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,30 +37,30 @@
 {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setGivesArray) name:@"setGivesObserver" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadFriendsGivesTable) name:@"ReloadFriendsGivesTableObserver" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setGivesArray) name:@"setExtendsObserver" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadFriendsGivesTable) name:@"ReloadFriendsExtendsTableObserver" object:nil];
     [self setTableViewHeader];
     [self setGivesArray];
 }
 
 - (void)reloadFriendsGivesTable
 {
-    friendsGivesArray = [GiveIP getFriendsInTime];
+    friendsGivesArray = [GiveIP getFriendsExpired];
     [friendsGivesTable reloadData];
 }
 
 - (void)setTableViewHeader
 {
-    [segmentedControl setTitle:NSLocalizedString(@"Mis prestamos", nil) forSegmentAtIndex:0];
-    [segmentedControl setTitle:NSLocalizedString(@"Prestamos de amigos", nil) forSegmentAtIndex:1];
+    [segmentedControl setTitle:NSLocalizedString(@"Expirados mios", nil) forSegmentAtIndex:0];
+    [segmentedControl setTitle:NSLocalizedString(@"Expirados de amigos", nil) forSegmentAtIndex:1];
     segmentedControl.selectedSegmentIndex = 0;
     [segmentedControl addTarget:self action:@selector(setGivesType:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)setGivesArray
 {
-    myGivesArray = [GiveIP getMinesInTime];
-    friendsGivesArray = [GiveIP getFriendsInTime];
+    myGivesArray = [GiveIP getMinesExpired];
+    friendsGivesArray = [GiveIP getFriendsExpired];
     objectsImageArray = [[NSMutableArray alloc] initWithCapacity:[friendsGivesArray count]];
     objectsArray = [[NSMutableArray alloc] initWithCapacity:[friendsGivesArray count]];
     

@@ -43,7 +43,7 @@
 							<object class="IBUILabel" id="334410071">
 								<reference key="NSNextResponder" ref="297641300"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{78, 11}, {170, 21}}</string>
+								<string key="NSFrame">{{78, 11}, {222, 21}}</string>
 								<reference key="NSSuperview" ref="297641300"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="477472955"/>
@@ -78,7 +78,7 @@
 							<object class="IBUILabel" id="477472955">
 								<reference key="NSNextResponder" ref="297641300"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{78, 29}, {170, 21}}</string>
+								<string key="NSFrame">{{78, 29}, {222, 21}}</string>
 								<reference key="NSSuperview" ref="297641300"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="934561410"/>
@@ -106,7 +106,7 @@
 							<object class="IBUILabel" id="934561410">
 								<reference key="NSNextResponder" ref="297641300"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{78, 48}, {170, 21}}</string>
+								<string key="NSFrame">{{78, 48}, {222, 21}}</string>
 								<reference key="NSSuperview" ref="297641300"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="194621957"/>
@@ -134,7 +134,7 @@
 							<object class="IBUIImageView" id="560319677">
 								<reference key="NSNextResponder" ref="297641300"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{11, 10}, {59, 59}}</string>
+								<string key="NSFrame">{{10, 10}, {59, 59}}</string>
 								<reference key="NSSuperview" ref="297641300"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="334410071"/>
@@ -149,7 +149,6 @@
 								<string key="NSFrame">{{258, 27}, {50, 26}}</string>
 								<reference key="NSSuperview" ref="297641300"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -314,7 +313,47 @@
 			<nil key="sourceID"/>
 			<int key="maxID">54</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">MyGiveCell</string>
+					<string key="superclassName">UITableViewCell</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="date">UILabel</string>
+						<string key="friendName">UILabel</string>
+						<string key="objectImageView">UIImageView</string>
+						<string key="objectName">UILabel</string>
+						<string key="stateLabel">UILabel</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="date">
+							<string key="name">date</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="friendName">
+							<string key="name">friendName</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="objectImageView">
+							<string key="name">objectImageView</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="objectName">
+							<string key="name">objectName</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="stateLabel">
+							<string key="name">stateLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/MyGiveCell.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
