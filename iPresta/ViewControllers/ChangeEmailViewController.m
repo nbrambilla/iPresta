@@ -10,7 +10,7 @@
 #import "iPrestaNSString.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
-
+#import "IPTextField.h"
 
 @interface ChangeEmailViewController ()
 

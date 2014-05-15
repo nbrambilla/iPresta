@@ -12,15 +12,18 @@
 
 @class FriendIP;
 @class DemandIP;
+@class IPTextField;
+@class IPButton;
 
 @interface GiveObjectViewController : UIViewController <UITextFieldDelegate, ABPeoplePickerNavigationControllerDelegate, ObjectIPDelegate>
 {
     @private
     
-    IBOutlet UITextField *giveToTextField;
-    IBOutlet UITextField *timeTextField;
+    IBOutlet IPTextField *giveToTextField;
+    IBOutlet IPTextField *timeTextField;
     
     IBOutlet UIButton *facebookButton;
+    IBOutlet IPButton *giveButton;
 }
 
 @property(nonatomic, retain) FriendIP *friend;

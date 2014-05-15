@@ -11,12 +11,13 @@
 #import "ObjectIP.h"
 
 @class IPButton;
+@class IPTextField;
 
 @interface LoginViewController : UIViewController <UserIPDelegate, ObjectIPLoginDelegate>
 {
     @private
-    IBOutlet UITextField *emailTextField;
-    IBOutlet UITextField *passwordTextField;
+    IBOutlet IPTextField *emailTextField;
+    IBOutlet IPTextField *passwordTextField;
     IBOutlet IPButton *entrarButton;
     IBOutlet IPButton *fortgotPasswordButton;
 }

@@ -18,6 +18,9 @@
 
 - (id)awakeAfterUsingCoder:(NSCoder*)aDecoder
 {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkTextFieldLength) name:UITextViewTextDidChangeNotification object:self];
+    
     placeholderLabel = [[UILabel alloc] init];
     
     placeholderLabel.textColor = GRAY_COLOR_TEXT;
@@ -27,8 +30,8 @@
     [self addSubview:placeholderLabel];
     
     self.contentInset = UIEdgeInsetsMake(2.0, 3.0, -5.0, -5.0);
-    self.layer.borderColor = [GRAY_COLOR_BORDER CGColor];
-    self.layer.borderWidth = 0.5f;
+    self.layer.borderColor = [[UIColor blackColor] CGColor];
+    self.layer.borderWidth = 1.0f;
     self.layer.cornerRadius = 7.0f;
     self.clipsToBounds = YES;
     self.delegate = self;
@@ -58,15 +61,9 @@
     return self;
 }
 
-- (void)textViewDidChange:(UITextView *)textView
+- (void)checkTextFieldLength
 {
-    if (textView.text.length > 0) placeholderLabel.hidden = YES;
-    else placeholderLabel.hidden = NO;
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-    if (textView.text.length > 0) placeholderLabel.hidden = YES;
+    if (self.text.length > 0) placeholderLabel.hidden = YES;
     else placeholderLabel.hidden = NO;
 }
 

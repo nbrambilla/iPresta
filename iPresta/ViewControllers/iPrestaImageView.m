@@ -43,9 +43,9 @@
         _imageView.layer.borderColor = [[UIColor blackColor] CGColor];
         _imageView.layer.borderWidth = 1.0f;
         _imageView.layer.cornerRadius = 10.0f;
+        _imageView.layer.masksToBounds = YES;
         [_imageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
         
-        self.clipsToBounds = NO;
         _deleteButton.hidden = YES;
         _isSetted = NO;
     }

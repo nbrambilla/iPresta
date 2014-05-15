@@ -19,6 +19,8 @@
 #import "iPrestaNSString.h"
 #import "MLTableAlert.h"
 #import "Facebook.h"
+#import "IPTextField.h"
+#import "IPButton.h"
 
 @interface GiveObjectViewController ()
 
@@ -55,6 +57,7 @@
         giveToTextField.text = [_demand.from getFullName];
         giveToTextField.enabled = NO;
     }
+    [giveButton setTitle:NSLocalizedString(@"Prestar", nil) forState:UIControlStateNormal];
     timeTextField.text = [[GiveIP giveTimesArray] objectAtIndex:0];
     
     if (![UserIP isLinkedToFacebook]) facebookButton.hidden = YES;
@@ -64,15 +67,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)viewDidUnload
-{
-    giveToTextField = nil;
-    timeTextField = nil;
-    facebookButton = nil;
-    
-    [super viewDidUnload];
 }
 
 - (void)viewWillAppear:(BOOL)animated

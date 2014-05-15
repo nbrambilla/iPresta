@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "UserIP.h"
 
+@class IPTextField;
+
 @interface ChangeEmailViewController : UIViewController <UserIPDelegate>
 {
     @private
     IBOutlet UILabel *changeMailTextLabel;
-    IBOutlet UITextField *emailTextField;
+    IBOutlet IPTextField *emailTextField;
     IBOutlet UIButton *changeEmailButton;
 }
 

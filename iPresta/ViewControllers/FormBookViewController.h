@@ -7,26 +7,27 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <EZForm/EZForm.h>
 #import "ObjectIP.h"
 #import "UserIP.h"
 #import "STControls.h"
 #import "ZBarSDK.h"
 #import "iPrestaImageView.h"
 #import "IMOAutocompletionViewController.h"
-#import "TPKeyboardAvoidingScrollView.h"
 
 @class PHTextView;
-@class TPKeyboardAvoidingScrollView;
 @class IPButton;
 @class IPCheckbox;
+@class IPTextField;
 
-@interface FormBookViewController : UIViewController <UITextFieldDelegate, ZBarReaderDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, IMOAutocompletionViewDataSource, IMOAutocompletionViewDelegate, iPrestaImageViewDelegate, ObjectIPDelegate>
+@interface FormBookViewController : UIViewController <UITextFieldDelegate, ZBarReaderDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, IMOAutocompletionViewDataSource, IMOAutocompletionViewDelegate, iPrestaImageViewDelegate, ObjectIPDelegate, EZFormDelegate>
 {
     @private
-    IBOutlet TPKeyboardAvoidingScrollView *scrollView;
-    IBOutlet UITextField *nameTextField;
-    IBOutlet UITextField *authorTextField;
-    IBOutlet UITextField *editorialTextField;
+    EZForm *form;
+    IBOutlet UIScrollView *scrollView;
+    IBOutlet IPTextField *nameTextField;
+    IBOutlet IPTextField *authorTextField;
+    IBOutlet IPTextField *editorialTextField;
     IBOutlet PHTextView *descriptionTextView;
     IBOutlet iPrestaImageView *imageView;
     IBOutlet IPCheckbox *visibleCheckbox;

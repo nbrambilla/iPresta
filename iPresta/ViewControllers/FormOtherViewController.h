@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <EZForm/EZForm.h>
 #import "ObjectIP.h"
 #import "STControls.h"
 #import "ZBarSDK.h"
@@ -17,12 +18,14 @@
 @class TPKeyboardAvoidingScrollView;
 @class IPButton;
 @class IPCheckbox;
+@class IPTextField;
 
-@interface FormOtherViewController : UIViewController <ObjectIPDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, iPrestaImageViewDelegate>
+@interface FormOtherViewController : UIViewController <ObjectIPDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, iPrestaImageViewDelegate, EZFormDelegate>
 {
     @private
-    IBOutlet TPKeyboardAvoidingScrollView *scrollView;
-    IBOutlet UITextField *nameTextField;
+    EZForm *form;
+    IBOutlet UIScrollView *scrollView;
+    IBOutlet IPTextField *nameTextField;
     IBOutlet PHTextView *descriptionTextView;
     IBOutlet iPrestaImageView *imageView;
     IBOutlet IPCheckbox *visibleCheckbox;

@@ -78,14 +78,15 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.barStyle = UIBarStyleBlackTranslucent;
-
+        [self setBackgroundImage:[UIImage imageNamed:@"black.png"] forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+        
         NSString *nextString = NSLocalizedString(@"Next", @"EZForm Standard Input Accessory view - Next");
         NSString *prevString = NSLocalizedString(@"Previous", @"EZForm Standard Input Accessory view - Previous");
 
         NSArray *segmentTitles = @[prevString, nextString];
 
         _previousNextControl = [[UISegmentedControl alloc] initWithItems:segmentTitles];
+        _previousNextControl.tintColor = [UIColor whiteColor];
         _previousNextControl.momentary = YES;
         [_previousNextControl addTarget:self action:@selector(previousNextAction:) forControlEvents:UIControlEventValueChanged];
 
@@ -95,6 +96,7 @@
         }
 
         self.doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneAction:)];
+        [self.doneItem setTintColor:[UIColor whiteColor]];
         self.flexibleSpaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
         self.prevNextItem = [[UIBarButtonItem alloc] initWithCustomView:self.previousNextControl];
         self.doneButtonPosition = EZFormStandardInputAccessoryViewDoneButtonPositionRight;

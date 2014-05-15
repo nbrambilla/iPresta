@@ -11,6 +11,7 @@
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
 #import "IPButton.h"
+#import "IPTextField.h"
 
 @interface RequestPasswordResetViewController ()
 

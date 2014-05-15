@@ -11,13 +11,14 @@
 #import "ObjectIP.h"
 
 @class IPButton;
+@class IPTextField;
 
 @interface CreateCountViewController : UIViewController <UserIPDelegate, ObjectIPLoginDelegate>
 {
     @private
-    IBOutlet UITextField *emailTextField;
-    IBOutlet UITextField *passwordTextField;
-    IBOutlet UITextField *repeatPasswordTextField;
+    IBOutlet IPTextField *emailTextField;
+    IBOutlet IPTextField *passwordTextField;
+    IBOutlet IPTextField *repeatPasswordTextField;
     IBOutlet IPButton *createCountButton;
     IBOutlet IPButton *createCountFBButton;
 }

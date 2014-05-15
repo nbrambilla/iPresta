@@ -15,7 +15,7 @@
                 <outlet property="nameTextField" destination="12" id="53"/>
                 <outlet property="scrollView" destination="4" id="52"/>
                 <outlet property="searchButton" destination="7" id="66"/>
-                <outlet property="videoTypeComboText" destination="10" id="55"/>
+                <outlet property="videoTypeTextField" destination="10" id="P4k-Kz-uI3"/>
                 <outlet property="view" destination="1" id="3"/>
                 <outlet property="visibleCheckbox" destination="bHt-4B-AJs" id="0si-jo-il6"/>
                 <outlet property="visibleLabel" destination="ACf-fG-I4l" id="BK3-TM-7sb"/>
@@ -26,31 +26,27 @@
             <rect key="frame" x="0.0" y="64" width="320" height="504"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="4" customClass="TPKeyboardAvoidingScrollView">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="4">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nombre" minimumFontSize="17" id="12">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nombre" minimumFontSize="17" id="12" customClass="IPTextField">
                             <rect key="frame" x="20" y="18" width="280" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Autor" minimumFontSize="17" id="11">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Autor" minimumFontSize="17" id="11" customClass="IPTextField">
                             <rect key="frame" x="20" y="56" width="280" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tipo" minimumFontSize="17" id="10" customClass="STComboText">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tipo" minimumFontSize="17" id="10" customClass="IPTextField">
                             <rect key="frame" x="20" y="94" width="280" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="56"/>
-                                <outlet property="delegateVCtr" destination="-1" id="57"/>
-                            </connections>
                         </textField>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="8" customClass="PHTextView">
                             <rect key="frame" x="20" y="132" width="280" height="146"/>
