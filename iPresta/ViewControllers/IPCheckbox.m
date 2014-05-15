@@ -19,13 +19,20 @@
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    // Drawing code
+    [self addTarget:self action:@selector(checkboxPressed) forControlEvents:UIControlEventTouchDown];
+    UIImage *offImage = [UIImage imageNamed:@"cb_mono_off.png"];
+    UIImage *onImage = [UIImage imageNamed:@"cb_mono_on.png"];
+    
+    [self setBackgroundImage:offImage forState:UIControlStateNormal];
+    [self setBackgroundImage:onImage forState:UIControlStateSelected];
 }
-*/
+
+- (void)checkboxPressed
+{
+    self.selected = !self.selected;
+    if ([_delegate respondsToSelector:@selector(checkboxChangeState)]) [_delegate checkboxChangeState];
+}
 
 @end

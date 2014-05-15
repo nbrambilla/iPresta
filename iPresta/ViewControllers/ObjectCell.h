@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "ObjectIP.h"
 
+@class AsyncImageView;
+
 @interface ObjectCell : UITableViewCell
 {
-    IBOutlet UIImageView *objectImageView;
+    IBOutlet AsyncImageView *objectImageView;
     IBOutlet UILabel *objectName;
     IBOutlet UILabel *objectAuthor;
 }

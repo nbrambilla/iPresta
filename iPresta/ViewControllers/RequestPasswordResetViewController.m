@@ -10,6 +10,7 @@
 #import "RequestPasswordResetViewController.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
+#import "IPButton.h"
 
 @interface RequestPasswordResetViewController ()
 
@@ -75,7 +76,7 @@
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    if (error) [error manageErrorTo:self];      // Si hay error en la recuperación del password
+    if (error) [error manageError];      // Si hay error en la recuperación del password
     else [self requestPasswordResetSuccess];    // Si la recuperación del password se realiza correctamente
 }
 

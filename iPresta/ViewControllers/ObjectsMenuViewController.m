@@ -136,7 +136,7 @@
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    [error manageErrorTo:self];
+    [error manageError];
 }
 
 - (void)setCountLabels

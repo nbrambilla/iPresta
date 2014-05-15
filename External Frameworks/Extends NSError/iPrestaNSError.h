@@ -23,6 +23,6 @@
 #define FBNOT_EXIST_USER 705
 
 - (id)initWithCode:(int)code userInfo:(NSDictionary *)userInfo;
-- (void)manageErrorTo:(id)delegate;
+- (void)manageError;
 
 @end

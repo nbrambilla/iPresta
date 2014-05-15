@@ -10,6 +10,9 @@
 #import "SlideViewController.h"
 #import "UserIP.h"
 
+@class AsyncImageView;
+@class IPButton;
+
 @interface ConfigurationViewController : SlideViewController <UserIPDelegate>
 {
     @private
@@ -21,10 +24,10 @@
     IBOutlet UISwitch *facebookSwitch;
     
     IBOutlet UIView *facebookView;
-    IBOutlet UIImageView *profileImage;
+    IBOutlet AsyncImageView *profileImage;
     IBOutlet UILabel *nameLabel;
     
-    IBOutlet UIButton *logoutButton;
+    IBOutlet IPButton *logoutButton;
 }
 
 @end

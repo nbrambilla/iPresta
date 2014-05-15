@@ -15,6 +15,8 @@
 
 @class PHTextView;
 @class TPKeyboardAvoidingScrollView;
+@class IPButton;
+@class IPCheckbox;
 
 @interface FormAudioViewController : UIViewController <ObjectIPDelegate,  UITextFieldDelegate, ZBarReaderDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, IMOAutocompletionViewDataSource, IMOAutocompletionViewDelegate, iPrestaImageViewDelegate>
 {
@@ -25,15 +27,16 @@
     IBOutlet STComboText *audioTypeComboText;
     IBOutlet PHTextView *descriptionTextView;
     IBOutlet iPrestaImageView *imageView;
-    IBOutlet UISwitch *visibleSwitch;
+    IBOutlet IPCheckbox *visibleCheckbox;
+    IBOutlet UILabel *visibleLabel;
     ObjectIP *newObject;
     NSArray *audioTypesArray;
     AudioObjectType audioTypeSelectedIndex;
     IMOAutocompletionViewController *autoComplete;
     
-    IBOutlet UIButton *searchButton;
-    IBOutlet UIButton *detectButton;
-    IBOutlet UIButton *addButton;
+    IBOutlet IPButton *searchButton;
+    IBOutlet IPButton *detectButton;
+    IBOutlet IPButton *addButton;
 }
 
 @end

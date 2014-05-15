@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "UserIP.h"
 
+@class IPButton;
+
 @interface RequestPasswordResetViewController : UIViewController <UserIPDelegate>
 {
     @private
     IBOutlet UITextField *emailTextField;
-    IBOutlet UIButton *recoverPasswordButton;
+    IBOutlet IPButton *recoverPasswordButton;
 }
 
 @end

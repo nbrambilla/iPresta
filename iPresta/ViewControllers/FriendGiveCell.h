@@ -10,6 +10,8 @@
 #import "GiveIP.h"
 #import "FriendIP.h"
 
+@class AsyncImageView;
+
 @interface FriendGiveCell : UITableViewCell
 {
     IBOutlet UILabel *objectName;
@@ -18,8 +20,7 @@
     IBOutlet UILabel *stateLabel;
 }
 
-@property(nonatomic, retain) IBOutlet UIImageView *objectImageView;
-@property(nonatomic, retain) IBOutlet UIActivityIndicatorView *imageIndicatorView;
+@property(nonatomic, retain) IBOutlet AsyncImageView *objectImageView;
 
 - (void)setGive:(GiveIP *)newDemand withObjectName:(NSString *)name;
 

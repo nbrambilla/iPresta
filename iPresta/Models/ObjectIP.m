@@ -55,6 +55,12 @@ static ObjectIP *currentObject;
                 if (!error)
                 {
                     __block int objectsCount = [objects count];
+                    if (objectsCount == 0)
+                    {
+                        [loginDelegate saveAllObjectsFromDBresult:nil];
+                    }
+                    else
+                    {
                     __block int count = 0;
                     
                     for (PFObject *object in objects)
@@ -139,6 +145,7 @@ static ObjectIP *currentObject;
                             }
                         }
                     }
+                }
                 }
                 else [loginDelegate saveAllObjectsFromDBresult:error];
             }];
@@ -342,7 +349,7 @@ static ObjectIP *currentObject;
         PFQuery *objectsUserQuery = [PFQuery queryWithClassName:@"iPrestaObject"];
         [objectsUserQuery whereKey:@"owner" equalTo:[UserIP objectsUser]];
         [objectsUserQuery whereKey:@"type" equalTo: [NSNumber numberWithInt:[ObjectIP selectedType]]];
-        [objectsUserQuery whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
+        [objectsUserQuery whereKey:@"visible" equalTo:@YES];
         [objectsUserQuery orderByAscending:@"image"];
         objectsUserQuery.limit = 1000;
         [objectsUserQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
@@ -412,7 +419,7 @@ static ObjectIP *currentObject;
          if (!error)
          {
              PFObject *object = [objects objectAtIndex:0];
-             [object setObject:[NSNumber numberWithBool:visible] forKey:@"visible"];
+             [object setObject:@(visible) forKey:@"visible"];
              
              [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
               {
@@ -472,7 +479,7 @@ static ObjectIP *currentObject;
                           newGive.dateBegin = dateBegin;
                           newGive.dateEnd = dateEnd;
                           newGive.object = self;
-                          newGive.actual = [NSNumber numberWithBool:YES];
+                          newGive.actual = @YES;
                           
                           [newGive saveToObject:object to:to WithBlock:^(NSError *error)
                           {
@@ -588,7 +595,7 @@ static ObjectIP *currentObject;
                 {
                     PFQuery *pushQuery = [PFInstallation query];
                     [pushQuery whereKey:@"user" equalTo:user];
-                    [pushQuery whereKey:@"isLogged" equalTo:[NSNumber numberWithBool:YES]];
+                    [pushQuery whereKey:@"isLogged" equalTo:@YES];
                     
                     PFPush *push = [PFPush new];
                     [push setQuery:pushQuery];
@@ -658,7 +665,7 @@ static ObjectIP *currentObject;
     {
         PFQuery *countObjectsUserQuery = [PFQuery queryWithClassName:@"iPrestaObject"];
         [countObjectsUserQuery whereKey:@"owner" equalTo:[UserIP objectsUser]];
-        [countObjectsUserQuery whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
+        [countObjectsUserQuery whereKey:@"visible" equalTo:@YES];
         countObjectsUserQuery.limit = 1000;
         
         [countObjectsUserQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
@@ -960,23 +967,23 @@ static ObjectIP *currentObject;
     // se crea una consulta para poder buscar todos los usuarios de la app de que tenemos en la agenda a partir del array de emails.
     PFQuery *appUsersQuery = [PFUser query];
     [appUsersQuery whereKey:@"email" containedIn:emailsArray];
-    [appUsersQuery whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
+    [appUsersQuery whereKey:@"visible" equalTo:@YES];
     
     // texto con primeras letras de cada palabra en mayuscula
     PFQuery *queryCapitalizedString = [PFQuery queryWithClassName:@"iPrestaObject"];
-    [queryCapitalizedString whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
+    [queryCapitalizedString whereKey:@"visible" equalTo:@YES];
     [queryCapitalizedString whereKey:@"owner" matchesQuery:appUsersQuery];
     [queryCapitalizedString whereKey:@"name" containsString:[param capitalizedString]];
     
     // texto en minuscula
     PFQuery *queryLowerCaseString = [PFQuery queryWithClassName:@"iPrestaObject"];
-    [queryLowerCaseString whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
+    [queryLowerCaseString whereKey:@"visible" equalTo:@YES];
     [queryLowerCaseString whereKey:@"owner" matchesQuery:appUsersQuery];
     [queryLowerCaseString whereKey:@"name" containsString:[param lowercaseString]];
     
     // texto real
     PFQuery *querySearchBarString = [PFQuery queryWithClassName:@"iPrestaObject"];
-    [querySearchBarString whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
+    [querySearchBarString whereKey:@"visible" equalTo:@YES];
     [querySearchBarString whereKey:@"owner" matchesQuery:appUsersQuery];
     [querySearchBarString whereKey:@"name" containsString:param];
     

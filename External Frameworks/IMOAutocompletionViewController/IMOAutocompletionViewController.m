@@ -247,7 +247,7 @@
             [_footerActivityIndicator stopAnimating];
             _activityIndicatorLabel.text = NSLocalizedString(@"Intentelo otra vez", nil);
         }
-        [error manageErrorTo:self.view];
+        [error manageError];
     }
     else
     {

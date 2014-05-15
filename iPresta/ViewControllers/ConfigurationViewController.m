@@ -12,8 +12,9 @@
 #import "ProgressHUD.h"
 #import "ObjectIP.h"
 #import "GiveIP.h"
+#import "IPButton.h"
 #import "CoreDataManager.h"
-
+#import "AsyncImageView.h"
 
 @interface ConfigurationViewController ()
 
@@ -40,7 +41,7 @@
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    if (error) [error manageErrorTo:self];
+    if (error) [error manageError];
     else
     {
         [ObjectIP deleteAll];
@@ -70,7 +71,7 @@
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    if (error) [error manageErrorTo:self];      // Si hay error al actualizar el usuario
+    if (error) [error manageError];      // Si hay error al actualizar el usuario
 }
 
 - (IBAction)linkWithFacebook:(UISwitch *)sender
@@ -84,7 +85,7 @@
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    if (error) [error manageErrorTo:self];      // Si hay error al actualizar el usuario
+    if (error) [error manageError];      // Si hay error al actualizar el usuario
     else
     {
         __block NSString *message;
@@ -111,26 +112,11 @@
         
         facebookView.hidden = NO;
         nameLabel.text = [result objectForKey:@"name"];
+                
+        NSURL *fbImageURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", [result objectForKey:@"id"]]];
         
-        UIActivityIndicatorView *indicatorImage = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        indicatorImage.frame = profileImage.bounds;
-        [indicatorImage setHidesWhenStopped:YES];
-        [indicatorImage startAnimating];
-        [profileImage addSubview:indicatorImage];
-        
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-        
-        dispatch_async(queue, ^(void)
-                       {
-                           NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", [result objectForKey:@"id"]]];
-                           NSData *imageData = [NSData dataWithContentsOfURL:pictureURL];
-                           [indicatorImage stopAnimating];
-                           UIImage* image = [UIImage imageWithData:imageData];
-                           if (image)
-                           {
-                               profileImage.image = image;
-                           }
-                       });
+        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:profileImage];
+        profileImage.imageURL = fbImageURL;
     }];
 }
 

@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class IPButton;
+
 @interface iPrestaViewController : UIViewController
 {
-    IBOutlet UIButton *haveCountButton;
-    IBOutlet UIButton *createCountButton;
+    IBOutlet IPButton *haveCountButton;
+    IBOutlet IPButton *createCountButton;
 }
 
 @end

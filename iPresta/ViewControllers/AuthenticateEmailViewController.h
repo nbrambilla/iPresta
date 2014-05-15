@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "UserIP.h"
 
+@class IPButton;
+
 @interface AuthenticateEmailViewController : UIViewController <UserIPDelegate>
 {
     IBOutlet UILabel *authenticateMessage;
-    IBOutlet UIButton *resendEmailButton;
-    IBOutlet UIButton *goToAppButton;
+    IBOutlet IPButton *resendEmailButton;
+    IBOutlet IPButton *goToAppButton;
 }
 
 @end

@@ -10,12 +10,11 @@
 #import "DemandIP.h"
 #import "FriendIP.h"
 #import "ObjectIP.h"
-
+#import "AsyncImageView.h"
 
 @implementation MyDemandsCell
 
 @synthesize objectImageView = _objectImageView;
-@synthesize imageIndicatorView = _imageIndicatorView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

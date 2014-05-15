@@ -11,7 +11,8 @@
 #import "iPrestaNSString.h"
 #import "ProgressHUD.h"
 #import "PHTextView.h"
-
+#import "IPButton.h"
+#import "IPCheckbox.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface FormBookViewController ()
@@ -49,7 +50,10 @@
     
     nameTextField.placeholder = NSLocalizedString(@"Nombre", nil);
     authorTextField.placeholder = NSLocalizedString(@"Autor", nil);
-    nameTextField.placeholder = NSLocalizedString(@"Editorial", nil);
+    editorialTextField.placeholder = NSLocalizedString(@"Editorial", nil);
+    visibleLabel.text = NSLocalizedString(@"Visible", nil);
+    
+    visibleCheckbox.selected = YES;
     
     [searchButton setTitle:NSLocalizedString(@"Buscar", nil) forState:UIControlStateNormal];
     [detectButton setTitle:NSLocalizedString(@"Detectar", nil) forState:UIControlStateNormal];
@@ -71,19 +75,6 @@
     [super viewWillDisappear:animated];
 }
 
-- (void)viewDidUnload
-{
-    newObject = nil;
-    descriptionTextView = nil;
-    nameTextField = nil;
-    authorTextField = nil;
-    editorialTextField = nil;
-    newObject = nil;
-    imageView = nil;
-    visibleSwitch = nil;
-    [super viewDidUnload];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -99,7 +90,7 @@
     
     ZBarImageScanner *scanner = reader.scanner;
     
-    [scanner setSymbology: ZBAR_I25 config: ZBAR_CFG_ENABLE to: 0];
+    [scanner setSymbology:ZBAR_I25 config:ZBAR_CFG_ENABLE to:0];
     
     [self presentViewController:reader animated:YES completion:nil];
     reader = nil;
@@ -165,7 +156,7 @@
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    if (error) [error manageErrorTo:self];
+    if (error) [error manageError];
     else [self setFields];
 }
 
@@ -179,28 +170,7 @@
     
     [imageView deleteImage];
     
-    if (newObject.imageURL && newObject.image == nil)
-    {
-        UIActivityIndicatorView *indicatorImage = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        indicatorImage.frame = imageView.bounds;
-        [indicatorImage setHidesWhenStopped:YES];
-        [indicatorImage startAnimating];
-        [imageView addSubview:indicatorImage];
-        
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-        
-        dispatch_async(queue, ^(void)
-                       {
-                           newObject.image = [NSData dataWithContentsOfURL:[NSURL URLWithString:newObject.imageURL]];
-                           [indicatorImage stopAnimating];
-                           UIImage* image = [UIImage imageWithData:newObject.image];
-                           if (image)
-                           {
-                               [imageView setImage:image];
-                           }
-                       });
-    }
-    
+    if (newObject.imageURL && newObject.image == nil) [imageView setImageWithURL:newObject.imageURL];
     else if (newObject.image) [imageView setImage:[UIImage imageWithData:newObject.image]];
 }
 
@@ -214,7 +184,7 @@
         
         newObject.type = [NSNumber numberWithInteger:[ObjectIP selectedType]];
         newObject.state = [NSNumber numberWithInteger:Property];
-        newObject.visible = [NSNumber numberWithBool:visibleSwitch.isOn];
+        newObject.visible = @(visibleCheckbox.selected);
         if (imageView.isSetted) newObject.image = UIImagePNGRepresentation([imageView getImage]);
         if (editorialTextField.text) newObject.editorial = [editorialTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if (descriptionTextView.text) newObject.descriptionObject = [descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -242,7 +212,7 @@
 - (void)objectError:(NSError *)error
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
-    [error manageErrorTo:self];      // Si hay error al actualizar el objeto
+    [error manageError];      // Si hay error al actualizar el objeto
 }
 
 #pragma mark - IMOAutoCompletionViewDataSource Methods;

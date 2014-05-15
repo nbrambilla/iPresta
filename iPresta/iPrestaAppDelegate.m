@@ -30,13 +30,16 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    [FBSession setDefaultAppID:@"436412689778314"];
     [Parse setApplicationId:@"ke5qAMdl1hxNkKPbmJyiOkCqfDkUtvwnRX6PKlXA" clientKey:@"xceoaXQrBv8vRium67iyjZrQfFI8lI0AROGhXsfR"];
     [PFFacebookUtils initializeFacebook];
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound];
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     // Se carga iPrestaViewController, la pantalla raiz
     iPrestaViewController *iprestaViewController = [[iPrestaViewController alloc] initWithNibName:@"iPrestaViewController" bundle:nil];
+    
+    [self customizeViews];
     
     self.window.rootViewController = iprestaViewController;
     [self.window makeKeyAndVisible];
@@ -48,7 +51,15 @@
         UIViewController *viewController;
         
         // Si el usuario autentico su email, se redirige a la aplicacion
-        if ([UserIP hasEmailVerified])
+        if (![UserIP hasEmailVerified] && ![UserIP isFacebookUser:[UserIP loggedUser]])
+        {
+            navigationController = [[UINavigationController alloc] init];
+            viewController = [[AuthenticateEmailViewController alloc] initWithNibName:@"AuthenticateEmailViewController" bundle:nil];
+            [navigationController pushViewController:viewController animated:NO];
+            [iprestaViewController presentViewController:navigationController animated:NO completion:nil];
+        }
+        // Sino, se redirige a la pantalla de autenticacion
+        else
         {
             viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
             navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
@@ -56,21 +67,14 @@
             MFSideMenuContainerViewController *container = [MFSideMenuContainerViewController containerWithCenterViewController:navigationController leftMenuViewController:leftMenuViewController rightMenuViewController:nil];
             [iprestaViewController presentViewController:container animated:NO completion:nil];
         }
-        // Sino, se redirige a la pantalla de autenticacion
-        else
-        {
-            navigationController = [[UINavigationController alloc] init];
-            viewController = [[AuthenticateEmailViewController alloc] initWithNibName:@"AuthenticateEmailViewController" bundle:nil];
-            [navigationController pushViewController:viewController animated:NO];
-            [iprestaViewController presentViewController:navigationController animated:NO completion:nil];
-        }
     }
     
     return YES;
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    return [PFFacebookUtils handleOpenURL:url] && [FBSession.activeSession handleOpenURL:url];
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication withSession:[PFFacebookUtils session]];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
@@ -102,11 +106,7 @@
         NSNumber *accepted = [userInfo objectForKey:@"accepted"];
         [DemandIP setState:accepted toDemandWithId:demandId];
     }
-    else if ([[userInfo objectForKey:@"pushID"] isEqual:@"give"])
-    {
-        [GiveIP addGivesFromDB];
-        
-    }
+    else if ([[userInfo objectForKey:@"pushID"] isEqual:@"give"]) [GiveIP addGivesFromDB];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -128,8 +128,8 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    [FBSession.activeSession handleDidBecomeActive];
-
+    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
+    
     if ([UserIP loggedUser])
     {
         [DemandIP refreshStates];
@@ -156,8 +156,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    [FBSession.activeSession close];
-    
     NSError *error = nil;
     
     if (managedObjectContext != nil)
@@ -172,10 +170,7 @@
 
 - (NSManagedObjectContext *) managedObjectContext
 {
-    if (managedObjectContext != nil)
-    {
-        return managedObjectContext;
-    }
+    if (managedObjectContext != nil) return managedObjectContext;
     
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     
@@ -190,10 +185,7 @@
 
 - (NSManagedObjectModel *)managedObjectModel
 {
-    if (managedObjectModel != nil)
-    {
-        return managedObjectModel;
-    }
+    if (managedObjectModel != nil) return managedObjectModel;
     else
     {
         managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
@@ -203,10 +195,7 @@
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator
 {
-    if (persistentStoreCoordinator != nil)
-    {
-        return persistentStoreCoordinator;
-    }
+    if (persistentStoreCoordinator != nil) return persistentStoreCoordinator;
     
     NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"iPresta.sqlite"]];
     
@@ -247,20 +236,17 @@
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
-- (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI
+- (void)customizeViews
 {
-    NSArray *permissions =  @[@"user_about_me", @"publish_stream", @"publish_actions",@"email"];
+    [[UISwitch appearance] setOnTintColor:[UIColor blackColor]];
     
-    return [FBSession openActiveSessionWithPublishPermissions:permissions
-                                              defaultAudience:FBSessionDefaultAudienceEveryone
-                                              allowLoginUI:allowLoginUI
-                                         completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-                                             if (error) {
-                                                 NSLog (@"Handle error %@", error.localizedDescription);
-                                             } else {
-                                                 NSLog(@"%@", session);
-                                             }
-                                         }];
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"black.png"] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setFrame:CGRectMake(0.0f, 0.0f, 320.0f, [[UINavigationBar appearance] bounds].size.height)];
+    [[[UINavigationBar appearance] layer] setBorderWidth:0.0f];
+    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-300.0f, 0.0f) forBarMetrics:UIBarMetricsDefault];
 }
 
 @end

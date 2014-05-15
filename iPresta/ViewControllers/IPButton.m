@@ -19,13 +19,20 @@
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    // Drawing code
+    self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+    
+    UIImage *normalImage = [[UIImage imageNamed:@"button_off.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
+    UIImage *selectedImage = [[UIImage imageNamed:@"button_on.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
+    
+    [self setBackgroundImage:normalImage forState:UIControlStateNormal];
+    [self setBackgroundImage:selectedImage forState:UIControlStateHighlighted | UIControlStateSelected];
+    [self setBackgroundImage:selectedImage forState:UIControlStateDisabled];
+    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted | UIControlStateSelected];
+    [self setTitleColor:[UIColor blackColor] forState:UIControlStateDisabled];
+    
 }
-*/
 
 @end

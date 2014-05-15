@@ -15,6 +15,8 @@
 
 @class PHTextView;
 @class TPKeyboardAvoidingScrollView;
+@class IPButton;
+@class IPCheckbox;
 
 @interface FormOtherViewController : UIViewController <ObjectIPDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, iPrestaImageViewDelegate>
 {
@@ -23,10 +25,11 @@
     IBOutlet UITextField *nameTextField;
     IBOutlet PHTextView *descriptionTextView;
     IBOutlet iPrestaImageView *imageView;
-    IBOutlet UISwitch *visibleSwitch;
+    IBOutlet IPCheckbox *visibleCheckbox;
+    IBOutlet UILabel *visibleLabel;
     ObjectIP *newObject;
     
-    IBOutlet UIButton *addButton;
+    IBOutlet IPButton *addButton;
 }
 
 @end

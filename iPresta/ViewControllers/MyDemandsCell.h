@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class DemandIP;
+@class AsyncImageView;
 
 @interface MyDemandsCell : UITableViewCell
 {
@@ -19,8 +20,7 @@
     IBOutlet UILabel *stateLabel;
 }
 
-@property(nonatomic, retain) IBOutlet UIImageView *objectImageView;
-@property(nonatomic, retain) IBOutlet UIActivityIndicatorView *imageIndicatorView;
+@property(nonatomic, retain) IBOutlet AsyncImageView *objectImageView;
 
 - (void)setDemand:(DemandIP *)newDemand withObjectName:(NSString *)name;
 

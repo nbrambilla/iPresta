@@ -15,6 +15,7 @@
 #import "iPrestaNSError.h"
 #import "SideMenuViewController.h"
 #import "ProgressHUD.h"
+#import "IPButton.h"
 
 @interface LoginViewController ()
 
@@ -107,9 +108,19 @@
     if (error)
     {
         [ProgressHUD hideHUDForView:self.view animated:YES];
-        [error manageErrorTo:self];      // Si hay error en el login
+        [error manageError];      // Si hay error en el login
     }
     else [self logInSuccess];
+}
+
+- (void)logInWithFacebookResult:(NSError *)error
+{
+    if (error)
+    {
+        [ProgressHUD hideHUDForView:self.view animated:YES];
+        [error manageError];
+    }
+    else [UserIP setDevice];
 }
 
 - (IBAction)goToRequestPasswordReset:(id)sender
@@ -147,7 +158,7 @@
     if (error)
     {
         [ProgressHUD hideHUDForView:self.view animated:YES];
-        [error manageErrorTo:self];
+        [error manageError];
     }
     else [ObjectIP saveAllObjectsFromDB];
 }
@@ -156,7 +167,7 @@
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    if (error) [error manageErrorTo:self];      // Si hay error guardar los objetos
+    if (error) [error manageError];      // Si hay error guardar los objetos
     else [self goToApp];
 }
 

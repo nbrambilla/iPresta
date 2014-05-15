@@ -11,7 +11,8 @@
 #import "iPrestaNSString.h"
 #import "ProgressHUD.h"
 #import "PHTextView.h"
-
+#import "IPButton.h"
+#import "IPCheckbox.h"
 
 @interface FormOtherViewController ()
 
@@ -40,6 +41,9 @@
     nameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     
     nameTextField.placeholder = NSLocalizedString(@"Nombre", nil);
+    visibleLabel.text = NSLocalizedString(@"Visible", nil);
+    
+    visibleCheckbox.selected = YES;
     
     [addButton setTitle:NSLocalizedString(@"Anadir", nil) forState:UIControlStateNormal];
     
@@ -52,16 +56,6 @@
     
     newObject = [[ObjectIP alloc] initListObject];
     [ObjectIP setDelegate:self];
-}
-
-- (void)viewDidUnload
-{
-    descriptionTextView = nil;
-    nameTextField = nil;
-    newObject = nil;
-    imageView = nil;
-    visibleSwitch = nil;
-    [super viewDidUnload];
 }
 
 - (void)didReceiveMemoryWarning
@@ -113,7 +107,7 @@
         
         newObject.type = [NSNumber numberWithInteger:[ObjectIP selectedType]];
         newObject.state = [NSNumber numberWithInteger:Property];
-        newObject.visible = [NSNumber numberWithBool:visibleSwitch.isOn];
+        newObject.visible = @(visibleCheckbox.selected);
         if (imageView.isSetted) newObject.image = UIImagePNGRepresentation([imageView getImage]);
         if (descriptionTextView.text) newObject.descriptionObject = [descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
@@ -139,7 +133,7 @@
 - (void)objectError:(NSError *)error
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
-    [error manageErrorTo:self];      // Si hay error al actualizar el objeto
+    [error manageError];      // Si hay error al actualizar el objeto
 }
 
 #pragma mark - Set Methods
@@ -150,28 +144,7 @@
     
     [imageView deleteImage];
     
-    if (newObject.imageURL && newObject.image == nil)
-    {
-        UIActivityIndicatorView *indicatorImage = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        indicatorImage.frame = imageView.bounds;
-        [indicatorImage setHidesWhenStopped:YES];
-        [indicatorImage startAnimating];
-        [imageView addSubview:indicatorImage];
-        
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-        
-        dispatch_async(queue, ^(void)
-                       {
-                           newObject.image = [NSData dataWithContentsOfURL:[NSURL URLWithString:newObject.imageURL]];
-                           [indicatorImage stopAnimating];
-                           UIImage* image = [UIImage imageWithData:newObject.image];
-                           if (image)
-                           {
-                               [imageView setImage:image];
-                           }
-                       });
-    }
-    
+    if (newObject.imageURL && newObject.image == nil) [imageView setImageWithURL:newObject.imageURL];
     else if (newObject.image) [imageView setImage:[UIImage imageWithData:newObject.image]];
 }
 

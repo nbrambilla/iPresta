@@ -8,14 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "UserIP.h"
+#import "ObjectIP.h"
 
-@interface CreateCountViewController : UIViewController <UserIPDelegate>
+@class IPButton;
+
+@interface CreateCountViewController : UIViewController <UserIPDelegate, ObjectIPLoginDelegate>
 {
     @private
     IBOutlet UITextField *emailTextField;
     IBOutlet UITextField *passwordTextField;
     IBOutlet UITextField *repeatPasswordTextField;
-    IBOutlet UIButton *createCountButton;
+    IBOutlet IPButton *createCountButton;
+    IBOutlet IPButton *createCountFBButton;
 }
 
 @end

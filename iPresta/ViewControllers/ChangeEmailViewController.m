@@ -61,7 +61,7 @@
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    if (error) [error manageErrorTo:self];  // Si hay error en el cambio de email
+    if (error) [error manageError];  // Si hay error en el cambio de email
     else [self changeEmailSuccess];
 }
 

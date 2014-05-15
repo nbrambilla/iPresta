@@ -10,7 +10,7 @@
 #import "DemandIP.h"
 #import "FriendIP.h"
 #import "ObjectIP.h"
-
+#import "AsyncImageView.h"
 
 @implementation FriendsDemandsCell
 

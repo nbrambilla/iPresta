@@ -11,6 +11,7 @@
 #import "MyGiveCell.h"
 #import "FriendGiveCell.h"
 #import "ObjectIP.h"
+#import "AsyncImageView.h"
 
 @interface ExpiredsListViewController ()
 
@@ -66,8 +67,8 @@
     
     for (int i = 0; i < [friendsGivesArray count]; i++)
     {
-        [objectsImageArray addObject:[NSNumber numberWithBool:NO]];
-        [objectsArray addObject:[NSNumber numberWithBool:NO]];
+        [objectsImageArray addObject:@NO];
+        [objectsArray addObject:@NO];
     }
     
     [self setGivesType:segmentedControl];
@@ -122,7 +123,6 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:@"FriendGiveCell" owner:self options:nil] objectAtIndex:0];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.tag = indexPath.row;
-            [cell.imageIndicatorView startAnimating];
         }
 
         GiveIP *give = [friendsGivesArray objectAtIndex:indexPath.row];
@@ -135,26 +135,12 @@
                  [cell setGive:give withObjectName:object.name];
 
                  if (object.image == nil) {
-                     [cell.imageIndicatorView removeFromSuperview];
                      cell.objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[object.type integerValue]]];
                  }
                  else
                  {
-                     UIImage* image = [UIImage imageWithData:object.image];
-                     if (image)
-                     {
-                         dispatch_async(dispatch_get_main_queue(),^
-                                        {
-                                            if (cell.tag == indexPath.row)
-                                            {
-                                                [cell.imageIndicatorView removeFromSuperview];
-
-                                                [objectsImageArray replaceObjectAtIndex:indexPath.row withObject:image];
-                                                cell.objectImageView.image = image;
-                                                [cell setNeedsLayout];
-                                            }
-                                        });
-                     }
+                     [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.objectImageView];
+                     cell.objectImageView.imageURL = [NSURL URLWithString:object.imageURL];
                  }
              }];
         }
@@ -165,22 +151,8 @@
             if (object.image == nil) cell.objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[object.type integerValue]]];
             else
             {
-                [cell.imageIndicatorView startAnimating];
-                UIImage* image = [UIImage imageWithData:object.image];
-                if (image)
-                {
-                    dispatch_async(dispatch_get_main_queue(),^
-                                   {
-                                       if (cell.tag == indexPath.row)
-                                       {
-                                           [cell.imageIndicatorView removeFromSuperview];
-
-                                           [objectsImageArray replaceObjectAtIndex:indexPath.row withObject:image];
-                                           cell.objectImageView.image = image;
-                                           [cell setNeedsLayout];
-                                       }
-                                   });
-                }
+                [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.objectImageView];
+                cell.objectImageView.imageURL = [NSURL URLWithString:object.imageURL];
             }
         }
         

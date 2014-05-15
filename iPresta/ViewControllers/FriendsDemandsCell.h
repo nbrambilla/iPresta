@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class DemandIP;
+@class AsyncImageView;
 
 @protocol FriendsDemandsCellDelegate <NSObject>
 
@@ -20,7 +21,7 @@
 @interface FriendsDemandsCell : UITableViewCell
 {
     DemandIP *demand;
-    IBOutlet UIImageView *objectImageView;
+    IBOutlet AsyncImageView *objectImageView;
     IBOutlet UILabel *objectName;
     IBOutlet UILabel *friendName;
     IBOutlet UILabel *date;

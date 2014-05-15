@@ -82,6 +82,7 @@
 "Vinculado" =           "linked";
 "Desvinculado" =        "unlinked";
 "Vinilo" =              "Vinyl";
+"Visible" =             "Visible";
 "Formato fecha" =       "MM/dd/yy";
 
 /* Configuración */
@@ -114,7 +115,7 @@
 "Respuesta pedido push" =           "The order of \"%@\" made ​​to %@ has been %@";
 "Respuesta pedido facebook" =       "Just lend \"%@\" to %@ for iPresta app";
 "Prestamo push" =                   "%@ just lend to \"%@\"";
-"Autenticar email" =                "You will receive an email authentication. Authenticate your account and click \"Go\". If you do not receive the mail, you can resend it.";
+"Autenticar email texto" =                "You will receive an email authentication. Authenticate your account and click \"Go\". If you do not receive the mail, you can resend it.";
 "Prestamo vencido push" =           "It expired the loan of \"%@\" to %@";
 "Prestamo otra persona" =           "The loan must be made to another person";
 "Pregunta rechazar prestamo" =      "Are sure you want to reject the loan of \"%@\" a %@";

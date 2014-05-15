@@ -25,6 +25,7 @@
 
 - (void)deleteImage;
 - (BOOL)isSetted;
+- (void)setImageWithURL:(NSString *)url;
 - (void)setImage:(UIImage *)image;
 - (UIImage *)getImage;
 

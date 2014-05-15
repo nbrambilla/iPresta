@@ -10,27 +10,30 @@
 #import "ObjectIP.h"
 #import "GiveIP.h"
 #import "UserIP.h"
+#import "IPCheckbox.h"
 
-@interface ObjectDetailViewController : UIViewController <ObjectIPDelegate, GiveIPDelegate, UserIPDelegate>
+@class IPButton;
+
+@interface ObjectDetailViewController : UIViewController <ObjectIPDelegate, GiveIPDelegate, UserIPDelegate, IPCheckboxDelegate>
 {
     @private
     IBOutlet UIImageView *imageView;
-    IBOutlet UILabel *typeLabel;
     IBOutlet UILabel *nameLabel;
     IBOutlet UILabel *authorLabel;
     IBOutlet UILabel *editorialLabel;
     IBOutlet UILabel *descriptionLabel;
     IBOutlet UILabel *stateLabel;
     IBOutlet UILabel *loanUpLabel;
+    IBOutlet UILabel *visibleLabel;
     
     IBOutlet UIView *currentUserButtonsView;
-    IBOutlet UIButton *giveButton;
-    IBOutlet UIButton *giveBackButton;
-    IBOutlet UIButton *loanUpButton;
-    IBOutlet UIButton *historycButton;
-    IBOutlet UISwitch *visibleSwitch;
+    IBOutlet IPButton *giveButton;
+    IBOutlet IPButton *giveBackButton;
+    IBOutlet IPButton *loanUpButton;
+    IBOutlet IPButton *historycButton;
+    IBOutlet IPCheckbox *visibleCheckbox;
     
-    IBOutlet UIButton *demandButton;
+    IBOutlet IPButton *demandButton;
     
     IBOutlet UIView *otherUserButtonsView;
     

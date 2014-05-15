@@ -23,6 +23,7 @@
 #import "DemandsCell.h"
 #import "MenuCell.h"
 
+#define HEADER_HEIGHT 64.0f
 
 @interface SideMenuViewController ()
 
@@ -77,6 +78,7 @@
 {
     return @"iPresta";
 }
+
 - (void)refreshNewFriends
 {
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:2 inSection:0];
@@ -246,5 +248,37 @@
     
     [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 1.0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footerView = [UIView new];
+    footerView.backgroundColor = [UIColor clearColor];
+    return footerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return HEADER_HEIGHT;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, HEADER_HEIGHT)];
+    headerView.backgroundColor = [UIColor blackColor];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 20.0f, headerView.frame.size.width, headerView.frame.size.height - 20.0f)];
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textAlignment = NSTextAlignmentLeft;
+    titleLabel.text = @"Menu";
+    titleLabel.font = [UIFont systemFontOfSize:16.0f];
+    [headerView addSubview:titleLabel];
+    
+    return headerView;
+}
+
 
 @end

@@ -14,7 +14,7 @@
 #import "ObjectHistoricGiveViewController.h"
 #import "iPrestaNSString.h"
 #import "FriendIP.h"
-
+#import "IPButton.h"
 
 @interface ObjectDetailViewController ()
 
@@ -64,52 +64,70 @@
     }
 }
 
-- (void)viewDidUnload
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:@"setObjectViewObserver"];
-    
-    typeLabel = nil;
-    nameLabel = nil;
-    authorLabel = nil;
-    editorialLabel = nil;
-    stateLabel = nil;
-    descriptionLabel = nil;
-    giveButton = nil;
-    giveBackButton = nil;
-    loanUpLabel = nil;
-    loanUpButton = nil;
-    historycButton = nil;
-    visibleSwitch = nil;
-    currentUserButtonsView = nil;
-    otherUserButtonsView = nil;
-    demandButton = nil;
-    [super viewDidUnload];
-}
-
 - (void)setView
 {
+    visibleCheckbox.delegate = self;
     ObjectIP *currentObject = [ObjectIP currentObject];
     
-    typeLabel.text = currentObject.textType;
+    self.title = currentObject.textType;
+    
     nameLabel.text = currentObject.name;
+    [nameLabel sizeToFit];
+    
     authorLabel.text = currentObject.author;
+    [authorLabel sizeToFit];
+    CGRect frame = authorLabel.frame;
+    frame.origin.y = nameLabel.frame.origin.y + nameLabel.frame.size.height + 5.0f;
+    authorLabel.frame = frame;
+    
     editorialLabel.text = currentObject.editorial;
+    [editorialLabel sizeToFit];
+    frame = editorialLabel.frame;
+    frame.origin.y = authorLabel.frame.origin.y + authorLabel.frame.size.height + 5.0f;
+    editorialLabel.frame = frame;
+    
     descriptionLabel.text = currentObject.descriptionObject;
-    imageView.image = [UIImage imageWithData:currentObject.image];
+    [descriptionLabel sizeToFit];
+    frame = descriptionLabel.frame;
+    frame.origin.y = editorialLabel.frame.origin.y + editorialLabel.frame.size.height + 5.0f;
+    descriptionLabel.frame = frame;
+    
     loanUpLabel.hidden = YES;
+    [loanUpLabel sizeToFit];
+    frame = loanUpLabel.frame;
+    frame.origin.y = descriptionLabel.frame.origin.y + descriptionLabel.frame.size.height + 5.0f;
+    loanUpLabel.frame = frame;
+    
+    frame = stateLabel.frame;
+    frame.origin.y = loanUpLabel.frame.origin.y + loanUpLabel.frame.size.height + 5.0f;
+    stateLabel.frame = frame;
+    
+    imageView.image = [UIImage imageWithData:currentObject.image];
+    frame = imageView.frame;
+    frame.origin.y = stateLabel.frame.origin.y + stateLabel.frame.size.height + 10.0f;
+    imageView.frame = frame;
+    
+    frame = currentUserButtonsView.frame;
+    frame.origin.y = imageView.frame.origin.y;
+    currentUserButtonsView.frame = frame;
+    
+    frame = otherUserButtonsView.frame;
+    frame.origin.y = imageView.frame.origin.y;
+    otherUserButtonsView.frame = frame;
     
     [loanUpButton setTitle:NSLocalizedString(@"Extender", nil) forState:UIControlStateNormal];
     [giveBackButton setTitle:NSLocalizedString(@"Devolver", nil) forState:UIControlStateNormal];
     [giveButton setTitle:NSLocalizedString(@"Prestar", nil) forState:UIControlStateNormal];
     [historycButton setTitle:NSLocalizedString(@"Historico", nil) forState:UIControlStateNormal];
     [demandButton setTitle:NSLocalizedString(@"Pedir", nil) forState:UIControlStateNormal];
+    visibleLabel.text = NSLocalizedString(@"Visible", nil);
     
     if (![UserIP objectsUserIsSet] && [UserIP searchUser] == nil)
     {
         currentUserButtonsView.hidden = NO;
         otherUserButtonsView.hidden = YES;
         
-        [visibleSwitch setOn:[currentObject.visible boolValue]];
+        visibleCheckbox.selected = [currentObject.visible boolValue];
         
         [self setGiveView];
     }
@@ -145,7 +163,7 @@
     }
     else
     {
-        stateLabel.text = [currentObject textState];
+//        stateLabel.text = [currentObject textState];
         
         loanUpButton.enabled = NO;
         giveButton.enabled = YES;
@@ -153,10 +171,10 @@
     }
 }
 
-- (IBAction)changeVisibility:(UISwitch *)sender
+- (void)checkboxChangeState
 {
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[ObjectIP currentObject] setVisibility:sender.isOn];
+    [[ObjectIP currentObject] setVisibility:visibleCheckbox.selected];
 }
 
 - (void)setVisibilitySuccess
@@ -167,7 +185,7 @@
 - (void)objectError:(NSError *)error
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
-    [error manageErrorTo:self];      // Si hay error al actualizar el objeto
+    [error manageError];      // Si hay error al actualizar el objeto
 }
 
 - (IBAction)demand:(id)sender
@@ -188,7 +206,7 @@
 - (void)giveError:(NSError *)error
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
-    [error manageErrorTo:self];      // Si hay error al actualizar el prestamo
+    [error manageError];      // Si hay error al actualizar el prestamo
 }
 
 - (IBAction)goToGiveObject:(id)sender

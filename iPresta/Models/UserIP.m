@@ -85,7 +85,7 @@ static PFUser *searchUser;
 
 + (void)setVisibility:(BOOL)visibility
 {
-    [[PFUser currentUser] setObject:[NSNumber numberWithBool:visibility] forKey:@"visible"];
+    [[PFUser currentUser] setObject:@(visibility) forKey:@"visible"];
 }
 
 + (BOOL)hasEmailVerified
@@ -95,7 +95,7 @@ static PFUser *searchUser;
 
 + (BOOL)isNew
 {
-    return ![[[PFUser currentUser] objectForKey:@"emailVerified"] boolValue] || [[PFUser currentUser] isNew] ;
+    return ![[PFUser currentUser][@"emailVerified"] boolValue] || [[PFUser currentUser] isNew];
 }
 
 #pragma mark - Asychronous Methods
@@ -106,7 +106,7 @@ static PFUser *searchUser;
     {
         if (!error)
         {
-            [[PFInstallation currentInstallation] setObject:[NSNumber numberWithBool:YES] forKey:@"isLogged"];
+            [[PFInstallation currentInstallation] setObject:@YES forKey:@"isLogged"];
             
             [[PFInstallation currentInstallation] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
             {
@@ -121,18 +121,9 @@ static PFUser *searchUser;
 {
     Facebook *facebook = [Facebook new];
     
-    [facebook login:^(NSError *error) {
-        if (!error)
-        {
-            [[PFInstallation currentInstallation] setObject:[NSNumber numberWithBool:YES] forKey:@"isLogged"];
-            
-            [[PFInstallation currentInstallation] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-            {
-                if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
-            }];
-        }
-        
-        else  if ([delegate respondsToSelector:@selector(logInResult:)]) [delegate logInResult:error];
+    [facebook login:^(NSError *error)
+    {
+        if ([delegate respondsToSelector:@selector(logInWithFacebookResult:)]) [delegate logInWithFacebookResult:error];
     }];
 }
 
@@ -153,14 +144,20 @@ static PFUser *searchUser;
 
 + (void)logOut
 {
-    [[PFInstallation currentInstallation] setObject:[NSNumber numberWithBool:NO] forKey:@"isLogged"];
-    
-    [[PFInstallation currentInstallation] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+    if ([PFInstallation currentInstallation][@"deviceToken"])
+    {
+        [[PFInstallation currentInstallation] setObject:@NO forKey:@"isLogged"];
+        [[PFInstallation currentInstallation] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+        {
+            [PFUser logOut];
+            if ([delegate respondsToSelector:@selector(logOutResult:)]) [delegate logOutResult:error];
+        }];
+    }
+    else
     {
         [PFUser logOut];
-        
-        if ([delegate respondsToSelector:@selector(logOutResult:)]) [delegate logOutResult:error];
-    }];
+        if ([delegate respondsToSelector:@selector(logOutResult:)]) [delegate logOutResult:nil];
+    }
 }
 
 + (void)refresh
@@ -187,7 +184,8 @@ static PFUser *searchUser;
     [user setUsername:email];
     [user setEmail:email];
     [user setPassword:password];
-    [user setObject:[NSNumber numberWithBool:YES] forKey:@"visible"];
+    [user setObject:@NO forKey:@"isFacebookUser"];
+    [user setObject:@YES forKey:@"visible"];
     
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
     {
@@ -239,10 +237,10 @@ static PFUser *searchUser;
 
 + (void)setDevice
 {
-    if ([PFInstallation currentInstallation])
+    if ([PFInstallation currentInstallation][@"deviceToken"])
     {
         [[PFInstallation currentInstallation] setObject:[PFUser currentUser] forKey:@"user"];
-        
+        [[PFInstallation currentInstallation] setObject:@YES forKey:@"isLogged"];
         [[PFInstallation currentInstallation] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
         {
             if ([delegate respondsToSelector:@selector(setDeciveResult:)]) [delegate setDeciveResult:error];

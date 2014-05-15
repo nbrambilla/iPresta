@@ -193,7 +193,7 @@ static NSInteger newDemands;
      {
          if (!error && object)
          {
-             self.accepted = [NSNumber numberWithBool:YES];
+             self.accepted = @YES;
              [object setObject:self.accepted forKey:@"accepted"];
              
              [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
@@ -218,7 +218,7 @@ static NSInteger newDemands;
     {
          if (!error && object)
          {
-             self.accepted = [NSNumber numberWithBool:NO];
+             self.accepted = @NO;
              [object setObject:self.accepted forKey:@"accepted"];
              
              [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
@@ -246,7 +246,7 @@ static NSInteger newDemands;
     {
         PFQuery *pushQuery = [PFInstallation query];
         [pushQuery whereKey:@"user" equalTo:user];
-        [pushQuery whereKey:@"isLogged" equalTo:[NSNumber numberWithBool:YES]];
+        [pushQuery whereKey:@"isLogged" equalTo:@YES];
         
         PFPush *push = [PFPush new];
         [push setQuery:pushQuery];

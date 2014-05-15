@@ -9,11 +9,12 @@
 #import "iPrestaImageView.h"
 #import "ObjectIP.h"
 #import <QuartzCore/QuartzCore.h>
+#import "AsyncImageView.h"
 
 @interface iPrestaImageView ()
 
 @property(retain, nonatomic) IBOutlet UIButton *deleteButton;
-@property(retain, nonatomic) IBOutlet UIImageView *imageView;
+@property(retain, nonatomic) IBOutlet AsyncImageView *imageView;
 @property(readonly, nonatomic) BOOL isSetted;
 
 @end
@@ -41,8 +42,10 @@
         [self deleteImage];
         _imageView.layer.borderColor = [[UIColor blackColor] CGColor];
         _imageView.layer.borderWidth = 1.0f;
+        _imageView.layer.cornerRadius = 10.0f;
         [_imageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:NULL];
         
+        self.clipsToBounds = NO;
         _deleteButton.hidden = YES;
         _isSetted = NO;
     }
@@ -65,6 +68,12 @@
 - (void)deleteImage
 {
     _imageView.image = [UIImage imageNamed:[ObjectIP imageType]];
+}
+
+- (void)setImageWithURL:(NSString *)url
+{
+    [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:_imageView];
+    _imageView.imageURL = [NSURL URLWithString:url];
 }
 
 - (void)setImage:(UIImage *)image
@@ -102,7 +111,7 @@
     }
 }
 
-- (void)setPictureView:(UIImageView *)pictureView
+- (void)setPictureView:(AsyncImageView *)pictureView
 {
     _imageView = pictureView;
 }

@@ -120,14 +120,14 @@ static id<GiveIPDelegate> delegate;
          if (!error)
          {
              PFObject *give = [objects objectAtIndex:0];
-             [give setObject:[NSNumber numberWithBool:NO] forKey:@"actual"];
+             [give setObject:@NO forKey:@"actual"];
              [give setObject:[NSDate date] forKey:@"dataEnd"];
              
              [give saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
              {
                   if (!error)
                   {
-                      self.actual = [NSNumber numberWithBool:NO];
+                      self.actual = @NO;
                       self.dateEnd = [give  objectForKey:@"dataEnd"];
                       [GiveIP save];
                       
@@ -151,7 +151,7 @@ static id<GiveIPDelegate> delegate;
     
     [give setObject:self.dateBegin forKey:@"dateBegin"];
     [give setObject:self.dateEnd forKey:@"dateEnd"];
-    [give setObject:[NSNumber numberWithBool:YES] forKey:@"actual"];
+    [give setObject:@YES forKey:@"actual"];
     
     [give saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
     {
@@ -384,7 +384,7 @@ static id<GiveIPDelegate> delegate;
      {
          PFQuery *pushQuery = [PFInstallation query];
          [pushQuery whereKey:@"user" equalTo:user];
-         [pushQuery whereKey:@"isLogged" equalTo:[NSNumber numberWithBool:YES]];
+         [pushQuery whereKey:@"isLogged" equalTo:@YES];
          
          PFPush *push = [PFPush new];
          [push setQuery:pushQuery];

@@ -213,8 +213,8 @@ static NSInteger newFriends;
     // se crea una consulta para poder buscar todos los usuarios de la app de que tenemos en la agenda a partir del array de emails. Se ordena alfabeticamente por emails.
     PFQuery *appUsersQuery = [PFUser query];
     [appUsersQuery whereKey:@"email" containedIn:emailsArray];
-    [appUsersQuery whereKey:@"visible" equalTo:[NSNumber numberWithBool:YES]];
-    [appUsersQuery whereKey:@"emailVerified" equalTo:[NSNumber numberWithBool:YES]];
+    [appUsersQuery whereKey:@"visible" equalTo:@YES];
+    [appUsersQuery whereKey:@"emailVerified" equalTo:@YES];
     [appUsersQuery orderByAscending:@"email"];
     appUsersQuery.limit = 1000;
     

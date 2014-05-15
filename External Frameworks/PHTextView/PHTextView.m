@@ -9,6 +9,9 @@
 #import "PHTextView.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define GRAY_COLOR_BORDER [UIColor colorWithRed:204.0f/255.0f green:204.0f/255.0f blue:204.0f/255.0f alpha:1.0f]
+#define GRAY_COLOR_TEXT [UIColor colorWithRed:199.0f/255.0f green:199.0f/255.0f blue:205.0f/255.0f alpha:1.0f]
+
 @implementation PHTextView
 
 @synthesize placeholder = _placeholder;
@@ -17,14 +20,15 @@
 {
     placeholderLabel = [[UILabel alloc] init];
     
-    placeholderLabel.textColor = [UIColor lightGrayColor];
+    placeholderLabel.textColor = GRAY_COLOR_TEXT;
     placeholderLabel.font = [UIFont systemFontOfSize:14.0f];
     placeholderLabel.backgroundColor = [UIColor clearColor];
     
     [self addSubview:placeholderLabel];
     
-    self.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-    self.layer.borderWidth = 1.0f;
+    self.contentInset = UIEdgeInsetsMake(2.0, 3.0, -5.0, -5.0);
+    self.layer.borderColor = [GRAY_COLOR_BORDER CGColor];
+    self.layer.borderWidth = 0.5f;
     self.layer.cornerRadius = 7.0f;
     self.clipsToBounds = YES;
     self.delegate = self;
@@ -42,7 +46,7 @@
     _placeholder = placeholder;
     placeholderLabel.text = placeholder;
     [placeholderLabel sizeToFit];
-    placeholderLabel.frame = CGRectMake(8.0f, 8.0f, placeholderLabel.frame.size.width, placeholderLabel.frame.size.height);
+    placeholderLabel.frame = CGRectMake(3.0f, 7.0f, placeholderLabel.frame.size.width, placeholderLabel.frame.size.height);
 }
 
 - (id)initWithFrame:(CGRect)frame

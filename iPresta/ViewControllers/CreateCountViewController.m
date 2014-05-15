@@ -8,10 +8,13 @@
 
 #import "CreateCountViewController.h"
 #import "AuthenticateEmailViewController.h"
+#import "SideMenuViewController.h"
+#import "ObjectsMenuViewController.h"
 #import "iPrestaNSString.h"
 #import "iPrestaNSError.h"
 #import "ProgressHUD.h"
 #import "UserIP.h"
+#import "IPButton.h"
 
 @interface CreateCountViewController ()
 
@@ -45,11 +48,13 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [UserIP setDelegate:self];
+    [ObjectIP setLoginDelegate:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [UserIP setDelegate:nil];
+    [ObjectIP setLoginDelegate:nil];
 }
 
 - (void)backToBegin
@@ -97,11 +102,59 @@
     }
 }
 
+- (IBAction)loginButtonTouchHandler:(id)sender
+{
+    [ProgressHUD showHUDAddedTo:self.view animated:YES];
+    [UserIP loginWithFacebook];
+}
+
+- (void)logInWithFacebookResult:(NSError *)error
+{
+    if (error)
+    {
+        [ProgressHUD hideHUDForView:self.view animated:YES];
+        [error manageError];
+    }
+    else [UserIP setDevice];
+}
+
+- (void)setDeciveResult:(NSError *)error
+{
+    if (error)
+    {
+        [ProgressHUD hideHUDForView:self.view animated:YES];
+        [error manageError];
+    }
+    else [ObjectIP saveAllObjectsFromDB];
+}
+
+- (void)saveAllObjectsFromDBresult:(NSError *)error
+{
+    [ProgressHUD hideHUDForView:self.view animated:YES];
+    
+    if (error) [error manageError];      // Si hay error guardar los objetos
+    else [self goToApp];
+}
+
+- (void)goToApp
+{
+    UIViewController *viewController = [[ObjectsMenuViewController alloc] initWithNibName:@"ObjectsMenuViewController" bundle:nil];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    SideMenuViewController *leftMenuViewController = [[SideMenuViewController alloc] init];
+    MFSideMenuContainerViewController *container = [MFSideMenuContainerViewController containerWithCenterViewController:navigationController leftMenuViewController:leftMenuViewController rightMenuViewController:nil];
+    [self presentViewController:container animated:YES completion:nil];
+    
+    viewController = nil;
+    navigationController = nil;
+    leftMenuViewController = nil;
+    container = nil;
+}
+
 - (void)signUpResult:(NSError *)error
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    if (error) [error manageErrorTo:self];  // Si hay error en el registro
+    if (error) [error manageError];  // Si hay error en el registro
     else [self signInSuccess];              // Si el registro se realiza correctamente
 }
 

@@ -10,9 +10,11 @@
 #import "ObjectIP.h"
 #import "FriendIP.h"
 
+@class AsyncImageView;
+
 @interface SearchObjectCell : UITableViewCell
 {
-    IBOutlet UIImageView *objectImageView;
+    IBOutlet AsyncImageView *objectImageView;
     IBOutlet UILabel *objectName;
     IBOutlet UILabel *authorName;
     IBOutlet UILabel *ownerName;

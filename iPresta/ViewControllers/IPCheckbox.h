@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol IPCheckboxDelegate <NSObject>
+
+@optional
+- (void)checkboxChangeState;
+
+@end
+
 @interface IPCheckbox : UIButton
+
+@property (nonatomic, retain) id <IPCheckboxDelegate> delegate;
 
 @end

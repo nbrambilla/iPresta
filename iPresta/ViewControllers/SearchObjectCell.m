@@ -7,6 +7,7 @@
 //
 
 #import "SearchObjectCell.h"
+#import "AsyncImageView.h"
 
 @implementation SearchObjectCell
 
@@ -30,23 +31,8 @@
     
     else if (object.imageURL && object.image == nil)
     {
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-        
-        dispatch_async(queue, ^(void)
-                       {
-                           object.image = [NSData dataWithContentsOfURL:[NSURL URLWithString:object.imageURL]];
-                           
-                           UIImage* image = [UIImage imageWithData:object.image];
-                           if (image)
-                           {
-                               dispatch_async(dispatch_get_main_queue(),
-                                              ^{
-                                                      objectImageView.image = image;
-                                                      [self setNeedsLayout];
-                                        
-                                              });
-                           }
-                       });
+        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:objectImageView];
+        objectImageView.imageURL = [NSURL URLWithString:object.imageURL];
     }
 }
 

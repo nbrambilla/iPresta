@@ -273,7 +273,7 @@
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    if (error) [error manageErrorTo:self];
+    if (error) [error manageError];
     else
     {
         [UserIP setObjectsUser:user];

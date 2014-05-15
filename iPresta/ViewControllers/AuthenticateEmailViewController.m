@@ -14,7 +14,7 @@
 #import "SideMenuViewController.h"
 #import "iPrestaNSError.h"
 #import "FriendIP.h"
-
+#import "IPButton.h"
 
 @interface AuthenticateEmailViewController ()
 
@@ -41,7 +41,8 @@
     UIBarButtonItem *changeEmailButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cambiar email", nil) style:UIBarButtonItemStylePlain target:self action:@selector(goToChangeEmail)];
     self.navigationItem.rightBarButtonItem = changeEmailButton;
     
-    authenticateMessage.text = NSLocalizedString(@"Autenticar email", nil);
+    authenticateMessage.text = NSLocalizedString(@"Autenticar email texto", nil);
+    [authenticateMessage sizeToFit];
     [resendEmailButton setTitle:NSLocalizedString(@"Reenviar email", nil) forState:UIControlStateNormal];
     [goToAppButton setTitle:NSLocalizedString(@"Ir", nil) forState:UIControlStateNormal];
     
@@ -67,7 +68,7 @@
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    if (error) [error manageErrorTo:self];          // Si hay error en el cambio de email
+    if (error) [error manageError];          // Si hay error en el cambio de email
     else [self resendAuthenticateMessageSuccess];   // Si el cambio de email se realiza correctamente
 }
 
@@ -91,7 +92,7 @@
     if (error) // Si hay error en el chequeo
     {
         [ProgressHUD hideHUDForView:self.view animated:YES];
-        [error manageErrorTo:self];
+        [error manageError];
     }
     else [self checkEmailAuthenticationSuccess];    // Si el chequeo se realiza correctamente
 }
@@ -115,10 +116,7 @@
                 
                 viewController = nil;
             }
-            else
-            {
-                [error manageErrorTo:self];
-            }
+            else [error manageError];
         }];
     }
     else
@@ -126,7 +124,7 @@
         [ProgressHUD hideHUDForView:self.view animated:YES];
         
         NSError *error = [[NSError alloc] initWithCode:NOTAUTHENTICATEDUSER_ERROR userInfo:nil];
-        [error manageErrorTo:self];
+        [error manageError];
     }
 }
 

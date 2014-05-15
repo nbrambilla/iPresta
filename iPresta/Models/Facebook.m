@@ -11,81 +11,55 @@
 #import "Facebook.h"
 #import "iPrestaNSError.h"
 
-#define FACEBOOK_APP_ID @"436412689778314"
 #define PERMISIONS @[@"user_about_me", @"publish_stream", @"publish_actions", @"email"]
 
 @implementation Facebook
 
-+ (void)activateSession:(void (^)(NSError *))block
-{
-    if (!FBSession.activeSession.isOpen)
-    {
-        [FBSession openActiveSessionWithPublishPermissions:PERMISIONS
-                                           defaultAudience:FBSessionDefaultAudienceEveryone
-                                              allowLoginUI:YES
-                                         completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-                                             if (!error && state == FBSessionStateOpen) {
-                                                 block(nil);
-                                             } else {
-                                                 block(error);
-                                             }
-                                         }];
-    }
-    else block(nil);
-}
 
 - (void)login:(void (^)(NSError *))block
 {
-    [Facebook activateSession:^(NSError *error) {
-        if (!error) {
-            [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error)
-             {
-                 if (!error) {
-                     PFQuery *userQuery = [PFUser query];
-                     [userQuery whereKey:@"email" equalTo:[user objectForKey:@"email"]];
-                     [userQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-                         if (!error)
-                         {
-                             PFUser *user= (PFUser *)object;
-                             
-                             if (user)
-                             {
-                                 if (![UserIP isFacebookUser:user]) {
-                                     error = [[NSError alloc] initWithCode:FBLOGINUSEREXISTS_ERROR userInfo:@{@"email":[user objectForKey:@"email"]}];
-                                     block(error);
-                                 }
-                                 else
-                                 {
-                                     [PFFacebookUtils logInWithPermissions:nil block:^(PFUser *user, NSError *error)
-                                      {
-                                          [user setObject:[NSNumber numberWithBool:YES] forKey:@"isFacebookUser"];
-                                          
-                                          [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                              block(error);
-                                          }];
-                                      }];
-                                 }
-                             }
-                             else
-                             {
-                                 [PFFacebookUtils logInWithPermissions:PERMISIONS block:^(PFUser *user, NSError *error)
-                                 {
-                                      block(error);
-                                 }];
-                             }
-                         }
-                         else block(error);
-                     }];
-                 }
-                 else
-                 {
-                     error = [[NSError alloc] initWithCode:FBLOGIN_ERROR userInfo:nil];
-                     block(error);
-                 }
-             }];
+    
+    [PFFacebookUtils logInWithPermissions:PERMISIONS block:^(PFUser *user, NSError *error)
+    {
+        if (!user) block(error);
+
+        else if (user.isNew)
+        {
+            // get the user's data from Facebook
+            [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *fbUser, NSError *error)
+            {
+                // check and see if a user already exists for this email
+                PFQuery *query = [PFUser query];
+                [query whereKey:@"username" equalTo:fbUser[@"email"]];
+                [query countObjectsInBackgroundWithBlock:^(int number, NSError *error)
+                {
+                    if(number > 0)
+                    {
+                        // delete the user that was created as part of Parse's Facebook login
+                        [user deleteInBackground];
+                        
+                        // put the user logged out notification on the wire
+                        [[FBSession activeSession] closeAndClearTokenInformation];
+                        
+                        error = [[NSError alloc] initWithCode:FBLOGINUSEREXISTS_ERROR userInfo:@{@"email":fbUser[@"email"]}];
+                        block(error);
+                    }
+                    else
+                    {
+                        [user setObject:@YES forKey:@"isFacebookUser"];
+                        [user setObject:fbUser[@"email"] forKey:@"username"];
+                        
+                        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+                        {
+                            block(error);
+                        }];
+                    }
+                }];
+            }];
         }
         else block(error);
     }];
+    
 }
 
 - (void)shareText:(NSString *)text inContainer:(UIViewController *)container
@@ -118,7 +92,7 @@
     {
         [PFFacebookUtils linkUser:[UserIP loggedUser] permissions:PERMISIONS block:^(BOOL succeeded, NSError *error)
         {
-             [[UserIP loggedUser] setObject:[NSNumber numberWithBool:YES] forKey:@"isFacebookUser"];
+             [[UserIP loggedUser] setObject:@YES forKey:@"isFacebookUser"];
              [[UserIP loggedUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                  block(error);
              }];
@@ -128,7 +102,7 @@
     {
         [PFFacebookUtils unlinkUserInBackground:[UserIP loggedUser] block:^(BOOL succeeded, NSError *error)
          {
-             [[UserIP loggedUser] setObject:[NSNumber numberWithBool:NO] forKey:@"isFacebookUser"];
+             [[UserIP loggedUser] setObject:@NO forKey:@"isFacebookUser"];
              [[UserIP loggedUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                  block(error);
              }];

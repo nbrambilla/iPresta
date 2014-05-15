@@ -13,11 +13,11 @@
 
 - (id)initWithCode:(int)code userInfo:(NSDictionary *)userInfo
 {
-    self = [[NSError alloc] initWithDomain:@"error" code:code userInfo:userInfo];;
+    self = [[NSError alloc] initWithDomain:@"error" code:code userInfo:userInfo];
     return self;
 }
 
-- (void)manageErrorTo:(id)delegate
+- (void)manageError
 {
     NSString *message;
     
@@ -62,9 +62,9 @@
             break;
     }
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:delegate cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
+    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
     
-    alert = nil;
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iPresta" message:message delegate:window cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
 }
 @end

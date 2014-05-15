@@ -21,33 +21,33 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        _title = [[UILabel alloc] initWithFrame:CGRectMake(53, 0, 75, self.frame.size.height)];
+        _title = [[UILabel alloc] initWithFrame:CGRectMake(72, 0, 75, self.frame.size.height)];
         _title.numberOfLines = 2;
         _title.font = [UIFont boldSystemFontOfSize:13.0];
         [self addSubview:_title];
         
-        UILabel *mines =[[UILabel alloc] initWithFrame:CGRectMake(130, OFFSET, 50, self.frame.size.height/2)];
+        UILabel *mines =[[UILabel alloc] initWithFrame:CGRectMake(155, OFFSET, 50, self.frame.size.height/2)];
         mines.text = NSLocalizedString(@"Mios:", nil);
-        mines.font = [UIFont systemFontOfSize:12.0];
+        mines.font = [UIFont systemFontOfSize:10.0];
         mines.textAlignment = NSTextAlignmentRight;
         mines.backgroundColor = [UIColor clearColor];
         [self addSubview:mines];
         
-        _myDemandsBadge = [[UILabel alloc] initWithFrame:CGRectMake(185, OFFSET, 20, self.frame.size.height/2)];
-        _myDemandsBadge.font = [UIFont boldSystemFontOfSize:12.0];
+        _myDemandsBadge = [[UILabel alloc] initWithFrame:CGRectMake(210, OFFSET, 20, self.frame.size.height/2)];
+        _myDemandsBadge.font = [UIFont boldSystemFontOfSize:10.0];
         _myDemandsBadge.textAlignment = NSTextAlignmentLeft;
         _myDemandsBadge.backgroundColor = [UIColor clearColor];
         [self addSubview:_myDemandsBadge];
         
-        UILabel *friends =[[UILabel alloc] initWithFrame:CGRectMake(130, self.frame.size.height/2 - OFFSET, 50, self.frame.size.height/2)];
+        UILabel *friends =[[UILabel alloc] initWithFrame:CGRectMake(155, self.frame.size.height/2 - OFFSET, 50, self.frame.size.height/2)];
         friends.text = NSLocalizedString(@"Amigos:", nil);
-        friends.font = [UIFont systemFontOfSize:12.0];
+        friends.font = [UIFont systemFontOfSize:10.0];
         friends.textAlignment = NSTextAlignmentRight;
         friends.backgroundColor = [UIColor clearColor];
         [self addSubview:friends];
         
-        _friendsDemandsBadge = [[UILabel alloc] initWithFrame:CGRectMake(185, self.frame.size.height/2 - OFFSET, 20, self.frame.size.height/2)];
-        _friendsDemandsBadge.font = [UIFont boldSystemFontOfSize:12.0];
+        _friendsDemandsBadge = [[UILabel alloc] initWithFrame:CGRectMake(210, self.frame.size.height/2 - OFFSET, 20, self.frame.size.height/2)];
+        _friendsDemandsBadge.font = [UIFont boldSystemFontOfSize:10.0];
         _friendsDemandsBadge.textAlignment = NSTextAlignmentLeft;
         _friendsDemandsBadge.backgroundColor = [UIColor clearColor];
         [self addSubview:_friendsDemandsBadge];
