@@ -857,7 +857,7 @@ static ObjectIP *currentObject;
     
     else if (selectedType == VideoType)
     {
-        urlString = [NSString stringWithFormat:@"http://mymovieapi.com/?title=%@&type=json&episode=0&limit=%d&offset=%d", param, offset, page*offset];
+        urlString = [NSString stringWithFormat:@"http://api.themoviedb.org/3/search/movie?query=%@&page=%d&api_key=%@", param, page+1, MOVIES_API_KEY];
     }
     
     ConnectionData *connection = [[ConnectionData alloc] initWithURL:[NSURL URLWithString:urlString] andID:@"getSearchResults"];
@@ -917,7 +917,7 @@ static ObjectIP *currentObject;
             }
             else if (selectedType == VideoType)
             {
-                volumeInfoArray = [response objectForKey:@"result"];
+                volumeInfoArray = [response objectForKey:@"results"];
             }
             
             if ([volumeInfoArray count] > 0)
@@ -1147,19 +1147,19 @@ static ObjectIP *currentObject;
     // se setea la imagen
     if ([info objectForKey:@"thumb"])
     {
-        self.imageURL = [info objectForKey:@"thumb"];
+        self.imageURL = [[info objectForKey:@"thumb"] stringByReplacingOccurrencesOfString:@"api.discogs.com" withString:@"s.pixogs.com"];
     }
 }
 
 - (void)setVideoWithInfo:(id)info
 {
     // se setea el titulo
-    if ([info objectForKey:@"title"] != [NSNull null])
+    if ([info objectForKey:@"original_title"] != [NSNull null])
     {
-        self.name = [info objectForKey:@"title"];
+        self.name = [info objectForKey:@"original_title"];
     }
     // se setea el director
-    if ([info objectForKey:@"directors"])
+    if ([info objectForKey:@"directors"] != [NSNull null])
     {
         id directors = [info objectForKey:@"directors"];
         self.author = @"";
@@ -1175,13 +1175,15 @@ static ObjectIP *currentObject;
         }
     }
     // se setea la imagen
-    if ([info objectForKey:@"poster"])
+    if ([info objectForKey:@"poster_path"] != [NSNull null])
     {
-        if ([[info objectForKey:@"poster"] objectForKey:@"imdb"] != [NSNull null]) self.imageURL = [[info objectForKey:@"poster"] objectForKey:@"imdb"];
-        else if ([[info objectForKey:@"poster"] objectForKey:@"cover"] != [NSNull null]) self.imageURL = [[info objectForKey:@"poster"] objectForKey:@"cover"];
+//        if ([[info objectForKey:@"poster"] objectForKey:@"imdb"] != [NSNull null]) self.imageURL = [[info objectForKey:@"poster"] objectForKey:@"imdb"];
+//        else if ([[info objectForKey:@"poster"] objectForKey:@"cover"] != [NSNull null]) self.imageURL = [[info objectForKey:@"poster"] objectForKey:@"cover"];
+        self.imageURL = [NSString stringWithFormat:MOVIE_IMAGE_URL, [info objectForKey:@"poster_path"]];
+        
     }
     // se setea el identificador
-    if ([info objectForKey:@"imdb_id"])
+    if ([info objectForKey:@"imdb_id"] != [NSNull null])
     {
         self.barcode = [info objectForKey:@"imdb_id"];
     }
