@@ -69,9 +69,7 @@
     [addButton setTitle:NSLocalizedString(@"Anadir", nil) forState:UIControlStateNormal];
     
     descriptionTextView.placeholder = NSLocalizedString(@"Descripcion", nil);
-    
-    audioTypesArray = [ObjectIP audioObjectTypes];
-    
+        
     // Set Form
     
     form = [EZForm new];
@@ -87,7 +85,7 @@
     authorField.inputMaxCharacters = 100;
     
     EZFormRadioField *typeField = [[EZFormRadioField alloc] initWithKey:@"type"];
-    [typeField setChoicesFromArray:audioTypesArray];
+    [typeField setChoicesFromArray:AUDIO_OBJECT_TYPES];
     typeField.validationRequiresSelection = YES;
     typeField.validationRestrictedToChoiceValues = YES;
     

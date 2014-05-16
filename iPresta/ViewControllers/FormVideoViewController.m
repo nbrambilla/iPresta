@@ -69,8 +69,6 @@
     [addButton setTitle:NSLocalizedString(@"Anadir", nil) forState:UIControlStateNormal];
     
     descriptionTextView.placeholder = NSLocalizedString(@"Descripcion", nil);
-        
-    videoTypesArray = [ObjectIP videoObjectTypes];
     
     // Set Form
     
@@ -87,7 +85,7 @@
     authorField.inputMaxCharacters = 100;
     
     EZFormRadioField *typeField = [[EZFormRadioField alloc] initWithKey:@"type"];
-    [typeField setChoicesFromArray:videoTypesArray];
+    [typeField setChoicesFromArray:VIDEO_OBJECTS_TYPE];
     typeField.validationRequiresSelection = YES;
     typeField.validationRestrictedToChoiceValues = YES;
     

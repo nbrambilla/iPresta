@@ -175,7 +175,7 @@ static ObjectIP *currentObject;
         }
         
         
-        PFFile *image = [PFFile fileWithName:[NSString stringWithFormat:@"%@.png", [[ObjectIP objectTypes] objectAtIndex:[ObjectIP selectedType]]] data:self.image];
+        PFFile *image = [PFFile fileWithName:[NSString stringWithFormat:@"%@.png", [OBJECT_TYPES objectAtIndex:[ObjectIP selectedType]]] data:self.image];
         [self setDBObjetct:object withImage:image];
 
         [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
@@ -302,34 +302,29 @@ static ObjectIP *currentObject;
 
 #pragma mark -  Array Types Methods
 
-- (NSString *)textState
-{
-    return [[ObjectIP stateTypes] objectAtIndex:[self.state integerValue]];
-}
-
 - (NSString *)textType
 {
-    return [[ObjectIP objectTypes] objectAtIndex:[self.type integerValue]];
+    return OBJECT_TYPES[self.type.integerValue];
 }
 
 - (NSString *)textAudioType
 {
-    return [[ObjectIP audioObjectTypes] objectAtIndex:[self.audioType integerValue]];
+    return AUDIO_OBJECT_TYPES[self.audioType.integerValue];
 }
 
 - (NSString *)textVideoType
 {
-    return [[ObjectIP videoObjectTypes] objectAtIndex:[self.videoType integerValue]];
+    return VIDEO_OBJECTS_TYPE[self.videoType.integerValue];
 }
 
 + (NSString *)imageType
 {
-    return [[ObjectIP imageTypes] objectAtIndex:selectedType];
+    return IMAGE_TYPES[selectedType];
 }
 
 + (NSString *)imageType:(ObjectType)objectType
 {
-    return [[ObjectIP imageTypes] objectAtIndex:objectType];
+    return IMAGE_TYPES[objectType];
 }
 
 + (NSArray *)getAllByType
@@ -1263,33 +1258,6 @@ static ObjectIP *currentObject;
     secondChain = nil;
     distance = nil;
     coef = nil;
-}
-
-#pragma mark - Constants Methods
-
-+ (NSArray *)stateTypes
-{
-    return [NSArray arrayWithObjects:NSLocalizedString(@"No prestado", nil), NSLocalizedString(@"Prestado", nil), NSLocalizedString(@"A devolver", nil), nil];
-}
-
-+ (NSArray *)objectTypes
-{
-    return [NSArray arrayWithObjects:NSLocalizedString(@"Libro", nil), NSLocalizedString(@"Audio", nil), NSLocalizedString(@"Video", nil), NSLocalizedString(@"Otro", nil), nil];
-}
-
-+ (NSArray *)audioObjectTypes
-{
-    return [NSArray arrayWithObjects:@"CD", @"SACD", NSLocalizedString(@"Vinilo", nil), nil];
-}
-
-+ (NSArray *)videoObjectTypes
-{
-    return [NSArray arrayWithObjects:@"DVD", @"Bluray", @"VHS", nil];
-}
-
-+ (NSArray *)imageTypes
-{
-    return [NSArray arrayWithObjects:@"book_icon.png", @"audio_icon.png", @"video_icon.png", @"other_icon.png", nil];
 }
 
 @end

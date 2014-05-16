@@ -61,25 +61,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewDidUnload
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:@"IncrementObjectTypeObserver"];
-    [[NSNotificationCenter defaultCenter] removeObserver:@"DecrementObjectTypeObserver"];
-    [[NSNotificationCenter defaultCenter] removeObserver:@"SetCountLabelsObserver"];
-    
-    booksListButton = nil;
-    audioListButton = nil;
-    videoListButton = nil;
-    othersListButton = nil;
-    
-    booksLabel = nil;
-    audioLabel = nil;
-    videoLabel = nil;
-    othersLabel = nil;
-    
-    [super viewDidUnload];
-}
-
 #pragma mark - Buttons Methods
 
 - (IBAction)goToObjectsList:(UIButton *)sender

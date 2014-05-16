@@ -103,14 +103,9 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 + (ObjectIP *)currentObject;
 + (NSString *)imageType;
 + (NSString *)imageType:(ObjectType)objectType;
-+ (NSArray *)objectTypes;
-+ (NSArray *)stateTypes;
-+ (NSArray *)audioObjectTypes;
-+ (NSArray *)videoObjectTypes;
 + (void)performObjectsSearchWithEmails:(NSArray *)emailsArray param:(NSString *)param page:(NSInteger)_page andOffset:(NSInteger)offset;
 + (void)getDBObjectWithObjectId:(NSString *)objectId withBlock:(void (^)(NSError *, ObjectIP *))block;
 
-- (NSString *)textState;
 - (NSString *)textType;
 - (NSString *)textAudioType;
 - (NSString *)textVideoType;

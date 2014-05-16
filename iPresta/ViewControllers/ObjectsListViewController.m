@@ -17,7 +17,6 @@
 #import "UserIP.h"
 #import "ObjectCell.h"
 
-
 #define HEADER_HEIGHT 44
 
 @interface ObjectsListViewController ()
@@ -27,15 +26,6 @@
 @implementation ObjectsListViewController
 
 #pragma mark - Lifecycle Methods
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-
-    }
-    return self;
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -60,9 +50,9 @@
     [super viewWillAppear:animated];
     
     [ObjectIP setDelegate:self];
-    float offsetY = ([UserIP objectsUserIsSet]) ? HEADER_HEIGHT : HEADER_HEIGHT * 2;
-    
-    [self.tableView setContentOffset:CGPointMake(0, offsetY) animated:NO];
+//    float offsetY = ([UserIP objectsUserIsSet]) ? HEADER_HEIGHT : HEADER_HEIGHT * 2;
+//    
+//    [tableView setContentOffset:CGPointMake(0, offsetY) animated:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -83,11 +73,13 @@
 
 - (void)objectStateList:(id)sender
 {
-    [self.tableView reloadData];
+    [tableView reloadData];
 }
 
 - (void)setTableView
 {
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     filteredObjectsArray = [NSMutableArray new];
     
     objectsArray = [ObjectIP getAllByType];
@@ -113,12 +105,12 @@
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
     
-    [error manageError]; 
+    [error manageError];
 }
 
 - (void)setTableViewHeader
 {
-    UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, HEADER_HEIGHT, 320, HEADER_HEIGHT)];
+    UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, HEADER_HEIGHT, SCREEN_WIDTH, HEADER_HEIGHT)];
     
     segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Todos", nil) , NSLocalizedString(@"En casa", nil), NSLocalizedString(@"Prestados", nil)]];
     segmentedControl.frame = CGRectMake(35, 200, 230, 30);
@@ -131,21 +123,23 @@
     
     [navigationBar pushNavigationItem:navigationItem animated:NO];
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, HEADER_HEIGHT * 2)];
-    
-    self.tableView.tableHeaderView = headerView;
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADER_HEIGHT * 2)];
     
     [headerView addSubview:searchBar];
     [headerView addSubview:navigationBar];
+    [self.view addSubview:headerView];
     
-    navigationBar = nil;
-    navigationItem = nil;
-    headerView = nil;
+    CGRect frame = tableView.frame;
+    frame.origin.y = headerView.frame.size.height;
+    frame.size.height = self.view.frame.size.height - frame.origin.y;
+    tableView.frame = frame;
+    
+    [tableView setContentOffset:CGPointMake(0.0f, 0.0f) animated:YES];
 }
 
 - (void)setNavigationBar
 {
-    self.title = [[ObjectIP objectTypes] objectAtIndex:[ObjectIP selectedType]];
+    self.title = OBJECT_TYPES[[ObjectIP selectedType]];
     
     if (![UserIP objectsUserIsSet])
     {
@@ -154,18 +148,6 @@
         
         addObjectlButton = nil;
     }
-}
-
-- (void)viewDidUnload
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:@"setObjectsTableObserver"];
-    
-    self.tableView = nil;
-    filteredObjectsArray = nil;
-    searchBar = nil;
-    segmentedControl = nil;
-    
-    [super viewDidUnload];
 }
 
 - (void)didReceiveMemoryWarning
@@ -210,7 +192,7 @@
     [[objectsArray objectAtIndex:sectionIndex] removeObjectIdenticalTo:object];
     
     NSIndexPath *tableViewIndexPath = [NSIndexPath indexPathForRow:objectIndex inSection:sectionIndex];
-    [self.tableView deleteRowsAtIndexPaths:@[tableViewIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [tableView deleteRowsAtIndexPaths:@[tableViewIndexPath] withRowAnimation:UITableViewRowAnimationFade];
     
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:object.type, @"type", nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DecrementObjectTypeObserver" object:options];
@@ -305,28 +287,25 @@
 
 #pragma mark - Table view data source
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)_tableView heightForFooterInSection:(NSInteger)section
 {
     return 0.0f;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)_tableView viewForFooterInSection:(NSInteger)section
 {
     return [UIView new];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)_tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 80.0f;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+- (NSString *)tableView:(UITableView *)_tableView titleForHeaderInSection:(NSInteger)section
 
 {
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-	{
-        return  nil;
-    }
+    if (_tableView == self.searchDisplayController.searchResultsTableView) return  nil;
     else
     {
         BOOL showSection = [[self getObjectsArrayInSection:section] count] != 0;
@@ -335,59 +314,35 @@
     }
 }
 
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)_tableView
 {
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-	{
-        return nil;
-    }
-    else
-    {
-        return [[UILocalizedIndexedCollation currentCollation] sectionIndexTitles];
-    }
+    if (_tableView == self.searchDisplayController.searchResultsTableView) return nil;
+    else return [[UILocalizedIndexedCollation currentCollation] sectionIndexTitles];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+- (NSInteger)tableView:(UITableView *)_tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-	{
-        return 0;
-    }
-    else
-    {
-        return [[UILocalizedIndexedCollation currentCollation] sectionForSectionIndexTitleAtIndex:index];
-    }
+    if (_tableView == self.searchDisplayController.searchResultsTableView) return 0;
+    else return [[UILocalizedIndexedCollation currentCollation] sectionForSectionIndexTitleAtIndex:index];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)_tableView
 {
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-	{
-        return 1;
-    }
-    else
-    {
-        return [[[UILocalizedIndexedCollation currentCollation] sectionTitles] count];
-    }    
+    if (_tableView == self.searchDisplayController.searchResultsTableView) return 1;
+    else return [[[UILocalizedIndexedCollation currentCollation] sectionTitles] count];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)_tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-	{
-        return [filteredObjectsArray count];
-    }
-    else
-    {
-        return [[self getObjectsArrayInSection:section] count];
-    }
+    if (_tableView == self.searchDisplayController.searchResultsTableView) return [filteredObjectsArray count];
+    else return [[self getObjectsArrayInSection:section] count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Object";
     
-    ObjectCell *cell = (ObjectCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    ObjectCell *cell = (ObjectCell *)[_tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
     {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"ObjectCell" owner:self options:nil] objectAtIndex:0];
@@ -396,7 +351,7 @@
     cell.tag = indexPath.row;
     ObjectIP *object = nil;
     
-    if (tableView == self.searchDisplayController.searchResultsTableView)
+    if (_tableView == self.searchDisplayController.searchResultsTableView)
 	{
         object = [filteredObjectsArray objectAtIndex:indexPath.row];
     }
@@ -411,20 +366,21 @@
 }
 
 // Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (BOOL)tableView:(UITableView *)_tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    return YES;
+    if (_tableView == tableView) return YES;
+    return NO;
 }
 
 // Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)_tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         selectedIndexPath = indexPath;
         
-        if (tableView == self.searchDisplayController.searchResultsTableView)
+        if (_tableView == self.searchDisplayController.searchResultsTableView)
         {
             selectedArray = [self getObjectsAndSectionsArray];
             [self deleteObject];
@@ -455,17 +411,9 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-    
-    if (tableView == self.searchDisplayController.searchResultsTableView)
+    if (_tableView == self.searchDisplayController.searchResultsTableView)
 	{
         [self goToObjectDetail:[filteredObjectsArray objectAtIndex:indexPath.row]];
     }
@@ -473,6 +421,8 @@
     {        
         [self goToObjectDetail:[[self getObjectsArrayInSection:indexPath.section] objectAtIndex:indexPath.row]];        
     }
+    
+    [_tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 # pragma mark - Private Methods
@@ -573,7 +523,7 @@
 
 - (void)reloadTables
 {
-    [self.tableView reloadData];
+    [tableView reloadData];
     [self.searchDisplayController.searchResultsTableView reloadData];
 }
 

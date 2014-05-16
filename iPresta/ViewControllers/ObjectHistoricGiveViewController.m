@@ -75,12 +75,7 @@
     NSString *dateEnd = [dateFormat stringFromDate:give.dateEnd];
     
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@ %@ %@", NSLocalizedString(@"Desde", nil), dateBegin, NSLocalizedString(@"Hasta", nil), dateEnd];
-    
-    give = nil;
-    dateFormat = nil;
-    dateBegin = nil;
-    dateEnd = nil;
-    
+
     return cell;
 }
 

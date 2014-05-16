@@ -31,7 +31,6 @@
     IBOutlet IPCheckbox *visibleCheckbox;
     IBOutlet UILabel *visibleLabel;
     ObjectIP *newObject;
-    NSArray *videoTypesArray;
     VideoObjectType videoTypeSelectedIndex;
     IMOAutocompletionViewController *autoComplete;
     

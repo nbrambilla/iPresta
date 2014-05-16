@@ -31,7 +31,6 @@
     IBOutlet IPCheckbox *visibleCheckbox;
     IBOutlet UILabel *visibleLabel;
     ObjectIP *newObject;
-    NSArray *audioTypesArray;
     AudioObjectType audioTypeSelectedIndex;
     IMOAutocompletionViewController *autoComplete;
     

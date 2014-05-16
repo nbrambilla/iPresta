@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "ObjectIP.h"
 
-@interface ObjectsListViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UINavigationControllerDelegate, ObjectIPDelegate>
+@interface ObjectsListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, UINavigationControllerDelegate, ObjectIPDelegate>
 {
     @private
+    IBOutlet UITableView *tableView;
     NSMutableArray *filteredObjectsArray;
     IBOutlet UISearchBar *searchBar;
     UISegmentedControl *segmentedControl;
