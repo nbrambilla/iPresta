@@ -27,7 +27,6 @@
     IBOutlet UILabel *audioLabel;
     IBOutlet UILabel *videoLabel;
     IBOutlet UILabel *othersLabel;
-
     
     NSMutableArray *objectCountArray;
 }

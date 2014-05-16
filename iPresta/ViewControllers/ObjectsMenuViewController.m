@@ -68,8 +68,6 @@
     ObjectsListViewController *viewController = [[ObjectsListViewController alloc] initWithNibName:@"ObjectsListViewController" bundle:nil];
     [ObjectIP setSelectedType:sender.tag];
     [self.navigationController pushViewController:viewController animated:YES];
-    
-    viewController = nil;
 }
 
 #pragma mark - Private Methods

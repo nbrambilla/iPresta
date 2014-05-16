@@ -102,7 +102,7 @@
     frame.origin.y = loanUpLabel.frame.origin.y + loanUpLabel.frame.size.height + 5.0f;
     stateLabel.frame = frame;
     
-    imageView.image = [UIImage imageWithData:currentObject.image];
+    imageView.image = (currentObject.image) ? [UIImage imageWithData:currentObject.image] : [UIImage imageNamed:IMAGE_TYPES[currentObject.type.integerValue]];
     frame = imageView.frame;
     frame.origin.y = stateLabel.frame.origin.y + stateLabel.frame.size.height + 10.0f;
     imageView.frame = frame;
