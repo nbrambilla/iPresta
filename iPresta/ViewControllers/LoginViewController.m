@@ -30,7 +30,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"iPresta";
+        self.title = APP_NAME;
     }
     return self;
 }
@@ -45,12 +45,41 @@
     [entrarButton setTitle:NSLocalizedString(@"Entrar", nil) forState:UIControlStateNormal];
     emailTextField.placeholder = NSLocalizedString(@"Email", nil);
     passwordTextField.placeholder = NSLocalizedString(@"Contraseña", nil);
+    
+    // Set Form
+    
+    form = [EZForm new];
+    form.inputAccessoryType = EZFormInputAccessoryTypeStandard;
+    form.delegate = self;
+    
+    EZFormTextField *emailField = [[EZFormTextField alloc] initWithKey:@"email"];
+    emailField.validationMinCharacters = 1;
+    emailField.inputMaxCharacters = 50;
+
+    EZFormTextField *passwordField = [[EZFormTextField alloc] initWithKey:@"password"];
+    passwordField.validationMinCharacters = 1;
+    passwordField.inputMaxCharacters = 12;
+    
+    [form addFormField:emailField];
+    [form addFormField:passwordField];
+    
+    [emailField useTextField:emailTextField];
+    [passwordField useTextField:passwordTextField];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
+    
     [UserIP setDelegate:self];
     [ObjectIP setLoginDelegate:self];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self checkValidForm];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -76,6 +105,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)checkValidForm
+{
+    entrarButton.enabled = (form.isFormValid) ? YES : NO;
+}
+
 - (void)viewDidUnload
 {
     emailTextField = nil;
@@ -88,13 +122,14 @@
 
 - (IBAction)login:(id)sender
 {
-    if ([NSString areSetUsername:emailTextField.text andPassword:passwordTextField.text]) // Si los campos estan completados
+    if ([[emailTextField.text lowercaseString] isValidEmail]) // Si el email tiene el formato valido
     {
-        if ([[emailTextField.text lowercaseString] isValidEmail]) // Si el email tiene el formato valido
-        {
-            [ProgressHUD showHUDAddedTo:self.view animated:YES];
-            [UserIP logInWithUsername:emailTextField.text password:passwordTextField.text];
-        }
+        [ProgressHUD showHUDAddedTo:self.view animated:YES];
+        [UserIP logInWithUsername:emailTextField.text password:passwordTextField.text];
+    }
+    else
+    {
+        [[[UIAlertView alloc] initWithTitle:APP_NAME message:NSLocalizedString(@"Formato email", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
 }
 
@@ -184,6 +219,13 @@
     navigationController = nil;
     leftMenuViewController = nil;
     container = nil;
+}
+
+# pragma mark - EZFormDelegate Methods
+
+- (void)form:(EZForm *)form didUpdateValueForField:(EZFormField *)formField modelIsValid:(BOOL)isValid
+{
+    [self checkValidForm];
 }
 
 @end

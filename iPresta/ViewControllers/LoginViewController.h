@@ -7,15 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <EZForm/EZForm.h>
 #import "UserIP.h"
 #import "ObjectIP.h"
 
 @class IPButton;
 @class IPTextField;
 
-@interface LoginViewController : UIViewController <UserIPDelegate, ObjectIPLoginDelegate>
+@interface LoginViewController : UIViewController <UserIPDelegate, ObjectIPLoginDelegate, EZFormDelegate>
 {
     @private
+    EZForm *form;
     IBOutlet IPTextField *emailTextField;
     IBOutlet IPTextField *passwordTextField;
     IBOutlet IPButton *entrarButton;

@@ -64,7 +64,7 @@
     
     UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iPresta" message:message delegate:window cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:APP_NAME message:message delegate:window cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
 }
 @end

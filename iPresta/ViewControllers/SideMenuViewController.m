@@ -76,7 +76,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return @"iPresta";
+    return APP_NAME;
 }
 
 - (void)refreshNewFriends

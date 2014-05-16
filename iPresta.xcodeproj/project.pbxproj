@@ -959,6 +959,11 @@
 				CLASSPREFIX = iPresta;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Nacho;
+				TargetAttributes = {
+					156FDE0416F399E800F4BEEA = {
+						DevelopmentTeam = 5735W7F3S2;
+					};
+				};
 			};
 			buildConfigurationList = 156FDDFF16F399E800F4BEEA /* Build configuration list for PBXProject "iPresta" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1254,8 +1259,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 10C0356C30454C14850EA615 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -1272,7 +1277,7 @@
 				);
 				OTHER_LDFLAGS = "-fobjc-arc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "FDC2F3E2-705E-4B7B-973B-2EEA5C9AC8D4";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FDC2F3E2-705E-4B7B-973B-2EEA5C9AC8D4";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
@@ -1283,8 +1288,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 10C0356C30454C14850EA615 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -1301,7 +1306,7 @@
 				);
 				OTHER_LDFLAGS = "-fobjc-arc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "FDC2F3E2-705E-4B7B-973B-2EEA5C9AC8D4";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FDC2F3E2-705E-4B7B-973B-2EEA5C9AC8D4";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;

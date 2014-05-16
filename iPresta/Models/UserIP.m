@@ -136,10 +136,13 @@ static PFUser *searchUser;
     }];
 }
 
-+ (void)shareInFacebook:(NSString *)text inContainer:(UIViewController *)container
++ (void)shareInFacebook:(NSString *)text block:(void (^)(NSError *))block
 {
     Facebook *facebook = [Facebook new];
-    [facebook shareText:text inContainer:container];
+    [facebook shareText:text block:^(NSError *error)
+    {
+        block(error);
+    }];
 }
 
 + (void)logOut

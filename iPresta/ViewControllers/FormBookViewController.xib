@@ -110,6 +110,9 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="EM0-zO-Fv7"/>
+                    </connections>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

@@ -16,7 +16,7 @@
     NSString *accessToken;
 }
 
-- (void)shareText:(NSString *)text inContainer:(UIViewController *)container;
+- (void)shareText:(NSString *)text block:(void (^)(NSError *))block;
 - (void)login:(void (^)(NSError *))block;
 - (void)link:(BOOL)link block:(void (^)(NSError *))block;
 //- (void)shareInFacebook:(NSString *)caption;

@@ -306,4 +306,11 @@
     [self checkValidForm];
 }
 
+# pragma mark - UIScrollView delegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.view endEditing:YES];
+}
+
 @end

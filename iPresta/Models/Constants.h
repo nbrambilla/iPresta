@@ -10,4 +10,4 @@
 
 #define IS_OS_7_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
 #define IS_IPHONE5 (([[UIScreen mainScreen] bounds].size.height-568)? NO : YES)
-
+#define APP_NAME @"iPresta"

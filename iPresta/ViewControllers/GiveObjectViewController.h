@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <AddressBookUI/AddressBookUI.h>
+#import <EZForm/EZForm.h>
 #import "ObjectIP.h"
 
 @class FriendIP;
@@ -15,13 +16,12 @@
 @class IPTextField;
 @class IPButton;
 
-@interface GiveObjectViewController : UIViewController <UITextFieldDelegate, ABPeoplePickerNavigationControllerDelegate, ObjectIPDelegate>
+@interface GiveObjectViewController : UIViewController <UITextFieldDelegate, ABPeoplePickerNavigationControllerDelegate, ObjectIPDelegate, EZFormDelegate>
 {
     @private
-    
+    EZForm *form;
     IBOutlet IPTextField *giveToTextField;
     IBOutlet IPTextField *timeTextField;
-    
     IBOutlet UIButton *facebookButton;
     IBOutlet IPButton *giveButton;
 }

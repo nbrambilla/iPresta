@@ -44,16 +44,53 @@
     emailTextField.placeholder = NSLocalizedString(@"Email", nil);
     passwordTextField.placeholder = NSLocalizedString(@"Contraseña", nil);
     repeatPasswordTextField.placeholder = NSLocalizedString(@"Repetir contraseña", nil);
+    
+    // Set Form
+    
+    form = [EZForm new];
+    form.inputAccessoryType = EZFormInputAccessoryTypeStandard;
+    form.delegate = self;
+    
+    EZFormTextField *emailField = [[EZFormTextField alloc] initWithKey:@"name"];
+    emailField.validationMinCharacters = 1;
+    emailField.inputMaxCharacters = 50;
+    
+    EZFormTextField *passwordField = [[EZFormTextField alloc] initWithKey:@"author"];
+    passwordField.validationMinCharacters = 0;
+    passwordField.inputMaxCharacters = 12;
+    
+    EZFormTextField *repeatPasswordField = [[EZFormTextField alloc] initWithKey:@"editorial"];
+    repeatPasswordField.validationMinCharacters = 0;
+    repeatPasswordField.inputMaxCharacters = 12;
+    
+    [form addFormField:emailField];
+    [form addFormField:passwordField];
+    [form addFormField:repeatPasswordField];
+    
+    [emailField useTextField:emailTextField];
+    [passwordField useTextField:passwordTextField];
+    [repeatPasswordField useTextField:repeatPasswordTextField];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self checkValidForm];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
+    
     [UserIP setDelegate:self];
     [ObjectIP setLoginDelegate:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    
     [UserIP setDelegate:nil];
     [ObjectIP setLoginDelegate:nil];
 }
@@ -76,6 +113,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)checkValidForm
+{
+    createCountButton.enabled = (form.isFormValid) ? YES : NO;
+}
+
 - (void)viewDidUnload
 {
     emailTextField = nil;
@@ -91,15 +133,19 @@
 {
     if ([emailTextField.text isValidEmail])
     {
-        if ([passwordTextField.text isValidPassword])
-        {
+//        if ([passwordTextField.text isValidPassword])
+//        {
             if ([passwordTextField.text matchWith:repeatPasswordTextField.text])
             {
                 [ProgressHUD showHUDAddedTo:self.view animated:YES];
                 
                 [UserIP signUpWithEmail:emailTextField.text andPassword:passwordTextField.text];
             }
-        }
+//        }
+    }
+    else
+    {
+        [[[UIAlertView alloc] initWithTitle:APP_NAME message:NSLocalizedString(@"Formato email", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
 }
 
@@ -144,11 +190,6 @@
     SideMenuViewController *leftMenuViewController = [[SideMenuViewController alloc] init];
     MFSideMenuContainerViewController *container = [MFSideMenuContainerViewController containerWithCenterViewController:navigationController leftMenuViewController:leftMenuViewController rightMenuViewController:nil];
     [self presentViewController:container animated:YES completion:nil];
-    
-    viewController = nil;
-    navigationController = nil;
-    leftMenuViewController = nil;
-    container = nil;
 }
 
 - (void)signUpResult:(NSError *)error
@@ -165,6 +206,13 @@
     [self.navigationController pushViewController:authenticateEmailViewController animated:YES];
     
     authenticateEmailViewController = nil;
+}
+
+# pragma mark - EZFormDelegate Methods
+
+- (void)form:(EZForm *)form didUpdateValueForField:(EZFormField *)formField modelIsValid:(BOOL)isValid
+{
+    [self checkValidForm];
 }
 
 @end

@@ -47,8 +47,7 @@
 + (BOOL)isNew;
 + (BOOL)isLinkedToFacebook;
 + (BOOL)isFacebookUser:(PFUser *)user;
-+ (void)shareInFacebook:(NSString *)text inContainer:(UIViewController *)container;
-
++ (void)shareInFacebook:(NSString *)text block:(void (^)(NSError *))block;
 + (void)logInWithUsername:(NSString *)username password:(NSString *)password;
 + (void)loginWithFacebook;
 + (void)linkWithFacebook:(BOOL)link;

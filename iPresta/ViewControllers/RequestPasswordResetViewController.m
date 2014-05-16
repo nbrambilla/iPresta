@@ -71,6 +71,10 @@
         
         [UserIP requestPasswordResetForEmail:emailTextField.text];
     }
+    else
+    {
+        [[[UIAlertView alloc] initWithTitle:APP_NAME message:NSLocalizedString(@"Formato email", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }
 }
 
 - (void)requestPasswordResetForEmailResult:(NSError *)error

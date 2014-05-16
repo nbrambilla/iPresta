@@ -10,7 +10,7 @@
 
 + (BOOL)areSetUsername:(NSString *)username andPassword:(NSString *)password;
 - (BOOL)isValidEmail;
-- (BOOL)isValidPassword;
+//- (BOOL)isValidPassword;
 - (BOOL)isValidBarcode;
 - (BOOL)matchWith:(NSString *)confirmPassword;
 - (NSString *)formatName;

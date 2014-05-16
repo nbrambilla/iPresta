@@ -32,9 +32,6 @@
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="20" maxX="0.0" maxY="0.0"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="34"/>
-                    </connections>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="38" customClass="IPButton">
                     <rect key="frame" x="25" y="450" width="275" height="31"/>
@@ -58,11 +55,11 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <state key="selected" backgroundImage="bt_facebook_on.png"/>
-                    <state key="highlighted" backgroundImage="bt_facebook_on.png">
+                    <state key="highlighted">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="sharePressed:" destination="-1" eventType="touchUpInside" id="49"/>
+                        <action selector="sharePressed:" destination="-1" eventType="touchDown" id="e3q-Vk-kJn"/>
                     </connections>
                 </button>
             </subviews>
@@ -76,7 +73,7 @@
         </view>
     </objects>
     <resources>
-        <image name="bt_facebook_off.png" width="47" height="47"/>
-        <image name="bt_facebook_on.png" width="47" height="47"/>
+        <image name="bt_facebook_off.png" width="40" height="40"/>
+        <image name="bt_facebook_on.png" width="40" height="40"/>
     </resources>
 </document>

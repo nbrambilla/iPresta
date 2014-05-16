@@ -62,28 +62,20 @@
     
 }
 
-- (void)shareText:(NSString *)text inContainer:(UIViewController *)container
-{    
-    SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
-    
-    SLComposeViewControllerCompletionHandler myBlock = ^(SLComposeViewControllerResult result)
-    {
-        [controller dismissViewControllerAnimated:YES completion:nil];
-        [container.navigationController popViewControllerAnimated:YES];
-    };
-    
-    controller.completionHandler = myBlock;
-    
+- (void)shareText:(NSString *)text block:(void (^)(NSError *))block
+{
     NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Respuesta pedido facebook", nil), [[ObjectIP currentObject] name], text];
     
-    if ([[ObjectIP currentObject] image])
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:message, @"message", nil];
+    if ([[ObjectIP currentObject] imageURL])
     {
-        UIImage *objectImage = [UIImage imageWithData:[[ObjectIP currentObject] image]];
-        [controller addImage:objectImage];
+        [params addEntriesFromDictionary:@{@"picture": [[ObjectIP currentObject] imageURL]}];
     }
     
-    [controller setInitialText:message];
-    [container presentViewController:controller animated:YES completion:nil];
+    [FBRequestConnection startWithGraphPath:@"me/feed" parameters:params HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, NSDictionary *result, NSError *error)
+    {
+        block(error);
+    }];
 }
 
 - (void)link:(BOOL)link block:(void (^)(NSError *))block

@@ -17,7 +17,6 @@
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
 #import "iPrestaNSString.h"
-#import "MLTableAlert.h"
 #import "Facebook.h"
 #import "IPTextField.h"
 #import "IPButton.h"
@@ -61,6 +60,29 @@
     timeTextField.text = [[GiveIP giveTimesArray] objectAtIndex:0];
     
     if (![UserIP isLinkedToFacebook]) facebookButton.hidden = YES;
+    
+    // Set Form
+    
+    form = [EZForm new];
+    form.inputAccessoryType = EZFormInputAccessoryTypeStandard;
+    form.delegate = self;
+    
+    EZFormTextField *giveToField = [[EZFormTextField alloc] initWithKey:@"giveTo"];
+    giveToField.validationMinCharacters = 1;
+    giveToField.inputMaxCharacters = 100;
+    
+    EZFormRadioField *timeField = [[EZFormRadioField alloc] initWithKey:@"time"];
+    [timeField setChoicesFromArray:[GiveIP giveTimesArray]];
+    timeField.validationRequiresSelection = YES;
+    timeField.validationRestrictedToChoiceValues = YES;
+    
+    [form addFormField:giveToField];
+    [form addFormField:timeField];
+    
+    [giveToField useTextField:giveToTextField];
+    [timeField useTextField:timeTextField];
+    
+    timeField.inputView = [[UIPickerView alloc] initWithFrame:CGRectZero];
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,11 +91,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)checkValidForm
+{
+    giveButton.enabled = (form.isFormValid) ? YES : NO;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
     [ObjectIP setDelegate:self];
+    
+    [self checkValidForm];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -155,43 +184,6 @@
     }
 }
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    if (textField == timeTextField)
-    {
-        MLTableAlert *extendGiveTableAlert = [MLTableAlert tableAlertWithTitle:NSLocalizedString(@"Prestar", nil)                                                             cancelButtonTitle:NSLocalizedString(@"Cancelar", nil) numberOfRows:^NSInteger (NSInteger section)
-            {
-                return [[GiveIP giveTimesArray] count];
-            }
-                andCells:^UITableViewCell* (MLTableAlert *anAlert, NSIndexPath *indexPath)
-            {
-                static NSString *CellIdentifier = @"CellIdentifier";
-                UITableViewCell *cell = [anAlert.table dequeueReusableCellWithIdentifier:CellIdentifier];
-                if (cell == nil)
-                {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-                }
-              
-                cell.textLabel.text = [[GiveIP giveTimesArray] objectAtIndex:indexPath.row];
-              
-                return cell;
-            }];
-        
-        extendGiveTableAlert.height = 250;
-        
-        [extendGiveTableAlert configureSelectionBlock:^(NSIndexPath *selectedIndex)
-        {
-             timeTextField.text = [[GiveIP giveTimesArray] objectAtIndex:selectedIndex.row];
-         } andCompletionBlock:nil];
-        
-        [extendGiveTableAlert show];
-        
-        return NO;
-    }
-    
-    return YES;
-}
-
 - (IBAction)giveObject:(id)sender
 {
     
@@ -215,11 +207,6 @@
         else to = name ;
         
         [[ObjectIP currentObject] giveObjectTo:to from:dateBegin to:dateEnd fromDemand:_demand];
-        
-        if (facebookButton.selected)
-        {
-            [UserIP shareInFacebook:giveToTextField.text inContainer:self];
-        }
     }
     else
     {
@@ -232,7 +219,16 @@
 
 - (void)giveObjectSuccess:(GiveIP *)give
 {
-    [ProgressHUD hideHUDForView:self.view animated:YES];
+    if (facebookButton.selected)
+    {
+        [UserIP shareInFacebook:giveToTextField.text block:^(NSError *error)
+        {
+            [ProgressHUD hideHUDForView:self.view animated:YES];
+            [error manageError];
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+    }
+    else [ProgressHUD hideHUDForView:self.view animated:YES];
     
     ObjectIP *currentObject = [ObjectIP currentObject];
     
@@ -277,6 +273,13 @@
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     
     userInfo = nil;
+}
+
+# pragma mark - EZFormDelegate Methods
+
+- (void)form:(EZForm *)form didUpdateValueForField:(EZFormField *)formField modelIsValid:(BOOL)isValid
+{
+    [self checkValidForm];
 }
 
 @end

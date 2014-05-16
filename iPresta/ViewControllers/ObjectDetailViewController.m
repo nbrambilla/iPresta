@@ -163,7 +163,7 @@
     }
     else
     {
-//        stateLabel.text = [currentObject textState];
+        stateLabel.text = @"";
         
         loanUpButton.enabled = NO;
         giveButton.enabled = YES;
