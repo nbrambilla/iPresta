@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="11G63" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13D65" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="DemandIP" representedClassName="DemandIP" syncable="YES">
         <attribute name="accepted" optional="YES" attributeType="Integer 16" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
@@ -37,7 +37,6 @@
         <attribute name="barcode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="descriptionObject" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="editorial" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objectId" optional="YES" attributeType="String" syncable="YES"/>
@@ -52,6 +51,6 @@
         <element name="DemandIP" positionX="34" positionY="-297" width="128" height="150"/>
         <element name="FriendIP" positionX="-272" positionY="-288" width="128" height="180"/>
         <element name="GiveIP" positionX="-288" positionY="75" width="128" height="180"/>
-        <element name="ObjectIP" positionX="349" positionY="-144" width="128" height="270"/>
+        <element name="ObjectIP" positionX="349" positionY="-144" width="128" height="255"/>
     </elements>
 </model>

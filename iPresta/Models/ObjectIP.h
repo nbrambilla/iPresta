@@ -15,6 +15,7 @@
 @class FriendIP;
 @class DemandIP;
 
+
 typedef NS_ENUM(NSUInteger, ObjectState) {
     Property = 0,
     Given = 1,
@@ -78,7 +79,6 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 @property (nonatomic, retain) NSString * objectId;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * author;
-@property (nonatomic, retain) NSData * image;
 @property (nonatomic, retain) NSString * barcode;
 @property (nonatomic, retain) NSString * descriptionObject;
 @property (nonatomic, retain) NSString * editorial;
@@ -110,7 +110,7 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 - (NSString *)textAudioType;
 - (NSString *)textVideoType;
 
-- (void)addObject;
+- (void)addObjectWithImageData:(NSData *)imageData;
 - (void)deleteObject;
 - (GiveIP *)currentGive;
 - (void)setVisibility:(BOOL)visible;

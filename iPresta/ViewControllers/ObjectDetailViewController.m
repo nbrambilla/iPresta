@@ -15,6 +15,7 @@
 #import "iPrestaNSString.h"
 #import "FriendIP.h"
 #import "IPButton.h"
+#import "AsyncImageView.h"
 
 @interface ObjectDetailViewController ()
 
@@ -102,7 +103,13 @@
     frame.origin.y = loanUpLabel.frame.origin.y + loanUpLabel.frame.size.height + 5.0f;
     stateLabel.frame = frame;
     
-    imageView.image = (currentObject.image) ? [UIImage imageWithData:currentObject.image] : [UIImage imageNamed:IMAGE_TYPES[currentObject.type.integerValue]];
+    if (currentObject.imageURL)
+    {
+        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:imageView];
+        imageView.imageURL = [NSURL URLWithString:currentObject.imageURL];
+    }
+    else imageView.image = [UIImage imageNamed:IMAGE_TYPES[currentObject.type.integerValue]];
+    
     frame = imageView.frame;
     frame.origin.y = stateLabel.frame.origin.y + stateLabel.frame.size.height + 10.0f;
     imageView.frame = frame;

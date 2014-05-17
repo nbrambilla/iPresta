@@ -24,9 +24,14 @@
 {
     objectName.text = object.name;
     objectAuthor.text = (object.author) ? object.author : NSLocalizedString(@"Desconocido", nil);
-    objectImageView.image = (object.image) ? [UIImage imageWithData:object.image] : [UIImage imageNamed:[ObjectIP imageType:[object.type integerValue]]];
+    if (object.imageURL)
+    {
+        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:objectImageView];
+        objectImageView.imageURL = [NSURL URLWithString:object.imageURL];
+    }
+    else objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[object.type integerValue]]];
 }
-    
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];

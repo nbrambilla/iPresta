@@ -26,14 +26,12 @@
     authorName.text = (object.author) ? object.author : NSLocalizedString(@"Desconocido", nil);
     ownerName.text = (owner) ? [[FriendIP getByObjectId:owner.objectId] getFullName] : @"";
     
-    objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[object.type integerValue]]];
-    if (object.image) objectImageView.image = [UIImage imageWithData:object.image];
-    
-    else if (object.imageURL && object.image == nil)
+    if (object.imageURL)
     {
         [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:objectImageView];
         objectImageView.imageURL = [NSURL URLWithString:object.imageURL];
     }
+    else objectImageView.image = [UIImage imageNamed:IMAGE_TYPES[object.type.integerValue]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

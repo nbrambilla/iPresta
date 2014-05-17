@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "GiveIP.h"
 
+@class AsyncImageView;
+
 @interface MyGiveCell : UITableViewCell
 {
-    IBOutlet UIImageView *objectImageView;
+    IBOutlet AsyncImageView *objectImageView;
     IBOutlet UILabel *objectName;
     IBOutlet UILabel *friendName;
     IBOutlet UILabel *date;

@@ -27,7 +27,6 @@ static ObjectIP *currentObject;
 @dynamic objectId;
 @dynamic name;
 @dynamic author;
-@dynamic image;
 @dynamic barcode;
 @dynamic descriptionObject;
 @dynamic editorial;
@@ -54,98 +53,35 @@ static ObjectIP *currentObject;
             {
                 if (!error)
                 {
-                    __block int objectsCount = [objects count];
-                    if (objectsCount == 0)
-                    {
-                        [loginDelegate saveAllObjectsFromDBresult:nil];
-                    }
+                    if (objects.count == 0)  [loginDelegate saveAllObjectsFromDBresult:nil];
+            
                     else
-                    {
-                    __block int count = 0;
-                    
-                    for (PFObject *object in objects)
-                    {
-                        ObjectIP *newObject = [ObjectIP new];
-                        
-                        if ([object objectForKey:@"image"])
+                    {                        
+                        for (PFObject *object in objects)
                         {
-                            [[object objectForKey:@"image"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+                            ObjectIP *newObject = [ObjectIP new];
+                            
+                            [newObject setObjetctFrom:object andImage:nil];
+                            [ObjectIP addObject:newObject];
+                            
+                            [ObjectIP save];
+                            [GiveIP saveAllGivesFromDBWithBlock:^(NSError *error)
                             {
                                  if (!error)
                                  {
-                                     [newObject setObjetctFrom:object andImage:data];
-                                     [ObjectIP addObject:newObject];
-                                     count++;
-                                     if (count == objectsCount)
-                                     {
-                                         [ObjectIP save];
-                                         [GiveIP saveAllGivesFromDBWithBlock:^(NSError *error)
-                                         {
-                                             if (!error)
-                                             {
-                                                 [DemandIP saveAllDemandsFromDBWithBlock:^(NSError * error)
-                                                 {
-                                                      if (!error)
-                                                      {
-                                                          [loginDelegate saveAllObjectsFromDBresult:nil];
-                                                      }
-                                                      else
-                                                      {
-                                                          [loginDelegate saveAllObjectsFromDBresult:error];
-                                                          return;
-                                                      }
-                                                 }];
-                                             }
-                                             else
-                                             {
-                                                 [loginDelegate saveAllObjectsFromDBresult:error];
-                                                 return;
-                                             }
-                                         }];
-                                     }
-                                }
-                                else
-                                {
-                                    [loginDelegate saveAllObjectsFromDBresult:error];
-                                    return;
-                                }
+                                      [DemandIP saveAllDemandsFromDBWithBlock:^(NSError * error)
+                                      {
+                                          [loginDelegate saveAllObjectsFromDBresult:nil];
+                                      }];
+                                  }
+                                  else
+                                  {
+                                      [loginDelegate saveAllObjectsFromDBresult:error];
+                                      return;
+                                  }
                             }];
                         }
-                        else
-                        {
-                            [newObject setObjetctFrom:object andImage:nil];
-                            [ObjectIP addObject:newObject];
-                            count++;
-                            if (count == objectsCount)
-                            {
-                                [ObjectIP save];
-                                [GiveIP saveAllGivesFromDBWithBlock:^(NSError *error)
-                                 {
-                                     if (!error)
-                                     {
-                                          [DemandIP saveAllDemandsFromDBWithBlock:^(NSError * error)
-                                          {
-                                              if (!error)
-                                              {
-                                                  [loginDelegate saveAllObjectsFromDBresult:nil];
-                                              }
-                                              else
-                                              {
-                                                  [loginDelegate saveAllObjectsFromDBresult:error];
-                                                  return;
-                                              }
-                                          }];
-                                      }
-                                      else
-                                      {
-                                          [loginDelegate saveAllObjectsFromDBresult:error];
-                                          return;
-                                      }
-                                 }];
-                            }
-                        }
                     }
-                }
                 }
                 else [loginDelegate saveAllObjectsFromDBresult:error];
             }];
@@ -154,7 +90,7 @@ static ObjectIP *currentObject;
     }];
 }
 
-- (void)addObject
+- (void)addObjectWithImageData:(NSData *)imageData
 {
     if (![UserIP hasObject:self] )
     {
@@ -175,12 +111,12 @@ static ObjectIP *currentObject;
         }
         
         
-        PFFile *image = [PFFile fileWithName:[NSString stringWithFormat:@"%@.png", [OBJECT_TYPES objectAtIndex:[ObjectIP selectedType]]] data:self.image];
+        PFFile *image = [PFFile fileWithName:[NSString stringWithFormat:@"%@.png", [OBJECT_TYPES objectAtIndex:[ObjectIP selectedType]]] data:imageData];
         [self setDBObjetct:object withImage:image];
 
         [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
         {
-            if (!error)      // Si hay al guardar el objeto
+            if (!error)      // Si no hay al guardar el objeto
             {   
                 if (!self.managedObjectContext) {
                     ObjectIP *newObject = [ObjectIP new];
@@ -189,10 +125,10 @@ static ObjectIP *currentObject;
                     newObject.name = self.name;
                     newObject.author = self.author;
                     newObject.barcode = self.barcode;
+                    newObject.imageURL = image.url;
                     newObject.descriptionObject = self.descriptionObject;
                     newObject.editorial = self.editorial;
                     newObject.type = self.type;
-                    newObject.image = self.image;
                     newObject.audioType = self.audioType;
                     newObject.videoType = self.videoType;
                     newObject.state = self.state;
@@ -457,13 +393,13 @@ static ObjectIP *currentObject;
         {
              if (!error && object)
              {
-                 [object setObject:[NSNumber numberWithInteger:Given] forKey:@"state"];
+                 [object setObject:@(Given) forKey:@"state"];
                  
                  [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
                  {
                       if (!error)
                       {
-                          self.state = [NSNumber numberWithInteger:Given];
+                          self.state = @(Given);
                           [ObjectIP save];
                           
                           GiveIP *newGive = [GiveIP new];
@@ -1194,7 +1130,7 @@ static ObjectIP *currentObject;
     listObject.descriptionObject = object.descriptionObject;
     listObject.editorial = object.editorial;
     listObject.type = object.type;
-    listObject.image = object.image;
+    listObject.imageURL = object.imageURL;
     listObject.audioType = object.audioType;
     listObject.videoType = object.videoType;
     listObject.state = object.state;
@@ -1212,11 +1148,10 @@ static ObjectIP *currentObject;
     self.descriptionObject = [object objectForKey:@"descriptionObject"];
     self.editorial = [object objectForKey:@"editorial"];
     self.type = [object objectForKey:@"type"];
-    if (data) {
-        self.image = [[NSData alloc] initWithData:data];
-        PFFile *file = (PFFile *)[object objectForKey:@"image"];
-        self.imageURL = file.url;
-    }
+    
+    PFFile *file = (PFFile *)[object objectForKey:@"image"];
+    self.imageURL = file.url;
+
     self.audioType = [object objectForKey:@"audioType"];
     self.videoType = [object objectForKey:@"videoType"];
     self.state = [object objectForKey:@"state"];

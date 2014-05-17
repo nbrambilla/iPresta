@@ -13,11 +13,12 @@
 #import "IPCheckbox.h"
 
 @class IPButton;
+@class AsyncImageView;
 
 @interface ObjectDetailViewController : UIViewController <ObjectIPDelegate, GiveIPDelegate, UserIPDelegate, IPCheckboxDelegate>
 {
     @private
-    IBOutlet UIImageView *imageView;
+    IBOutlet AsyncImageView *imageView;
     IBOutlet UILabel *nameLabel;
     IBOutlet UILabel *authorLabel;
     IBOutlet UILabel *editorialLabel;

@@ -32,7 +32,12 @@
     objectName.text = demand.object.name;
     friendName.text = [demand.from getFullName];
     
-    objectImageView.image = (demand.object.image) ? [UIImage imageWithData:demand.object.image] : [UIImage imageNamed:[ObjectIP imageType:[demand.object.type integerValue]]];
+    if (demand.object.imageURL)
+    {
+        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:objectImageView];
+        objectImageView.imageURL = [NSURL URLWithString:demand.object.imageURL];
+    }
+    else objectImageView.image = [UIImage imageNamed:IMAGE_TYPES[demand.object.type.integerValue]];
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:NSLocalizedString(@"Formato fecha", nil)];

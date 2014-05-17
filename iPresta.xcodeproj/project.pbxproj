@@ -148,6 +148,7 @@
 		199B0C541924C37D00A181A4 /* cb_mono_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 199B0C521924C37D00A181A4 /* cb_mono_off@2x.png */; };
 		199B0C551924C37D00A181A4 /* cb_mono_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 199B0C531924C37D00A181A4 /* cb_mono_on@2x.png */; };
 		199B0C5A19252F0600A181A4 /* IPTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 199B0C5919252F0600A181A4 /* IPTextField.m */; };
+		19AF8BE71926DE3400670DC7 /* button_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19AF8BE61926DE3400670DC7 /* button_off@2x.png */; };
 		19B9A0E317A9141200CB6485 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19B9A0E217A9141200CB6485 /* CoreData.framework */; };
 		19B9A0E617A9170D00CB6485 /* iPresta.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 19B9A0E417A9170D00CB6485 /* iPresta.xcdatamodeld */; };
 		19BA25CF179E6E83004F24DE /* AddressBookRegister.m in Sources */ = {isa = PBXBuildFile; fileRef = 19BA25CE179E6E83004F24DE /* AddressBookRegister.m */; };
@@ -397,6 +398,7 @@
 		199B0C531924C37D00A181A4 /* cb_mono_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cb_mono_on@2x.png"; path = "Images/cb_mono_on@2x.png"; sourceTree = "<group>"; };
 		199B0C5819252F0600A181A4 /* IPTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IPTextField.h; path = ViewControllers/IPTextField.h; sourceTree = "<group>"; };
 		199B0C5919252F0600A181A4 /* IPTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IPTextField.m; path = ViewControllers/IPTextField.m; sourceTree = "<group>"; };
+		19AF8BE61926DE3400670DC7 /* button_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_off@2x.png"; path = "Images/button_off@2x.png"; sourceTree = "<group>"; };
 		19B9A0E217A9141200CB6485 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		19B9A0E517A9170D00CB6485 /* iPresta.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iPresta.xcdatamodel; sourceTree = "<group>"; };
 		19BA25CD179E6E83004F24DE /* AddressBookRegister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddressBookRegister.h; path = iPresta/Models/AddressBookRegister.h; sourceTree = "<group>"; };
@@ -468,6 +470,7 @@
 		1518EA14174A6D86000EB0FE /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				19AF8BE61926DE3400670DC7 /* button_off@2x.png */,
 				199B0C521924C37D00A181A4 /* cb_mono_off@2x.png */,
 				199B0C531924C37D00A181A4 /* cb_mono_on@2x.png */,
 				19C9869A1923DF79000D11DF /* button_on@2x.png */,
@@ -1059,6 +1062,7 @@
 				151E1F9F1854C1CD00B71487 /* LoansListViewController.xib in Resources */,
 				15328F5E185652C90036FC06 /* MyGiveCell.xib in Resources */,
 				15328F66185663BD0036FC06 /* FriendGiveCell.xib in Resources */,
+				19AF8BE71926DE3400670DC7 /* button_off@2x.png in Resources */,
 				15730F69185F911200B84868 /* expired_icon@2x.png in Resources */,
 				15730F6E185F96F400B84868 /* ExpiredsListViewController.xib in Resources */,
 			);

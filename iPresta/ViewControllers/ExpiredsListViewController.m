@@ -134,26 +134,24 @@
                  [objectsArray replaceObjectAtIndex:indexPath.row withObject:object];
                  [cell setGive:give withObjectName:object.name];
 
-                 if (object.image == nil) {
-                     cell.objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[object.type integerValue]]];
-                 }
-                 else
+                 if (give.object.imageURL)
                  {
                      [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.objectImageView];
-                     cell.objectImageView.imageURL = [NSURL URLWithString:object.imageURL];
+                     cell.objectImageView.imageURL = [NSURL URLWithString:give.object.imageURL];
                  }
+                 else cell.objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[give.object.type integerValue]]];
              }];
         }
         else
         {
             ObjectIP *object = [objectsArray objectAtIndex:indexPath.row];
             [cell setGive:give withObjectName:object.name];
-            if (object.image == nil) cell.objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[object.type integerValue]]];
-            else
+            if (give.object.imageURL)
             {
                 [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.objectImageView];
-                cell.objectImageView.imageURL = [NSURL URLWithString:object.imageURL];
+                cell.objectImageView.imageURL = [NSURL URLWithString:give.object.imageURL];
             }
+            else cell.objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[give.object.type integerValue]]];
         }
         
         return cell;

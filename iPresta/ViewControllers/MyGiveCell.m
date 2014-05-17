@@ -9,6 +9,7 @@
 #import "MyGiveCell.h"
 #import "ObjectIP.h"
 #import "FriendIP.h"
+#import "AsyncImageView.h"
 
 @implementation MyGiveCell
 
@@ -26,7 +27,12 @@
     objectName.text = give.object.name;
     friendName.text = (give.to) ? [give.to getFullName] : give.name;
     
-    objectImageView.image = (give.object.image) ? [UIImage imageWithData:give.object.image] : [UIImage imageNamed:[ObjectIP imageType:[give.object.type integerValue]]];
+    if (give.object.imageURL)
+    {
+        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:objectImageView];
+        objectImageView.imageURL = [NSURL URLWithString:give.object.imageURL];
+    }
+    else objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[give.object.type integerValue]]];
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:NSLocalizedString(@"Formato fecha", nil)];

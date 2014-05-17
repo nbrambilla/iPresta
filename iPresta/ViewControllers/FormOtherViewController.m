@@ -149,10 +149,11 @@
     newObject.type = @([ObjectIP selectedType]);
     newObject.state = @(Property);
     newObject.visible = @(visibleCheckbox.selected);
-    if (imageView.isSetted) newObject.image = UIImagePNGRepresentation([imageView getImage]);
+    NSData *imageData = nil;
+    if (imageView.isSetted) imageData = UIImagePNGRepresentation([imageView getImage]);
     if (descriptionTextView.text) newObject.descriptionObject = [descriptionTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    [newObject addObject];
+    [newObject addObjectWithImageData:imageData];
 }
 
 - (void)addObjectSuccess
@@ -184,8 +185,8 @@
     
     [imageView deleteImage];
     
-    if (newObject.imageURL && newObject.image == nil) [imageView setImageWithURL:newObject.imageURL];
-    else if (newObject.image) [imageView setImage:[UIImage imageWithData:newObject.image]];
+    if (newObject.imageURL) [imageView setImageWithURL:newObject.imageURL];
+    else [imageView setImage:[UIImage imageNamed:IMAGE_TYPES[newObject.type.integerValue]]];
 }
 
 # pragma mark - EZFormDelegate Methods
