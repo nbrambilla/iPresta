@@ -21,15 +21,6 @@
 
 @implementation AppContactsListViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -51,7 +42,7 @@
     filteredAppContactsList = [NSMutableArray new];
     appContactsList = [[FriendIP getAll] copy];
     appContactsList = [[self partitionObjects:appContactsList collationStringSelector:@selector(firstLetter)] mutableCopy];
-    [self.tableView reloadData];
+    [tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -99,12 +90,9 @@
 
 #pragma mark - Table view data source
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+- (NSString *)tableView:(UITableView *)_tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-	{
-        return  nil;
-    }
+    if (_tableView == self.searchDisplayController.searchResultsTableView) return  nil;
     else
     {
         BOOL showSection = [[appContactsList objectAtIndex:section] count] != 0;
@@ -113,72 +101,43 @@
     }
 }
 
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)_tableView
 {
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-	{
-        return nil;
-    }
-    else
-    {
-        return [[UILocalizedIndexedCollation currentCollation] sectionIndexTitles];
-    }
+    if (_tableView == self.searchDisplayController.searchResultsTableView) return nil;
+    else return [[UILocalizedIndexedCollation currentCollation] sectionIndexTitles];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+- (NSInteger)tableView:(UITableView *)_tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-	{
-        return 0;
-    }
-    else
-    {
-        return [[UILocalizedIndexedCollation currentCollation] sectionForSectionIndexTitleAtIndex:index];
-    }
+    if (_tableView == self.searchDisplayController.searchResultsTableView) return 0;
+    else return [[UILocalizedIndexedCollation currentCollation] sectionForSectionIndexTitleAtIndex:index];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)_tableView
 {
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-	{
-        return 1;
-    }
-    else
-    {
-        return [[[UILocalizedIndexedCollation currentCollation] sectionTitles] count];
-    }
+    if (_tableView == self.searchDisplayController.searchResultsTableView) return 1;
+    else return [[[UILocalizedIndexedCollation currentCollation] sectionTitles] count];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)_tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-	{
-        return [filteredAppContactsList count];
-    }
-    else
-    {
-        return [[appContactsList objectAtIndex:section] count];
-    }
+    if (_tableView == self.searchDisplayController.searchResultsTableView) return [filteredAppContactsList count];
+    else return [[appContactsList objectAtIndex:section] count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
+    UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil)
+    {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     FriendIP *friend;
     
-    if (tableView == self.searchDisplayController.searchResultsTableView)
-	{
-        friend = [filteredAppContactsList objectAtIndex:indexPath.row];
-    }
-	else
-	{
-        friend = [[appContactsList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    }
+    if (tableView == self.searchDisplayController.searchResultsTableView) friend = [filteredAppContactsList objectAtIndex:indexPath.row];
+	else friend = [[appContactsList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
     cell.textLabel.text = [friend getFullName];
     cell.detailTextLabel.text = friend.email;
@@ -228,25 +187,25 @@
 #pragma mark - Table view delegate
 
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)_tableView heightForFooterInSection:(NSInteger)section
 {
-    return 0.0f;
+    return 1.0f;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)_tableView viewForFooterInSection:(NSInteger)section
 {
     return [UIView new];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [_tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     FriendIP *friend;
     
-    if (tableView == self.searchDisplayController.searchResultsTableView)
+    if (_tableView == self.searchDisplayController.searchResultsTableView)
 	{
         friend = [filteredAppContactsList objectAtIndex:indexPath.row];
         [searchBar resignFirstResponder];
