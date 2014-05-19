@@ -15,7 +15,7 @@
 @class IPButton;
 @class AsyncImageView;
 
-@interface ObjectDetailViewController : UIViewController <ObjectIPDelegate, GiveIPDelegate, UserIPDelegate, IPCheckboxDelegate>
+@interface ObjectDetailViewController : UIViewController <ObjectIPDelegate, GiveIPDelegate, UserIPDelegate, IPCheckboxDelegate, UIAlertViewDelegate>
 {
     @private
     IBOutlet AsyncImageView *imageView;

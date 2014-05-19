@@ -93,7 +93,7 @@
     frame.origin.y = editorialLabel.frame.origin.y + editorialLabel.frame.size.height + 5.0f;
     descriptionLabel.frame = frame;
     
-    loanUpLabel.hidden = YES;
+    loanUpLabel.text = IPString(@"Prestamo vencido");
     [loanUpLabel sizeToFit];
     frame = loanUpLabel.frame;
     frame.origin.y = descriptionLabel.frame.origin.y + descriptionLabel.frame.size.height + 5.0f;
@@ -172,6 +172,7 @@
     {
         stateLabel.text = @"";
         
+        loanUpLabel.hidden = YES;
         loanUpButton.enabled = NO;
         giveButton.enabled = YES;
         giveBackButton.enabled = NO;
@@ -233,10 +234,7 @@
 
 - (IBAction)giveBackObject:(id)sender
 {
-    [ProgressHUD  showHUDAddedTo:self.view animated:YES];
-    
-    ObjectIP  *currentObject = [ObjectIP currentObject];
-    [currentObject giveBack];
+    [[[UIAlertView alloc] initWithTitle:APP_NAME message:IPString(@"Devolver objecto pregunta") delegate:self cancelButtonTitle:nil otherButtonTitles:IPString(@"Cancelar"), @"OK", nil] show];
 }
 
 - (void)giveBackSuccess
@@ -253,41 +251,10 @@
 
 - (IBAction)goToExtendGive:(id)sender
 {
-//	MLTableAlert *extendGiveTableAlert = [MLTableAlert tableAlertWithTitle:NSLocalizedString(@"Extender prestamo", nil) cancelButtonTitle:NSLocalizedString(@"Cancelar", nil) numberOfRows:^NSInteger (NSInteger section)
-//        {
-//            return [[GiveIP giveTimesArray] count];
-//        }
-//            andCells:^UITableViewCell* (MLTableAlert *anAlert, NSIndexPath *indexPath)
-//        {
-//          static NSString *CellIdentifier = @"CellIdentifier";
-//          UITableViewCell *cell = [anAlert.table dequeueReusableCellWithIdentifier:CellIdentifier];
-//          if (cell == nil)
-//              cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-//          
-//          cell.textLabel.text = [[GiveIP giveTimesArray] objectAtIndex:indexPath.row];
-//          
-//          return cell;
-//        }];
-//	
-//	extendGiveTableAlert.height = 250;
-//	
-//	[extendGiveTableAlert configureSelectionBlock:^(NSIndexPath *selectedIndex)
-//    {
-//         [self extendGive:[[[GiveIP giveTimesArray] objectAtIndex:selectedIndex.row] getIntegerTime]];
-//	} andCompletionBlock:nil];
-//	
-//	[extendGiveTableAlert show];
-    [MMPickerView showPickerViewInView:self.view
-                           withStrings:GIVE_TIMES
-                           withOptions:@{MMtextColor: [UIColor blackColor],
-                                         MMtoolbarColor: [UIColor blackColor],
-                                         MMbuttonColor: [UIColor whiteColor],
-                                         MMselectedObject: GIVE_TIMES[0],
-                                        }
-                            completion:^(NSString *selectedString)
-                            {
-                                [self extendGive:[selectedString getIntegerTime]];
-                            }];
+    [MMPickerView showPickerViewInView:self.view withStrings:GIVE_TIMES withOptions:@{MMtextColor: [UIColor blackColor], MMtoolbarColor: [UIColor blackColor], MMbuttonColor: [UIColor whiteColor], MMselectedObject: GIVE_TIMES[0]} completion:^(NSString *selectedString)
+    {
+        [self extendGive:[selectedString getIntegerTime]];
+    }];
 }
 
 - (void)extendGive:(NSInteger)time
@@ -352,11 +319,17 @@
     // Dispose of any resources that can be recreated.
 }
 
-# pragma mark - EZFormDelegate Methods
+# pragma mark - UIAlertView Delegate
 
-- (void)formInputAccessoryViewDone:(EZForm *)form
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-
+    if (buttonIndex == 1)
+    {
+        [ProgressHUD  showHUDAddedTo:self.view animated:YES];
+        
+        ObjectIP  *currentObject = [ObjectIP currentObject];
+        [currentObject giveBack];
+    }
 }
 
 @end

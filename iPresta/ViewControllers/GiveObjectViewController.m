@@ -199,7 +199,7 @@
         NSDate *dateBegin = [NSDate date];
         
         NSInteger time = [timeTextField.text getIntegerTime];
-        NSDate *dateEnd = [dateBegin dateByAddingTimeInterval:time];
+        NSDate *dateEnd = [dateBegin dateByAddingTimeInterval:10];
         
         id to;
         

@@ -126,6 +126,7 @@
 "Prestamo otra persona" =           "The loan must be made to another person";
 "Pregunta rechazar prestamo" =      "Are sure you want to reject the loan of \"%@\" a %@";
 "Objeto prestado" =                 "\"%@\" is already borrowed";
+"Devolver objecto pregunta" =       "Are you sure you want to return this item?";
 
 /* Pedidos */
 

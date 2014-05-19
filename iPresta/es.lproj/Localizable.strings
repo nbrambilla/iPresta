@@ -126,6 +126,7 @@
 "Prestamo otra persona" =               "El préstamo debe realizarse a otra persona";
 "Pregunta rechazar prestamo" =          "Está seguro que desea rechazar el prestamo de \"%@\" a %@";
 "Objeto prestado" =                     "\"%@\" se encuentra prestado";
+"Devolver objecto pregunta" =       "¿Está seguro que desea retornar este objeto?";
 
 /* Pedidos */
 

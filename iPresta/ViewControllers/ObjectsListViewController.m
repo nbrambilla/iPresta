@@ -291,7 +291,7 @@
 
 - (CGFloat)tableView:(UITableView *)_tableView heightForFooterInSection:(NSInteger)section
 {
-    return 1.0f;
+    return 0.0f;
 }
 
 - (UIView *)tableView:(UITableView *)_tableView viewForFooterInSection:(NSInteger)section
