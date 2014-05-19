@@ -40,13 +40,13 @@
     else objectImageView.image = [UIImage imageNamed:IMAGE_TYPES[demand.object.type.integerValue]];
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:NSLocalizedString(@"Formato fecha", nil)];
+    [dateFormat setDateFormat:IPString(@"Formato fecha")];
     date.text = [dateFormat stringFromDate:demand.date];
 
     if (demand.accepted == nil) stateLabel.hidden = YES;
     else
     {
-        stateLabel.text = ([demand.accepted boolValue]) ? NSLocalizedString(@"aceptado", nil) : NSLocalizedString(@"rechazado", nil);
+        stateLabel.text = ([demand.accepted boolValue]) ? IPString(@"aceptado") : IPString(@"rechazado");
     }
 }
 
@@ -56,8 +56,8 @@
 
     if (demand.accepted == nil)
     {
-        [acceptButton setTitle:[NSLocalizedString(@"aceptar", nil) uppercaseString] forState:UIControlStateNormal];
-        [rejectButton setTitle:[NSLocalizedString(@"rechazar", nil) uppercaseString] forState:UIControlStateNormal];
+        [acceptButton setTitle:[IPString(@"aceptar") uppercaseString] forState:UIControlStateNormal];
+        [rejectButton setTitle:[IPString(@"rechazar") uppercaseString] forState:UIControlStateNormal];
     }
     else
     {

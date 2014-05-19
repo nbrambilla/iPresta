@@ -220,11 +220,6 @@ static id<GiveIPDelegate> delegate;
      }];
 }
 
-+ (NSArray *)giveTimesArray
-{
-    return [NSArray arrayWithObjects:NSLocalizedString(@"1 Semana", nil), NSLocalizedString(@"2 Semanas", nil), NSLocalizedString(@"3 Semanas", nil), NSLocalizedString(@"1 Mes", nil), NSLocalizedString(@"2 Meses", nil), NSLocalizedString(@"3 Meses", nil), nil];
-}
-
 - (void)setGiveFrom:(PFObject *)give
 {
     self.objectId = give.objectId;
@@ -388,7 +383,7 @@ static id<GiveIPDelegate> delegate;
          
          PFPush *push = [PFPush new];
          [push setQuery:pushQuery];
-         NSString *alert = [NSString stringWithFormat:NSLocalizedString(@"Prestamo push", nil), [[UserIP loggedUser] email], self.object.name];
+         NSString *alert = [NSString stringWithFormat:IPString(@"Prestamo push"), [[UserIP loggedUser] email], self.object.name];
          
          [push setData:[NSDictionary dictionaryWithObjectsAndKeys: @"Increment", @"badge", @"default", @"sound", alert, @"alert", self.objectId, @"demandId", @"give", @"pushID", nil]];
          

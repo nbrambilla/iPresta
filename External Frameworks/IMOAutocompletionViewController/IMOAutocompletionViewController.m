@@ -150,7 +150,7 @@
     {
         if ((scrollView.contentOffset.y + scrollView.frame.size.height) > (scrollView.contentSize.height) && !loading && !finish)
         {
-            _activityIndicatorLabel.text = NSLocalizedString(@"Cargando...", nil);
+            _activityIndicatorLabel.text = IPString(@"Cargando...");
             loading = YES;
             page++;
             [self.footerActivityIndicator startAnimating];
@@ -245,7 +245,7 @@
         if (page != 0)
         {
             [_footerActivityIndicator stopAnimating];
-            _activityIndicatorLabel.text = NSLocalizedString(@"Intentelo otra vez", nil);
+            _activityIndicatorLabel.text = IPString(@"Intentelo otra vez");
         }
         [error manageError];
     }

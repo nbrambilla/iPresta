@@ -49,21 +49,23 @@
 
 - (void)setView
 {
+    self.title = IPString(@"Anadir");
+    
     nameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     
-    nameTextField.placeholder = NSLocalizedString(@"Nombre", nil);
-    visibleLabel.text = NSLocalizedString(@"Visible", nil);
+    nameTextField.placeholder = IPString(@"Nombre");
+    visibleLabel.text = IPString(@"Visible");
     
     visibleCheckbox.selected = YES;
     
     CGRect frame = scrollView.frame;
-    frame.size.height = (IS_IPHONE5) ? 504.0f : 416.0f;
+    frame.size.height = (IS_IPHONE_4_INCHES) ? 504.0f : 416.0f;
     scrollView.frame = frame;
     scrollView.contentSize = frame.size;
     
-    [addButton setTitle:NSLocalizedString(@"Anadir", nil) forState:UIControlStateNormal];
+    [addButton setTitle:IPString(@"Anadir") forState:UIControlStateNormal];
     
-    descriptionTextView.placeholder = NSLocalizedString(@"Descripcion", nil);
+    descriptionTextView.placeholder = IPString(@"Descripcion");
     
     // Set Form
     

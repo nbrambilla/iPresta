@@ -39,7 +39,6 @@
 + (void)deleteAllGivesFromDBObject:(PFObject *)dbObject andObject:(ObjectIP *)object withBlock:(void (^)(NSError *))block;
 + (void)setDelegate:(id <GiveIPDelegate>)_delegate;
 + (id <GiveIPDelegate>)delegate;
-+ (NSArray *)giveTimesArray;
 + (NSArray *)getMines;
 + (NSArray *)getFriends;
 + (NSArray *)getMinesExpired;

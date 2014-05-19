@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ObjectHistoricGiveViewController : UITableViewController
+@interface ObjectHistoricGiveViewController : UIViewController
 {
     @private
     NSArray *givesArray;
+    
+    IBOutlet UITableView *tableView;
+    IBOutlet UIView *noLoansView;
+    IBOutlet UILabel *noLoansLabel;
 }
 
 @end

@@ -30,10 +30,11 @@
 "Contactos" =                   "Contacts";
 "Pedidos" =                     "Orders";
 "Prestamos" =                   "Loans";
-"Expirados" =                   "Expired";
+"Expirados" =                   "Expireds";
 "Configuracion" =               "Configuration";
 "Mios:" =                       "Mines:";
 "Amigos:" =                     "Friends:";
+"Nuevos:" =                     "News:";
 
 /* Busqueda */
 
@@ -62,13 +63,17 @@
 "Pedir" =               "Request";
 "Desde" =               "From";
 "Hasta" =               "to";
+"No hay objetos" =      "Thers's no objects";
 "Mis pedidos" =         "My orders";
 "Pedidos de amigos" =   "Friends's orders";
+"No hay pedidos" =      "Thers's no orders";
 "Mis prestamos" =       "My loans";
 "Prestamos de amigos" = "Friend's loans";
+"No hay prestamos" =    "Thers's no loans";
 "Expirados mios" =      "My expireds";
 "Expirados de amigos" = "Friend's expireds";
 "Prestamos de amigos" = "Friend's loans";
+"No hay expirados" =    "Thers's no expireds";
 "Nombre" =              "Name";
 "Editorial" =           "Editorial";
 "Autor" =               "Author";
@@ -95,6 +100,7 @@
 
 /* Mensajes */
 
+"Error interno" =                   "There has been an unexpected problem. Try again.";
 "Problemas conexion" =              "Connection Problems. Try it again.";
 "Email password error" =            "Email and/or password incorrect/s";
 "Usuario existente" =               "There is already a registered user with this email";
@@ -133,3 +139,10 @@
 "1 mes" =                   "1 month";
 "2 meses" =                 "2 months";
 "3 meses" =                 "3 months";
+"Dia" =                     "day";
+"Dias" =                    "days";
+"Semana" =                  "week";
+"Semanas" =                 "weeks";
+"Mes" =                     "month";
+"Meses" =                   "months";
+

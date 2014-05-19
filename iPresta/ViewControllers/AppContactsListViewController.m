@@ -34,6 +34,7 @@
 {
     [super viewDidLoad];
     
+    self.title = IPString(@"Contactos");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTableView) name:@"setFriendsObserver" object:nil];
     [self setTableView];
 }
@@ -43,17 +44,6 @@
     [super viewWillAppear:animated];
     
     [UserIP setDelegate:self];
-}
-
-- (void)viewDidUnload
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    appContactsList = nil;
-    filteredAppContactsList = nil;
-    searchBar = nil;
-    
-    [super viewDidUnload];
 }
 
 - (void)setTableView

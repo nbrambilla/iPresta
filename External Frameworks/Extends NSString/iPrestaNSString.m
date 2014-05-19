@@ -18,7 +18,7 @@
     
     if (!bReturn)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Campos vacios", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:APP_NAME message:NSLocalizedString(@"Campos vacios", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         
         alert = nil;
@@ -33,7 +33,7 @@
     
     if (!bReturn)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Contraseñas diferentes", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:APP_NAME message:NSLocalizedString(@"Contraseñas diferentes", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         
         alert = nil;
@@ -67,7 +67,7 @@
     
     if (!bReturn)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"No es un código de barras" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:APP_NAME message:@"No es un código de barras" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         
         alert = nil;
@@ -125,23 +125,13 @@
     NSInteger time = 0;
     
     NSString *trimString = [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSArray* dividedString = [trimString componentsSeparatedByString: @" "];
+    NSArray* dividedString = [trimString componentsSeparatedByString:@" "];
     
-    NSInteger value = [[dividedString objectAtIndex:0] integerValue];
-    NSString *lapse = [[dividedString objectAtIndex:1] lowercaseString];
+    NSInteger value = [dividedString[0] integerValue];
+    NSString *lapse = dividedString[1];
     
-    if ([lapse isEqual:@"día"] || [lapse isEqual:@"días"])
-    {
-        time = ONE_DAY * value;
-    }
-    else if ([lapse isEqual:@"semana"] || [lapse isEqual:@"semanas"])
-    {
-        time = ONE_DAY * 7 * value;
-    }
-    else if ([lapse isEqual:@"mes"] || [lapse isEqual:@"meses"])
-    {
-        time = ONE_DAY * 30 * value;
-    }
+    if ([lapse isEqual:NSLocalizedString(@"semana", nil)] || [lapse isEqual:NSLocalizedString(@"semanas", nil)]) time = ONE_DAY * 7 * value;
+    else if ([lapse isEqual:@"mes"] || [lapse isEqual:@"meses"]) time = ONE_DAY * 30 * value;
     
     return time;
 }

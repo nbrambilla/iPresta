@@ -12,21 +12,11 @@
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
 
-
 @interface ObjectHistoricGiveViewController ()
 
 @end
 
 @implementation ObjectHistoricGiveViewController
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -42,9 +32,13 @@
 
 - (void)setTableView
 {
-    givesArray = [[ObjectIP currentObject] getAllGives];
+    self.title = IPString(@"Historico");
+    noLoansLabel.text = IPString(@"No hay prestamos");
     
-    [self.tableView reloadData];
+    givesArray = [[ObjectIP currentObject] getAllGives];
+    noLoansView.hidden = (givesArray.count != 0);
+    
+    [tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -59,10 +53,10 @@
     return [givesArray count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Give";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
@@ -117,18 +111,5 @@
     return YES;
 }
 */
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-}
 
 @end

@@ -26,7 +26,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Autenticar email", nil);
+        self.title = IPString(@"Autenticar email");
     }
     return self;
 }
@@ -38,13 +38,13 @@
     
     [self.navigationItem setHidesBackButton:YES animated:NO];
     
-    UIBarButtonItem *changeEmailButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cambiar email", nil) style:UIBarButtonItemStylePlain target:self action:@selector(goToChangeEmail)];
+    UIBarButtonItem *changeEmailButton = [[UIBarButtonItem alloc] initWithTitle:IPString(@"Cambiar email") style:UIBarButtonItemStylePlain target:self action:@selector(goToChangeEmail)];
     self.navigationItem.rightBarButtonItem = changeEmailButton;
     
-    authenticateMessage.text = NSLocalizedString(@"Autenticar email texto", nil);
+    authenticateMessage.text = IPString(@"Autenticar email texto");
     [authenticateMessage sizeToFit];
-    [resendEmailButton setTitle:NSLocalizedString(@"Reenviar email", nil) forState:UIControlStateNormal];
-    [goToAppButton setTitle:NSLocalizedString(@"Ir", nil) forState:UIControlStateNormal];
+    [resendEmailButton setTitle:IPString(@"Reenviar email") forState:UIControlStateNormal];
+    [goToAppButton setTitle:IPString(@"Ir") forState:UIControlStateNormal];
     
     changeEmailButton = nil;
 }
@@ -74,7 +74,7 @@
 
 - (void)resendAuthenticateMessageSuccess
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Email enviado", nil) message:NSLocalizedString(@"Chequee mensaje", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:IPString(@"Email enviado") message:IPString(@"Chequee mensaje") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     
     alert = nil;

@@ -22,7 +22,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Cambiar email", nil);
+        self.title = IPString(@"Cambiar email");
     }
     return self;
 }
@@ -31,8 +31,8 @@
 {
     [super viewDidLoad];
     
-    changeMailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Cambiar email texto", nil), [UserIP email]];
-    [changeEmailButton setTitle:NSLocalizedString(@"Cambiar email", nil) forState:UIControlStateNormal];
+    changeMailTextLabel.text = [NSString stringWithFormat:IPString(@"Cambiar email texto"), [UserIP email]];
+    [changeEmailButton setTitle:IPString(@"Cambiar email") forState:UIControlStateNormal];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -57,7 +57,7 @@
     }
     else
     {
-        [[[UIAlertView alloc] initWithTitle:APP_NAME message:NSLocalizedString(@"Formato email", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:APP_NAME message:IPString(@"Formato email") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
 }
 
@@ -73,7 +73,7 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Email cambiado", nil) message:NSLocalizedString(@"Mensaje autenticar", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:IPString(@"Email cambiado") message:IPString(@"Mensaje autenticar") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     
     alert = nil;

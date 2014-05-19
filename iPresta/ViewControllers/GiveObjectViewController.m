@@ -56,8 +56,8 @@
         giveToTextField.text = [_demand.from getFullName];
         giveToTextField.enabled = NO;
     }
-    [giveButton setTitle:NSLocalizedString(@"Prestar", nil) forState:UIControlStateNormal];
-    timeTextField.text = [[GiveIP giveTimesArray] objectAtIndex:0];
+    [giveButton setTitle:IPString(@"Prestar") forState:UIControlStateNormal];
+    timeTextField.text = GIVE_TIMES[0];
     
     if (![UserIP isLinkedToFacebook]) facebookButton.hidden = YES;
     
@@ -72,7 +72,7 @@
     giveToField.inputMaxCharacters = 100;
     
     EZFormRadioField *timeField = [[EZFormRadioField alloc] initWithKey:@"time"];
-    [timeField setChoicesFromArray:[GiveIP giveTimesArray]];
+    [timeField setChoicesFromArray:GIVE_TIMES];
     timeField.validationRequiresSelection = YES;
     timeField.validationRestrictedToChoiceValues = YES;
     
@@ -83,6 +83,7 @@
     [timeField useTextField:timeTextField];
     
     timeField.inputView = [[UIPickerView alloc] initWithFrame:CGRectZero];
+    timeField.inputView.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning
@@ -210,7 +211,7 @@
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Prestamo otra persona", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:APP_NAME message:IPString(@"Prestamo otra persona") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         
         alert = nil;
@@ -261,8 +262,8 @@
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
     localNotification.fireDate = date;
     
-    localNotification.alertAction = NSLocalizedString(@"Prestamo vencido", nil);
-    localNotification.alertBody = [NSString stringWithFormat:NSLocalizedString(@"Prestamo vencido push", nil), object, name];
+    localNotification.alertAction = IPString(@"Prestamo vencido");
+    localNotification.alertBody = [NSString stringWithFormat:IPString(@"Prestamo vencido push"), object, name];
     localNotification.hasAction = YES;
 //    localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber];
     localNotification.soundName = UILocalNotificationDefaultSoundName;

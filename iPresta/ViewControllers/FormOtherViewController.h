@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <EZForm/EZForm.h>
 #import "ObjectIP.h"
-#import "STControls.h"
 #import "ZBarSDK.h"
 #import "iPrestaImageView.h"
 #import "IMOAutocompletionViewController.h"

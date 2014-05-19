@@ -34,6 +34,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.title = IPString(@"Buscar");
+    
     self.dataSource = self;
     self.delegate = self;
     self.navigationItem.hidesBackButton = YES;

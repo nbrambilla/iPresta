@@ -38,6 +38,9 @@
 {
     [super viewDidLoad];
     
+    self.title = IPString(@"Expirados");
+    noExpiredsLabel.text = IPString(@"No hay expirados");
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setGivesArray) name:@"setExtendsObserver" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadFriendsGivesTable) name:@"ReloadFriendsExtendsTableObserver" object:nil];
     [self setTableViewHeader];
@@ -52,8 +55,8 @@
 
 - (void)setTableViewHeader
 {
-    [segmentedControl setTitle:NSLocalizedString(@"Expirados mios", nil) forSegmentAtIndex:0];
-    [segmentedControl setTitle:NSLocalizedString(@"Expirados de amigos", nil) forSegmentAtIndex:1];
+    [segmentedControl setTitle:IPString(@"Expirados mios") forSegmentAtIndex:0];
+    [segmentedControl setTitle:IPString(@"Expirados de amigos") forSegmentAtIndex:1];
     segmentedControl.selectedSegmentIndex = 0;
     [segmentedControl addTarget:self action:@selector(setGivesType:) forControlEvents:UIControlEventValueChanged];
 }
@@ -79,11 +82,15 @@
 {
     if (sender.selectedSegmentIndex == 0)
     {
+        noExpiredsView.hidden = (myGivesArray.count != 0);
+        
         myGivesTable.hidden = NO;
         friendsGivesTable.hidden = YES;
     }
     else if (sender.selectedSegmentIndex == 1)
     {
+        noExpiredsView.hidden = (friendsGivesArray.count != 0);
+        
         myGivesTable.hidden = YES;
         friendsGivesTable.hidden = NO;
     }
@@ -119,7 +126,9 @@
     {
         static NSString *CellIdentifier = @"Cell";
         FriendGiveCell *cell = (FriendGiveCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
+        
+        if (cell == nil)
+        {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"FriendGiveCell" owner:self options:nil] objectAtIndex:0];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.tag = indexPath.row;
@@ -130,28 +139,29 @@
         if (![[objectsArray objectAtIndex:indexPath.row] isKindOfClass:[ObjectIP class]])
         {
             [ObjectIP getDBObjectWithObjectId:give.iPrestaObjectId withBlock:^(NSError *error, ObjectIP *object)
-             {
-                 [objectsArray replaceObjectAtIndex:indexPath.row withObject:object];
-                 [cell setGive:give withObjectName:object.name];
+            {
+                [objectsArray replaceObjectAtIndex:indexPath.row withObject:object];
+                [cell setGive:give withObjectName:object.name];
 
-                 if (give.object.imageURL)
-                 {
-                     [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.objectImageView];
-                     cell.objectImageView.imageURL = [NSURL URLWithString:give.object.imageURL];
-                 }
-                 else cell.objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[give.object.type integerValue]]];
-             }];
+                if (give.object.imageURL)
+                {
+                    [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.objectImageView];
+                    cell.objectImageView.imageURL = [NSURL URLWithString:give.object.imageURL];
+                }
+                else cell.objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:give.object.type.integerValue]];
+            }];
         }
         else
         {
             ObjectIP *object = [objectsArray objectAtIndex:indexPath.row];
             [cell setGive:give withObjectName:object.name];
+            
             if (give.object.imageURL)
             {
                 [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.objectImageView];
                 cell.objectImageView.imageURL = [NSURL URLWithString:give.object.imageURL];
             }
-            else cell.objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[give.object.type integerValue]]];
+            else cell.objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:give.object.type.integerValue]];
         }
         
         return cell;

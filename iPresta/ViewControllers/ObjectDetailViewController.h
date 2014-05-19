@@ -37,7 +37,6 @@
     IBOutlet IPButton *demandButton;
     
     IBOutlet UIView *otherUserButtonsView;
-    
 }
 
 @end

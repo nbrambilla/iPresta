@@ -92,15 +92,15 @@
         
         if ([UserIP isLinkedToFacebook])
         {
-            message = NSLocalizedString(@"Vinculado", nil);
+            message = IPString(@"Vinculado");
             [self getFacebookInfo];
         }
         else
         {
-            message = NSLocalizedString(@"Desvinculado", nil);
+            message = IPString(@"Desvinculado");
             [self removeFacebookInfo];
         }
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:NSLocalizedString(@"Vinculo facebook", nil), message] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:APP_NAME message:[NSString stringWithFormat:IPString(@"Vinculo facebook"), message] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
 }
@@ -113,7 +113,7 @@
         facebookView.hidden = NO;
         nameLabel.text = [result objectForKey:@"name"];
                 
-        NSURL *fbImageURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", [result objectForKey:@"id"]]];
+        NSURL *fbImageURL = [NSURL URLWithString:[NSString stringWithFormat:FB_URL_IMAGE, [result objectForKey:@"id"]]];
         
         [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:profileImage];
         profileImage.imageURL = fbImageURL;
@@ -128,10 +128,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [UserIP setDelegate:self];
-    self.title = NSLocalizedString(@"Configuracion", nil);
-    visibleLabel.text = NSLocalizedString(@"Visible para tus amigos", nil);
-    facebookLabel.text = NSLocalizedString(@"Vincular con Facebook", nil);
-    [logoutButton setTitle:NSLocalizedString(@"Salir", nil) forState:UIControlStateNormal];    
+    self.title = IPString(@"Configuracion");
+    visibleLabel.text = IPString(@"Visible para tus amigos");
+    facebookLabel.text = IPString(@"Vincular con Facebook");
+    [logoutButton setTitle:IPString(@"Salir") forState:UIControlStateNormal];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

@@ -39,11 +39,11 @@
     [super viewDidLoad];
 
     // Do any additional setup after loading the view from its nib.
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Volver", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(backToBegin)];
-    [createCountButton setTitle:NSLocalizedString(@"Crear cuenta", nil) forState:UIControlStateNormal];
-    emailTextField.placeholder = NSLocalizedString(@"Email", nil);
-    passwordTextField.placeholder = NSLocalizedString(@"Contraseña", nil);
-    repeatPasswordTextField.placeholder = NSLocalizedString(@"Repetir contraseña", nil);
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:IPString(@"Volver") style:UIBarButtonItemStyleBordered target:self action:@selector(backToBegin)];
+    [createCountButton setTitle:IPString(@"Crear cuenta") forState:UIControlStateNormal];
+    emailTextField.placeholder = IPString(@"Email");
+    passwordTextField.placeholder = IPString(@"Contraseña");
+    repeatPasswordTextField.placeholder = IPString(@"Repetir contraseña");
     
     // Set Form
     
@@ -145,7 +145,7 @@
     }
     else
     {
-        [[[UIAlertView alloc] initWithTitle:APP_NAME message:NSLocalizedString(@"Formato email", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:APP_NAME message:IPString(@"Formato email") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
 }
 

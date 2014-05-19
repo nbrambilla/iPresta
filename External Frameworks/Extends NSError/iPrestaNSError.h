@@ -8,6 +8,7 @@
 
 @interface NSError (iPrestaNSError)
 
+#define SERVER_ERROR 1
 #define CONNECTION_ERROR 100
 #define URLCONNECTION_ERROR -1009
 #define REQUESTTIMEOUT_ERROR -1001

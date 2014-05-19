@@ -34,6 +34,7 @@
 "Configuracion" =               "Configuración";
 "Mios:" =                       "Mios:";
 "Amigos:" =                     "Amigos:";
+"Nuevos:" =                     "Nuevos:";
 
 /* Busqueda */
 
@@ -62,12 +63,16 @@
 "Pedir" =               "Pedir";
 "Desde" =               "Desde";
 "Hasta" =               "hasta";
+"No hay objetos" =      "No hay objetos";
 "Mis pedidos" =         "Mis pedidos";
 "Pedidos de amigos" =   "Pedidos de amigos";
+"No hay pedidos" =      "No hay pedidos";
 "Expirados mios" =      "Expirados míos";
 "Expirados de amigos" = "Expirados de amigos";
+"No hay expirados" =    "No hay expirados";
 "Mis prestamos" =       "Mis préstamos";
 "Prestamos de amigos" = "Prestamos de amigos";
+"No hay prestamos" =    "No hay préstamos";
 "Nombre" =              "Nombre";
 "Editorial" =           "Editorial";
 "Autor" =               "Autor";
@@ -94,6 +99,7 @@
 
 /* Mensajes */
 
+"Error interno" =                       "Ha habido un problema inesperado. Intentelo otra vez.";
 "Problemas conexion" =                  "Problemas con la conexión. Intentelo otra vez.";
 "Email password error" =                "Email y/o password incorrecto/s";
 "Usuario existente" =                   "Ya existe un usuario registrado con este email";
@@ -127,9 +133,13 @@
 "rechazar" =                "Rechazar";
 "aceptado" =                "Aceptado";
 "rechazado" =               "Rechazado";
-"1 semana" =                "1 semana";
-"2 semanas" =               "2 semanas";
-"3 semanas" =               "3 semanas";
-"1 mes" =                   "1 mes";
-"2 meses" =                 "2 meses";
-"3 meses" =                 "3 meses";
+"1 Semana" =                "1 Semana";
+"2 Semanas" =               "2 Semanas";
+"3 Semanas" =               "3 Semanas";
+"1 Mes" =                   "1 Mes";
+"2 Meses" =                 "2 Meses";
+"3 Meses" =                 "3 Meses";
+"Semana" =                  "Semana";
+"Semanas" =                 "Semanas";
+"Mes" =                     "Mes";
+"Meses" =                   "Meses";

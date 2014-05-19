@@ -10,12 +10,12 @@
 #import "GiveObjectViewController.h"
 #import "ProgressHUD.h"
 #import "iPrestaNSError.h"
-#import "MLTableAlert.h"
 #import "ObjectHistoricGiveViewController.h"
 #import "iPrestaNSString.h"
 #import "FriendIP.h"
 #import "IPButton.h"
 #import "AsyncImageView.h"
+#import "MMPickerView.h"
 
 @interface ObjectDetailViewController ()
 
@@ -253,30 +253,41 @@
 
 - (IBAction)goToExtendGive:(id)sender
 {
-	MLTableAlert *extendGiveTableAlert = [MLTableAlert tableAlertWithTitle:NSLocalizedString(@"Extender prestamo", nil) cancelButtonTitle:NSLocalizedString(@"Cancelar", nil) numberOfRows:^NSInteger (NSInteger section)
-        {
-            return [[GiveIP giveTimesArray] count];
-        }
-            andCells:^UITableViewCell* (MLTableAlert *anAlert, NSIndexPath *indexPath)
-        {
-          static NSString *CellIdentifier = @"CellIdentifier";
-          UITableViewCell *cell = [anAlert.table dequeueReusableCellWithIdentifier:CellIdentifier];
-          if (cell == nil)
-              cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-          
-          cell.textLabel.text = [[GiveIP giveTimesArray] objectAtIndex:indexPath.row];
-          
-          return cell;
-        }];
-	
-	extendGiveTableAlert.height = 250;
-	
-	[extendGiveTableAlert configureSelectionBlock:^(NSIndexPath *selectedIndex)
-    {
-         [self extendGive:[[[GiveIP giveTimesArray] objectAtIndex:selectedIndex.row] getIntegerTime]];
-	} andCompletionBlock:nil];
-	
-	[extendGiveTableAlert show];
+//	MLTableAlert *extendGiveTableAlert = [MLTableAlert tableAlertWithTitle:NSLocalizedString(@"Extender prestamo", nil) cancelButtonTitle:NSLocalizedString(@"Cancelar", nil) numberOfRows:^NSInteger (NSInteger section)
+//        {
+//            return [[GiveIP giveTimesArray] count];
+//        }
+//            andCells:^UITableViewCell* (MLTableAlert *anAlert, NSIndexPath *indexPath)
+//        {
+//          static NSString *CellIdentifier = @"CellIdentifier";
+//          UITableViewCell *cell = [anAlert.table dequeueReusableCellWithIdentifier:CellIdentifier];
+//          if (cell == nil)
+//              cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+//          
+//          cell.textLabel.text = [[GiveIP giveTimesArray] objectAtIndex:indexPath.row];
+//          
+//          return cell;
+//        }];
+//	
+//	extendGiveTableAlert.height = 250;
+//	
+//	[extendGiveTableAlert configureSelectionBlock:^(NSIndexPath *selectedIndex)
+//    {
+//         [self extendGive:[[[GiveIP giveTimesArray] objectAtIndex:selectedIndex.row] getIntegerTime]];
+//	} andCompletionBlock:nil];
+//	
+//	[extendGiveTableAlert show];
+    [MMPickerView showPickerViewInView:self.view
+                           withStrings:GIVE_TIMES
+                           withOptions:@{MMtextColor: [UIColor blackColor],
+                                         MMtoolbarColor: [UIColor blackColor],
+                                         MMbuttonColor: [UIColor whiteColor],
+                                         MMselectedObject: GIVE_TIMES[0],
+                                        }
+                            completion:^(NSString *selectedString)
+                            {
+                                [self extendGive:[selectedString getIntegerTime]];
+                            }];
 }
 
 - (void)extendGive:(NSInteger)time
@@ -339,6 +350,13 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+# pragma mark - EZFormDelegate Methods
+
+- (void)formInputAccessoryViewDone:(EZForm *)form
+{
+
 }
 
 @end

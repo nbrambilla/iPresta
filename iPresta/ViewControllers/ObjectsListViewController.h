@@ -19,6 +19,9 @@
     NSArray *objectsArray;
     NSIndexPath *selectedIndexPath;
     NSArray *selectedArray;
+    
+    IBOutlet UIView *noObjectsView;
+    IBOutlet UILabel *noObjectsLabel;
 }
 
 @end

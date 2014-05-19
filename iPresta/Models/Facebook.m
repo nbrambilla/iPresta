@@ -64,7 +64,7 @@
 
 - (void)shareText:(NSString *)text block:(void (^)(NSError *))block
 {
-    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Respuesta pedido facebook", nil), [[ObjectIP currentObject] name], text];
+    NSString *message = [NSString stringWithFormat:IPString(@"Respuesta pedido facebook"), [[ObjectIP currentObject] name], text];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:message, @"message", nil];
     if ([[ObjectIP currentObject] imageURL])

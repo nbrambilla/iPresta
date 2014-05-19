@@ -19,6 +19,9 @@
     IBOutlet UITableView *myGivesTable;
     IBOutlet UITableView *friendsGivesTable;
     IBOutlet UISegmentedControl *segmentedControl;
+    
+    IBOutlet UIView *noLoansView;
+    IBOutlet UILabel *noLoansLabel;
 }
 
 @end

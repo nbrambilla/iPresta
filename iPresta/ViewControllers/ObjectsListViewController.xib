@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ObjectsListViewController">
             <connections>
+                <outlet property="noObjectsLabel" destination="qM4-iS-kFL" id="4FN-JN-Ydt"/>
+                <outlet property="noObjectsView" destination="vCc-dA-qUs" id="g28-Ri-qsL"/>
                 <outlet property="searchBar" destination="nPH-wQ-IGs" id="TiH-qu-sBR"/>
                 <outlet property="searchDisplayController" destination="6QU-YL-WGL" id="3RS-o4-quc"/>
                 <outlet property="tableView" destination="uk2-Ni-OeE" id="XkK-tQ-hg2"/>
@@ -27,6 +29,20 @@
                         <outlet property="delegate" destination="-1" id="LrQ-sA-tFf"/>
                     </connections>
                 </tableView>
+                <view contentMode="scaleToFill" id="vCc-dA-qUs">
+                    <rect key="frame" x="0.0" y="44" width="320" height="460"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qM4-iS-kFL">
+                            <rect key="frame" x="25" y="219" width="275" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
                 <searchBar contentMode="redraw" id="nPH-wQ-IGs">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>

@@ -49,26 +49,28 @@
 
 - (void)setView
 {
+    self.title = IPString(@"Anadir");
+    
     nameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     authorTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     
-    nameTextField.placeholder = NSLocalizedString(@"Nombre", nil);
-    authorTextField.placeholder = NSLocalizedString(@"Autor", nil);
-    nameTextField.placeholder = NSLocalizedString(@"Nombre", nil);
-    visibleLabel.text = NSLocalizedString(@"Visible", nil);
+    nameTextField.placeholder = IPString(@"Nombre");
+    authorTextField.placeholder = IPString(@"Autor");
+    nameTextField.placeholder = IPString(@"Nombre");
+    visibleLabel.text = IPString(@"Visible");
     
     visibleCheckbox.selected = YES;
     
     CGRect frame = scrollView.frame;
-    frame.size.height = (IS_IPHONE5) ? 504.0f : 416.0f;
+    frame.size.height = (IS_IPHONE_4_INCHES) ? 504.0f : 416.0f;
     scrollView.frame = frame;
     scrollView.contentSize = frame.size;
     
-    [searchButton setTitle:NSLocalizedString(@"Buscar", nil) forState:UIControlStateNormal];
-    [detectButton setTitle:NSLocalizedString(@"Detectar", nil) forState:UIControlStateNormal];
-    [addButton setTitle:NSLocalizedString(@"Anadir", nil) forState:UIControlStateNormal];
+    [searchButton setTitle:IPString(@"Buscar") forState:UIControlStateNormal];
+    [detectButton setTitle:IPString(@"Detectar") forState:UIControlStateNormal];
+    [addButton setTitle:IPString(@"Anadir") forState:UIControlStateNormal];
     
-    descriptionTextView.placeholder = NSLocalizedString(@"Descripcion", nil);
+    descriptionTextView.placeholder = IPString(@"Descripcion");
     
     // Set Form
     
@@ -104,6 +106,7 @@
     [descriptionField useTextView:descriptionTextView];
     
     typeField.inputView = [[UIPickerView alloc] initWithFrame:CGRectZero];
+    typeField.inputView.backgroundColor = [UIColor whiteColor];
     
     [form autoScrollViewForKeyboardInput:scrollView];
 }

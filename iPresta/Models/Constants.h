@@ -9,15 +9,18 @@
 #define iPresta_Constants_h
 
 #define IS_OS_7_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
-#define IS_IPHONE5 (([[UIScreen mainScreen] bounds].size.height-568)? NO : YES)
+#define IS_IPHONE_4_INCHES (([[UIScreen mainScreen] bounds].size.height-568)? NO : YES)
 #define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
 
 #define APP_NAME @"iPresta"
+#define IPString(string) NSLocalizedString(string, nil)
 #define MOVIES_API_KEY @"1a42dcd12f15495cb8b85bfa74b6ea97"
 #define MOVIE_IMAGE_URL @"https://image.tmdb.org/t/p/w185/%@"
+#define FB_URL_IMAGE @"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1"
 
-#define STATE_TYPES @[NSLocalizedString(@"No prestado", nil), NSLocalizedString(@"Prestado", nil), NSLocalizedString(@"A devolver", nil)]
-#define OBJECT_TYPES @[NSLocalizedString(@"Libro", nil), NSLocalizedString(@"Audio", nil), NSLocalizedString(@"Video", nil), NSLocalizedString(@"Otro", nil)]
-#define AUDIO_OBJECT_TYPES @[@"CD", @"SACD", NSLocalizedString(@"Vinilo", nil)]
+#define STATE_TYPES @[IPString(@"No prestado"), IPString(@"Prestado"), IPString(@"A devolver")]
+#define OBJECT_TYPES @[IPString(@"Libro"), IPString(@"Audio"), IPString(@"Video"), IPString(@"Otro")]
+#define AUDIO_OBJECT_TYPES @[@"CD", @"SACD", IPString(@"Vinilo")]
 #define VIDEO_OBJECTS_TYPE @[@"DVD", @"Bluray", @"VHS"]
 #define IMAGE_TYPES @[@"book_icon.png", @"audio_icon.png", @"video_icon.png", @"other_icon.png"]
+#define GIVE_TIMES @[IPString(@"1 Semana"), IPString(@"2 Semanas"), IPString(@"3 Semanas"), IPString(@"1 Mes"), IPString(@"2 Meses"), IPString(@"3 Meses")]

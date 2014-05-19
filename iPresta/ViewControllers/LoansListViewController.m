@@ -38,6 +38,9 @@
 {
     [super viewDidLoad];
     
+    self.title = IPString(@"Prestamos");
+    noLoansLabel.text = IPString(@"No hay prestamos");
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setGivesArray) name:@"setGivesObserver" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadFriendsGivesTable) name:@"ReloadFriendsGivesTableObserver" object:nil];
     [self setTableViewHeader];
@@ -79,11 +82,15 @@
 {
     if (sender.selectedSegmentIndex == 0)
     {
+        noLoansView.hidden = (myGivesArray.count != 0);
+        
         myGivesTable.hidden = NO;
         friendsGivesTable.hidden = YES;
     }
     else if (sender.selectedSegmentIndex == 1)
     {
+        noLoansView.hidden = (friendsGivesArray.count != 0);
+        
         myGivesTable.hidden = YES;
         friendsGivesTable.hidden = NO;
     }

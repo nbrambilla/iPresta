@@ -28,7 +28,7 @@
         [self addSubview:_title];
         
         UILabel *mines =[[UILabel alloc] initWithFrame:CGRectMake(155, OFFSET, 50, self.frame.size.height/2)];
-        mines.text = NSLocalizedString(@"Mios:", nil);
+        mines.text = IPString(@"Mios:");
         mines.font = [UIFont systemFontOfSize:10.0];
         mines.textAlignment = NSTextAlignmentRight;
         mines.backgroundColor = [UIColor clearColor];
@@ -41,7 +41,7 @@
         [self addSubview:_myGivesBadge];
 
         UILabel *friends =[[UILabel alloc] initWithFrame:CGRectMake(155, self.frame.size.height/2 - OFFSET, 50, self.frame.size.height/2)];
-        friends.text = NSLocalizedString(@"Amigos:", nil);
+        friends.text = IPString(@"Amigos:");
         friends.font = [UIFont systemFontOfSize:10.0];
         friends.textAlignment = NSTextAlignmentRight;
         friends.backgroundColor = [UIColor clearColor];

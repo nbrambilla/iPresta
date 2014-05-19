@@ -26,6 +26,9 @@
 {
     [super viewDidLoad];
     
+    self.title = IPString(@"Pedidos");
+    noDemandsLabel.text = IPString(@"No hay pedidos");
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setDemandsArray) name:@"setDemandsObserver" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDemandsFriendsTable) name:@"ReloadFriendsDemandsTableObserver" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadMyDemandsTable) name:@"ReloadMyDemandsTableObserver" object:nil];
@@ -62,13 +65,6 @@
     [myDemadsTable reloadData];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -77,8 +73,8 @@
 
 - (void)setTableViewHeader
 {
-    [segmentedControl setTitle:NSLocalizedString(@"Mis pedidos", nil) forSegmentAtIndex:0];
-    [segmentedControl setTitle:NSLocalizedString(@"Pedidos de amigos", nil) forSegmentAtIndex:1];
+    [segmentedControl setTitle:IPString(@"Mis pedidos") forSegmentAtIndex:0];
+    [segmentedControl setTitle:IPString(@"Pedidos de amigos") forSegmentAtIndex:1];
     segmentedControl.selectedSegmentIndex = 0;
     [segmentedControl addTarget:self action:@selector(setDemandsType:) forControlEvents:UIControlEventValueChanged];
 }
@@ -87,11 +83,15 @@
 {
     if (sender.selectedSegmentIndex == 0)
     {
+        noDemandsView.hidden = (myDemandsArray.count != 0);
+        
         myDemadsTable.hidden = NO;
         friendsDemadsTable.hidden = YES;
     }
     else if (sender.selectedSegmentIndex == 1)
     {
+        noDemandsView.hidden = (friendsDemandsArray.count != 0);
+        
         myDemadsTable.hidden = YES;
         friendsDemadsTable.hidden = NO;
     }
@@ -193,8 +193,8 @@
 - (void)acceptDemand:(DemandIP *)demand
 {
     if (demand.object.state == [NSNumber numberWithInteger:Given]) {
-        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Objeto prestado", nil), demand.object.name];
-        rejectAlert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        NSString *message = [NSString stringWithFormat:IPString(@"Objeto prestado"), demand.object.name];
+        rejectAlert = [[UIAlertView alloc] initWithTitle:APP_NAME message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [rejectAlert show];
     }
     else if (demand.object.state == [NSNumber numberWithInteger:Property])
@@ -211,8 +211,8 @@
 - (void)rejectDemand:(DemandIP *)demand
 {
     demandToReject = demand;
-    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Pregunta rechazar prestamo", nil), demand.object.name, [demand.from getFullName]];
-    rejectAlert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"cancelar", nil) otherButtonTitles:NSLocalizedString(@"rechazar", nil), nil];
+    NSString *message = [NSString stringWithFormat:IPString(@"Pregunta rechazar prestamo"), demand.object.name, [demand.from getFullName]];
+    rejectAlert = [[UIAlertView alloc] initWithTitle:APP_NAME message:message delegate:self cancelButtonTitle:IPString(@"cancelar") otherButtonTitles:IPString(@"rechazar"), nil];
     [rejectAlert show];
 }
 

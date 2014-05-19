@@ -96,22 +96,19 @@ static ObjectIP *currentObject;
     {
         PFObject *object = [PFObject objectWithClassName:@"iPrestaObject"];
         
-        if (self.type == [NSNumber numberWithInteger:BookType] || self.type == [NSNumber numberWithInteger:OtherType])
+        if ([self.type isEqual:@(BookType)] || [self.type isEqual:@(OtherType)])
         {
             self.audioType = nil;
             self.videoType = nil;
         }
-        else if (self.type == [NSNumber numberWithInteger:AudioType])
-        {
-            self.videoType = nil;
-        }
-        else if (self.type == [NSNumber numberWithInteger:AudioType])
-        {
-            self.audioType = nil;
-        }
+        else if ([self.type isEqual:@(AudioType)]) self.videoType = nil;
+        else if ([self.type isEqual:@(VideoType)]) self.audioType = nil;
         
-        
-        PFFile *image = [PFFile fileWithName:[NSString stringWithFormat:@"%@.png", [OBJECT_TYPES objectAtIndex:[ObjectIP selectedType]]] data:imageData];
+        PFFile *image = nil;
+        if (imageData)
+        {
+            image = [PFFile fileWithName:[NSString stringWithFormat:@"%@.png", [OBJECT_TYPES objectAtIndex:[ObjectIP selectedType]]] data:imageData];
+        }
         [self setDBObjetct:object withImage:image];
 
         [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
@@ -125,7 +122,7 @@ static ObjectIP *currentObject;
                     newObject.name = self.name;
                     newObject.author = self.author;
                     newObject.barcode = self.barcode;
-                    newObject.imageURL = image.url;
+                    if (imageData) newObject.imageURL = image.url;
                     newObject.descriptionObject = self.descriptionObject;
                     newObject.editorial = self.editorial;
                     newObject.type = self.type;
@@ -279,7 +276,7 @@ static ObjectIP *currentObject;
     {
         PFQuery *objectsUserQuery = [PFQuery queryWithClassName:@"iPrestaObject"];
         [objectsUserQuery whereKey:@"owner" equalTo:[UserIP objectsUser]];
-        [objectsUserQuery whereKey:@"type" equalTo: [NSNumber numberWithInt:[ObjectIP selectedType]]];
+        [objectsUserQuery whereKey:@"type" equalTo:@([ObjectIP selectedType])];
         [objectsUserQuery whereKey:@"visible" equalTo:@YES];
         [objectsUserQuery orderByAscending:@"image"];
         objectsUserQuery.limit = 1000;
@@ -356,7 +353,7 @@ static ObjectIP *currentObject;
               {
                   if (!error)
                   {
-                      self.visible = [NSNumber numberWithInteger:visible];
+                      self.visible = @(visible);
                       [ObjectIP save];
                       if ([delegate respondsToSelector:@selector(setVisibilitySuccess)]) [delegate setVisibilitySuccess];
                   }
@@ -469,13 +466,13 @@ static ObjectIP *currentObject;
          if (!error)
          {
              PFObject *object = [objects objectAtIndex:0];
-             [object setObject:[NSNumber numberWithInteger:Property] forKey:@"state"];
+             [object setObject:@(Property) forKey:@"state"];
              
              [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
              {
                   if (!error)
                   {
-                      self.state = [NSNumber numberWithInteger:Property];
+                      self.state = @(Property);
                       [ObjectIP save];
                       
                       GiveIP *objectCurrentGive = [self currentGive];
@@ -585,9 +582,7 @@ static ObjectIP *currentObject;
             [request setEntity:[self entityDescription]];
             [request setPredicate:[NSPredicate predicateWithFormat:@"type = %d", type]];
             
-            NSInteger objectsCount = [ObjectIP countRequest:request];
-            
-            [objectsTypeArray addObject:[NSNumber numberWithInt:objectsCount]];
+            [objectsTypeArray addObject:@([ObjectIP countRequest:request])];
         }
         
         return objectsTypeArray;
@@ -624,7 +619,7 @@ static ObjectIP *currentObject;
                      }
                  }
                  
-                 objectsTypeArray = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:countBooks], [NSNumber numberWithInt:countAudio], [NSNumber numberWithInt:countVideo], [NSNumber numberWithInt:countOthers], nil];
+                 objectsTypeArray = [[NSMutableArray alloc] initWithObjects:@(countBooks), @(countAudio), @(countVideo), @(countOthers), nil];
                  
                  if ([delegate respondsToSelector:@selector(countAllByTypeSuccess:)]) [delegate countAllByTypeSuccess:[objectsTypeArray copy]];
              }
@@ -858,20 +853,11 @@ static ObjectIP *currentObject;
                 for (id volumeInfo in volumeInfoArray)
                 {
                     ObjectIP *object = [[ObjectIP alloc] initListObject];
-                    object.type = [NSNumber numberWithInteger:selectedType];
+                    object.type = @(selectedType);
                     
-                    if (selectedType == BookType)
-                    {
-                        [object setBookWithInfo:[volumeInfo objectForKey:@"volumeInfo"]];
-                    }
-                    else if (selectedType == AudioType)
-                    {
-                        [object setAudioWithInfo:volumeInfo];
-                    }
-                    else if (selectedType == VideoType)
-                    {
-                        [object setVideoWithInfo:volumeInfo];
-                    }
+                    if (selectedType == BookType)  [object setBookWithInfo:[volumeInfo objectForKey:@"volumeInfo"]];
+                    else if (selectedType == AudioType) [object setAudioWithInfo:volumeInfo];
+                    else if (selectedType == VideoType) [object setVideoWithInfo:volumeInfo];
                     
                     [searchResultArray addObject:object];
                 }
@@ -882,9 +868,6 @@ static ObjectIP *currentObject;
             {
                 [delegate getSearchResultsResponse:[searchResultArray copy] withError:error];
             }
-            
-            searchResultArray = nil;
-            volumeInfoArray = nil;
         }
     }
     else

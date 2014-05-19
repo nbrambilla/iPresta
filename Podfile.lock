@@ -1,16 +1,16 @@
 PODS:
   - AsyncImageView (1.5.1)
   - EZForm (1.1.4)
-  - MFSideMenu (0.5.4)
+  - MMPickerView (0.0.1)
 
 DEPENDENCIES:
   - AsyncImageView (~> 1.5.1)
   - EZForm (~> 1.1.4)
-  - MFSideMenu (~> 0.5.4)
+  - MMPickerView (~> 0.0.1)
 
 SPEC CHECKSUMS:
   AsyncImageView: 686febb2b2a923353ede67c529d257498059852d
   EZForm: d525291692d6f225446ce286c77eadba9efc22cb
-  MFSideMenu: f59e25c080097a701e108459c207fb22e1f62c30
+  MMPickerView: 29b43ebf73d4a163700cb3a80982711ce595ce12
 
 COCOAPODS: 0.32.1

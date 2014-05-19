@@ -116,19 +116,8 @@
 		15E3E9581748F8140056CA4C /* ConfigurationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E3E9561748F8140056CA4C /* ConfigurationViewController.xib */; };
 		15E6B2191729AE380050763A /* iPrestaNSString.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E6B2181729AE380050763A /* iPrestaNSString.m */; };
 		15EF0992173ADED50001C8EF /* iPrestaNSError.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EF0991173ADED50001C8EF /* iPrestaNSError.m */; };
-		15EF0999173ADFEE0001C8EF /* STComboText.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EF0995173ADFEE0001C8EF /* STComboText.m */; };
-		15EF099A173ADFEE0001C8EF /* STDateText.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EF0998173ADFEE0001C8EF /* STDateText.m */; };
 		15FEB8361747C88100BB6750 /* iPrestaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15FEB8341747C88000BB6750 /* iPrestaViewController.m */; };
 		15FEB8371747C88100BB6750 /* iPrestaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FEB8351747C88100BB6750 /* iPrestaViewController.xib */; };
-		191D1B3F176B17E800DF1E48 /* MLTableAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 191D1B3D176B17E800DF1E48 /* MLTableAlert.m */; };
-		191D1B49176B180500DF1E48 /* MLTableAlertBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B41176B180500DF1E48 /* MLTableAlertBackground.png */; };
-		191D1B4A176B180500DF1E48 /* MLTableAlertBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B42176B180500DF1E48 /* MLTableAlertBackground@2x.png */; };
-		191D1B4B176B180500DF1E48 /* MLTableAlertButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B43176B180500DF1E48 /* MLTableAlertButton.png */; };
-		191D1B4C176B180500DF1E48 /* MLTableAlertButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B44176B180500DF1E48 /* MLTableAlertButton@2x.png */; };
-		191D1B4D176B180500DF1E48 /* MLTableAlertButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B45176B180500DF1E48 /* MLTableAlertButtonPressed.png */; };
-		191D1B4E176B180500DF1E48 /* MLTableAlertButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B46176B180500DF1E48 /* MLTableAlertButtonPressed@2x.png */; };
-		191D1B4F176B180500DF1E48 /* MLTableAlertShadowMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B47176B180500DF1E48 /* MLTableAlertShadowMask.png */; };
-		191D1B50176B180500DF1E48 /* MLTableAlertShadowMask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B48176B180500DF1E48 /* MLTableAlertShadowMask@2x.png */; };
 		191D1B52176B504F00DF1E48 /* iPrestaImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B51176B504F00DF1E48 /* iPrestaImageView.xib */; };
 		191D1B55176B51C200DF1E48 /* iPrestaImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 191D1B54176B51C200DF1E48 /* iPrestaImageView.m */; };
 		191D1B5C176B6EEF00DF1E48 /* close_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B5A176B6EEF00DF1E48 /* close_icon@2x.png */; };
@@ -352,24 +341,9 @@
 		15E6B2181729AE380050763A /* iPrestaNSString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaNSString.m; path = "External Frameworks/Extends NSString/iPrestaNSString.m"; sourceTree = "<group>"; };
 		15EF0990173ADED50001C8EF /* iPrestaNSError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaNSError.h; path = "External Frameworks/Extends NSError/iPrestaNSError.h"; sourceTree = "<group>"; };
 		15EF0991173ADED50001C8EF /* iPrestaNSError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaNSError.m; path = "External Frameworks/Extends NSError/iPrestaNSError.m"; sourceTree = "<group>"; };
-		15EF0994173ADFEE0001C8EF /* STComboText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STComboText.h; sourceTree = "<group>"; };
-		15EF0995173ADFEE0001C8EF /* STComboText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STComboText.m; sourceTree = "<group>"; };
-		15EF0996173ADFEE0001C8EF /* STControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STControls.h; sourceTree = "<group>"; };
-		15EF0997173ADFEE0001C8EF /* STDateText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STDateText.h; sourceTree = "<group>"; };
-		15EF0998173ADFEE0001C8EF /* STDateText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STDateText.m; sourceTree = "<group>"; };
 		15FEB8331747C88000BB6750 /* iPrestaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaViewController.h; path = ViewControllers/iPrestaViewController.h; sourceTree = "<group>"; };
 		15FEB8341747C88000BB6750 /* iPrestaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaViewController.m; path = ViewControllers/iPrestaViewController.m; sourceTree = "<group>"; };
 		15FEB8351747C88100BB6750 /* iPrestaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = iPrestaViewController.xib; path = ViewControllers/iPrestaViewController.xib; sourceTree = "<group>"; };
-		191D1B3C176B17E800DF1E48 /* MLTableAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MLTableAlert.h; path = "External Frameworks/MLTableAlert/MLTableAlert.h"; sourceTree = "<group>"; };
-		191D1B3D176B17E800DF1E48 /* MLTableAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MLTableAlert.m; path = "External Frameworks/MLTableAlert/MLTableAlert.m"; sourceTree = "<group>"; };
-		191D1B41176B180500DF1E48 /* MLTableAlertBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MLTableAlertBackground.png; path = "External Frameworks/MLTableAlert/Images/MLTableAlertBackground.png"; sourceTree = "<group>"; };
-		191D1B42176B180500DF1E48 /* MLTableAlertBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MLTableAlertBackground@2x.png"; path = "External Frameworks/MLTableAlert/Images/MLTableAlertBackground@2x.png"; sourceTree = "<group>"; };
-		191D1B43176B180500DF1E48 /* MLTableAlertButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MLTableAlertButton.png; path = "External Frameworks/MLTableAlert/Images/MLTableAlertButton.png"; sourceTree = "<group>"; };
-		191D1B44176B180500DF1E48 /* MLTableAlertButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MLTableAlertButton@2x.png"; path = "External Frameworks/MLTableAlert/Images/MLTableAlertButton@2x.png"; sourceTree = "<group>"; };
-		191D1B45176B180500DF1E48 /* MLTableAlertButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MLTableAlertButtonPressed.png; path = "External Frameworks/MLTableAlert/Images/MLTableAlertButtonPressed.png"; sourceTree = "<group>"; };
-		191D1B46176B180500DF1E48 /* MLTableAlertButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MLTableAlertButtonPressed@2x.png"; path = "External Frameworks/MLTableAlert/Images/MLTableAlertButtonPressed@2x.png"; sourceTree = "<group>"; };
-		191D1B47176B180500DF1E48 /* MLTableAlertShadowMask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MLTableAlertShadowMask.png; path = "External Frameworks/MLTableAlert/Images/MLTableAlertShadowMask.png"; sourceTree = "<group>"; };
-		191D1B48176B180500DF1E48 /* MLTableAlertShadowMask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MLTableAlertShadowMask@2x.png"; path = "External Frameworks/MLTableAlert/Images/MLTableAlertShadowMask@2x.png"; sourceTree = "<group>"; };
 		191D1B51176B504F00DF1E48 /* iPrestaImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = iPrestaImageView.xib; path = ViewControllers/iPrestaImageView.xib; sourceTree = "<group>"; };
 		191D1B53176B51C100DF1E48 /* iPrestaImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPrestaImageView.h; path = ViewControllers/iPrestaImageView.h; sourceTree = "<group>"; };
 		191D1B54176B51C200DF1E48 /* iPrestaImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPrestaImageView.m; path = ViewControllers/iPrestaImageView.m; sourceTree = "<group>"; };
@@ -523,13 +497,11 @@
 				153513E617BC02B300E4193D /* MFSideMenu */,
 				19272A4617731B4700FC45B0 /* TPKeyboardAvoidingScrollView */,
 				19272A4517730A4700FC45B0 /* PHTextView */,
-				191D1B3A176B17CE00DF1E48 /* MLTableAlert */,
 				193A729517672BF0001EB94D /* IMOAutocompletionViewController */,
 				1563FF8B17404B8000826DC4 /* ProgressHUD */,
 				1563FF84173FA1E700826DC4 /* ConnectionData */,
 				1563FF59173F9A6700826DC4 /* ZBarSDK */,
 				15212EEC173C534400A7A764 /* Extends UIControl */,
-				15EF0993173ADFEE0001C8EF /* STControls */,
 				15600EF0173AB9B3004302A2 /* Extends NSError */,
 				15E6B2161729ADE30050763A /* Extends NSString */,
 			);
@@ -860,44 +832,6 @@
 			name = "Extends NSString";
 			sourceTree = "<group>";
 		};
-		15EF0993173ADFEE0001C8EF /* STControls */ = {
-			isa = PBXGroup;
-			children = (
-				15EF0994173ADFEE0001C8EF /* STComboText.h */,
-				15EF0995173ADFEE0001C8EF /* STComboText.m */,
-				15EF0996173ADFEE0001C8EF /* STControls.h */,
-				15EF0997173ADFEE0001C8EF /* STDateText.h */,
-				15EF0998173ADFEE0001C8EF /* STDateText.m */,
-			);
-			name = STControls;
-			path = "External Frameworks/STControls";
-			sourceTree = "<group>";
-		};
-		191D1B3A176B17CE00DF1E48 /* MLTableAlert */ = {
-			isa = PBXGroup;
-			children = (
-				191D1B40176B17F200DF1E48 /* Images */,
-				191D1B3C176B17E800DF1E48 /* MLTableAlert.h */,
-				191D1B3D176B17E800DF1E48 /* MLTableAlert.m */,
-			);
-			name = MLTableAlert;
-			sourceTree = "<group>";
-		};
-		191D1B40176B17F200DF1E48 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				191D1B41176B180500DF1E48 /* MLTableAlertBackground.png */,
-				191D1B42176B180500DF1E48 /* MLTableAlertBackground@2x.png */,
-				191D1B43176B180500DF1E48 /* MLTableAlertButton.png */,
-				191D1B44176B180500DF1E48 /* MLTableAlertButton@2x.png */,
-				191D1B45176B180500DF1E48 /* MLTableAlertButtonPressed.png */,
-				191D1B46176B180500DF1E48 /* MLTableAlertButtonPressed@2x.png */,
-				191D1B47176B180500DF1E48 /* MLTableAlertShadowMask.png */,
-				191D1B48176B180500DF1E48 /* MLTableAlertShadowMask@2x.png */,
-			);
-			name = Images;
-			sourceTree = "<group>";
-		};
 		19272A4517730A4700FC45B0 /* PHTextView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1018,14 +952,6 @@
 				193A729217670DA4001EB94D /* camera_icon@2x.png in Resources */,
 				1952EFA1176861990057820B /* IMOAutocompletionViewController.xib in Resources */,
 				19D9A6E5176A1D5E0000C129 /* ActivityIndicatorCell.xib in Resources */,
-				191D1B49176B180500DF1E48 /* MLTableAlertBackground.png in Resources */,
-				191D1B4A176B180500DF1E48 /* MLTableAlertBackground@2x.png in Resources */,
-				191D1B4B176B180500DF1E48 /* MLTableAlertButton.png in Resources */,
-				191D1B4C176B180500DF1E48 /* MLTableAlertButton@2x.png in Resources */,
-				191D1B4D176B180500DF1E48 /* MLTableAlertButtonPressed.png in Resources */,
-				191D1B4E176B180500DF1E48 /* MLTableAlertButtonPressed@2x.png in Resources */,
-				191D1B4F176B180500DF1E48 /* MLTableAlertShadowMask.png in Resources */,
-				191D1B50176B180500DF1E48 /* MLTableAlertShadowMask@2x.png in Resources */,
 				191D1B52176B504F00DF1E48 /* iPrestaImageView.xib in Resources */,
 				191D1B5C176B6EEF00DF1E48 /* close_icon@2x.png in Resources */,
 				19DF3F1E1771C229004E1A06 /* audio_icon@2x.png in Resources */,
@@ -1118,8 +1044,6 @@
 				15A877B6172C875300E8BDA2 /* RequestPasswordResetViewController.m in Sources */,
 				15D1706817396AA700CF1F98 /* ObjectsListViewController.m in Sources */,
 				15EF0992173ADED50001C8EF /* iPrestaNSError.m in Sources */,
-				15EF0999173ADFEE0001C8EF /* STComboText.m in Sources */,
-				15EF099A173ADFEE0001C8EF /* STDateText.m in Sources */,
 				15212EEF173C53CF00A7A764 /* iPrestaUIControl.m in Sources */,
 				1563FF87173FA1E700826DC4 /* ConnectionData.m in Sources */,
 				1563FF8E17404B8000826DC4 /* ProgressHUD.m in Sources */,
@@ -1134,7 +1058,6 @@
 				199B0C511924C32800A181A4 /* IPCheckbox.m in Sources */,
 				193A729D17672BFF001EB94D /* IMOCompletionCell.m in Sources */,
 				193A729E17672BFF001EB94D /* IMOCompletionController.m in Sources */,
-				191D1B3F176B17E800DF1E48 /* MLTableAlert.m in Sources */,
 				191D1B55176B51C200DF1E48 /* iPrestaImageView.m in Sources */,
 				19272A4417730A3900FC45B0 /* PHTextView.m in Sources */,
 				19272A4917731B5600FC45B0 /* TPKeyboardAvoidingScrollView.m in Sources */,

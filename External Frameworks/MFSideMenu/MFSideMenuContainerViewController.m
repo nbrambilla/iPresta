@@ -322,11 +322,8 @@ typedef enum {
 #pragma mark - State Event Notification
 
 - (void)sendStateEventNotification:(MFSideMenuStateEvent)event {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:event]
-                                                         forKey:@"eventType"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:MFSideMenuStateNotificationEvent
-                                                        object:self
-                                                      userInfo:userInfo];
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@(event) forKey:@"eventType"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MFSideMenuStateNotificationEvent object:self userInfo:userInfo];
 }
 
 

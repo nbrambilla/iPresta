@@ -27,6 +27,9 @@
     IBOutlet UITableView *friendsDemadsTable;
     IBOutlet UISegmentedControl *segmentedControl;
     
+    IBOutlet UIView *noDemandsView;
+    IBOutlet UILabel *noDemandsLabel;
+    
     DemandIP *demandToReject;
 }
 

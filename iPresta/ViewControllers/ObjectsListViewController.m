@@ -74,10 +74,12 @@
 - (void)objectStateList:(id)sender
 {
     [tableView reloadData];
+    noObjectsView.hidden = NO;
 }
 
 - (void)setTableView
 {
+    noObjectsLabel.text = IPString(@"No hay objetos");
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     filteredObjectsArray = [NSMutableArray new];
@@ -112,7 +114,7 @@
 {
     UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, HEADER_HEIGHT, SCREEN_WIDTH, HEADER_HEIGHT)];
     
-    segmentedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Todos", nil) , NSLocalizedString(@"En casa", nil), NSLocalizedString(@"Prestados", nil)]];
+    segmentedControl = [[UISegmentedControl alloc] initWithItems:@[IPString(@"Todos") , IPString(@"En casa"), IPString(@"Prestados")]];
     segmentedControl.frame = CGRectMake(35, 200, 230, 30);
     segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     segmentedControl.selectedSegmentIndex = 0;
@@ -518,11 +520,13 @@
             break;
     }
     
+    if (array.count > 0) noObjectsView.hidden = YES;
     return array;
 }
 
 - (void)reloadTables
 {
+    noObjectsView.hidden = NO;
     [tableView reloadData];
     [self.searchDisplayController.searchResultsTableView reloadData];
 }
