@@ -11,6 +11,7 @@
 #import "FriendIP.h"
 #import "ObjectIP.h"
 #import "AsyncImageView.h"
+#import "IPButton.h"
 
 @implementation FriendsDemandsCell
 
@@ -42,12 +43,10 @@
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:IPString(@"Formato fecha")];
     date.text = [dateFormat stringFromDate:demand.date];
+    
+    acceptButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:8];
+    rejectButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:8];
 
-    if (demand.accepted == nil) stateLabel.hidden = YES;
-    else
-    {
-        stateLabel.text = ([demand.accepted boolValue]) ? IPString(@"aceptado") : IPString(@"rechazado");
-    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

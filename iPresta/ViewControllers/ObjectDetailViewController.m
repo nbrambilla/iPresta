@@ -142,6 +142,7 @@
     }
     else
     {
+        loanUpLabel.hidden = YES;
         currentUserButtonsView.hidden = YES;
         otherUserButtonsView.hidden = NO;
     }

@@ -19,10 +19,13 @@
     return self;
 }
 
-- (void)drawRect:(CGRect)rect
+- (void)awakeFromNib
 {
     self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
-    
+}
+
+- (void)drawRect:(CGRect)rect
+{
     UIImage *normalImage = [[UIImage imageNamed:@"button_off.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
     UIImage *selectedImage = [[UIImage imageNamed:@"button_on.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
     

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class DemandIP;
+@class IPButton;
 @class AsyncImageView;
 
 @protocol FriendsDemandsCellDelegate <NSObject>
@@ -25,9 +26,8 @@
     IBOutlet UILabel *objectName;
     IBOutlet UILabel *friendName;
     IBOutlet UILabel *date;
-    IBOutlet UIButton *acceptButton;
-    IBOutlet UIButton *rejectButton;
-    IBOutlet UILabel *stateLabel;
+    IBOutlet IPButton *acceptButton;
+    IBOutlet IPButton *rejectButton;
 }
 
 @property(nonatomic, retain) id <FriendsDemandsCellDelegate> delegate;

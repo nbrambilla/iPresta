@@ -214,7 +214,7 @@
 {
     demandToReject = demand;
     NSString *message = [NSString stringWithFormat:IPString(@"Pregunta rechazar prestamo"), demand.object.name, [demand.from getFullName]];
-    rejectAlert = [[UIAlertView alloc] initWithTitle:APP_NAME message:message delegate:self cancelButtonTitle:IPString(@"cancelar") otherButtonTitles:IPString(@"rechazar"), nil];
+    rejectAlert = [[UIAlertView alloc] initWithTitle:APP_NAME message:message delegate:self cancelButtonTitle:IPString(@"Cancelar") otherButtonTitles:IPString(@"rechazar"), nil];
     [rejectAlert show];
 }
 
