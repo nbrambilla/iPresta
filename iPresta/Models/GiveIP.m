@@ -32,13 +32,14 @@ static id<GiveIPDelegate> delegate;
     
     [givesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
-         for (PFObject *give in objects) {
-             GiveIP *newGive = [GiveIP new];
-             [newGive setGiveFrom:give];
-             [GiveIP addObject:newGive];
-         }
+        for (PFObject *give in objects)
+        {
+            GiveIP *newGive = [GiveIP new];
+            [newGive setGiveFrom:give];
+            [GiveIP addObject:newGive];
+        }
         [GiveIP save];
-         block(error);
+        block(error);
     }];
 }
 

@@ -53,35 +53,30 @@ static ObjectIP *currentObject;
             {
                 if (!error)
                 {
-                    if (objects.count == 0)  [loginDelegate saveAllObjectsFromDBresult:nil];
-            
-                    else
-                    {                        
-                        for (PFObject *object in objects)
+                    for (PFObject *object in objects)
+                    {
+                        ObjectIP *newObject = [ObjectIP new];
+                        
+                        [newObject setObjetctFrom:object];
+                        [ObjectIP addObject:newObject];
+                        
+                        [ObjectIP save];
+                    }
+                    [GiveIP saveAllGivesFromDBWithBlock:^(NSError *error)
+                    {
+                        if (!error)
                         {
-                            ObjectIP *newObject = [ObjectIP new];
-                            
-                            [newObject setObjetctFrom:object andImage:nil];
-                            [ObjectIP addObject:newObject];
-                            
-                            [ObjectIP save];
-                            [GiveIP saveAllGivesFromDBWithBlock:^(NSError *error)
+                            [DemandIP saveAllDemandsFromDBWithBlock:^(NSError * error)
                             {
-                                 if (!error)
-                                 {
-                                      [DemandIP saveAllDemandsFromDBWithBlock:^(NSError * error)
-                                      {
-                                          [loginDelegate saveAllObjectsFromDBresult:nil];
-                                      }];
-                                  }
-                                  else
-                                  {
-                                      [loginDelegate saveAllObjectsFromDBresult:error];
-                                      return;
-                                  }
+                                [loginDelegate saveAllObjectsFromDBresult:nil];
                             }];
                         }
-                    }
+                        else
+                        {
+                            [loginDelegate saveAllObjectsFromDBresult:error];
+                            return;
+                        }
+                    }];
                 }
                 else [loginDelegate saveAllObjectsFromDBresult:error];
             }];
@@ -284,48 +279,16 @@ static ObjectIP *currentObject;
         {
             if (!error)
             {
-                __block int count = 0;
-                __block int objectsCount = [objects count];
-                
-                NSMutableArray *objectsUserArray = [[NSMutableArray alloc] initWithCapacity:objectsCount];
-                
-                if (count == objectsCount)
-                {
-                    if ([delegate respondsToSelector:@selector(getAllByTypeSuccess:)]) [delegate getAllByTypeSuccess:[[self partitionObjects:objectsUserArray collationStringSelector:@selector(firstLetter)] copy]];
-                }
+                NSMutableArray *objectsUserArray = [[NSMutableArray alloc] initWithCapacity:[objects count]];
                 
                 for (id object in objects)
                 {
                     ObjectIP *newObject = [[ObjectIP alloc] initListObject];
-                    if ([object objectForKey:@"image"])
-                    {
-                        [[object objectForKey:@"image"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
-                         {
-                             if (!error)
-                             {
-                                 [newObject setObjetctFrom:object andImage:data];
-                                 [objectsUserArray addObject:newObject];
-                                 
-                                 count++;
-                                 if (count == objectsCount)
-                                 {
-                                     if ([delegate respondsToSelector:@selector(getAllByTypeSuccess:)]) [delegate getAllByTypeSuccess:[[self partitionObjects:objectsUserArray collationStringSelector:@selector(firstLetter)] copy]];
-                                 }
-                             }
-                         }];
-                    }
-                    else
-                    {
-                        [newObject setObjetctFrom:object andImage:nil];
-                        [objectsUserArray addObject:newObject];
-                        
-                        count++;
-                        if (count == objectsCount)
-                        {
-                            if ([delegate respondsToSelector:@selector(getAllByTypeSuccess:)]) [delegate getAllByTypeSuccess:[[self partitionObjects:objectsUserArray collationStringSelector:@selector(firstLetter)] copy]];
-                        }
-                    }
+                    [newObject setObjetctFrom:object];
+                    [objectsUserArray addObject:newObject];
                 }
+                
+                if ([delegate respondsToSelector:@selector(getAllByTypeSuccess:)]) [delegate getAllByTypeSuccess:[[self partitionObjects:objectsUserArray collationStringSelector:@selector(firstLetter)] copy]];
             }
             else
             {
@@ -625,7 +588,7 @@ static ObjectIP *currentObject;
              }
              else            // Si hay error al obtener los objetos
              {
-                    if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
+                 if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
              }
          }];
     }
@@ -641,22 +604,9 @@ static ObjectIP *currentObject;
     [objectQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error)
     {
         ObjectIP *listObject = [[ObjectIP alloc] initListObject];
-        if (object[@"image"])
-        {
-            [object[@"image"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
-            {
-                 if (!error)
-                 {
-                     [listObject setObjetctFrom:object andImage:data];
-                     block(error, listObject);
-                 }
-            }];
-        }
-        else
-        {
-            [listObject setObjetctFrom:object andImage:nil];
-            block(error, listObject);
-        }
+        
+        [listObject setObjetctFrom:object];
+        block(error, listObject);
     }];
 
 }
@@ -668,7 +618,7 @@ static ObjectIP *currentObject;
     
     NSArray *giveObject = [GiveIP executeRequest:request];
     
-    if ([giveObject count] > 0) return [giveObject objectAtIndex:0];
+    if ([giveObject count] > 0) return giveObject[0];
     return nil;
 }
 
@@ -973,7 +923,7 @@ static ObjectIP *currentObject;
     [querySearchBarString whereKey:@"name" containsString:param];
     
     // Combinacion de consultas para poder comparar el parametro con los nombres de los objetos. Subconsulta para poder encontrar los contactos con cuenta en la app.
-    PFQuery *finalQuery = [PFQuery orQueryWithSubqueries:[NSArray arrayWithObjects: queryCapitalizedString,queryLowerCaseString, querySearchBarString,nil]];
+    PFQuery *finalQuery = [PFQuery orQueryWithSubqueries:@[queryCapitalizedString,queryLowerCaseString, querySearchBarString]];
     [finalQuery orderByAscending:@"name"];
     [finalQuery includeKey:@"owner"];
     [finalQuery orderByAscending:@"image"];
@@ -982,14 +932,7 @@ static ObjectIP *currentObject;
     
     [finalQuery findObjectsInBackgroundWithBlock:^(NSArray *pfObjects, NSError *error)
     {
-        __block int objectsCount = [pfObjects count];
-        __block int count = 0;
-        
-        if (objectsCount == 0)
-        {
-            [delegate performObjectsSearchSuccess:nil error:nil];
-            return;
-        }
+        int objectsCount = [pfObjects count];
         
         NSMutableArray *objects = [[NSMutableArray alloc] initWithCapacity:objectsCount];
         NSMutableArray *owners = [[NSMutableArray alloc] initWithCapacity:objectsCount];
@@ -997,54 +940,17 @@ static ObjectIP *currentObject;
         for (PFObject *pfObject in pfObjects)
         {
             ObjectIP *object = [[ObjectIP alloc] initListObject];
-            if (pfObject[@"image"])
-            {
-                [pfObject[@"image"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
-                {
-                     if (!error)
-                     {
-                         [object setObjetctFrom:pfObject andImage:data];
-                         [objects addObject:object];
-                         [owners addObject:pfObject[@"owner"]];
-                         
-                         count++;
-                         if (count == objectsCount)
-                         {
-                             if ([delegate respondsToSelector:@selector(performObjectsSearchSuccess:error:)])
-                             {
-                                 NSDictionary *params = @{@"objects": objects, @"owners": owners};
-                                 [delegate performObjectsSearchSuccess:params error:nil];
-                             }
-                         }
-                     }
-                     else
-                     {
-                         if ([delegate respondsToSelector:@selector(performObjectsSearchSuccess:error:)])
-                         {
-                             [delegate performObjectsSearchSuccess:nil error:error];
-                         }
-                     }
-                }];
-            }
-            else
-            {
-                [object setObjetctFrom:pfObject andImage:nil];
-                [objects addObject:object];
-                [owners addObject:[pfObject objectForKey:@"owner"]];
-                
-                count++;
-                if (count == objectsCount)
-                {
-                    if ([delegate respondsToSelector:@selector(performObjectsSearchSuccess:error:)])
-                    {
-                        NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:objects, @"objects", owners, @"owners", nil];
-                        
-                        [delegate performObjectsSearchSuccess:params error:nil];
-                    }
-                }
-
-            }
+            [object setObjetctFrom:pfObject];
+            [objects addObject:object];
+            [owners addObject:pfObject[@"owner"]];
         }
+
+        if ([delegate respondsToSelector:@selector(performObjectsSearchSuccess:error:)])
+        {
+            NSDictionary *params = @{@"objects":objects, @"owners":owners};
+            [delegate performObjectsSearchSuccess:params error:nil];
+        }
+
     }];
 }
 
@@ -1174,7 +1080,7 @@ static ObjectIP *currentObject;
     return listObject;
 }
 
-- (void)setObjetctFrom:(PFObject *)object andImage:(NSData* )data
+- (void)setObjetctFrom:(PFObject *)object
 {
     self.objectId = object.objectId;
     self.name = object[@"name"];

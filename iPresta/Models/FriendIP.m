@@ -241,10 +241,10 @@ static NSInteger newFriends;
                 {
                     FriendIP *friend = [FriendIP new];
                     friend.objectId = user.objectId;
-                    friend.email = [sortedAppContactArray[0] email];
-                    friend.firstName = [sortedAppContactArray[0] firstName];
-                    friend.middleName = [sortedAppContactArray[0] middleName];
-                    friend.lastName = [sortedAppContactArray[0] lastName];
+                    friend.email = [sortedAppContactArray[i] email];
+                    friend.firstName = [sortedAppContactArray[i] firstName];
+                    friend.middleName = [sortedAppContactArray[i] middleName];
+                    friend.lastName = [sortedAppContactArray[i] lastName];
                 }
             }
             block(nil);
