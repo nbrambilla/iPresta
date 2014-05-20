@@ -39,13 +39,7 @@
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:IPString(@"Formato fecha")];
-    date.text = [dateFormat stringFromDate:demand.date];
-    
-    if (demand.accepted == nil) stateLabel.text = IPString(@"esperando");
-    else
-    {
-        stateLabel.text = ([demand.accepted boolValue]) ? IPString(@"aceptado") : IPString(@"rechazado");
-    }
+    date.text = [dateFormat stringFromDate:demand.date];    
 }
 
 - (void)setObjectImage:(UIImage *)image

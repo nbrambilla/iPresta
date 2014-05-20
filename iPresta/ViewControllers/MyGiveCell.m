@@ -36,10 +36,7 @@
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:IPString(@"Formato fecha")];
-    date.text = [NSString stringWithFormat:@"%@ %@ %@ %@", IPString(@"Desde"), [dateFormat stringFromDate:give.dateBegin], IPString(@"Hasta"), [dateFormat stringFromDate:give.dateEnd]];
-    
-    if ([give isExpired]) stateLabel.text = IPString(@"Vencido");
-    else stateLabel.text = @"";
+    date.text = [NSString stringWithFormat:@"%@ %@ %@ %@", IPString(@"Desde"), [dateFormat stringFromDate:give.dateBegin], IPString(@"Hasta"), [dateFormat stringFromDate:give.dateEnd]];    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

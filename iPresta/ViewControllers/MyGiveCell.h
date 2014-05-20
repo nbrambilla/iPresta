@@ -17,7 +17,6 @@
     IBOutlet UILabel *objectName;
     IBOutlet UILabel *friendName;
     IBOutlet UILabel *date;
-    IBOutlet UILabel *stateLabel;
 }
 
 - (void)setGive:(GiveIP *)give;

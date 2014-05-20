@@ -17,7 +17,6 @@
     IBOutlet UILabel *objectName;
     IBOutlet UILabel *friendName;
     IBOutlet UILabel *date;
-    IBOutlet UILabel *stateLabel;
 }
 
 @property(nonatomic, retain) IBOutlet AsyncImageView *objectImageView;
