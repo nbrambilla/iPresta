@@ -165,12 +165,12 @@
                 [objectsArray replaceObjectAtIndex:indexPath.row withObject:object];
                 [cell setDemand:demand withObjectName:object.name];
                 
-                if (demand.object.imageURL)
+                if (object.imageURL)
                 {
                     [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.objectImageView];
-                    cell.objectImageView.imageURL = [NSURL URLWithString:demand.object.imageURL];
+                    cell.objectImageView.imageURL = [NSURL URLWithString:object.imageURL];
                 }
-                else cell.objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[demand.object.type integerValue]]];
+                else cell.objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[object.type integerValue]]];
 
             }];
         }
