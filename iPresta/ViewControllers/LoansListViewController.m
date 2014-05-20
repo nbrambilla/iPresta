@@ -38,6 +38,8 @@
 {
     [super viewDidLoad];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     self.title = IPString(@"Prestamos");
     noLoansLabel.text = IPString(@"No hay prestamos");
     

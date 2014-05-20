@@ -23,7 +23,7 @@
 - (void)setObject:(ObjectIP *)object
 {
     objectName.text = object.name;
-    objectAuthor.text = (object.author) ? object.author : NSLocalizedString(@"Desconocido", nil);
+    objectAuthor.text = (object.author) ? object.author : IPString(@"Desconocido");
     if (object.imageURL)
     {
         [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:objectImageView];

@@ -62,7 +62,6 @@
 		1563FF7F173F9C4C00826DC4 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1563FF7E173F9C4C00826DC4 /* CoreMedia.framework */; };
 		1563FF81173F9C7000826DC4 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1563FF80173F9C7000826DC4 /* libiconv.dylib */; };
 		1563FF83173F9CAF00826DC4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1563FF82173F9CAF00826DC4 /* AVFoundation.framework */; };
-		1563FF87173FA1E700826DC4 /* ConnectionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1563FF86173FA1E700826DC4 /* ConnectionData.m */; };
 		1563FF8E17404B8000826DC4 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1563FF8D17404B8000826DC4 /* ProgressHUD.m */; };
 		156412EA184FBF2A009C4868 /* SearchObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 156412E9184FBF2A009C4868 /* SearchObjectCell.m */; };
 		156412EC184FBF4F009C4868 /* SearchObjectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 156412EB184FBF4F009C4868 /* SearchObjectCell.xib */; };
@@ -262,8 +261,6 @@
 		1563FF7E173F9C4C00826DC4 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		1563FF80173F9C7000826DC4 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		1563FF82173F9CAF00826DC4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		1563FF85173FA1E700826DC4 /* ConnectionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionData.h; sourceTree = "<group>"; };
-		1563FF86173FA1E700826DC4 /* ConnectionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionData.m; sourceTree = "<group>"; };
 		1563FF8C17404B8000826DC4 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
 		1563FF8D17404B8000826DC4 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
 		156412E8184FBF2A009C4868 /* SearchObjectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchObjectCell.h; path = ViewControllers/SearchObjectCell.h; sourceTree = "<group>"; };
@@ -499,7 +496,6 @@
 				19272A4517730A4700FC45B0 /* PHTextView */,
 				193A729517672BF0001EB94D /* IMOAutocompletionViewController */,
 				1563FF8B17404B8000826DC4 /* ProgressHUD */,
-				1563FF84173FA1E700826DC4 /* ConnectionData */,
 				1563FF59173F9A6700826DC4 /* ZBarSDK */,
 				15212EEC173C534400A7A764 /* Extends UIControl */,
 				15600EF0173AB9B3004302A2 /* Extends NSError */,
@@ -581,16 +577,6 @@
 			);
 			name = Resources;
 			path = ZBarSDK/Resources;
-			sourceTree = "<group>";
-		};
-		1563FF84173FA1E700826DC4 /* ConnectionData */ = {
-			isa = PBXGroup;
-			children = (
-				1563FF85173FA1E700826DC4 /* ConnectionData.h */,
-				1563FF86173FA1E700826DC4 /* ConnectionData.m */,
-			);
-			name = ConnectionData;
-			path = "External Frameworks/ConnectionData";
 			sourceTree = "<group>";
 		};
 		1563FF8B17404B8000826DC4 /* ProgressHUD */ = {
@@ -898,7 +884,7 @@
 				ORGANIZATIONNAME = Nacho;
 				TargetAttributes = {
 					156FDE0416F399E800F4BEEA = {
-						DevelopmentTeam = 5735W7F3S2;
+						DevelopmentTeam = 788LT39FA2;
 					};
 				};
 			};
@@ -1045,7 +1031,6 @@
 				15D1706817396AA700CF1F98 /* ObjectsListViewController.m in Sources */,
 				15EF0992173ADED50001C8EF /* iPrestaNSError.m in Sources */,
 				15212EEF173C53CF00A7A764 /* iPrestaUIControl.m in Sources */,
-				1563FF87173FA1E700826DC4 /* ConnectionData.m in Sources */,
 				1563FF8E17404B8000826DC4 /* ProgressHUD.m in Sources */,
 				15393FF51742BA020012BA4F /* ObjectDetailViewController.m in Sources */,
 				19C9869F1923DFE4000D11DF /* IPButton.m in Sources */,
@@ -1131,8 +1116,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nacho Brambilla (A9J72936CX)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nacho Brambilla (A9J72936CX)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1147,8 +1132,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "FDC2F3E2-705E-4B7B-973B-2EEA5C9AC8D4";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FDC2F3E2-705E-4B7B-973B-2EEA5C9AC8D4";
+				PROVISIONING_PROFILE = "B2970109-039E-4400-B4DB-9E2D48043ECE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B2970109-039E-4400-B4DB-9E2D48043ECE";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7 armv7s";
 			};
@@ -1164,8 +1149,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ignacio Brambilla (H987P4GZ5U)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nacho Brambilla (A9J72936CX)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nacho Brambilla (A9J72936CX)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1174,8 +1159,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "FDC2F3E2-705E-4B7B-973B-2EEA5C9AC8D4";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FDC2F3E2-705E-4B7B-973B-2EEA5C9AC8D4";
+				PROVISIONING_PROFILE = "B2970109-039E-4400-B4DB-9E2D48043ECE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B2970109-039E-4400-B4DB-9E2D48043ECE";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s";
@@ -1186,8 +1171,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 10C0356C30454C14850EA615 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nacho Brambilla (A9J72936CX)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nacho Brambilla (A9J72936CX)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -1197,15 +1182,15 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iPresta/iPresta-Prefix.pch";
 				INFOPLIST_FILE = "iPresta/iPresta-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/ZBarSDK\"",
 				);
 				OTHER_LDFLAGS = "-fobjc-arc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FDC2F3E2-705E-4B7B-973B-2EEA5C9AC8D4";
+				PROVISIONING_PROFILE = "B2970109-039E-4400-B4DB-9E2D48043ECE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B2970109-039E-4400-B4DB-9E2D48043ECE";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1215,8 +1200,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 10C0356C30454C14850EA615 /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nacho Brambilla (A9J72936CX)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nacho Brambilla (A9J72936CX)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -1226,15 +1211,15 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iPresta/iPresta-Prefix.pch";
 				INFOPLIST_FILE = "iPresta/iPresta-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/ZBarSDK\"",
 				);
 				OTHER_LDFLAGS = "-fobjc-arc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FDC2F3E2-705E-4B7B-973B-2EEA5C9AC8D4";
+				PROVISIONING_PROFILE = "B2970109-039E-4400-B4DB-9E2D48043ECE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B2970109-039E-4400-B4DB-9E2D48043ECE";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};

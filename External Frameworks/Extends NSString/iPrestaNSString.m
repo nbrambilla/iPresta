@@ -18,7 +18,7 @@
     
     if (!bReturn)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:APP_NAME message:NSLocalizedString(@"Campos vacios", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:APP_NAME message:IPString(@"Campos vacios") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         
         alert = nil;
@@ -33,7 +33,7 @@
     
     if (!bReturn)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:APP_NAME message:NSLocalizedString(@"Contraseñas diferentes", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:APP_NAME message:IPString(@"Contraseñas diferentes") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         
         alert = nil;
@@ -130,8 +130,8 @@
     NSInteger value = [dividedString[0] integerValue];
     NSString *lapse = dividedString[1];
     
-    if ([lapse isEqual:NSLocalizedString(@"semana", nil)] || [lapse isEqual:NSLocalizedString(@"semanas", nil)]) time = ONE_DAY * 7 * value;
-    else if ([lapse isEqual:@"mes"] || [lapse isEqual:@"meses"]) time = ONE_DAY * 30 * value;
+    if ([lapse isEqual:IPString(@"semana")] || [lapse isEqual:IPString(@"semanas")]) time = ONE_DAY * 7 * value;
+    else if ([lapse isEqual:IPString(@"mes")] || [lapse isEqual:IPString(@"meses")]) time = ONE_DAY * 30 * value;
     
     return time;
 }

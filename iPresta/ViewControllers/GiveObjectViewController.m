@@ -45,17 +45,8 @@
 {
     [super viewDidLoad];
 
-    if (!_demand)
-    {
-        UIBarButtonItem *contactsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(goToContacts)];
-        self.navigationItem.rightBarButtonItem = contactsButton;
-        contactsButton = nil;
-    }
-    else
-    {
-        giveToTextField.text = [_demand.from getFullName];
-        giveToTextField.enabled = NO;
-    }
+    self.title = IPString(@"Prestar");
+    
     [giveButton setTitle:IPString(@"Prestar") forState:UIControlStateNormal];
     timeTextField.text = GIVE_TIMES[0];
     
@@ -67,19 +58,33 @@
     form.inputAccessoryType = EZFormInputAccessoryTypeStandard;
     form.delegate = self;
     
-    EZFormTextField *giveToField = [[EZFormTextField alloc] initWithKey:@"giveTo"];
-    giveToField.validationMinCharacters = 1;
-    giveToField.inputMaxCharacters = 100;
+    if (!_demand)
+    {
+        UIBarButtonItem *contactsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(goToContacts)];
+        self.navigationItem.rightBarButtonItem = contactsButton;
+        contactsButton = nil;
+        
+        EZFormTextField *giveToField = [[EZFormTextField alloc] initWithKey:@"giveTo"];
+        giveToField.validationMinCharacters = 1;
+        giveToField.inputMaxCharacters = 100;
+        
+        [form addFormField:giveToField];
+        
+        [giveToField useTextField:giveToTextField];
+    }
+    else
+    {
+        giveToTextField.text = [_demand.from getFullName];
+        giveToTextField.enabled = NO;
+    }
     
     EZFormRadioField *timeField = [[EZFormRadioField alloc] initWithKey:@"time"];
     [timeField setChoicesFromArray:GIVE_TIMES];
     timeField.validationRequiresSelection = YES;
     timeField.validationRestrictedToChoiceValues = YES;
     
-    [form addFormField:giveToField];
     [form addFormField:timeField];
     
-    [giveToField useTextField:giveToTextField];
     [timeField useTextField:timeTextField];
     
     timeField.inputView = [[UIPickerView alloc] initWithFrame:CGRectZero];
@@ -199,7 +204,7 @@
         NSDate *dateBegin = [NSDate date];
         
         NSInteger time = [timeTextField.text getIntegerTime];
-        NSDate *dateEnd = [dateBegin dateByAddingTimeInterval:10];
+        NSDate *dateEnd = [dateBegin dateByAddingTimeInterval:time];
         
         id to;
         

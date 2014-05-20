@@ -35,8 +35,8 @@
 
 - (void)setTexts
 {
-    [haveCountButton setTitle:NSLocalizedString(@"Tengo una cuenta", nil) forState:UIControlStateNormal];
-    [createCountButton setTitle:NSLocalizedString(@"Crear una cuenta", nil) forState:UIControlStateNormal];
+    [haveCountButton setTitle:IPString(@"Tengo una cuenta") forState:UIControlStateNormal];
+    [createCountButton setTitle:IPString(@"Crear una cuenta") forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning
@@ -49,7 +49,8 @@
 {
     UINavigationController *navigationController = [[UINavigationController alloc] init];
     LoginViewController *loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-    [navigationController pushViewController:loginViewController animated:NO];
+    [navigationController pushViewController:loginViewController animated:YES];
+    navigationController.navigationBar.opaque = YES;
     
     [self presentViewController:navigationController animated:YES completion:nil];
 }

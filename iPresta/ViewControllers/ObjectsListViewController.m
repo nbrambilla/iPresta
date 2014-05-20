@@ -116,7 +116,7 @@
     
     segmentedControl = [[UISegmentedControl alloc] initWithItems:@[IPString(@"Todos") , IPString(@"En casa"), IPString(@"Prestados")]];
     segmentedControl.frame = CGRectMake(35, 200, 230, 30);
-    segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+//    segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     segmentedControl.selectedSegmentIndex = 0;
     [segmentedControl addTarget:self action:@selector(objectStateList:) forControlEvents:UIControlEventValueChanged];
     
@@ -291,7 +291,7 @@
 
 - (CGFloat)tableView:(UITableView *)_tableView heightForFooterInSection:(NSInteger)section
 {
-    return 0.0f;
+    return 1.0f;
 }
 
 - (UIView *)tableView:(UITableView *)_tableView viewForFooterInSection:(NSInteger)section

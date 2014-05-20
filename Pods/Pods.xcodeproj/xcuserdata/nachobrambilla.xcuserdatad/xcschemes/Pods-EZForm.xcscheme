@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B86AD3A361194D3B83B13DEC"
+               BlueprintIdentifier = "886A38D6B45E40C6AF741B32"
                BuildableName = "libPods-EZForm.a"
                BlueprintName = "Pods-EZForm"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -38,6 +38,8 @@
 {
     [super viewDidLoad];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     self.title = IPString(@"Expirados");
     noExpiredsLabel.text = IPString(@"No hay expirados");
     

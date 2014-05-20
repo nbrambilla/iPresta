@@ -25,6 +25,8 @@
 {
     [super viewDidLoad];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     self.title = IPString(@"Contactos");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTableView) name:@"setFriendsObserver" object:nil];
     [self setTableView];
@@ -210,10 +212,7 @@
         friend = [filteredAppContactsList objectAtIndex:indexPath.row];
         [searchBar resignFirstResponder];
     }
-	else
-	{
-        friend = [[appContactsList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    }
+	else friend = [[appContactsList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
     [UserIP getDBUserWithEmail:friend.email];
 }

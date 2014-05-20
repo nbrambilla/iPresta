@@ -74,12 +74,13 @@
 
 - (void)setView
 {
-    self.title = NSLocalizedString(@"Objetos", nil);
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.title = IPString(@"Objetos");
     
-    booksTitle.text = NSLocalizedString(@"Libros", nil);
-    audioTitle.text = NSLocalizedString(@"Audio", nil);
-    videoTitle.text = NSLocalizedString(@"Video", nil);
-    othersTitle.text = NSLocalizedString(@"Otros", nil);
+    booksTitle.text = IPString(@"Libros");
+    audioTitle.text = IPString(@"Audio");
+    videoTitle.text = IPString(@"Video");
+    othersTitle.text = IPString(@"Otros");
     
     booksListButton.tag = BookType;
     audioListButton.tag = AudioType;

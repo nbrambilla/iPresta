@@ -143,6 +143,8 @@
 {
     [super viewDidLoad];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     [visibleSwitch setOn:[UserIP visible]];
     [facebookSwitch setOn:[UserIP isLinkedToFacebook]];
     

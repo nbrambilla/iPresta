@@ -23,7 +23,7 @@
 - (void)setObject:(ObjectIP *)object withOwner:(PFUser *)owner
 {
     objectName.text = [object.name capitalizedString];
-    authorName.text = (object.author) ? object.author : NSLocalizedString(@"Desconocido", nil);
+    authorName.text = (object.author) ? object.author : IPString(@"Desconocido");
     ownerName.text = (owner) ? [[FriendIP getByObjectId:owner.objectId] getFullName] : @"";
     
     if (object.imageURL)

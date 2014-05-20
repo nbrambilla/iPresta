@@ -26,6 +26,8 @@
 {
     [super viewDidLoad];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     self.title = IPString(@"Pedidos");
     noDemandsLabel.text = IPString(@"No hay pedidos");
     

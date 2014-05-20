@@ -89,7 +89,7 @@ static NSInteger newFriends;
                      
                     [FriendIP save];
                     
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNewFriendsObserver" object:nil];
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshNewFriendsObserver" object:nil];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"setFriendsObserver" object:nil];
                 }
             }];
@@ -212,10 +212,10 @@ static NSInteger newFriends;
     
     // se crea una consulta para poder buscar todos los usuarios de la app de que tenemos en la agenda a partir del array de emails. Se ordena alfabeticamente por emails.
     PFQuery *appUsersQuery = [PFUser query];
-    [appUsersQuery whereKey:@"email" containedIn:emailsArray];
+    [appUsersQuery whereKey:@"username" containedIn:emailsArray];
     [appUsersQuery whereKey:@"visible" equalTo:@YES];
-    [appUsersQuery whereKey:@"emailVerified" equalTo:@YES];
-    [appUsersQuery orderByAscending:@"email"];
+//    [appUsersQuery whereKey:@"emailVerified" equalTo:@YES];
+    [appUsersQuery orderByAscending:@"username"];
     appUsersQuery.limit = 1000;
     
     [appUsersQuery findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error)
@@ -224,35 +224,32 @@ static NSInteger newFriends;
         {
             // Se ordenan los registros alfabeticamente a partir del email
             NSArray *sortedAppContactArray = [appContactsArray sortedArrayUsingComparator:^NSComparisonResult(AddressBookRegister *a, AddressBookRegister *b)
-                                              {
-                                                  NSString *first = a.email;
-                                                  NSString *second = b.email;
-                                                  return [first compare:second];
-                                              }];
+                                             {
+                                                 NSString *first = a.email;
+                                                 NSString *second = b.email;
+                                                 return [first compare:second];
+                                             }];
             
             int i = 0;
             
             // se buscan las coincidencias en el array de AddressBookRegister para buscar los registros de los usuarios de la app. Si existe el registro del usuario logueado, no se debe mostrar. Al estar ambas listas ordenadas, se mejora el rendimiento de la busqueda
             for (PFUser *user in users)
             {
-                while (![[[sortedAppContactArray objectAtIndex:i] email] isEqual:user.email]) i++;
+                while (![[[sortedAppContactArray objectAtIndex:i] email] isEqual:user.username]) i++;
                 
-                if (![user.email isEqual:[[UserIP loggedUser] email]])
+                if (![user.username isEqual:[[UserIP loggedUser] username]])
                 {
                     FriendIP *friend = [FriendIP new];
                     friend.objectId = user.objectId;
-                    friend.email = [[sortedAppContactArray objectAtIndex:i] email];
-                    friend.firstName = [[sortedAppContactArray objectAtIndex:i] firstName];
-                    friend.middleName = [[sortedAppContactArray objectAtIndex:i] middleName];
-                    friend.lastName = [[sortedAppContactArray objectAtIndex:i] lastName];
+                    friend.email = [sortedAppContactArray[0] email];
+                    friend.firstName = [sortedAppContactArray[0] firstName];
+                    friend.middleName = [sortedAppContactArray[0] middleName];
+                    friend.lastName = [sortedAppContactArray[0] lastName];
                 }
             }
             block(nil);
         }
-        else
-        {
-            block(error);
-        }
+        else block(error);
     }];
 }
 

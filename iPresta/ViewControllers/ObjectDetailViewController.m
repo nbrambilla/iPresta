@@ -67,6 +67,8 @@
 
 - (void)setView
 {
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     visibleCheckbox.delegate = self;
     ObjectIP *currentObject = [ObjectIP currentObject];
     
@@ -122,12 +124,12 @@
     frame.origin.y = imageView.frame.origin.y;
     otherUserButtonsView.frame = frame;
     
-    [loanUpButton setTitle:NSLocalizedString(@"Extender", nil) forState:UIControlStateNormal];
-    [giveBackButton setTitle:NSLocalizedString(@"Devolver", nil) forState:UIControlStateNormal];
-    [giveButton setTitle:NSLocalizedString(@"Prestar", nil) forState:UIControlStateNormal];
-    [historycButton setTitle:NSLocalizedString(@"Historico", nil) forState:UIControlStateNormal];
-    [demandButton setTitle:NSLocalizedString(@"Pedir", nil) forState:UIControlStateNormal];
-    visibleLabel.text = NSLocalizedString(@"Visible", nil);
+    [loanUpButton setTitle:IPString(@"Extender") forState:UIControlStateNormal];
+    [giveBackButton setTitle:IPString(@"Devolver") forState:UIControlStateNormal];
+    [giveButton setTitle:IPString(@"Prestar") forState:UIControlStateNormal];
+    [historycButton setTitle:IPString(@"Historico") forState:UIControlStateNormal];
+    [demandButton setTitle:IPString(@"Pedir") forState:UIControlStateNormal];
+    visibleLabel.text = IPString(@"Visible");
     
     if (![UserIP objectsUserIsSet] && [UserIP searchUser] == nil)
     {
@@ -155,7 +157,7 @@
         giveBackButton.enabled = YES;
         
         GiveIP *objectCurrentGive = [currentObject currentGive];
-        stateLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Prestado a", nil), (objectCurrentGive.name) ? objectCurrentGive.name : [objectCurrentGive.to getFullName]];
+        stateLabel.text = [NSString stringWithFormat:@"%@ %@", IPString(@"Prestado a"), (objectCurrentGive.name) ? objectCurrentGive.name : [objectCurrentGive.to getFullName]];
         
         if ([objectCurrentGive isExpired])
         {
@@ -282,8 +284,8 @@
     UILocalNotification *localNotification = [UILocalNotification new];
     localNotification.fireDate = date;
     
-    localNotification.alertAction = NSLocalizedString(@"Prestamo vencido", nil);
-    localNotification.alertBody = [NSString stringWithFormat:NSLocalizedString(@"Prestamo vencido push", nil), object, name];
+    localNotification.alertAction = IPString(@"Prestamo vencido");
+    localNotification.alertBody = [NSString stringWithFormat:IPString(@"Prestamo vencido push"), object, name];
     localNotification.hasAction = YES;
     //    localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber];
     localNotification.soundName = UILocalNotificationDefaultSoundName;

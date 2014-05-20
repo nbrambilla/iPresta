@@ -38,6 +38,7 @@
 {
     [super viewDidLoad];
 
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:IPString(@"Volver") style:UIBarButtonItemStyleBordered target:self action:@selector(backToBegin)];
     [createCountButton setTitle:IPString(@"Crear cuenta") forState:UIControlStateNormal];

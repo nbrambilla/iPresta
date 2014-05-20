@@ -35,6 +35,8 @@
 {
     [super viewDidLoad];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     self.title = IPString(@"Buscar");
     
     self.dataSource = self;

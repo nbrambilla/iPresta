@@ -207,7 +207,7 @@ static PFUser *searchUser;
 + (void)getDBUserWithEmail:(NSString *)email
 {
     PFQuery *query = [PFUser query];
-    [query whereKey:@"email" equalTo:email];
+    [query whereKey:@"username" equalTo:email];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error)
     {

@@ -74,11 +74,11 @@
     GiveIP *give = [givesArray objectAtIndex:indexPath.row];
     cell.textLabel.text = give.name;
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:NSLocalizedString(@"Formato fecha", nil)];
+    [dateFormat setDateFormat:IPString(@"Formato fecha")];
     NSString *dateBegin = [dateFormat stringFromDate:give.dateBegin];
     NSString *dateEnd = [dateFormat stringFromDate:give.dateEnd];
     
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@ %@ %@", NSLocalizedString(@"Desde", nil), dateBegin, NSLocalizedString(@"Hasta", nil), dateEnd];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@ %@ %@", IPString(@"Desde"), dateBegin, IPString(@"Hasta"), dateEnd];
 
     return cell;
 }

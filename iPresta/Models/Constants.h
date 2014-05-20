@@ -18,6 +18,13 @@
 #define MOVIE_IMAGE_URL @"https://image.tmdb.org/t/p/w185/%@"
 #define FB_URL_IMAGE @"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1"
 
+#define GBOOK_ISBN_URL @"https://www.googleapis.com/books/v1/volumes?q=isbn:%@"
+#define DISCOGS_BCODE_URL @"http://api.discogs.com/search?q=%@"
+
+#define GBOOKS_SEARCH_URL @"https://www.googleapis.com/books/v1/volumes?q=%@&maxResults=%d&startIndex=%d"
+#define DISCOGS_SEARCH_URL @"http://api.discogs.com/database/search?title=%@&type=release&page=%d&per_page=%d"
+#define MOVIEDB_SEARCH_URL @"http://api.themoviedb.org/3/search/movie?query=%@&page=%d&api_key=%@"
+
 #define STATE_TYPES @[IPString(@"No prestado"), IPString(@"Prestado"), IPString(@"A devolver")]
 #define OBJECT_TYPES @[IPString(@"Libro"), IPString(@"Audio"), IPString(@"Video"), IPString(@"Otro")]
 #define AUDIO_OBJECT_TYPES @[@"CD", @"SACD", IPString(@"Vinilo")]

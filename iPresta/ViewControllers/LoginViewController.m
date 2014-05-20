@@ -40,11 +40,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Volver", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(backToBegin)];
-    [fortgotPasswordButton setTitle:NSLocalizedString(@"¿Olvido su contraseña?", nil) forState:UIControlStateNormal];
-    [entrarButton setTitle:NSLocalizedString(@"Entrar", nil) forState:UIControlStateNormal];
-    emailTextField.placeholder = NSLocalizedString(@"Email", nil);
-    passwordTextField.placeholder = NSLocalizedString(@"Contraseña", nil);
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:IPString(@"Volver") style:UIBarButtonItemStyleBordered target:self action:@selector(backToBegin)];
+    [fortgotPasswordButton setTitle:IPString(@"¿Olvido su contraseña?") forState:UIControlStateNormal];
+    [entrarButton setTitle:IPString(@"Entrar") forState:UIControlStateNormal];
+    emailTextField.placeholder = IPString(@"Email");
+    passwordTextField.placeholder = IPString(@"Contraseña");
     
     // Set Form
     
@@ -129,7 +130,7 @@
     }
     else
     {
-        [[[UIAlertView alloc] initWithTitle:APP_NAME message:NSLocalizedString(@"Formato email", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:APP_NAME message:IPString(@"Formato email") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
 }
 

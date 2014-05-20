@@ -38,7 +38,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewDemands) name:@"RefreshNewDemandsObserver" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewGives) name:@"RefreshNewGivesObserver" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewExtends) name:@"RefreshNewExtendsObserver" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewFriends) name:@"RefreshNewFriendsObserver" object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewFriends) name:@"RefreshNewFriendsObserver" object:nil];
     }
     return self;
 }
@@ -79,13 +79,13 @@
     return APP_NAME;
 }
 
-- (void)refreshNewFriends
-{
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:2 inSection:0];
-    [self.tableView beginUpdates];
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    [self.tableView endUpdates];
-}
+//- (void)refreshNewFriends
+//{
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:2 inSection:0];
+//    [self.tableView beginUpdates];
+//    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+//    [self.tableView endUpdates];
+//}
 
 - (void)refreshNewDemands
 {
@@ -120,9 +120,9 @@
         if (cell == nil) {
             cell = [[FriendsCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
-        cell.textLabel.text = NSLocalizedString(@"Contactos", nil);
+        cell.textLabel.text = IPString(@"Contactos");
         cell.imageView.image = [UIImage imageNamed:@"contacts_icon.png"];
-        [cell setNews:[FriendIP newFriends]];
+//        [cell setNews:[FriendIP newFriends]];
         
         return cell;
     }
@@ -133,7 +133,7 @@
             cell = [[DemandsCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
         
-        cell.title.text = NSLocalizedString(@"Pedidos", nil);
+        cell.title.text = IPString(@"Pedidos");
         cell.imageView.image = [UIImage imageNamed:@"orders_icon.png"];
         
         [cell setMines:[[DemandIP getMines] count]];
@@ -148,7 +148,7 @@
             cell = [[GivesCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
         
-        cell.title.text = NSLocalizedString(@"Prestamos", nil);
+        cell.title.text = IPString(@"Prestamos");
         cell.imageView.image = [UIImage imageNamed:@"loan_icon.png"];
         
         [cell setMines:[[GiveIP getMinesInTime] count]];
@@ -163,7 +163,7 @@
             cell = [[GivesCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
         
-        cell.title.text = NSLocalizedString(@"Expirados", nil);
+        cell.title.text = IPString(@"Expirados");
         cell.imageView.image = [UIImage imageNamed:@"expired_icon.png"];
         
         [cell setMines:[[GiveIP getMinesExpired] count]];
@@ -181,15 +181,15 @@
         switch (indexPath.row)
         {
             case 0:
-                cell.textLabel.text = NSLocalizedString(@"Objetos", nil);
+                cell.textLabel.text = IPString(@"Objetos");
                 cell.imageView.image = [UIImage imageNamed:@"objects_icon.png"];
                 break;
             case 1:
-                cell.textLabel.text = NSLocalizedString(@"Buscar", nil);
+                cell.textLabel.text = IPString(@"Buscar");
                 cell.imageView.image = [UIImage imageNamed:@"search_icon.png"];
                 break;
             case 6:
-                cell.textLabel.text = NSLocalizedString(@"Configuracion", nil);
+                cell.textLabel.text = IPString(@"Configuracion");
                 cell.imageView.image = [UIImage imageNamed:@"config_icon.png"];
                 break;
         }

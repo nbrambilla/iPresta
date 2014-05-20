@@ -12,6 +12,6 @@
 
 @property(nonatomic, retain) UILabel *badgeCell;
 
-- (void)setNews:(NSInteger)news;
+//- (void)setNews:(NSInteger)news;
 
 @end

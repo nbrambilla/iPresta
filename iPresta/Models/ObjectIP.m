@@ -14,8 +14,8 @@
 #import "DemandIP.h"
 #import "iPrestaNSString.h"
 #import "iPrestaNSError.h"
-#import "ConnectionData.h"
-
+//#import "ConnectionData.h"
+#import "AFNetworking.h"
 
 @implementation ObjectIP
 
@@ -527,7 +527,7 @@ static ObjectIP *currentObject;
                     
                     PFPush *push = [PFPush new];
                     [push setQuery:pushQuery];
-                    [push setData:[NSDictionary dictionaryWithObjectsAndKeys: @"Increment", @"badge", @"default", @"sound", [NSString stringWithFormat:NSLocalizedString(@"Push pedido", nil), [[UserIP loggedUser] username], self.name], @"alert", self.objectId, @"objectId", [[UserIP loggedUser] objectId], @"friendId", demandID, @"demandId", @"demand", @"pushID", nil]];
+                    [push setData:[NSDictionary dictionaryWithObjectsAndKeys: @"Increment", @"badge", @"default", @"sound", [NSString stringWithFormat:IPString(@"Push pedido"), [[UserIP loggedUser] username], self.name], @"alert", self.objectId, @"objectId", [[UserIP loggedUser] objectId], @"friendId", demandID, @"demandId", @"demand", @"pushID", nil]];
                     
                     [push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
                     {
@@ -576,7 +576,7 @@ static ObjectIP *currentObject;
     {
         objectsTypeArray = [[NSMutableArray alloc] initWithCapacity:4];
         
-        for (ObjectType type = BookType; type < 4; type++)
+        for (ObjectType type = BookType; type <= OtherType; type++)
         {
             NSFetchRequest *request = [self fetchRequest];
             [request setEntity:[self entityDescription]];
@@ -641,9 +641,9 @@ static ObjectIP *currentObject;
     [objectQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error)
     {
         ObjectIP *listObject = [[ObjectIP alloc] initListObject];
-        if ([object objectForKey:@"image"])
+        if (object[@"image"])
         {
-            [[object objectForKey:@"image"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+            [object[@"image"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
             {
                  if (!error)
                  {
@@ -732,14 +732,8 @@ static ObjectIP *currentObject;
     {
         NSString *firstLetter = [[self.name substringWithRange:NSMakeRange(0, 1)] lowercaseString];
         NSString *secondLetter = [[self.name substringWithRange:NSMakeRange(1, 1)] lowercaseString];
-        if ([firstLetter isEqual:@"c"] && [secondLetter isEqual:@"h"])
-        {
-            return @"ch";
-        }
-        if ([firstLetter isEqual:@"l"] && [secondLetter isEqual:@"l"])
-        {
-            return @"ll";
-        }
+        if ([firstLetter isEqual:@"c"] && [secondLetter isEqual:@"h"]) return @"ch";
+        if ([firstLetter isEqual:@"l"] && [secondLetter isEqual:@"l"]) return @"ll";
         return firstLetter;
     }
     
@@ -754,127 +748,204 @@ static ObjectIP *currentObject;
     
     NSString *urlString;
     
-    if (selectedType == BookType)
-    {
-        urlString = [NSString stringWithFormat:@"https://www.googleapis.com/books/v1/volumes?q=isbn:%@", objectCode];
-    }
+    if (selectedType == BookType) urlString = [NSString stringWithFormat:GBOOK_ISBN_URL, objectCode];
     else if (selectedType == AudioType || selectedType == VideoType)
     {
-        urlString = [NSString stringWithFormat:@"http://api.discogs.com/search?q=%@", objectCode];
+        urlString = [NSString stringWithFormat:DISCOGS_BCODE_URL, objectCode];
         self.barcode = objectCode;
     }
-    
-    ConnectionData *connection = [[ConnectionData alloc] initWithURL:[NSURL URLWithString:urlString] andID:@"getData"];
-    [connection downloadData:self];
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+    {
+        id volumeInfo;
+        NSError *error;
+        
+        if (selectedType == BookType) volumeInfo = responseObject[@"items"][0][@"volumeInfo"];
+        else if (selectedType == AudioType || selectedType == VideoType) volumeInfo = responseObject[@"resp"][@"search"][@"searchresults"][@"results"][0];
+        
+        if (volumeInfo)
+        {
+            if (selectedType == BookType) [self setBookWithInfo:volumeInfo];
+            else if (selectedType == AudioType || selectedType == VideoType) [self setAudioWithInfo:volumeInfo];
+        }
+        else
+        {
+            self.name = nil;
+            error = [[NSError alloc] initWithCode:EMPTYOBJECTDATA_ERROR userInfo:nil];
+        }
+        
+        if ([delegate respondsToSelector:@selector(getDataResponseWithError:)]) [delegate getDataResponseWithError:error];
+    }
+    failure:^(AFHTTPRequestOperation *operation, NSError *error)
+    {
+         NSLog(@"Error: %@", error);
+       if ([delegate respondsToSelector:@selector(getDataResponseWithError:)]) [delegate getDataResponseWithError:error];
+    }];
 }
+
+//- (void)getData:(NSString *)objectCode
+//{
+//    objectCode = [objectCode checkCode];
+//    
+//    NSString *urlString;
+//    
+//    if (selectedType == BookType)
+//    {
+//        urlString = [NSString stringWithFormat:@"https://www.googleapis.com/books/v1/volumes?q=isbn:%@", objectCode];
+//    }
+//    else if (selectedType == AudioType || selectedType == VideoType)
+//    {
+//        urlString = [NSString stringWithFormat:@"http://api.discogs.com/search?q=%@", objectCode];
+//        self.barcode = objectCode;
+//    }
+//    
+//    ConnectionData *connection = [[ConnectionData alloc] initWithURL:[NSURL URLWithString:urlString] andID:@"getData"];
+//    [connection downloadData:self];
+//}
 
 - (void)getSearchResults:(NSString *)param page:(NSInteger)page offset:(NSInteger)offset
 {
     NSString *urlString;
     
-    if (selectedType == BookType)
-    {
-        urlString = [NSString stringWithFormat:@"https://www.googleapis.com/books/v1/volumes?q=%@&maxResults=%d&startIndex=%d", param, offset, page*offset];
-    }
-    else if (selectedType == AudioType)
-    {
-        urlString = [NSString stringWithFormat:@"http://api.discogs.com/database/search?title=%@&type=release&page=%d&per_page=%d", param, page, offset];
-    }
+    if (selectedType == BookType) urlString = [NSString stringWithFormat:GBOOKS_SEARCH_URL, param, offset, page*offset];
+    else if (selectedType == AudioType) urlString = [NSString stringWithFormat:DISCOGS_SEARCH_URL, param, page, offset];
+    else if (selectedType == VideoType) urlString = [NSString stringWithFormat:MOVIEDB_SEARCH_URL, param, page + 1, MOVIES_API_KEY];
     
-    else if (selectedType == VideoType)
-    {
-        urlString = [NSString stringWithFormat:@"http://api.themoviedb.org/3/search/movie?query=%@&page=%d&api_key=%@", param, page+1, MOVIES_API_KEY];
-    }
-    
-    ConnectionData *connection = [[ConnectionData alloc] initWithURL:[NSURL URLWithString:urlString] andID:@"getSearchResults"];
-    [connection downloadData:self];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         NSMutableArray *searchResultArray;
+         id volumeInfoArray;
+         
+         if (selectedType == BookType) volumeInfoArray = responseObject[@"items"];
+         else if (selectedType == AudioType) volumeInfoArray = responseObject[@"results"];
+         else if (selectedType == VideoType) volumeInfoArray = responseObject[@"results"];
+         
+         if ([volumeInfoArray count] > 0)
+         {
+             searchResultArray = [[NSMutableArray alloc] initWithCapacity:[volumeInfoArray count]];
+             
+             for (id volumeInfo in volumeInfoArray)
+             {
+                 ObjectIP *object = [[ObjectIP alloc] initListObject];
+                 object.type = @(selectedType);
+                 
+                 if (selectedType == BookType)  [object setBookWithInfo:volumeInfo[@"volumeInfo"]];
+                 else if (selectedType == AudioType) [object setAudioWithInfo:volumeInfo];
+                 else if (selectedType == VideoType) [object setVideoWithInfo:volumeInfo];
+                 
+                 [searchResultArray addObject:object];
+             }
+         }
+         
+         if ([delegate respondsToSelector:@selector(getSearchResultsResponse:withError:)]) [delegate getSearchResultsResponse:[searchResultArray copy] withError:nil];
+     }
+     failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         NSLog(@"Error: %@", error);
+        if ([delegate respondsToSelector:@selector(getSearchResultsResponse:withError:)]) [delegate getSearchResultsResponse:nil withError:error];
+     }];
 }
 
-- (void)dataFinishLoading:(ConnectionData *)connection error:(NSError *)error
-{
-    if (!error)      // Si no error hay al buscar el/los objeto/s
-    {
-        NSDictionary *response = [NSJSONSerialization JSONObjectWithData:connection.requestData options:NSJSONReadingMutableContainers error:&error];
-        
-        if ([connection.identifier isEqual:@"getData"])
-        {
-            id volumeInfo;
-            
-            if (selectedType == BookType)
-            {
-                volumeInfo = [[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"volumeInfo"];
-            }
-            else if (selectedType == AudioType || selectedType == VideoType)
-            {
-                volumeInfo = [[[[[response objectForKey:@"resp"] objectForKey:@"search"] objectForKey:@"searchresults"] objectForKey:@"results"] objectAtIndex:0];
-            }
-            
-            if (volumeInfo)
-            {
-                if (selectedType == BookType)
-                {
-                    [self setBookWithInfo:volumeInfo];
-                }
-                else if (selectedType == AudioType || selectedType == VideoType)
-                {
-                    [self setAudioWithInfo:volumeInfo];
-                }
-            }
-            else
-            {
-                self.name = nil;
-                error = [[NSError alloc] initWithCode:EMPTYOBJECTDATA_ERROR userInfo:nil];
-            }
-            
-            if ([delegate respondsToSelector:@selector(getDataResponseWithError:)]) [delegate getDataResponseWithError:error];
-        }
-        else if ([connection.identifier isEqual:@"getSearchResults"])
-        {
-            NSMutableArray *searchResultArray;
-            id volumeInfoArray;
-            
-            if (selectedType == BookType)
-            {
-                volumeInfoArray = [response objectForKey:@"items"];
-            }
-            else if (selectedType == AudioType)
-            {
-                volumeInfoArray = [response objectForKey:@"results"];
-            }
-            else if (selectedType == VideoType)
-            {
-                volumeInfoArray = [response objectForKey:@"results"];
-            }
-            
-            if ([volumeInfoArray count] > 0)
-            {
-                searchResultArray = [[NSMutableArray alloc] initWithCapacity:[volumeInfoArray count]];
-                
-                for (id volumeInfo in volumeInfoArray)
-                {
-                    ObjectIP *object = [[ObjectIP alloc] initListObject];
-                    object.type = @(selectedType);
-                    
-                    if (selectedType == BookType)  [object setBookWithInfo:[volumeInfo objectForKey:@"volumeInfo"]];
-                    else if (selectedType == AudioType) [object setAudioWithInfo:volumeInfo];
-                    else if (selectedType == VideoType) [object setVideoWithInfo:volumeInfo];
-                    
-                    [searchResultArray addObject:object];
-                }
-            }
-            
-            
-            if ([delegate respondsToSelector:@selector(getSearchResultsResponse:withError:)])
-            {
-                [delegate getSearchResultsResponse:[searchResultArray copy] withError:error];
-            }
-        }
-    }
-    else
-    {
-        if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
-    }
-}
+
+//- (void)getSearchResults:(NSString *)param page:(NSInteger)page offset:(NSInteger)offset
+//{
+//    NSString *urlString;
+//    
+//    if (selectedType == BookType) urlString = [NSString stringWithFormat:@"https://www.googleapis.com/books/v1/volumes?q=%@&maxResults=%d&startIndex=%d", param, offset, page*offset];
+//    else if (selectedType == AudioType) urlString = [NSString stringWithFormat:@"http://api.discogs.com/database/search?title=%@&type=release&page=%d&per_page=%d", param, page, offset];
+//    else if (selectedType == VideoType) urlString = [NSString stringWithFormat:@"http://api.themoviedb.org/3/search/movie?query=%@&page=%d&api_key=%@", param, page+1, MOVIES_API_KEY];
+//    
+//    ConnectionData *connection = [[ConnectionData alloc] initWithURL:[NSURL URLWithString:urlString] andID:@"getSearchResults"];
+//    [connection downloadData:self];
+//}
+
+//- (void)dataFinishLoading:(ConnectionData *)connection error:(NSError *)error
+//{
+//    if (!error)      // Si no error hay al buscar el/los objeto/s
+//    {
+//        NSDictionary *response = [NSJSONSerialization JSONObjectWithData:connection.requestData options:NSJSONReadingMutableContainers error:&error];
+//        
+//        if ([connection.identifier isEqual:@"getData"])
+//        {
+//            id volumeInfo;
+//            
+//            if (selectedType == BookType)
+//            {
+//                volumeInfo = [[[response objectForKey:@"items"] objectAtIndex:0] objectForKey:@"volumeInfo"];
+//            }
+//            else if (selectedType == AudioType || selectedType == VideoType)
+//            {
+//                volumeInfo = [[[[[response objectForKey:@"resp"] objectForKey:@"search"] objectForKey:@"searchresults"] objectForKey:@"results"] objectAtIndex:0];
+//            }
+//            
+//            if (volumeInfo)
+//            {
+//                if (selectedType == BookType)
+//                {
+//                    [self setBookWithInfo:volumeInfo];
+//                }
+//                else if (selectedType == AudioType || selectedType == VideoType)
+//                {
+//                    [self setAudioWithInfo:volumeInfo];
+//                }
+//            }
+//            else
+//            {
+//                self.name = nil;
+//                error = [[NSError alloc] initWithCode:EMPTYOBJECTDATA_ERROR userInfo:nil];
+//            }
+//            
+//            if ([delegate respondsToSelector:@selector(getDataResponseWithError:)]) [delegate getDataResponseWithError:error];
+//        }
+//        else if ([connection.identifier isEqual:@"getSearchResults"])
+//        {
+//            NSMutableArray *searchResultArray;
+//            id volumeInfoArray;
+//            
+//            if (selectedType == BookType)
+//            {
+//                volumeInfoArray = [response objectForKey:@"items"];
+//            }
+//            else if (selectedType == AudioType)
+//            {
+//                volumeInfoArray = [response objectForKey:@"results"];
+//            }
+//            else if (selectedType == VideoType)
+//            {
+//                volumeInfoArray = [response objectForKey:@"results"];
+//            }
+//            
+//            if ([volumeInfoArray count] > 0)
+//            {
+//                searchResultArray = [[NSMutableArray alloc] initWithCapacity:[volumeInfoArray count]];
+//                
+//                for (id volumeInfo in volumeInfoArray)
+//                {
+//                    ObjectIP *object = [[ObjectIP alloc] initListObject];
+//                    object.type = @(selectedType);
+//                    
+//                    if (selectedType == BookType)  [object setBookWithInfo:[volumeInfo objectForKey:@"volumeInfo"]];
+//                    else if (selectedType == AudioType) [object setAudioWithInfo:volumeInfo];
+//                    else if (selectedType == VideoType) [object setVideoWithInfo:volumeInfo];
+//                    
+//                    [searchResultArray addObject:object];
+//                }
+//            }
+//            
+//            
+//            if ([delegate respondsToSelector:@selector(getSearchResultsResponse:withError:)])
+//            {
+//                [delegate getSearchResultsResponse:[searchResultArray copy] withError:error];
+//            }
+//        }
+//    }
+//    else
+//    {
+//        if ([delegate respondsToSelector:@selector(objectError:)]) [delegate objectError:error];
+//    }
+//}
 
 + (void)performObjectsSearchWithEmails:(NSArray *)emailsArray param:(NSString *)param page:(NSInteger)_page andOffset:(NSInteger)offset
 {
@@ -926,23 +997,22 @@ static ObjectIP *currentObject;
         for (PFObject *pfObject in pfObjects)
         {
             ObjectIP *object = [[ObjectIP alloc] initListObject];
-            if ([pfObject objectForKey:@"image"])
+            if (pfObject[@"image"])
             {
-                [[pfObject objectForKey:@"image"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+                [pfObject[@"image"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
                 {
                      if (!error)
                      {
                          [object setObjetctFrom:pfObject andImage:data];
                          [objects addObject:object];
-                         [owners addObject:[pfObject objectForKey:@"owner"]];
+                         [owners addObject:pfObject[@"owner"]];
                          
                          count++;
                          if (count == objectsCount)
                          {
                              if ([delegate respondsToSelector:@selector(performObjectsSearchSuccess:error:)])
                              {
-                                 NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:objects, @"objects", owners, @"owners", nil];
-                                 
+                                 NSDictionary *params = @{@"objects": objects, @"owners": owners};
                                  [delegate performObjectsSearchSuccess:params error:nil];
                              }
                          }
@@ -985,16 +1055,13 @@ static ObjectIP *currentObject;
     // Se setea el nombre del objeto
     if ([info objectForKey:@"title"])
     {
-        self.name = [[info objectForKey:@"title"] capitalizedString];
-        if ([info objectForKey:@"subtitle"])
-        {
-            self.name = [self.name stringByAppendingFormat:@" %@", [[info objectForKey:@"subtitle"] capitalizedString]];
-        }
+        self.name = [info[@"title"] capitalizedString];
+        if (info[@"subtitle"]) self.name = [self.name stringByAppendingFormat:@" %@", [info[@"subtitle"] capitalizedString]];
     }
     // Se setea el autor del objeto
-    if ([info objectForKey:@"authors"])
+    if (info[@"authors"])
     {
-        id authors = [info objectForKey:@"authors"];
+        id authors = info[@"authors"];
         self.author = @"";
         
         for (NSString *author in authors)
@@ -1008,39 +1075,33 @@ static ObjectIP *currentObject;
         }
     }
     // Se setea la editorial del objeto
-    if ([info objectForKey:@"publisher"])
-    {
-        self.editorial = [[info objectForKey:@"publisher"] capitalizedString];
-    }
+    if (info[@"publisher"]) self.editorial = [info[@"publisher"] capitalizedString];
     // se setea la imagen
-    if ([info objectForKey:@"imageLinks"])
+    if (info[@"imageLinks"])
     {
         id images = [info objectForKey:@"imageLinks"];
         
-        if ([images objectForKey:@"extraLarge"]) self.imageURL = [images objectForKey:@"extraLarge"];
-        else if ([images objectForKey:@"large"]) self.imageURL = [images objectForKey:@"large"];
-        else if ([images objectForKey:@"medium"]) self.imageURL = [images objectForKey:@"medium"];
-        else if ([images objectForKey:@"small"]) self.imageURL = [images objectForKey:@"small"];
-        else if ([images objectForKey:@"thumbnail"]) self.imageURL = [images objectForKey:@"thumbnail"];
-        else if ([images objectForKey:@"smallThumbnail"]) self.imageURL = [images objectForKey:@"smallThumbnail"];
+        if (images[@"extraLarge"]) self.imageURL = images[@"extraLarge"];
+        else if (images[@"large"]) self.imageURL = images[@"large"];
+        else if (images[@"medium"]) self.imageURL = images[@"medium"];
+        else if (images[@"small"]) self.imageURL = images[@"small"];
+        else if (images[@"thumbnail"]) self.imageURL = images[@"thumbnail"];
+        else if (images[@"smallThumbnail"]) self.imageURL = images[@"smallThumbnail"];
         
         images = nil;
     }
     // se setea el isbn
-    if ([info objectForKey:@"industryIdentifiers"])
+    if (info[@"industryIdentifiers"])
     {
-        id barcodes = [info objectForKey:@"industryIdentifiers"];
+        id barcodes = info[@"industryIdentifiers"];
         
-        if ([barcodes count] == 1) self.barcode = [[barcodes objectAtIndex:0] objectForKey:@"identifier"];
+        if ([barcodes count] == 1) self.barcode = barcodes[0][@"identifier"];
         else if ([barcodes count] == 2)
         {
-            if ([[[barcodes objectAtIndex:1] objectForKey:@"type"] isEqual: @"ISBN_13"]) self.barcode = [[barcodes objectAtIndex:1] objectForKey:@"identifier"];
-            else self.barcode = [[barcodes objectAtIndex:0] objectForKey:@"identifier"];
+            if ([barcodes[1][@"type"] isEqual:@"ISBN_13"]) self.barcode = barcodes[1][@"identifier"];
+            else self.barcode = barcodes[0][@"identifier"];
         }
-        else
-        {
-            self.barcode = [[barcodes objectAtIndex:1] objectForKey:@"identifier"];
-        }
+        else self.barcode = barcodes[1][@"identifier"];
         
         barcodes = nil;
     }
@@ -1049,33 +1110,27 @@ static ObjectIP *currentObject;
 - (void)setAudioWithInfo:(id)info
 {
     // se setea el titulo y el autor
-    if ([info objectForKey:@"title"])
+    if (info[@"title"])
     {
-        id title = [[info objectForKey:@"title"] componentsSeparatedByString: @" - "];
+        id title = [info[@"title"] componentsSeparatedByString: @" - "];
         if ([title count] > 1)
         {
-            self.author = [title objectAtIndex:0];
-            self.name = [title objectAtIndex:1];
+            self.author = title[0];
+            self.name = title[1];
         }
     }
     // se setea la imagen
-    if ([info objectForKey:@"thumb"])
-    {
-        self.imageURL = [[info objectForKey:@"thumb"] stringByReplacingOccurrencesOfString:@"api.discogs.com" withString:@"s.pixogs.com"];
-    }
+    if (info[@"thumb"]) self.imageURL = [info[@"thumb"] stringByReplacingOccurrencesOfString:@"api.discogs.com" withString:@"s.pixogs.com"];
 }
 
 - (void)setVideoWithInfo:(id)info
 {
     // se setea el titulo
-    if ([info objectForKey:@"original_title"] != [NSNull null])
-    {
-        self.name = [info objectForKey:@"original_title"];
-    }
+    if (info[@"original_title"] != [NSNull null]) self.name = info[@"original_title"];
     // se setea el director
-    if ([info objectForKey:@"directors"] != [NSNull null])
+    if (info[@"directors"] != [NSNull null])
     {
-        id directors = [info objectForKey:@"directors"];
+        id directors = info[@"directors"];
         self.author = @"";
         
         for (NSString *director in directors)
@@ -1089,18 +1144,15 @@ static ObjectIP *currentObject;
         }
     }
     // se setea la imagen
-    if ([info objectForKey:@"poster_path"] != [NSNull null])
+    if (info[@"poster_path"] != [NSNull null])
     {
 //        if ([[info objectForKey:@"poster"] objectForKey:@"imdb"] != [NSNull null]) self.imageURL = [[info objectForKey:@"poster"] objectForKey:@"imdb"];
 //        else if ([[info objectForKey:@"poster"] objectForKey:@"cover"] != [NSNull null]) self.imageURL = [[info objectForKey:@"poster"] objectForKey:@"cover"];
-        self.imageURL = [NSString stringWithFormat:MOVIE_IMAGE_URL, [info objectForKey:@"poster_path"]];
+        self.imageURL = [NSString stringWithFormat:MOVIE_IMAGE_URL, info[@"poster_path"]];
         
     }
     // se setea el identificador
-    if ([info objectForKey:@"imdb_id"] != [NSNull null])
-    {
-        self.barcode = [info objectForKey:@"imdb_id"];
-    }
+    if (info[@"imdb_id"] != [NSNull null]) self.barcode = info[@"imdb_id"];
 }
 
 + (ObjectIP *)listObjectWithObject:(ObjectIP *)object
@@ -1125,20 +1177,20 @@ static ObjectIP *currentObject;
 - (void)setObjetctFrom:(PFObject *)object andImage:(NSData* )data
 {
     self.objectId = object.objectId;
-    self.name = [object objectForKey:@"name"];
-    self.author = [object objectForKey:@"author"];
-    self.barcode = [object objectForKey:@"barcode"];
-    self.descriptionObject = [object objectForKey:@"descriptionObject"];
-    self.editorial = [object objectForKey:@"editorial"];
-    self.type = [object objectForKey:@"type"];
+    self.name = object[@"name"];
+    self.author = object[@"author"];
+    self.barcode = object[@"barcode"];
+    self.descriptionObject = object[@"descriptionObject"];
+    self.editorial = object[@"editorial"];
+    self.type = object[@"type"];
     
-    PFFile *file = (PFFile *)[object objectForKey:@"image"];
+    PFFile *file = (PFFile *)object[@"image"];
     self.imageURL = file.url;
 
-    self.audioType = [object objectForKey:@"audioType"];
-    self.videoType = [object objectForKey:@"videoType"];
-    self.state = [object objectForKey:@"state"];
-    self.visible = [NSNumber numberWithBool:[object objectForKey:@"visible"]];
+    self.audioType = object[@"audioType"];
+    self.videoType = object[@"videoType"];
+    self.state = object[@"state"];
+    self.visible = [NSNumber numberWithBool:object[@"visible"]];
 }
 
 - (void)setDBObjetct:(PFObject *)object withImage:(PFFile* )data

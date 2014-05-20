@@ -38,13 +38,13 @@
     friendName.text = [demand.to getFullName];
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:NSLocalizedString(@"Formato fecha", nil)];
+    [dateFormat setDateFormat:IPString(@"Formato fecha")];
     date.text = [dateFormat stringFromDate:demand.date];
     
-    if (demand.accepted == nil) stateLabel.text = NSLocalizedString(@"esperando", nil);
+    if (demand.accepted == nil) stateLabel.text = IPString(@"esperando");
     else
     {
-        stateLabel.text = ([demand.accepted boolValue]) ? NSLocalizedString(@"aceptado", nil) : NSLocalizedString(@"rechazado", nil);
+        stateLabel.text = ([demand.accepted boolValue]) ? IPString(@"aceptado") : IPString(@"rechazado");
     }
 }
 

@@ -14,7 +14,6 @@
 #import "IPButton.h"
 #import "IPCheckbox.h"
 #import "IPTextField.h"
-#import <QuartzCore/QuartzCore.h>
 
 @interface FormBookViewController ()
 
@@ -45,6 +44,8 @@
 
 - (void)setView
 {
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     self.title = IPString(@"Anadir");
     nameTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     authorTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
@@ -57,10 +58,10 @@
     
     visibleCheckbox.selected = YES;
     
-    CGRect frame = scrollView.frame;
-    frame.size.height = (IS_IPHONE_4_INCHES) ? 504.0f : 416.0f;
-    scrollView.frame = frame;
-    scrollView.contentSize = frame.size;
+//    CGRect frame = scrollView.frame;
+//    frame.size.height = (IS_IPHONE_4_INCHES) ? 504.0f : 416.0f;
+//    scrollView.frame = frame;
+//    scrollView.contentSize = frame.size;
     
     [searchButton setTitle:IPString(@"Buscar") forState:UIControlStateNormal];
     [detectButton setTitle:IPString(@"Detectar") forState:UIControlStateNormal];
