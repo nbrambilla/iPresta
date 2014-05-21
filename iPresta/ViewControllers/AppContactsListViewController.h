@@ -10,7 +10,7 @@
 #import "SlideViewController.h"
 #import "UserIP.h"
 
-@interface AppContactsListViewController : SlideViewController <UserIPDelegate, UISearchDisplayDelegate>
+@interface AppContactsListViewController : SlideViewController <UserIPDelegate>
 {
     NSMutableArray *appContactsList;
     NSMutableArray *filteredAppContactsList;

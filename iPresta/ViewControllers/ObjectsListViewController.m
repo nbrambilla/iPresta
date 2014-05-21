@@ -79,6 +79,10 @@
 
 - (void)setTableView
 {
+    
+    tableView.sectionIndexColor = [UIColor blackColor];
+    tableView.sectionIndexBackgroundColor = [UIColor clearColor];
+    
     noObjectsLabel.text = IPString(@"No hay objetos");
     self.edgesForExtendedLayout = UIRectEdgeNone;
     

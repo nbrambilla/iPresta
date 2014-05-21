@@ -76,24 +76,12 @@
     return self;
 }
 
-- (void)viewDidUnload
-{
-    [self setResults:nil];
-    [self setOwners:nil];
-    [self setTableView:nil];
-    [self setSearchBar:nil];
-    [self setDataSource:nil];
-    [self setDelegate:nil];
-    [self setActivityIndicatorView:nil];
-    [self setFooterActivityIndicator:nil];
-    [self setActivityIndicatorView:nil];
-    
-    [super viewDidUnload];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _tableView.sectionIndexColor = [UIColor blackColor];
+    _tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     
     if (isCancelButton) [self setCancelButton];
     [_searchBar becomeFirstResponder];

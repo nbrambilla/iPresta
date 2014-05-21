@@ -11,7 +11,7 @@
 #import "FriendIP.h"
 #import "SideMenuViewController.h"
 #import "ObjectsMenuViewController.h"
-#import "AppContactsListViewController.h"
+#import "ContactsListViewController.h"
 #import "ConfigurationViewController.h"
 #import "SearchObjectsViewController.h"
 #import "LoansListViewController.h"
@@ -222,7 +222,7 @@
                 viewController = [[SearchObjectsViewController alloc] initWithCancelButton:NO andPagination:YES nibName:@"IMOAutocompletionViewController"];
                 break;
             case 2:
-                viewController = [[AppContactsListViewController alloc] initWithNibName:@"AppContactsListViewController" bundle:nil];
+                viewController = [[ContactsListViewController alloc] initWithNibName:@"ContactsListViewController" bundle:nil];
                 break;
             case 3:
                 viewController = [[DemandsListViewController alloc] initWithNibName:@"DemandsListViewController" bundle:nil];

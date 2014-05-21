@@ -238,15 +238,16 @@
 
 - (void)customizeViews
 {
-    [[UISwitch appearance] setOnTintColor:[UIColor blackColor]];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationController class], nil]
+     setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName, [NSValue valueWithUIOffset:UIOffsetMake(0, 1)],NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
     
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"black.png"] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setFrame:CGRectMake(0.0f, 0.0f, 320.0f, [[UINavigationBar appearance] bounds].size.height)];
+    [[UINavigationBar appearance] setFrame:CGRectMake(0.0f, 0.0f, SCREEN_WIDTH, [[UINavigationBar appearance] bounds].size.height)];
     [[[UINavigationBar appearance] layer] setBorderWidth:0.0f];
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-300.0f, 0.0f) forBarMetrics:UIBarMetricsDefault];
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-SCREEN_WIDTH, 0.0f) forBarMetrics:UIBarMetricsDefault];
 }
 
 @end

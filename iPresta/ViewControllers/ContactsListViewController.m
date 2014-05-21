@@ -1,12 +1,12 @@
 //
-//  AppContactsListViewController.m
+//  ContactsListViewController.m
 //  iPresta
 //
-//  Created by Nacho Brambilla on 22/07/13.
-//  Copyright (c) 2013 Nacho. All rights reserved.
+//  Created by Nacho Brambilla  on 21/05/14.
+//  Copyright (c) 2014 Nacho. All rights reserved.
 //
 
-#import "AppContactsListViewController.h"
+#import "ContactsListViewController.h"
 #import "iPrestaNSString.h"
 #import "FriendIP.h"
 #import "ProgressHUD.h"
@@ -15,11 +15,11 @@
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 
-@interface AppContactsListViewController ()
+@interface ContactsListViewController ()
 
 @end
 
-@implementation AppContactsListViewController
+@implementation ContactsListViewController
 
 - (void)viewDidLoad
 {
@@ -41,13 +41,9 @@
 
 - (void)setTableView
 {
-    tableView.sectionIndexColor = [UIColor blackColor];
-    tableView.sectionIndexBackgroundColor = [UIColor clearColor];
-    
     filteredAppContactsList = [NSMutableArray new];
     appContactsList = [[FriendIP getAll] copy];
     appContactsList = [[self partitionObjects:appContactsList collationStringSelector:@selector(firstLetter)] mutableCopy];
-    [tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -72,7 +68,7 @@
                 [filteredAppContactsList addObject:friend];
             }
         }
-    }    
+    }
 }
 
 #pragma mark - UISearchDisplayController Delegate Methods
@@ -101,7 +97,7 @@
     else
     {
         BOOL showSection = [[appContactsList objectAtIndex:section] count] != 0;
-    
+        
         return (showSection) ? [[[UILocalizedIndexedCollation currentCollation] sectionTitles] objectAtIndex:section] : nil;
     }
 }
@@ -151,43 +147,43 @@
 }
 
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 /*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ }
+ else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 #pragma mark - Table view delegate
 
@@ -213,7 +209,6 @@
     if (_tableView == self.searchDisplayController.searchResultsTableView)
 	{
         friend = [filteredAppContactsList objectAtIndex:indexPath.row];
-        [searchBar resignFirstResponder];
     }
 	else friend = [[appContactsList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     

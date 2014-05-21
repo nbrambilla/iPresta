@@ -129,9 +129,9 @@
 		193A729C17672BFF001EB94D /* IMOAutocompletionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A729717672BFF001EB94D /* IMOAutocompletionViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		193A729D17672BFF001EB94D /* IMOCompletionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A729917672BFF001EB94D /* IMOCompletionCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		193A729E17672BFF001EB94D /* IMOCompletionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A729B17672BFF001EB94D /* IMOCompletionController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		194CE55F179D75B8008BFDE0 /* AppContactsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194CE55D179D75B8008BFDE0 /* AppContactsListViewController.m */; };
-		194CE560179D75B8008BFDE0 /* AppContactsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 194CE55E179D75B8008BFDE0 /* AppContactsListViewController.xib */; };
 		1952EFA1176861990057820B /* IMOAutocompletionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1952EF9F176861990057820B /* IMOAutocompletionViewController.xib */; };
+		1976A80E192CC66E0081D1EF /* ContactsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1976A80C192CC66E0081D1EF /* ContactsListViewController.m */; };
+		1976A80F192CC66E0081D1EF /* ContactsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1976A80D192CC66E0081D1EF /* ContactsListViewController.xib */; };
 		199B0C511924C32800A181A4 /* IPCheckbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 199B0C501924C32800A181A4 /* IPCheckbox.m */; };
 		199B0C541924C37D00A181A4 /* cb_mono_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 199B0C521924C37D00A181A4 /* cb_mono_off@2x.png */; };
 		199B0C551924C37D00A181A4 /* cb_mono_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 199B0C531924C37D00A181A4 /* cb_mono_on@2x.png */; };
@@ -359,10 +359,10 @@
 		193A729917672BFF001EB94D /* IMOCompletionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMOCompletionCell.m; path = "External Frameworks/IMOAutocompletionViewController/IMOCompletionCell.m"; sourceTree = "<group>"; };
 		193A729A17672BFF001EB94D /* IMOCompletionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMOCompletionController.h; path = "External Frameworks/IMOAutocompletionViewController/IMOCompletionController.h"; sourceTree = "<group>"; };
 		193A729B17672BFF001EB94D /* IMOCompletionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IMOCompletionController.m; path = "External Frameworks/IMOAutocompletionViewController/IMOCompletionController.m"; sourceTree = "<group>"; };
-		194CE55C179D75B7008BFDE0 /* AppContactsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppContactsListViewController.h; path = ViewControllers/AppContactsListViewController.h; sourceTree = "<group>"; };
-		194CE55D179D75B8008BFDE0 /* AppContactsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppContactsListViewController.m; path = ViewControllers/AppContactsListViewController.m; sourceTree = "<group>"; };
-		194CE55E179D75B8008BFDE0 /* AppContactsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AppContactsListViewController.xib; path = ViewControllers/AppContactsListViewController.xib; sourceTree = "<group>"; };
 		1952EF9F176861990057820B /* IMOAutocompletionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = IMOAutocompletionViewController.xib; path = iPresta/ViewControllers/IMOAutocompletionViewController.xib; sourceTree = "<group>"; };
+		1976A80B192CC66E0081D1EF /* ContactsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactsListViewController.h; path = ViewControllers/ContactsListViewController.h; sourceTree = "<group>"; };
+		1976A80C192CC66E0081D1EF /* ContactsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactsListViewController.m; path = ViewControllers/ContactsListViewController.m; sourceTree = "<group>"; };
+		1976A80D192CC66E0081D1EF /* ContactsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ContactsListViewController.xib; path = ViewControllers/ContactsListViewController.xib; sourceTree = "<group>"; };
 		199B0C4F1924C32800A181A4 /* IPCheckbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IPCheckbox.h; path = ViewControllers/IPCheckbox.h; sourceTree = "<group>"; };
 		199B0C501924C32800A181A4 /* IPCheckbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IPCheckbox.m; path = ViewControllers/IPCheckbox.m; sourceTree = "<group>"; };
 		199B0C521924C37D00A181A4 /* cb_mono_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cb_mono_off@2x.png"; path = "Images/cb_mono_off@2x.png"; sourceTree = "<group>"; };
@@ -741,9 +741,9 @@
 				19C263BF17943B240052DA32 /* FormOtherViewController.h */,
 				19C263C017943B250052DA32 /* FormOtherViewController.m */,
 				19C263C117943B250052DA32 /* FormOtherViewController.xib */,
-				194CE55C179D75B7008BFDE0 /* AppContactsListViewController.h */,
-				194CE55D179D75B8008BFDE0 /* AppContactsListViewController.m */,
-				194CE55E179D75B8008BFDE0 /* AppContactsListViewController.xib */,
+				1976A80B192CC66E0081D1EF /* ContactsListViewController.h */,
+				1976A80C192CC66E0081D1EF /* ContactsListViewController.m */,
+				1976A80D192CC66E0081D1EF /* ContactsListViewController.xib */,
 				156412E8184FBF2A009C4868 /* SearchObjectCell.h */,
 				156412E9184FBF2A009C4868 /* SearchObjectCell.m */,
 				156412EB184FBF4F009C4868 /* SearchObjectCell.xib */,
@@ -949,9 +949,9 @@
 				19C263B9179406890052DA32 /* FormAudioViewController.xib in Resources */,
 				19C263BE179433B00052DA32 /* FormVideoViewController.xib in Resources */,
 				19C263C317943B260052DA32 /* FormOtherViewController.xib in Resources */,
+				1976A80F192CC66E0081D1EF /* ContactsListViewController.xib in Resources */,
 				19316D6517993C8E00939597 /* contacts_icon@2x.png in Resources */,
 				19316D69179947E000939597 /* search_icon@2x.png in Resources */,
-				194CE560179D75B8008BFDE0 /* AppContactsListViewController.xib in Resources */,
 				153513E417BC029D00E4193D /* SideMenuViewController.xib in Resources */,
 				199B0C541924C37D00A181A4 /* cb_mono_off@2x.png in Resources */,
 				153513EE17BC1ED100E4193D /* menu-icon@2x.png in Resources */,
@@ -1050,13 +1050,13 @@
 				19C263B8179406890052DA32 /* FormAudioViewController.m in Sources */,
 				19C263BD179433B00052DA32 /* FormVideoViewController.m in Sources */,
 				19C263C217943B260052DA32 /* FormOtherViewController.m in Sources */,
-				194CE55F179D75B8008BFDE0 /* AppContactsListViewController.m in Sources */,
 				19BA25CF179E6E83004F24DE /* AddressBookRegister.m in Sources */,
 				19B9A0E617A9170D00CB6485 /* iPresta.xcdatamodeld in Sources */,
 				153513E317BC029D00E4193D /* SideMenuViewController.m in Sources */,
 				153513E517BC029D00E4193D /* SlideViewController.m in Sources */,
 				153513EA17BC02B300E4193D /* MFSideMenuContainerViewController.m in Sources */,
 				154985C117BD6DC000AE1135 /* SlideTableViewController.m in Sources */,
+				1976A80E192CC66E0081D1EF /* ContactsListViewController.m in Sources */,
 				154985CA17BD7C8E00AE1135 /* SearchObjectsViewController.m in Sources */,
 				1549958517C8FD9E00857BB2 /* FriendIP.m in Sources */,
 				1549958817C8FD9E00857BB2 /* GiveIP.m in Sources */,
