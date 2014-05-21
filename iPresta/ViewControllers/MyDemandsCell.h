@@ -10,6 +10,7 @@
 
 @class DemandIP;
 @class AsyncImageView;
+@class ObjectIP;
 
 @interface MyDemandsCell : UITableViewCell
 {
@@ -21,6 +22,6 @@
 
 @property(nonatomic, retain) IBOutlet AsyncImageView *objectImageView;
 
-- (void)setDemand:(DemandIP *)newDemand withObjectName:(NSString *)name;
+- (void)setDemand:(DemandIP *)newDemand withObject:(ObjectIP *)object;
 
 @end

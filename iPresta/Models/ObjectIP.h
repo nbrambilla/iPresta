@@ -14,7 +14,7 @@
 @class UserIP;
 @class FriendIP;
 @class DemandIP;
-
+@class AsyncImageView;
 
 typedef NS_ENUM(NSUInteger, ObjectState) {
     Property = 0,
@@ -76,17 +76,17 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 
 @interface ObjectIP : CoreDataManager
 
-@property (nonatomic, retain) NSString * objectId;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSString * author;
-@property (nonatomic, retain) NSString * barcode;
-@property (nonatomic, retain) NSString * descriptionObject;
-@property (nonatomic, retain) NSString * editorial;
-@property (nonatomic, retain) NSNumber * type;
-@property (nonatomic, retain) NSNumber * audioType;
-@property (nonatomic, retain) NSNumber * videoType;
-@property (nonatomic, retain) NSNumber * state;
-@property (nonatomic, retain) NSNumber * visible;
+@property (nonatomic, retain) NSString *objectId;
+@property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain) NSString *author;
+@property (nonatomic, retain) NSString *barcode;
+@property (nonatomic, retain) NSString *descriptionObject;
+@property (nonatomic, retain) NSString *editorial;
+@property (nonatomic, retain) NSNumber *type;
+@property (nonatomic, retain) NSNumber *audioType;
+@property (nonatomic, retain) NSNumber *videoType;
+@property (nonatomic, retain) NSNumber *state;
+@property (nonatomic, retain) NSNumber *visible;
 @property (nonatomic, retain) NSSet *gives;
 @property (nonatomic, retain) NSString *imageURL;
 
@@ -110,6 +110,7 @@ typedef NS_ENUM(NSInteger, VideoObjectType) {
 - (NSString *)textAudioType;
 - (NSString *)textVideoType;
 
+- (void)imageInImageView:(AsyncImageView *)imageView;
 - (void)addObjectWithImageData:(NSData *)imageData;
 - (void)deleteObject;
 - (GiveIP *)currentGive;

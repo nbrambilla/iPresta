@@ -20,18 +20,21 @@ PODS:
     - AFNetworking/NSURLSession
   - AsyncImageView (1.5.1)
   - EZForm (1.1.4)
+  - MFSideMenu (0.5.4)
   - MMPickerView (0.0.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - AsyncImageView (~> 1.5.1)
   - EZForm (~> 1.1.4)
+  - MFSideMenu (~> 0.5.4)
   - MMPickerView (~> 0.0.1)
 
 SPEC CHECKSUMS:
   AFNetworking: ab63e259fe91eef4519b371ef0a4955af0e73e64
   AsyncImageView: 388442ae8314a5c99de0d98040c2926826d31da7
   EZForm: 0846af5f3f42f6cd490c6e9e56164ae9b587b668
+  MFSideMenu: fca49243c818323a2758af4c23ce81a0b17497d7
   MMPickerView: e00f2969cb857297adb165b421b2a3284470e686
 
-COCOAPODS: 0.32.1
+COCOAPODS: 0.33.0

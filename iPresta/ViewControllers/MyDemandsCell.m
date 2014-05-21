@@ -11,6 +11,7 @@
 #import "FriendIP.h"
 #import "ObjectIP.h"
 #import "AsyncImageView.h"
+#import "ObjectIP.h"
 
 @implementation MyDemandsCell
 
@@ -30,16 +31,19 @@
     [super setSelected:selected animated:animated];
 }
 
-- (void)setDemand:(DemandIP *)newDemand withObjectName:(NSString *)name
+- (void)setDemand:(DemandIP *)newDemand withObject:(ObjectIP *)object
 {
     demand = newDemand;
     
-    objectName.text = name;
+    objectName.text = object.name;
     friendName.text = [demand.to getFullName];
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:IPString(@"Formato fecha")];
-    date.text = [dateFormat stringFromDate:demand.date];    
+    date.text = [dateFormat stringFromDate:demand.date];
+    
+    self.objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[object.type integerValue]]];
+    if (object.imageURL) [object imageInImageView:self.objectImageView];;
 }
 
 - (void)setObjectImage:(UIImage *)image

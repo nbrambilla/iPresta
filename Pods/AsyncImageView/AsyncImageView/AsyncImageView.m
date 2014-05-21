@@ -32,6 +32,7 @@
 
 
 #import "AsyncImageView.h"
+#import "UIImageView+AFNetworking.h"
 #import <objc/message.h>
 #import <QuartzCore/QuartzCore.h>
 

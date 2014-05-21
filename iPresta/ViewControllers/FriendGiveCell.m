@@ -7,6 +7,8 @@
 //
 
 #import "FriendGiveCell.h"
+#import "ObjectIP.h"
+#import "AsyncImageView.h"
 
 @implementation FriendGiveCell
 
@@ -19,17 +21,17 @@
     return self;
 }
 
-- (void)setGive:(GiveIP *)give withObjectName:(NSString *)name
+- (void)setGive:(GiveIP *)give withObject:(ObjectIP *)object
 {
-    objectName.text = name;
+    objectName.text = object.name;
     friendName.text = [give.from getFullName];
 
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:IPString(@"Formato fecha")];
     date.text = [NSString stringWithFormat:@"%@ %@ %@ %@", IPString(@"Desde"), [dateFormat stringFromDate:give.dateBegin], IPString(@"Hasta"), [dateFormat stringFromDate:give.dateEnd]];
 
-    if ([give isExpired]) stateLabel.text = IPString(@"Vencido");
-    else stateLabel.text = @"";
+    self.objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[object.type integerValue]]];
+    if (object.imageURL) [object imageInImageView:self.objectImageView];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

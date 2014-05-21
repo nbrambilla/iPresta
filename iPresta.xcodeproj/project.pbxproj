@@ -25,7 +25,6 @@
 		153513E317BC029D00E4193D /* SideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 153513DF17BC029D00E4193D /* SideMenuViewController.m */; };
 		153513E417BC029D00E4193D /* SideMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 153513E017BC029D00E4193D /* SideMenuViewController.xib */; };
 		153513E517BC029D00E4193D /* SlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 153513E217BC029D00E4193D /* SlideViewController.m */; };
-		153513EA17BC02B300E4193D /* MFSideMenuContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 153513E917BC02B300E4193D /* MFSideMenuContainerViewController.m */; };
 		153513EE17BC1ED100E4193D /* menu-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 153513EC17BC1ED100E4193D /* menu-icon@2x.png */; };
 		153513F217BC2F6300E4193D /* objects_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 153513F017BC2F6300E4193D /* objects_icon@2x.png */; };
 		153513F617BC32B400E4193D /* orders_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 153513F417BC32B400E4193D /* orders_icon@2x.png */; };
@@ -121,7 +120,6 @@
 		191D1B55176B51C200DF1E48 /* iPrestaImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 191D1B54176B51C200DF1E48 /* iPrestaImageView.m */; };
 		191D1B5C176B6EEF00DF1E48 /* close_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 191D1B5A176B6EEF00DF1E48 /* close_icon@2x.png */; };
 		19272A4417730A3900FC45B0 /* PHTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19272A4317730A3900FC45B0 /* PHTextView.m */; };
-		19272A4917731B5600FC45B0 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19272A4817731B5600FC45B0 /* TPKeyboardAvoidingScrollView.m */; };
 		192E435B192140C500DBD87E /* black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 192E435A192140C500DBD87E /* black@2x.png */; };
 		19316D6517993C8E00939597 /* contacts_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19316D6317993C8E00939597 /* contacts_icon@2x.png */; };
 		19316D69179947E000939597 /* search_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19316D67179947E000939597 /* search_icon@2x.png */; };
@@ -132,6 +130,7 @@
 		1952EFA1176861990057820B /* IMOAutocompletionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1952EF9F176861990057820B /* IMOAutocompletionViewController.xib */; };
 		1976A80E192CC66E0081D1EF /* ContactsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1976A80C192CC66E0081D1EF /* ContactsListViewController.m */; };
 		1976A80F192CC66E0081D1EF /* ContactsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1976A80D192CC66E0081D1EF /* ContactsListViewController.xib */; };
+		1976A811192CE5CF0081D1EF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1976A810192CE5CF0081D1EF /* Images.xcassets */; };
 		199B0C511924C32800A181A4 /* IPCheckbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 199B0C501924C32800A181A4 /* IPCheckbox.m */; };
 		199B0C541924C37D00A181A4 /* cb_mono_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 199B0C521924C37D00A181A4 /* cb_mono_off@2x.png */; };
 		199B0C551924C37D00A181A4 /* cb_mono_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 199B0C531924C37D00A181A4 /* cb_mono_on@2x.png */; };
@@ -187,9 +186,6 @@
 		153513E017BC029D00E4193D /* SideMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SideMenuViewController.xib; path = ViewControllers/SideMenuViewController.xib; sourceTree = "<group>"; };
 		153513E117BC029D00E4193D /* SlideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlideViewController.h; path = ViewControllers/SlideViewController.h; sourceTree = "<group>"; };
 		153513E217BC029D00E4193D /* SlideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlideViewController.m; path = ViewControllers/SlideViewController.m; sourceTree = "<group>"; };
-		153513E717BC02B300E4193D /* MFSideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFSideMenu.h; sourceTree = "<group>"; };
-		153513E817BC02B300E4193D /* MFSideMenuContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFSideMenuContainerViewController.h; sourceTree = "<group>"; };
-		153513E917BC02B300E4193D /* MFSideMenuContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFSideMenuContainerViewController.m; sourceTree = "<group>"; };
 		153513EC17BC1ED100E4193D /* menu-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "menu-icon@2x.png"; path = "Images/menu-icon@2x.png"; sourceTree = "<group>"; };
 		153513F017BC2F6300E4193D /* objects_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "objects_icon@2x.png"; path = "Images/objects_icon@2x.png"; sourceTree = "<group>"; };
 		153513F417BC32B400E4193D /* orders_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "orders_icon@2x.png"; path = "Images/orders_icon@2x.png"; sourceTree = "<group>"; };
@@ -347,8 +343,6 @@
 		191D1B5A176B6EEF00DF1E48 /* close_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "close_icon@2x.png"; path = "Images/close_icon@2x.png"; sourceTree = "<group>"; };
 		19272A4217730A3900FC45B0 /* PHTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHTextView.h; path = "External Frameworks/PHTextView/PHTextView.h"; sourceTree = SOURCE_ROOT; };
 		19272A4317730A3900FC45B0 /* PHTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHTextView.m; path = "External Frameworks/PHTextView/PHTextView.m"; sourceTree = SOURCE_ROOT; };
-		19272A4717731B5600FC45B0 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPKeyboardAvoidingScrollView.h; path = "External Frameworks/TPKeyboardAvoidingScrollView/TPKeyboardAvoidingScrollView.h"; sourceTree = "<group>"; };
-		19272A4817731B5600FC45B0 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPKeyboardAvoidingScrollView.m; path = "External Frameworks/TPKeyboardAvoidingScrollView/TPKeyboardAvoidingScrollView.m"; sourceTree = "<group>"; };
 		192E435A192140C500DBD87E /* black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "black@2x.png"; path = "Images/black@2x.png"; sourceTree = "<group>"; };
 		19316D6317993C8E00939597 /* contacts_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "contacts_icon@2x.png"; path = "Images/contacts_icon@2x.png"; sourceTree = "<group>"; };
 		19316D67179947E000939597 /* search_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "search_icon@2x.png"; path = "Images/search_icon@2x.png"; sourceTree = "<group>"; };
@@ -363,6 +357,7 @@
 		1976A80B192CC66E0081D1EF /* ContactsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactsListViewController.h; path = ViewControllers/ContactsListViewController.h; sourceTree = "<group>"; };
 		1976A80C192CC66E0081D1EF /* ContactsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactsListViewController.m; path = ViewControllers/ContactsListViewController.m; sourceTree = "<group>"; };
 		1976A80D192CC66E0081D1EF /* ContactsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ContactsListViewController.xib; path = ViewControllers/ContactsListViewController.xib; sourceTree = "<group>"; };
+		1976A810192CE5CF0081D1EF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		199B0C4F1924C32800A181A4 /* IPCheckbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IPCheckbox.h; path = ViewControllers/IPCheckbox.h; sourceTree = "<group>"; };
 		199B0C501924C32800A181A4 /* IPCheckbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IPCheckbox.m; path = ViewControllers/IPCheckbox.m; sourceTree = "<group>"; };
 		199B0C521924C37D00A181A4 /* cb_mono_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cb_mono_off@2x.png"; path = "Images/cb_mono_off@2x.png"; sourceTree = "<group>"; };
@@ -477,22 +472,9 @@
 			name = "Extends UIControl";
 			sourceTree = "<group>";
 		};
-		153513E617BC02B300E4193D /* MFSideMenu */ = {
-			isa = PBXGroup;
-			children = (
-				153513E717BC02B300E4193D /* MFSideMenu.h */,
-				153513E817BC02B300E4193D /* MFSideMenuContainerViewController.h */,
-				153513E917BC02B300E4193D /* MFSideMenuContainerViewController.m */,
-			);
-			name = MFSideMenu;
-			path = "External Frameworks/MFSideMenu";
-			sourceTree = "<group>";
-		};
 		15517A0C1725C976002FFB69 /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				153513E617BC02B300E4193D /* MFSideMenu */,
-				19272A4617731B4700FC45B0 /* TPKeyboardAvoidingScrollView */,
 				19272A4517730A4700FC45B0 /* PHTextView */,
 				193A729517672BF0001EB94D /* IMOAutocompletionViewController */,
 				1563FF8B17404B8000826DC4 /* ProgressHUD */,
@@ -652,6 +634,7 @@
 				156FDE1916F399E900F4BEEA /* iPrestaAppDelegate.m */,
 				1518EA14174A6D86000EB0FE /* Images */,
 				156FDE4616F39DCC00F4BEEA /* ViewControllers */,
+				1976A810192CE5CF0081D1EF /* Images.xcassets */,
 				156FDE1016F399E900F4BEEA /* Supporting Files */,
 			);
 			path = iPresta;
@@ -827,15 +810,6 @@
 			name = PHTextView;
 			sourceTree = "<group>";
 		};
-		19272A4617731B4700FC45B0 /* TPKeyboardAvoidingScrollView */ = {
-			isa = PBXGroup;
-			children = (
-				19272A4717731B5600FC45B0 /* TPKeyboardAvoidingScrollView.h */,
-				19272A4817731B5600FC45B0 /* TPKeyboardAvoidingScrollView.m */,
-			);
-			name = TPKeyboardAvoidingScrollView;
-			sourceTree = "<group>";
-		};
 		193A729517672BF0001EB94D /* IMOAutocompletionViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -927,6 +901,7 @@
 				1563FF78173F9ABE00826DC4 /* zbar-back.png in Resources */,
 				1563FF79173F9ABE00826DC4 /* zbar-help.html in Resources */,
 				1563FF7A173F9ABE00826DC4 /* zbar-helpicons.png in Resources */,
+				1976A811192CE5CF0081D1EF /* Images.xcassets in Resources */,
 				1563FF7B173F9ABE00826DC4 /* zbar-samples.png in Resources */,
 				15393FF61742BA020012BA4F /* ObjectDetailViewController.xib in Resources */,
 				15FEB8371747C88100BB6750 /* iPrestaViewController.xib in Resources */,
@@ -1045,7 +1020,6 @@
 				193A729E17672BFF001EB94D /* IMOCompletionController.m in Sources */,
 				191D1B55176B51C200DF1E48 /* iPrestaImageView.m in Sources */,
 				19272A4417730A3900FC45B0 /* PHTextView.m in Sources */,
-				19272A4917731B5600FC45B0 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				19C263AE1793F7490052DA32 /* FormBookViewController.m in Sources */,
 				19C263B8179406890052DA32 /* FormAudioViewController.m in Sources */,
 				19C263BD179433B00052DA32 /* FormVideoViewController.m in Sources */,
@@ -1054,7 +1028,6 @@
 				19B9A0E617A9170D00CB6485 /* iPresta.xcdatamodeld in Sources */,
 				153513E317BC029D00E4193D /* SideMenuViewController.m in Sources */,
 				153513E517BC029D00E4193D /* SlideViewController.m in Sources */,
-				153513EA17BC02B300E4193D /* MFSideMenuContainerViewController.m in Sources */,
 				154985C117BD6DC000AE1135 /* SlideTableViewController.m in Sources */,
 				1976A80E192CC66E0081D1EF /* ContactsListViewController.m in Sources */,
 				154985CA17BD7C8E00AE1135 /* SearchObjectsViewController.m in Sources */,
@@ -1171,6 +1144,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 10C0356C30454C14850EA615 /* Pods.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Nacho Brambilla (A9J72936CX)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nacho Brambilla (A9J72936CX)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1200,6 +1175,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 10C0356C30454C14850EA615 /* Pods.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Nacho Brambilla (A9J72936CX)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nacho Brambilla (A9J72936CX)";
 				FRAMEWORK_SEARCH_PATHS = (

@@ -16,6 +16,7 @@
 #import "iPrestaNSError.h"
 //#import "ConnectionData.h"
 #import "AFNetworking.h"
+#import "AsyncImageView.h"
 
 @implementation ObjectIP
 
@@ -531,6 +532,28 @@ static ObjectIP *currentObject;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadFriendsDemandsTableObserver" object:nil];
 }
 
+- (void)imageInImageView:(AsyncImageView *)imageView
+{
+    UIImage *image = [[[AsyncImageLoader sharedLoader] cache] objectForKey:[NSURL URLWithString:self.imageURL]];
+    
+    if (image) imageView.image = image;
+    else
+    {
+        NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:self.imageURL]];
+        AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
+        requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
+        [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
+        {
+            imageView.image = responseObject;
+            [[[AsyncImageLoader sharedLoader] cache] setObject:responseObject forKey:[NSURL URLWithString:self.imageURL]];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        }];
+        [requestOperation start];
+    }
+}
+
+
 + (NSArray *)countAllByType
 {
     __block NSMutableArray *objectsTypeArray;
@@ -947,32 +970,8 @@ static ObjectIP *currentObject;
 {
     // se setea el titulo
     if (info[@"original_title"] != [NSNull null]) self.name = info[@"original_title"];
-    // se setea el director
-//    if (info[@"directors"] != [NSNull null])
-//    {
-//        id directors = info[@"directors"];
-////        self.author = @"";
-//        
-//        for (NSString *director in directors)
-//        {
-//            self.author = [self.author stringByAppendingString:director];
-//            
-//            if (![[directors lastObject] isEqual:director])
-//            {
-//                self.author = [self.author stringByAppendingString:@", "];
-//            }
-//        }
-//    }
     // se setea la imagen
-    if (info[@"poster_path"] != [NSNull null])
-    {
-//        if ([[info objectForKey:@"poster"] objectForKey:@"imdb"] != [NSNull null]) self.imageURL = [[info objectForKey:@"poster"] objectForKey:@"imdb"];
-//        else if ([[info objectForKey:@"poster"] objectForKey:@"cover"] != [NSNull null]) self.imageURL = [[info objectForKey:@"poster"] objectForKey:@"cover"];
-        self.imageURL = [NSString stringWithFormat:MOVIEDB_IMAGE_URL, info[@"poster_path"]];
-        
-    }
-    // se setea el identificador
-//    if (info[@"imdb_id"] != [NSNull null]) self.barcode = info[@"imdb_id"];
+    if (info[@"poster_path"] != [NSNull null]) self.imageURL = [NSString stringWithFormat:MOVIEDB_IMAGE_URL, info[@"poster_path"]];
 }
 
 - (void)setVideoDirectors:(id)crew
@@ -990,6 +989,8 @@ static ObjectIP *currentObject;
     
     self.author = [directors copy];
 }
+
+# pragma mark - Setters
 
 + (ObjectIP *)listObjectWithObject:(ObjectIP *)object
 {

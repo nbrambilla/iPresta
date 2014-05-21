@@ -105,12 +105,8 @@
     frame.origin.y = loanUpLabel.frame.origin.y + loanUpLabel.frame.size.height + 5.0f;
     stateLabel.frame = frame;
     
-    if (currentObject.imageURL)
-    {
-        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:imageView];
-        imageView.imageURL = [NSURL URLWithString:currentObject.imageURL];
-    }
-    else imageView.image = [UIImage imageNamed:IMAGE_TYPES[currentObject.type.integerValue]];
+    imageView.image = [UIImage imageNamed:IMAGE_TYPES[currentObject.type.integerValue]];
+    if (currentObject.imageURL) imageView.imageURL = [NSURL URLWithString:currentObject.imageURL];
     
     frame = imageView.frame;
     frame.origin.y = stateLabel.frame.origin.y + stateLabel.frame.size.height + 10.0f;

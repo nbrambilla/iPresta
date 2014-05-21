@@ -26,13 +26,10 @@
 {
     objectName.text = give.object.name;
     friendName.text = (give.to) ? [give.to getFullName] : give.name;
+
+    objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[give.object.type integerValue]]];
     
-    if (give.object.imageURL)
-    {
-        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:objectImageView];
-        objectImageView.imageURL = [NSURL URLWithString:give.object.imageURL];
-    }
-    else objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[give.object.type integerValue]]];
+    if (give.object.imageURL) objectImageView.imageURL = [NSURL URLWithString:give.object.imageURL];
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:IPString(@"Formato fecha")];

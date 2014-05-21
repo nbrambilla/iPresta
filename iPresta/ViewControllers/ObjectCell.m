@@ -24,12 +24,9 @@
 {
     objectName.text = object.name;
     objectAuthor.text = (object.author) ? object.author : IPString(@"Desconocido");
-    if (object.imageURL)
-    {
-        [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:objectImageView];
-        objectImageView.imageURL = [NSURL URLWithString:object.imageURL];
-    }
-    else objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[object.type integerValue]]];
+    
+    objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:[object.type integerValue]]];
+    if (object.imageURL) [object imageInImageView:objectImageView];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

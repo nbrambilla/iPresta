@@ -11,17 +11,17 @@
 #import "FriendIP.h"
 
 @class AsyncImageView;
+@class ObjectIP;
 
 @interface FriendGiveCell : UITableViewCell
 {
     IBOutlet UILabel *objectName;
     IBOutlet UILabel *friendName;
     IBOutlet UILabel *date;
-    IBOutlet UILabel *stateLabel;
 }
 
 @property(nonatomic, retain) IBOutlet AsyncImageView *objectImageView;
 
-- (void)setGive:(GiveIP *)newDemand withObjectName:(NSString *)name;
+- (void)setGive:(GiveIP *)newDemand withObject:(ObjectIP *)object;
 
 @end

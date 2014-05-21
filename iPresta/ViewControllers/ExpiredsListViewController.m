@@ -143,27 +143,13 @@
             [ObjectIP getDBObjectWithObjectId:give.iPrestaObjectId withBlock:^(NSError *error, ObjectIP *object)
             {
                 [objectsArray replaceObjectAtIndex:indexPath.row withObject:object];
-                [cell setGive:give withObjectName:object.name];
-
-                if (object.imageURL)
-                {
-                    [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.objectImageView];
-                    cell.objectImageView.imageURL = [NSURL URLWithString:object.imageURL];
-                }
-                else cell.objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:object.type.integerValue]];
+                [cell setGive:give withObject:object];
             }];
         }
         else
         {
             ObjectIP *object = [objectsArray objectAtIndex:indexPath.row];
-            [cell setGive:give withObjectName:object.name];
-            
-            if (give.object.imageURL)
-            {
-                [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:cell.objectImageView];
-                cell.objectImageView.imageURL = [NSURL URLWithString:give.object.imageURL];
-            }
-            else cell.objectImageView.image = [UIImage imageNamed:[ObjectIP imageType:give.object.type.integerValue]];
+            [cell setGive:give withObject:object];            
         }
         
         return cell;

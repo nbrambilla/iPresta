@@ -93,6 +93,8 @@
 - (void)setCancelButton
 {
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(controllerCancelled)];
+    [cancelButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, [NSValue valueWithUIOffset:UIOffsetMake(0, 1)],NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
+    [cancelButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, [NSValue valueWithUIOffset:UIOffsetMake(0, 1)],NSForegroundColorAttributeName,nil] forState:UIControlStateHighlighted];
     self.navigationItem.rightBarButtonItem = cancelButton;
     
     cancelButton = nil;
