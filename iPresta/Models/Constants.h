@@ -14,8 +14,8 @@
 
 #define APP_NAME @"iPresta"
 #define IPString(string) NSLocalizedString(string, nil)
-#define MOVIES_API_KEY @"1a42dcd12f15495cb8b85bfa74b6ea97"
-#define MOVIE_IMAGE_URL @"https://image.tmdb.org/t/p/w185/%@"
+#define MOVIEDB_API_KEY @"1a42dcd12f15495cb8b85bfa74b6ea97"
+#define MOVIEDB_IMAGE_URL @"https://image.tmdb.org/t/p/w185/%@"
 #define FB_URL_IMAGE @"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1"
 
 #define GBOOK_ISBN_URL @"https://www.googleapis.com/books/v1/volumes?q=isbn:%@"
@@ -24,6 +24,8 @@
 #define GBOOKS_SEARCH_URL @"https://www.googleapis.com/books/v1/volumes?q=%@&maxResults=%d&startIndex=%d"
 #define DISCOGS_SEARCH_URL @"http://api.discogs.com/database/search?title=%@&type=release&page=%d&per_page=%d"
 #define MOVIEDB_SEARCH_URL @"http://api.themoviedb.org/3/search/movie?query=%@&page=%d&api_key=%@"
+
+#define MOVIEDB_CAST_URL @"http://api.themoviedb.org/3/movie/%@/casts?api_key=%@"
 
 #define STATE_TYPES @[IPString(@"No prestado"), IPString(@"Prestado"), IPString(@"A devolver")]
 #define OBJECT_TYPES @[IPString(@"Libro"), IPString(@"Audio"), IPString(@"Video"), IPString(@"Otro")]

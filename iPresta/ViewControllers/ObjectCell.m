@@ -39,40 +39,40 @@
     // Configure the view for the selected state
 }
 
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    
-    if (self.editing)
-    {
-        [UIView animateWithDuration:0.3
-                         animations:^{
-            CGRect frame = objectName.frame;
-            frame.size.width = 115.0f;
-            objectName.frame = frame;
-            
-            frame = objectAuthor.frame;
-            frame.size.width = 115.0f;
-            objectAuthor.frame = frame;
-        }
-        completion:^(BOOL finished) {
-        }];
-    }
-    else
-    {
-       [UIView animateWithDuration:0.3
-                         animations:^{
-            CGRect frame = objectName.frame;
-            frame.size.width = 210.0f;
-            objectName.frame = frame;
-            
-            frame = objectAuthor.frame;
-            frame.size.width = 210.0f;
-            objectAuthor.frame = frame;
-        }
-        completion:^(BOOL finished) {
-        }];
-    };
-}
+//- (void)layoutSubviews
+//{
+//    [super layoutSubviews];
+//    
+//    if (self.editing)
+//    {
+//        [UIView animateWithDuration:0.3
+//                         animations:^{
+//            CGRect frame = objectName.frame;
+//            frame.size.width = 115.0f;
+//            objectName.frame = frame;
+//            
+//            frame = objectAuthor.frame;
+//            frame.size.width = 115.0f;
+//            objectAuthor.frame = frame;
+//        }
+//        completion:^(BOOL finished) {
+//        }];
+//    }
+//    else
+//    {
+//       [UIView animateWithDuration:0.3
+//                         animations:^{
+//            CGRect frame = objectName.frame;
+//            frame.size.width = 210.0f;
+//            objectName.frame = frame;
+//            
+//            frame = objectAuthor.frame;
+//            frame.size.width = 210.0f;
+//            objectAuthor.frame = frame;
+//        }
+//        completion:^(BOOL finished) {
+//        }];
+//    };
+//}
 
 @end

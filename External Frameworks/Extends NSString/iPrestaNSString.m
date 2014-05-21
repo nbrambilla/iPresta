@@ -130,8 +130,8 @@
     NSInteger value = [dividedString[0] integerValue];
     NSString *lapse = dividedString[1];
     
-    if ([lapse isEqual:IPString(@"semana")] || [lapse isEqual:IPString(@"semanas")]) time = ONE_DAY * 7 * value;
-    else if ([lapse isEqual:IPString(@"mes")] || [lapse isEqual:IPString(@"meses")]) time = ONE_DAY * 30 * value;
+    if ([lapse isEqual:IPString(@"Semana")] || [lapse isEqual:IPString(@"Semanas")]) time = ONE_DAY * 7 * value;
+    else if ([lapse isEqual:IPString(@"Mes")] || [lapse isEqual:IPString(@"Meses")]) time = ONE_DAY * 30 * value;
     
     return time;
 }
