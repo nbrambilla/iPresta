@@ -38,6 +38,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewDemands) name:@"RefreshNewDemandsObserver" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewGives) name:@"RefreshNewGivesObserver" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewExtends) name:@"RefreshNewExtendsObserver" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMenuCells) name:@"RefreshMenuCellsObserver" object:nil];
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNewFriends) name:@"RefreshNewFriendsObserver" object:nil];
     }
     return self;
@@ -109,6 +110,13 @@
     [self.tableView beginUpdates];
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView endUpdates];
+}
+
+- (void)refreshMenuCells
+{
+    [self refreshNewDemands];
+    [self refreshNewGives];
+    [self refreshNewExtends];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -913,7 +913,7 @@ static ObjectIP *currentObject;
             
             if (![[authors lastObject] isEqual:author])
             {
-                self.author = [self.author stringByAppendingString:@", "];
+                self.author = [self.author stringByAppendingString:SEPARATOR];
             }
         }
     }
@@ -922,7 +922,7 @@ static ObjectIP *currentObject;
     // se setea la imagen
     if (info[@"imageLinks"])
     {
-        id images = [info objectForKey:@"imageLinks"];
+        id images = info[@"imageLinks"];
         
         if (images[@"extraLarge"]) self.imageURL = images[@"extraLarge"];
         else if (images[@"large"]) self.imageURL = images[@"large"];
@@ -976,13 +976,15 @@ static ObjectIP *currentObject;
 
 - (void)setVideoDirectors:(id)crew
 {
-    NSMutableString *directors = [NSMutableString new];
+    NSMutableString *directors = nil;
     
     for (id person in crew)
     {
         if ([person[@"job"] isEqualToString:@"Director"])
         {
-            if (directors.length > 0) [directors appendString:@" / "];
+            if (directors.length > 0) [directors appendString:SEPARATOR];
+            else directors = [NSMutableString new];
+            
             [directors appendString:person[@"name"]];
         }
     }

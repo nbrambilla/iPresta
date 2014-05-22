@@ -18,7 +18,6 @@
 #import "iPrestaViewController.h"
 #import "SideMenuViewController.h"
 
-
 @implementation iPrestaAppDelegate
 
 @synthesize window;
@@ -30,7 +29,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    [Parse setApplicationId:@"ke5qAMdl1hxNkKPbmJyiOkCqfDkUtvwnRX6PKlXA" clientKey:@"xceoaXQrBv8vRium67iyjZrQfFI8lI0AROGhXsfR"];
+    [Parse setApplicationId:PARSE_APPLICATION_ID clientKey:PARSE_CLIENT_KEY];
     [PFFacebookUtils initializeFacebook];
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound];
     
@@ -140,6 +139,7 @@
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectsTableObserver" object:nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"setObjectViewObserver" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshMenuCellsObserver" object:nil];
         
         PFInstallation *currentInstallation = [PFInstallation currentInstallation];
         
@@ -240,6 +240,8 @@
 {
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationController class], nil]
      setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName, [NSValue valueWithUIOffset:UIOffsetMake(0, 1)],NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
+    
+    [[UISwitch appearance] setOnTintColor:[UIColor blackColor]];
     
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"black.png"] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];

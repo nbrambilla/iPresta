@@ -13,7 +13,11 @@
 #define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
 
 #define APP_NAME @"iPresta"
+
 #define IPString(string) NSLocalizedString(string, nil)
+
+#define PARSE_APPLICATION_ID @"ke5qAMdl1hxNkKPbmJyiOkCqfDkUtvwnRX6PKlXA"
+#define PARSE_CLIENT_KEY @"xceoaXQrBv8vRium67iyjZrQfFI8lI0AROGhXsfR"
 #define MOVIEDB_API_KEY @"1a42dcd12f15495cb8b85bfa74b6ea97"
 #define MOVIEDB_IMAGE_URL @"https://image.tmdb.org/t/p/w185/%@"
 #define FB_URL_IMAGE @"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1"
@@ -33,3 +37,5 @@
 #define VIDEO_OBJECTS_TYPE @[@"DVD", @"Bluray", @"VHS"]
 #define IMAGE_TYPES @[@"book_icon.png", @"audio_icon.png", @"video_icon.png", @"other_icon.png"]
 #define GIVE_TIMES @[IPString(@"1 Semana"), IPString(@"2 Semanas"), IPString(@"3 Semanas"), IPString(@"1 Mes"), IPString(@"2 Meses"), IPString(@"3 Meses")]
+#define OBJECTS_STATES @[IPString(@"Todos") , IPString(@"En casa"), IPString(@"Prestados")]
+#define SEPARATOR @" / "

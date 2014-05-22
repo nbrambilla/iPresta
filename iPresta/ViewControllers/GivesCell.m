@@ -58,26 +58,12 @@
 
 - (void)setMines:(NSInteger)mines
 {
-    if (mines > 0)
-    {
-        _myGivesBadge.text = [NSString stringWithFormat:@"%d", mines];
-    }
-    else
-    {
-        _myGivesBadge.text = @"-";
-    }
+    _myGivesBadge.text = (mines > 0) ? [NSString stringWithFormat:@"%d", mines] : @"-";
 }
 
 - (void)setFriends:(NSInteger)friends
 {
-    if (friends > 0)
-    {
-        _friendsGivesBadge.text = [NSString stringWithFormat:@"%d", friends];
-    }
-    else
-    {
-        _friendsGivesBadge.text = @"-";
-    }
+    _friendsGivesBadge.text = (friends > 0) ? [NSString stringWithFormat:@"%d", friends] : @"-";
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

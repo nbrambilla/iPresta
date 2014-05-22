@@ -118,7 +118,7 @@
 {
     UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, HEADER_HEIGHT, SCREEN_WIDTH, HEADER_HEIGHT)];
     
-    segmentedControl = [[UISegmentedControl alloc] initWithItems:@[IPString(@"Todos") , IPString(@"En casa"), IPString(@"Prestados")]];
+    segmentedControl = [[UISegmentedControl alloc] initWithItems:OBJECTS_STATES];
     segmentedControl.frame = CGRectMake(35, 10, 300, 30);
 //    segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     segmentedControl.selectedSegmentIndex = 0;
