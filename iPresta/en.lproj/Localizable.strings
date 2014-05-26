@@ -12,7 +12,7 @@
 "Email enviado" =               "Email sent";
 "Chequee mensaje" =             "Check your email and authenticate your account";
 "Autenticar email" =            "Authenticate email";
-"Mensaje autenticar" =          "Now auntentique the new email and press Enter";
+"Mensaje autenticar" =          "Now auntenticate the new email and press \"Enter\"";
 "Volver" =                      "Back";
 "Crear cuenta" =                "Create count";
 "¿Olvido su contraseña?" =      "Forgot your password?";
@@ -30,9 +30,9 @@
 "Contactos" =                   "Contacts";
 "Pedidos" =                     "Orders";
 "Prestamos" =                   "Loans";
-"Expirados" =                   "Expireds";
+"Expirados" =                   "Expired";
 "Configuracion" =               "Configuration";
-"Mios:" =                       "Mines:";
+"Mios:" =                       "Mine:";
 "Amigos:" =                     "Friends:";
 "Nuevos:" =                     "News:";
 
@@ -63,17 +63,17 @@
 "Pedir" =               "Request";
 "Desde" =               "From";
 "Hasta" =               "to";
-"No hay objetos" =      "Thers's no objects";
+"No hay objetos" =      "There are no objects";
 "Mis pedidos" =         "My orders";
 "Pedidos de amigos" =   "Friends's orders";
-"No hay pedidos" =      "Thers's no orders";
+"No hay pedidos" =      "There are no orders";
 "Mis prestamos" =       "My loans";
 "Prestamos de amigos" = "Friend's loans";
 "No hay prestamos" =    "Thers's no loans";
-"Expirados mios" =      "My expireds";
-"Expirados de amigos" = "Friend's expireds";
+"Expirados mios" =      "My expired items";
+"Expirados de amigos" = "Friend's expired items";
 "Prestamos de amigos" = "Friend's loans";
-"No hay expirados" =    "Thers's no expireds";
+"No hay expirados" =    "There are no expired items";
 "Nombre" =              "Name";
 "Editorial" =           "Editorial";
 "Autor" =               "Author";
@@ -94,7 +94,7 @@
 
 "Configuracion" =               "Configuration";
 "Idioma" =                      "Language";
-"Visible para tus amigos" =     "Visible for your friends";
+"Visible para tus amigos" =     "Visible to your friends";
 "Vincular con Facebook" =       "Link with Facebook";
 "Salir" =                       "Logout";
 
@@ -102,29 +102,29 @@
 
 "Error interno" =                   "There has been an unexpected problem. Try again.";
 "Problemas conexion" =              "Connection Problems. Try it again.";
-"Email password error" =            "Email and/or password incorrect/s";
+"Email password error" =            "Wrong email and/or password";
 "Usuario existente" =               "There is already a registered user with this email";
-"Usuario no existente" =            "There is no user with this email";
-"Usuario no logueado" =             "You can not modify the data of a user who is not logged";
-"Objeto no encontrado"=             "Not found this object. Enter data manually";
+"Usuario no existente" =            "There is no registered user with this email";
+"Usuario no logueado" =             "You can't modify the data of a user who is not logged in";
+"Objeto no encontrado"=             "Object not found. Enter data manually";
 "Objeto existente" =                "This object has already been registered";
-"Email no autenticado" =            "You must authenticate your email in order to access the app";
-"Cuenta asociada facebook" =        "There is already associated %@ email account. Log in with your email and password and link your account with Facebook Settings";
-"Campos vacios" =                   "Must complete the email and password";
-"Contraseñas diferentes" =          "Passwords are differents";
+"Email no autenticado" =            "You must authenticate your email in order to access to the app";
+"Cuenta asociada facebook" =        "There is already an account associated to email %@. Login with your email and password and link your account with Facebook in Configuration";
+"Campos vacios" =                   "Must fill email and password";
+"Contraseñas diferentes" =          "Passwords are different";
 "Formato email" =                   "The email has an invalid format";
 "Formato codigo de barras" =        "Not a barcode";
-"Cambiar email texto" =             "His current email is %@. If you want to change, enter the new and press \"Change email \"";
+"Cambiar email texto" =             "Your current email is %@. If you want to change it, enter the new one and press \"Change email \"";
 "Nueva contraseña mensaje" =        "Check your email account and enter the new password";
-"Vinculo facebook" =                "Has been %@ to your Facebook account correctly";
-"Push pedido" =                     "%@ has asked you \"%@\"";
+"Vinculo facebook" =                "Has been %@ right to your Facebook account";
+"Push pedido" =                     "%@ has asked you for \"%@\"";
 "Respuesta pedido push" =           "The order of \"%@\" made ​​to %@ has been %@";
-"Respuesta pedido facebook" =       "Just lend \"%@\" to %@ for iPresta app";
-"Prestamo push" =                   "%@ just lend to \"%@\"";
-"Autenticar email texto" =                "You will receive an email authentication. Authenticate your account and click \"Go\". If you do not receive the mail, you can resend it.";
-"Prestamo vencido push" =           "It expired the loan of \"%@\" to %@";
-"Prestamo otra persona" =           "The loan must be made to another person";
-"Pregunta rechazar prestamo" =      "Are sure you want to reject the loan of \"%@\" a %@";
+"Respuesta pedido facebook" =       "just lent \"%@\" to %@ with iPresta app";
+"Prestamo push" =                   "%@ just lent \"%@\" to you";
+"Autenticar email texto" =          "You will receive a confirmation email. Authenticate your account and click \"Go\". If you do not receive the mail, you can resend it.";
+"Prestamo vencido push" =           "The loan of \"%@\" to %@ expired";
+"Prestamo otra persona" =           "The loan must be done to another person";
+"Pregunta rechazar prestamo" =      "Are sure you want to reject the loan of \"%@\" to %@";
 "Objeto prestado" =                 "\"%@\" is already borrowed";
 "Devolver objecto pregunta" =       "Are you sure you want to return this item?";
 

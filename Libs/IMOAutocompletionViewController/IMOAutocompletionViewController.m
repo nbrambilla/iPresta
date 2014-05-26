@@ -250,11 +250,11 @@
             [_tableView setContentOffset:CGPointZero animated:NO];
         }
         
-        [_owners addObjectsFromArray:[searchResults objectForKey:@"owners"]];
-        [_results addObjectsFromArray:[searchResults objectForKey:@"objects"]];
+        [_owners addObjectsFromArray:searchResults[@"owners"]];
+        [_results addObjectsFromArray:searchResults[@"objects"]];
         [_tableView reloadData];
     
-        if ([[searchResults objectForKey:@"objects"] count] < OFFSET)
+        if ([searchResults[@"objects"] count] < OFFSET)
         {
             finish = YES;
             [_tableView setTableFooterView:nil];

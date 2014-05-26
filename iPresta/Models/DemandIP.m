@@ -62,7 +62,7 @@ static NSInteger newDemands;
              if (!error)
              {
                  for (int i = 0; i < demandsWithoutStateCount; i++) {
-                     [[demandsWithoutState objectAtIndex:i] setAccepted:[[objects objectAtIndex:i] objectForKey:@"accepted"]];
+                     [[demandsWithoutState objectAtIndex:i] setAccepted:[objects objectAtIndex:i][@"accepted"]];
                  }
                  
                  [DemandIP save];
@@ -109,7 +109,7 @@ static NSInteger newDemands;
     PFObject *demand = [PFObject objectWithClassName:@"Demand"];
     [demand setObject:object forKey:@"object"];
     [demand setObject:[UserIP loggedUser] forKey:@"from"];
-    [demand setObject:[object objectForKey:@"owner"] forKey:@"to"];
+    [demand setObject:object[@"owner"] forKey:@"to"];
     [demand setObject:self.date forKey:@"date"];
     
     [demand saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
@@ -168,18 +168,18 @@ static NSInteger newDemands;
 - (void)setDemandFrom:(PFObject *)demand
 {
     self.objectId = demand.objectId;
-    self.date = [demand objectForKey:@"date"];
-    self.accepted = [demand objectForKey:@"accepted"];
+    self.date = demand[@"date"];
+    self.accepted = demand[@"accepted"];
     
-    if (![[[demand objectForKey:@"from"] objectId] isEqual:[UserIP userId]])
+    if (![[demand[@"from"] objectId] isEqual:[UserIP userId]])
     {
-        self.from = [FriendIP getByObjectId:[[demand objectForKey:@"from"] objectId]];
-        self.object = [ObjectIP getByObjectId:[[demand objectForKey:@"object"] objectId]];
+        self.from = [FriendIP getByObjectId:[demand[@"from"] objectId]];
+        self.object = [ObjectIP getByObjectId:[demand[@"object"] objectId]];
     }
-    else if (![[[demand objectForKey:@"to"] objectId] isEqual:[UserIP userId]])
+    else if (![[demand[@"to"] objectId] isEqual:[UserIP userId]])
     {
-        self.to = [FriendIP getByObjectId:[[demand objectForKey:@"to"] objectId]];
-        self.iPrestaObjectId = [[demand objectForKey:@"object"] objectId];
+        self.to = [FriendIP getByObjectId:[demand[@"to"] objectId]];
+        self.iPrestaObjectId = [demand[@"object"] objectId];
     }
         
 }

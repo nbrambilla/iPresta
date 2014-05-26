@@ -111,9 +111,9 @@
     [friendsRequest startWithCompletionHandler: ^(FBRequestConnection *connection,  NSDictionary* result, NSError *error) {
         
         facebookView.hidden = NO;
-        nameLabel.text = [result objectForKey:@"name"];
+        nameLabel.text = result[@"name"];
                 
-        NSURL *fbImageURL = [NSURL URLWithString:[NSString stringWithFormat:FB_URL_IMAGE, [result objectForKey:@"id"]]];
+        NSURL *fbImageURL = [NSURL URLWithString:[NSString stringWithFormat:FB_URL_IMAGE, result[@"id"]]];
         
         [[AsyncImageLoader sharedLoader] cancelLoadingImagesForTarget:profileImage];
         profileImage.imageURL = fbImageURL;

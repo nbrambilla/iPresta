@@ -56,7 +56,7 @@
             message = IPString(@"Email no autenticado");
             break;
         case FBLOGINUSEREXISTS_ERROR:
-            message = [NSString stringWithFormat:IPString(@"Cuenta asociada facebook"), [self.userInfo objectForKey:@"email"]];
+            message = [NSString stringWithFormat:IPString(@"Cuenta asociada facebook"), self.userInfo[@"email"]];
             break;
         case FBLOGIN_ERROR:
             message = IPString(@"Cuenta FB no existente");

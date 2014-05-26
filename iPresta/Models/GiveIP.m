@@ -129,7 +129,7 @@ static id<GiveIPDelegate> delegate;
                   if (!error)
                   {
                       self.actual = @NO;
-                      self.dateEnd = [give  objectForKey:@"dataEnd"];
+                      self.dateEnd = give[@"dataEnd"];
                       [GiveIP save];
                       
                       block(nil);
@@ -225,21 +225,21 @@ static id<GiveIPDelegate> delegate;
 {
     self.objectId = give.objectId;
     
-    if (![[[give objectForKey:@"from"] objectId] isEqual:[UserIP userId]])
+    if (![[give[@"from"] objectId] isEqual:[UserIP userId]])
     {
-        self.from = [FriendIP getByObjectId:[[give objectForKey:@"from"] objectId]];
-        self.iPrestaObjectId = [[give objectForKey:@"object"] objectId];
+        self.from = [FriendIP getByObjectId:[give[@"from"] objectId]];
+        self.iPrestaObjectId = [give[@"object"] objectId];
     }
     else
     {
-        self.object = [ObjectIP getByObjectId:[[give objectForKey:@"object"] objectId]];
-        if ([give objectForKey:@"to"]) self.to = [FriendIP getWithObjectId:[[give objectForKey:@"to"] objectId]];
-        else self.name = [give objectForKey:@"name"];
+        self.object = [ObjectIP getByObjectId:[give[@"object"] objectId]];
+        if (give[@"to"]) self.to = [FriendIP getWithObjectId:[give[@"to"] objectId]];
+        else self.name = give[@"name"];
     }
     
-    self.dateBegin = [give objectForKey:@"dateBegin"];
-    self.dateEnd = [give objectForKey:@"dateEnd"];
-    self.actual = [give objectForKey:@"actual"];
+    self.dateBegin = give[@"dateBegin"];
+    self.dateEnd = give[@"dateEnd"];
+    self.actual = give[@"actual"];
 }
 
 + (GiveIP *)getByDBObjectId:(NSString *)dbGiveId
@@ -354,8 +354,9 @@ static id<GiveIPDelegate> delegate;
          {
              if (!error)
              {
-                 for (int i = 0; i < givesFirendsActualsCount; i++) {
-                     [[givesFirendsActuals objectAtIndex:i] setActual:[[objects objectAtIndex:i] objectForKey:@"actual"]];
+                 for (int i = 0; i < givesFirendsActualsCount; i++)
+                 {
+                     [[givesFirendsActuals objectAtIndex:i] setActual:objects[i][@"actual"]];
                  }
                  
                  [GiveIP save];

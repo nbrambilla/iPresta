@@ -91,21 +91,21 @@
 {
     // No entra si la app no esta activa o en background. Ver para resolver en estos casos
     [PFPush handlePush:userInfo];
-    if ([[userInfo objectForKey:@"pushID"] isEqual:@"demand"])
+    if ([userInfo[@"pushID"] isEqual:@"demand"])
     {
-        FriendIP *friend = [FriendIP getByObjectId:[userInfo objectForKey:@"friendId"]];
-        ObjectIP *object = [ObjectIP getByObjectId:[userInfo objectForKey:@"objectId"]];
-        NSString *demandId = [userInfo objectForKey:@"demandId"];
+        FriendIP *friend = [FriendIP getByObjectId:userInfo[@"friendId"]];
+        ObjectIP *object = [ObjectIP getByObjectId:userInfo[@"objectId"]];
+        NSString *demandId = userInfo[@"demandId"];
         
         [object demandFrom:friend withId:demandId];
     }
-    else if ([[userInfo objectForKey:@"pushID"] isEqual:@"response"])
+    else if ([userInfo[@"pushID"] isEqual:@"response"])
     {
-        NSString *demandId = [userInfo objectForKey:@"demandId"];
-        NSNumber *accepted = [userInfo objectForKey:@"accepted"];
+        NSString *demandId = userInfo[@"demandId"];
+        NSNumber *accepted = userInfo[@"accepted"];
         [DemandIP setState:accepted toDemandWithId:demandId];
     }
-    else if ([[userInfo objectForKey:@"pushID"] isEqual:@"give"]) [GiveIP addGivesFromDB];
+    else if ([userInfo[@"pushID"] isEqual:@"give"]) [GiveIP addGivesFromDB];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

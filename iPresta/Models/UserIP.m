@@ -80,7 +80,7 @@ static PFUser *searchUser;
 
 + (BOOL)visible
 {
-    return [[[PFUser currentUser] objectForKey:@"visible"] boolValue];
+    return [[PFUser currentUser][@"visible"] boolValue];
 }
 
 + (void)setVisibility:(BOOL)visibility
@@ -90,7 +90,7 @@ static PFUser *searchUser;
 
 + (BOOL)hasEmailVerified
 {
-    return [[[PFUser currentUser] objectForKey:@"emailVerified"] boolValue];
+    return [[PFUser currentUser][@"emailVerified"] boolValue];
 }
 
 + (BOOL)isNew
@@ -273,7 +273,7 @@ static PFUser *searchUser;
 
 + (BOOL)isFacebookUser:(PFUser *)user
 {
-    return [[user objectForKey:@"isFacebookUser"] boolValue];
+    return [user[@"isFacebookUser"] boolValue];
 }
 
 @end

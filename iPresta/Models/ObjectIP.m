@@ -100,11 +100,7 @@ static ObjectIP *currentObject;
         else if ([self.type isEqual:@(AudioType)]) self.videoType = nil;
         else if ([self.type isEqual:@(VideoType)]) self.audioType = nil;
         
-        PFFile *image = nil;
-        if (imageData)
-        {
-            image = [PFFile fileWithName:[NSString stringWithFormat:@"%@.png", [OBJECT_TYPES objectAtIndex:[ObjectIP selectedType]]] data:imageData];
-        }
+        PFFile *image = (imageData) ? [PFFile fileWithName:[NSString stringWithFormat:@"%@.png", [OBJECT_TYPES objectAtIndex:[ObjectIP selectedType]]] data:imageData] : nil;
         [self setDBObjetct:object withImage:image];
 
         [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
@@ -896,7 +892,7 @@ static ObjectIP *currentObject;
 - (void)setBookWithInfo:(id)info
 {
     // Se setea el nombre del objeto
-    if ([info objectForKey:@"title"])
+    if (info[@"title"])
     {
         self.name = [info[@"title"] capitalizedString];
         if (info[@"subtitle"]) self.name = [self.name stringByAppendingFormat:@" %@", [info[@"subtitle"] capitalizedString]];
@@ -1037,7 +1033,7 @@ static ObjectIP *currentObject;
     [object setObject:[UserIP loggedUser] forKey:@"owner"];
     [object setObject:self.name forKey:@"name"];
     if (self.author) [object setObject:self.author forKey:@"author"];
-    if (self.barcode) [object setObject:self.name forKey:@"barcode"];
+    if (self.barcode) [object setObject:self.barcode forKey:@"barcode"];
     if (data) [object setObject:data forKey:@"image"];
     if (self.descriptionObject) [object setObject:self.descriptionObject forKey:@"descriptionObject"];
     if (self.editorial) [object setObject:self.editorial forKey:@"editorial"];

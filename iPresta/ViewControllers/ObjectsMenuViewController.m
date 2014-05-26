@@ -129,19 +129,18 @@
 
 - (void)incrementObjectType:(NSNotification *)notification
 {
-    NSInteger type = [[notification.object objectForKey:@"type"] integerValue];
-    NSInteger count = [[objectCountArray objectAtIndex:type] integerValue] + 1;
+    NSInteger type = [notification.object[@"type"] integerValue];
+    NSInteger count = [objectCountArray[type] integerValue] + 1;
     
     [objectCountArray replaceObjectAtIndex:type withObject:[NSNumber numberWithInteger:count]];
 }
 
 - (void)decrementObjectType:(NSNotification *)notification
 {
-    NSInteger type = [[notification.object objectForKey:@"type"] integerValue];
-    NSInteger count = [[objectCountArray objectAtIndex:type] integerValue] - 1;
+    NSInteger type = [notification.object[@"type"] integerValue];
+    NSInteger count = [objectCountArray[type] integerValue] - 1;
     
     [objectCountArray replaceObjectAtIndex:type withObject:[NSNumber numberWithInteger:count]];
 }
-
 
 @end

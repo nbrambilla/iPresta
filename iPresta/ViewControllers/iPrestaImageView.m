@@ -92,7 +92,7 @@
     // you are responding to the right one.
     if (object == _imageView && [path isEqualToString:@"image"])
     {
-        UIImage *newImage = [change objectForKey:NSKeyValueChangeNewKey];
+        UIImage *newImage = change[NSKeyValueChangeNewKey];
 //        UIImage *oldImage = [change objectForKey:NSKeyValueChangeOldKey];
         
         if (newImage == [UIImage imageNamed:[ObjectIP imageType]])

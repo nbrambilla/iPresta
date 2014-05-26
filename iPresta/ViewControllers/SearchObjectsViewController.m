@@ -81,8 +81,8 @@
 
 - (void)performObjectsSearchSuccess:(NSDictionary *)params error:(NSError *)error
 {
-    [objects addObjectsFromArray:[params objectForKey:@"objects"]];
-    [owners addObjectsFromArray:[params objectForKey:@"owners"]];
+    [objects addObjectsFromArray:params[@"objects"]];
+    [owners addObjectsFromArray:params[@"owners"]];
     
     [self loadSearchTableWithResults:params error:error];
 }
@@ -97,7 +97,7 @@
         
         [ObjectIP setCurrentObject:object];
         NSUInteger index = [objects indexOfObject:object];
-        [UserIP setSearchUser:[owners objectAtIndex:index]];
+        [UserIP setSearchUser:owners[index]];
         
         [self.navigationController pushViewController:viewController animated:YES];
         

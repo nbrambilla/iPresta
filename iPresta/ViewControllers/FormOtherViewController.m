@@ -60,10 +60,10 @@
     
     visibleCheckbox.selected = YES;
     
-//    CGRect frame = scrollView.frame;
-//    frame.size.height = (IS_IPHONE_4_INCHES) ? 504.0f : 416.0f;
+    CGRect frame = scrollView.frame;
+    frame.size.height = (IS_IPHONE_4_INCHES) ? 504.0f : 416.0f;
 //    scrollView.frame = frame;
-//    scrollView.contentSize = frame.size;
+    scrollView.contentSize = frame.size;
     
     [addButton setTitle:IPString(@"Anadir") forState:UIControlStateNormal];
     
@@ -130,7 +130,7 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    UIImage *image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    UIImage *image = info[@"UIImagePickerControllerEditedImage"];
     
     UIGraphicsBeginImageContext(CGSizeMake(248, 248));
     [image drawInRect: CGRectMake(0, 0, 248, 248)];

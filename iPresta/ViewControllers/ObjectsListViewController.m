@@ -168,31 +168,14 @@
 {
     [ProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    ObjectIP *object = nil;
-    
-    if (selectedArray == filteredObjectsArray)
-	{
-        object = [filteredObjectsArray objectAtIndex:selectedIndexPath.row];
-    }
-	else
-	{
-        object = [[objectsArray objectAtIndex:selectedIndexPath.section] objectAtIndex:selectedIndexPath.row];
-    }
-    
-    [ProgressHUD hideHUDForView:self.view animated:YES];
+    ObjectIP *object = (selectedArray == filteredObjectsArray) ? [filteredObjectsArray objectAtIndex:selectedIndexPath.row] : [[objectsArray objectAtIndex:selectedIndexPath.section] objectAtIndex:selectedIndexPath.row];
     [object deleteObject];
 }
 
 - (void)deleteObjectSuccess:(ObjectIP *)object
 {
     [ProgressHUD hideHUDForView:self.view animated:YES];
-    
-    if (selectedArray == filteredObjectsArray)
-    {
-        [filteredObjectsArray removeObjectAtIndex:selectedIndexPath.row];
-        [self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:@[selectedIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
-    
+        
     NSInteger sectionIndex = [[UILocalizedIndexedCollation currentCollation] sectionForObject:object collationStringSelector:@selector(firstLetter)];
     NSInteger objectIndex = [[objectsArray objectAtIndex:sectionIndex] indexOfObject:object];
     [[objectsArray objectAtIndex:sectionIndex] removeObjectIdenticalTo:object];
@@ -206,9 +189,7 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SetCountLabelsObserver" object:options];
     
-    selectedIndexPath = nil;
-    selectedArray = nil;
-    tableViewIndexPath = nil;
+    [tableView reloadData];
 }
 
 #pragma mark Content Filtering
@@ -386,17 +367,9 @@
     {
         selectedIndexPath = indexPath;
         
-        if (_tableView == self.searchDisplayController.searchResultsTableView)
-        {
-            selectedArray = [self getObjectsAndSectionsArray];
-            [self deleteObject];
-        }
-        else
-        {
-            selectedArray = [self getObjectsAndSectionsArray];
-            [self deleteObject];
-        }
-    }  
+        selectedArray = [self getObjectsAndSectionsArray];
+        [self deleteObject];
+    }
 }
 
 /*
