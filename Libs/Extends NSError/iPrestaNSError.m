@@ -49,6 +49,9 @@
         case EMPTYOBJECTDATA_ERROR: // Error al no encontrar ningun objeto
             message = IPString(@"Objeto no encontrado");
             break;
+        case OBJECTNOTFOUND_ERROR: // Error al no encontrar ningun objeto
+            message = IPString(@"Objeto no encontrado");
+            break;
         case REPEATOBJECT_ERROR: // no se ha devuelto ningun objeto de la busqueda
             message = IPString(@"Objecto existente");
             break;
